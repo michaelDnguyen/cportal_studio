@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/red</color>
+    <color name="colorPrimaryDark">@color/red_dark</color>
+    <color name="colorAccent">@color/white</color>
+    
+    <!-- <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#c72c2c</color>
+    <color name="colorAccent">#d32f2f</color> -->
+    
+    <color name="main_bgtrans85">#D9ffffff</color>
+    <color name="main_bgtrans50">#80ffffff</color>
+    <color name="main_bgtrans70">#B3ffffff</color>
+    
+    <color name="blue">#2196F3</color>
+    <color name="blue_dark">#1976D2</color>
+    <color name="blue_light">#42A5F5</color>
+    
+    <!-- <color name="red_dark">#c72c2c</color>
+    <color name="red">#d32f2f</color> -->
+    <color name="red_dark">#cc1111</color>
+    <color name="red">#ee1111</color>
+    <color name="red_light">#FF1111</color>
+    
+    <color name="bonusprogram_bg">#B3FF1111</color>
+    
+    <color name="white">#FFFFFF</color>
+    <color name="white_milk">#f4f3f0</color>
+    
+    <color name="black">#000000</color>
+    
+    <color name="grey">#9E9E9E</color>
+    <color name="grey_light">#BDBDBD</color>
+    <color name="grey_dark">#616161</color>
+    <color name="gray">#D4D4D4</color>
+    
+    <color name="contract_detail_header_bg">#E0E0E0</color>
+    <color name="row_list_color_other">#FCE4EC</color>
+    
+    <color name="orange">#FF5722</color>
+    <color name="orange_dark">#E64A19</color>
+    <color name="orange_light">#F57C00</color>
+    
+    <color name="green">#76ff03</color>
+    <color name="green_dark">#32cb00</color>
+    <color name="green_light">#b0ff57</color>
+    
+    <color name="light_grey">#F0F0F0</color>
+    <color name="dark_grey">#464545</color>
+    <color name="medium_grey">#B3B3B3</color>
+    
+    <!-- Colors of indicator -->
+    <color name="si_default_text_color">#FF0000</color>
+    <color name="si_default_text_color_selected">#FF00FF</color>
+	<color name="si_default_indicator_bg">#464545</color>
+	
+	<color name="indicator_1">#55B3C2</color>
+    <color name="indicator_2">#64A4A4</color>
+    <color name="indicator_3">#66D7B9</color>
+	<color name="indicator_4">#FDBC7D</color>
+
+</resources>

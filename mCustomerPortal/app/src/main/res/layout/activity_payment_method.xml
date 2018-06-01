@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Nhập số tiền thanh toán:"
+            android:textSize="@dimen/textsize14" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/state_textview_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/edtAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:hint="Nhập số tiền"
+                android:inputType="numberSigned"
+                android:textColor="@color/dark_grey"
+                android:textColorHint="@color/light_grey"
+                android:textSize="@dimen/textsize18"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="VND"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/textsize18"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="* Anh/chị cần nhập số tiền thanh toán"
+            android:textSize="@dimen/textsize14"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Chọn phương thức thanh toán:"
+            android:textSize="@dimen/textsize14" />
+
+        <Button
+            android:id="@+id/btnCash"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="50dp"
+            android:drawableStart="@drawable/ico_cash"
+            android:elevation="5dp"
+            android:gravity="left|center_vertical"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:text="Tiền mặt" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            android:background="@color/light_grey" />
+
+        <Button
+            android:id="@+id/btnBank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="50dp"
+            android:drawableStart="@drawable/ico_bank"
+            android:elevation="5dp"
+            android:gravity="left|center_vertical"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:text="Ngân Hàng" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/light_grey" />
+
+        <Button
+            android:id="@+id/btnNapas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/ico_napas"
+            android:elevation="3dp"
+            android:gravity="left|center_vertical"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:text="Thanh toán online" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/light_grey" />
+
+        <Button
+            android:id="@+id/btnMPos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="60dp"
+            android:drawableStart="@drawable/ico_mpos_2"
+            android:elevation="3dp"
+            android:gravity="left|center_vertical"
+            android:padding="5dp"
+            android:visibility="gone"
+            android:scaleType="centerInside"
+            android:text="mPos" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:background="@color/light_grey" />
+    </LinearLayout>
+
+</LinearLayout>

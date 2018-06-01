@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.daiichi.dlvn_magp2"
+    android:versionCode="1"
+    android:versionName="1.0.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- action call phone -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!-- permission for location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+    <permission
+        android:name="com.daiichi.dlvn_magp2.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <!-- Permissions required for GCM -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <application
+        android:name="com.dlvn.mcustomerportal.base.CPortalApplication"
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:testOnly="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.dlvn.mcustomerportal.HomeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/keyMap_Dev" >
+        </meta-data>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name="com.dlvn.mcustomerportal.LoginActivity" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.AboutUsActivity"
+            android:label="@string/activity_title_about_us" />
+        <activity
+            android:name="com.dlvn.mcustomerportal.PrivacyPolicyActivity"
+            android:label="@string/activity_title_privacy_policy" />
+        <activity
+            android:name="com.dlvn.mcustomerportal.NotificationActivity"
+            android:theme="@style/AppTheme2" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.WebNapasActivity"
+            android:label="@string/title_activity_web_napas" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.ProfileActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.ContractDetailActivity"
+            android:label="@string/activity_title_contract_detail" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.ListOfficeActivity"
+            android:label="@string/activity_title_list_office" />
+        <activity
+            android:name="com.dlvn.mcustomerportal.ContactActivity"
+            android:label="@string/title_activity_contact" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.Bonus_NopPhiBH_Step01_Activity"
+            android:label="@string/title_activity_bonus__nop_phi_bh" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.WebTutorialActivity"
+            android:label="@string/title_activity_web_tutorial" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.Bonus_NopPhiBH_Step02_Activity"
+            android:label="@string/title_activity_bonus__nop_phi_bh__step02_" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.Bonus_NopPhiBH_Step03_Activity"
+            android:label="@string/title_activity_bonus__nop_phi_bh__step03_" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.ProductDetailActivity"
+            android:label="@string/title_activity_web_napas" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.PaymentMethodActivity"
+            android:label="@string/title_activity_web_napas" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.PaymentInputActivity"
+            android:label="@string/title_activity_web_napas" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.ChangeProfileActivity"
+            android:label="@string/title_activity_change_profile" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.ChangePasswordActivity"
+            android:label="@string/title_activity_change_password" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.TransactionHistoryActivity"
+            android:label="@string/title_activity_transaction_history" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.TransactionDetailActivity"
+            android:label="@string/title_activity_transaction_detail" >
+        </activity>
+        <activity
+            android:name="com.dlvn.mcustomerportal.NewsActivity"
+            android:label="@string/title_activity_news" >
+        </activity>
+        <activity
+            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    </application>
+
+</manifest>

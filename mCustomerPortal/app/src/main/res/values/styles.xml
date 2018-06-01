@@ -1,0 +1,54 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        
+        <!-- <item name="android:titleTextStyle">@style/MyActionBarTextStyle</item> -->
+
+        <!-- <item name="android:textColorPrimary">@color/red</item> -->
+        <!-- color for text menu -->
+        <!-- <item name="android:textColorSecondary">@color/red</item> -->
+        <!-- color for icon menu -->
+        <!-- <item name="actionMenuTextColor">@color/red</item> -->
+
+       <!-- <item name="android:actionBarStyle">@style/MyActionBarTextStyle</item> -->
+    </style>
+
+    <style name="MyActionBarTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorPrimary">@color/red</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Order stype -->
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="DialogStyle" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme2" parent="@style/Theme.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <!-- <item name="android:statusBarColor">@color/red_dark</item> -->
+        <item name="colorPrimary">@color/white</item>
+        <!-- darker variant for the status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/red_dark</item>
+        <!-- theme UI controls like checkboxes and text fields -->
+        <item name="colorAccent">@color/red</item>
+    </style>
+
+</resources>

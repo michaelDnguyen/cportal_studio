@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="công ty bảo hiểm nhân thọ\ndai-ichi việt nam"
+        android:textAllCaps="true"
+        android:textColor="@color/red" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textSize="@dimen/textsize12"
+        android:text="Trụ sở chính: Tòa nhà Dai-ichi Life, 149-151 Nguyễn Văn Trỗi, Phường 11, Quận Phú Nhuận, Tp. HCM" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="ĐT: (028) 3810 0888 | Fax: (028) 3997 3000"
+        android:textSize="@dimen/textsize10" />
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="www.dai-ichi-life.com.vn"
+        android:textSize="@dimen/textsize10" />
+
+</LinearLayout>

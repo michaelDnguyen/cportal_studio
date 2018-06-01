@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <group android:checkableBehavior="single" >
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/nav_home"/>
+        <item
+            android:id="@+id/nav_infoGeneral"
+            android:icon="@drawable/ic_description_black_24dp"
+            android:title="@string/nav_infoGeneral"/>
+        <item
+            android:id="@+id/nav_infoProduct"
+            android:icon="@drawable/ic_product_24dp"
+            android:title="@string/nav_infoProduct"/>
+        <item
+            android:id="@+id/nav_infoContract"
+            android:icon="@drawable/ic_contacts_black_24dp"
+            android:title="@string/nav_infoContract"/>
+        <item
+            android:id="@+id/nav_bonusProgram"
+            android:icon="@drawable/ic_view_carousel_black_24dp"
+            android:title="@string/nav_bonusProgram"/>
+        <item
+            android:id="@+id/nav_fundPrice"
+            android:icon="@drawable/ic_shopping_cart_black_24dp"
+            android:title="@string/nav_fundPrice"/>
+        <item
+            android:id="@+id/nav_payment"
+            android:icon="@drawable/ic_monetization_on_black_24dp"
+            android:title="@string/nav_paymentOnline"/>
+        <item
+            android:id="@+id/nav_electricBill"
+            android:icon="@drawable/ic_receipts_24dp"
+            android:title="@string/nav_electricBill"/>
+        <item
+            android:id="@+id/nav_listOffice"
+            android:icon="@drawable/ic_place_black_24dp"
+            android:title="@string/nav_listOffice"/>
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="@string/nav_notifications"/>
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/nav_settings"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="@string/nav_logout"/>
+    </group>
+
+    <item
+        android:actionLayout="@layout/nav_footer_main"
+        android:title="Khác">
+        <menu>
+            <item
+                android:id="@+id/nav_about_us"
+                android:visible="false"
+                android:title="@string/nav_about_us"/>
+            <item
+                android:id="@+id/nav_privacy_policy"
+                android:title="@string/privacy_policy"
+                android:visible="false"/>
+        </menu>
+    </item>
+
+</menu>

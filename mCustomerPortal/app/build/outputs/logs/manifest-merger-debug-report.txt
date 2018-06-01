@@ -1,0 +1,343 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:2:1-134:12
+INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:2:1-134:12
+INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:2:1-134:12
+INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:2:1-134:12
+MERGED from [com.android.support:design:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\design-27.0.2.aar\5b113ba8bffc5456ffc0d727a0dd4001\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:appcompat-v7:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.2.aar\b364827b23c40cd4e4fe55785aac0102\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.0.2.aar\7064e01c6ea74081669bf10f8aa25232\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-gcm:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-gcm-10.2.4.aar\fc8c51d915068989d6c2a0098d0cbb90\AndroidManifest.xml:16:1-24:12
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:16:1-25:12
+MERGED from [com.google.android.gms:play-services-iid:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-iid-10.2.4.aar\28b68f8dbe2597ac844d6d782d6bfc5f\AndroidManifest.xml:16:1-24:12
+MERGED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\417b473878fe4974d30d83dfff8879f4\AndroidManifest.xml:16:1-21:12
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-tasks-10.2.4.aar\f10a6ceba7ffc5f77009a8e2c6ef59cf\AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\74efe44c38b738333fd555fdbca394a2\AndroidManifest.xml:16:1-23:12
+MERGED from [com.android.support:support-v4:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\2298a4c0798bc1e12135209bbf674b59\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\2c6df20911de66ca51edfbb487e0003d\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\0ba2ef8ec933479e3db5d1eec1912f18\AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\bfd4b69d2b9f3a089fcf6ca3de382417\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\0257a9fa639b4fae6fab7414aec3234b\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\a3aada6dec853c0eed2e57825ce54a8c\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.2.aar\0f79bbf94b98139684dcd92ab80f42f2\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\transition-27.0.2.aar\5f6eaed8ffe6c07a1ef22b2aee01a09f\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\bc191237844b1999ff7e59c2ce907f0a\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\74240f652d1e6c70064b90fde6c876eb\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\6410022a4318c2e79921cf792d67e6ed\AndroidManifest.xml:17:1-24:12
+INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:2:1-134:12
+INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:2:1-134:12
+INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:2:1-134:12
+	package
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:3:5-39
+		INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml
+		INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml
+	android:versionName
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:5:5-30
+		INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml
+		INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:4:5-28
+		INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml
+		INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml
+uses-sdk
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:7:5-9:41
+INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:7:5-9:41
+INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:design:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\design-27.0.2.aar\5b113ba8bffc5456ffc0d727a0dd4001\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\design-27.0.2.aar\5b113ba8bffc5456ffc0d727a0dd4001\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.2.aar\b364827b23c40cd4e4fe55785aac0102\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.0.2.aar\b364827b23c40cd4e4fe55785aac0102\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.0.2.aar\7064e01c6ea74081669bf10f8aa25232\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.0.2.aar\7064e01c6ea74081669bf10f8aa25232\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-gcm:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-gcm-10.2.4.aar\fc8c51d915068989d6c2a0098d0cbb90\AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-gcm:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-gcm-10.2.4.aar\fc8c51d915068989d6c2a0098d0cbb90\AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:23:5-43
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:23:5-43
+MERGED from [com.google.android.gms:play-services-iid:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-iid-10.2.4.aar\28b68f8dbe2597ac844d6d782d6bfc5f\AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-iid:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-iid-10.2.4.aar\28b68f8dbe2597ac844d6d782d6bfc5f\AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\417b473878fe4974d30d83dfff8879f4\AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\417b473878fe4974d30d83dfff8879f4\AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-tasks-10.2.4.aar\f10a6ceba7ffc5f77009a8e2c6ef59cf\AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-tasks-10.2.4.aar\f10a6ceba7ffc5f77009a8e2c6ef59cf\AndroidManifest.xml:3:5-43
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\74efe44c38b738333fd555fdbca394a2\AndroidManifest.xml:17:5-43
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\74efe44c38b738333fd555fdbca394a2\AndroidManifest.xml:17:5-43
+MERGED from [com.android.support:support-v4:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\2298a4c0798bc1e12135209bbf674b59\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-v4-27.0.2.aar\2298a4c0798bc1e12135209bbf674b59\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\2c6df20911de66ca51edfbb487e0003d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-fragment-27.0.2.aar\2c6df20911de66ca51edfbb487e0003d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\0ba2ef8ec933479e3db5d1eec1912f18\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\0ba2ef8ec933479e3db5d1eec1912f18\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\bfd4b69d2b9f3a089fcf6ca3de382417\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.0.2.aar\bfd4b69d2b9f3a089fcf6ca3de382417\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\0257a9fa639b4fae6fab7414aec3234b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.0.2.aar\0257a9fa639b4fae6fab7414aec3234b\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\a3aada6dec853c0eed2e57825ce54a8c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.0.2.aar\a3aada6dec853c0eed2e57825ce54a8c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.2.aar\0f79bbf94b98139684dcd92ab80f42f2\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.0.2.aar\0f79bbf94b98139684dcd92ab80f42f2\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\transition-27.0.2.aar\5f6eaed8ffe6c07a1ef22b2aee01a09f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\transition-27.0.2.aar\5f6eaed8ffe6c07a1ef22b2aee01a09f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\bc191237844b1999ff7e59c2ce907f0a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.0.2.aar\bc191237844b1999ff7e59c2ce907f0a\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\74240f652d1e6c70064b90fde6c876eb\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\support-compat-27.0.2.aar\74240f652d1e6c70064b90fde6c876eb\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\6410022a4318c2e79921cf792d67e6ed\AndroidManifest.xml:20:5-22:41
+MERGED from [android.arch.lifecycle:runtime:1.0.3] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\runtime-1.0.3.aar\6410022a4318c2e79921cf792d67e6ed\AndroidManifest.xml:20:5-22:41
+INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:7:5-9:41
+INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:7:5-9:41
+	android:targetSdkVersion
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:9:9-38
+		INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml
+		INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:8:9-35
+		INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml
+		INJECTED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:11:5-79
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:19:5-78
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:19:5-78
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:11:22-76
+uses-permission#android.permission.INTERNET
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:12:5-67
+MERGED from [com.google.android.gms:play-services-gcm:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-gcm-10.2.4.aar\fc8c51d915068989d6c2a0098d0cbb90\AndroidManifest.xml:21:5-66
+MERGED from [com.google.android.gms:play-services-gcm:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-gcm-10.2.4.aar\fc8c51d915068989d6c2a0098d0cbb90\AndroidManifest.xml:21:5-66
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-iid:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-iid-10.2.4.aar\28b68f8dbe2597ac844d6d782d6bfc5f\AndroidManifest.xml:21:5-66
+MERGED from [com.google.android.gms:play-services-iid:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-iid-10.2.4.aar\28b68f8dbe2597ac844d6d782d6bfc5f\AndroidManifest.xml:21:5-66
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:12:22-64
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:13:5-81
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:13:22-78
+uses-permission#android.permission.CALL_PHONE
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:16:5-69
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:16:22-66
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:19:5-81
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:19:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:20:5-79
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:20:22-76
+uses-permission#com.google.android.providers.gsf.permission.READ_GSERVICES
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:21:5-98
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:21:22-95
+permission#com.daiichi.dlvn_magp2.permission.MAPS_RECEIVE
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:23:5-25:47
+	android:protectionLevel
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:25:9-44
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:24:9-70
+application
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:27:5-132:19
+MERGED from [com.google.android.gms:play-services-gcm:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-gcm-10.2.4.aar\fc8c51d915068989d6c2a0098d0cbb90\AndroidManifest.xml:23:5-19
+MERGED from [com.google.android.gms:play-services-gcm:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-gcm-10.2.4.aar\fc8c51d915068989d6c2a0098d0cbb90\AndroidManifest.xml:23:5-19
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:24:5-19
+MERGED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:24:5-19
+MERGED from [com.google.android.gms:play-services-iid:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-iid-10.2.4.aar\28b68f8dbe2597ac844d6d782d6bfc5f\AndroidManifest.xml:23:5-19
+MERGED from [com.google.android.gms:play-services-iid:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-iid-10.2.4.aar\28b68f8dbe2597ac844d6d782d6bfc5f\AndroidManifest.xml:23:5-19
+MERGED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\417b473878fe4974d30d83dfff8879f4\AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\417b473878fe4974d30d83dfff8879f4\AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-tasks-10.2.4.aar\f10a6ceba7ffc5f77009a8e2c6ef59cf\AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-tasks:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-tasks-10.2.4.aar\f10a6ceba7ffc5f77009a8e2c6ef59cf\AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\74efe44c38b738333fd555fdbca394a2\AndroidManifest.xml:19:5-21:19
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\74efe44c38b738333fd555fdbca394a2\AndroidManifest.xml:19:5-21:19
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\0ba2ef8ec933479e3db5d1eec1912f18\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\0ba2ef8ec933479e3db5d1eec1912f18\AndroidManifest.xml:9:5-20
+	android:supportsRtl
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:32:9-35
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:31:9-41
+	android:icon
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:30:9-45
+	android:allowBackup
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:29:9-35
+	android:theme
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:33:9-40
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:28:9-48
+activity#com.dlvn.mcustomerportal.HomeActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:34:9-43:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:36:13-45
+	android:theme
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:37:13-56
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:35:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:38:13-42:29
+action#android.intent.action.MAIN
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:39:17-69
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:39:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:41:17-77
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:41:27-74
+meta-data#com.google.android.maps.v2.API_KEY
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:45:9-48:21
+	android:value
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:47:13-47
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:46:13-62
+meta-data#com.google.android.gms.version
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:49:9-51:69
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\74efe44c38b738333fd555fdbca394a2\AndroidManifest.xml:20:9-121
+MERGED from [com.google.android.gms:play-services-basement:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-basement-10.2.4.aar\74efe44c38b738333fd555fdbca394a2\AndroidManifest.xml:20:9-121
+	android:value
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:51:13-66
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:50:13-58
+activity#com.dlvn.mcustomerportal.LoginActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:53:9-54:20
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:53:19-48
+activity#com.dlvn.mcustomerportal.AboutUsActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:55:9-57:63
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:57:13-60
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:56:13-44
+activity#com.dlvn.mcustomerportal.PrivacyPolicyActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:58:9-60:69
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:60:13-66
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:59:13-50
+activity#com.dlvn.mcustomerportal.NotificationActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:61:9-64:20
+	android:theme
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:63:13-45
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:62:13-49
+activity#com.dlvn.mcustomerportal.WebNapasActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:65:9-68:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:67:13-61
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:66:13-45
+activity#com.dlvn.mcustomerportal.ProfileActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:69:9-72:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:71:13-59
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:70:13-44
+activity#com.dlvn.mcustomerportal.ContractDetailActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:73:9-76:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:75:13-67
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:74:13-51
+activity#com.dlvn.mcustomerportal.ListOfficeActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:77:9-79:66
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:79:13-63
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:78:13-47
+activity#com.dlvn.mcustomerportal.ContactActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:80:9-83:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:82:13-59
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:81:13-44
+activity#com.dlvn.mcustomerportal.Bonus_NopPhiBH_Step01_Activity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:84:9-87:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:86:13-69
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:85:13-59
+activity#com.dlvn.mcustomerportal.WebTutorialActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:88:9-91:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:90:13-64
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:89:13-48
+activity#com.dlvn.mcustomerportal.Bonus_NopPhiBH_Step02_Activity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:92:9-95:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:94:13-78
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:93:13-59
+activity#com.dlvn.mcustomerportal.Bonus_NopPhiBH_Step03_Activity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:96:9-99:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:98:13-78
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:97:13-59
+activity#com.dlvn.mcustomerportal.ProductDetailActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:100:9-103:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:102:13-61
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:101:13-50
+activity#com.dlvn.mcustomerportal.PaymentMethodActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:104:9-107:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:106:13-61
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:105:13-50
+activity#com.dlvn.mcustomerportal.PaymentInputActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:108:9-111:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:110:13-61
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:109:13-49
+activity#com.dlvn.mcustomerportal.ChangeProfileActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:112:9-115:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:114:13-66
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:113:13-50
+activity#com.dlvn.mcustomerportal.ChangePasswordActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:116:9-119:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:118:13-67
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:117:13-51
+activity#com.dlvn.mcustomerportal.TransactionHistoryActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:120:9-123:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:122:13-71
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:121:13-55
+activity#com.dlvn.mcustomerportal.TransactionDetailActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:124:9-127:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:126:13-70
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:125:13-54
+activity#com.dlvn.mcustomerportal.NewsActivity
+ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:128:9-131:20
+	android:label
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:130:13-56
+	android:name
+		ADDED from D:\LIBS\FingerPrint\mCustomerPortal\app\src\main\AndroidManifest.xml:129:13-41
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.android.gms:play-services-gcm:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-gcm-10.2.4.aar\fc8c51d915068989d6c2a0098d0cbb90\AndroidManifest.xml:20:5-81
+MERGED from [com.google.android.gms:play-services-iid:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-iid-10.2.4.aar\28b68f8dbe2597ac844d6d782d6bfc5f\AndroidManifest.xml:20:5-81
+MERGED from [com.google.android.gms:play-services-iid:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-iid-10.2.4.aar\28b68f8dbe2597ac844d6d782d6bfc5f\AndroidManifest.xml:20:5-81
+	android:name
+		ADDED from [com.google.android.gms:play-services-gcm:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-gcm-10.2.4.aar\fc8c51d915068989d6c2a0098d0cbb90\AndroidManifest.xml:20:22-79
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:21:5-77
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:21:19-51
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-maps-10.2.4.aar\69365af7ceec651a2e160a181a95227c\AndroidManifest.xml:21:52-75
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\417b473878fe4974d30d83dfff8879f4\AndroidManifest.xml:19:9-172
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\417b473878fe4974d30d83dfff8879f4\AndroidManifest.xml:19:146-170
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\417b473878fe4974d30d83dfff8879f4\AndroidManifest.xml:19:86-145
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:10.2.4] C:\Users\nn.tai\.gradle\caches\transforms-1\files-1.1\play-services-base-10.2.4.aar\417b473878fe4974d30d83dfff8879f4\AndroidManifest.xml:19:19-85

@@ -1,0 +1,223 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical" >
+
+                    <!-- Số YCBH -->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Số YCBH:"
+                        android:textSize="@dimen/textsize_normal_keyin_title" />
+
+                    <TextView
+                        android:id="@+id/tvProposalNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/state_bg_edt_grey_red"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/textsize_normal_keyin"
+                        android:textStyle="bold" />
+
+                    <!-- Họ tên người nộp -->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Họ tên người nộp tiền:"
+                        android:textSize="@dimen/textsize_normal_keyin_title" />
+
+                    <EditText
+                        android:id="@+id/edtHotenNguoiNop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/state_bg_edt_grey_red"
+                        android:hint="Nhập tên người nộp"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/dark_grey"
+                        android:textColorHint="@color/light_grey"
+                        android:textSize="@dimen/textsize_normal_keyin"
+                        android:textStyle="bold" />
+
+                    <!-- Điện thoại -->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Điện thoại:"
+                        android:textSize="@dimen/textsize_normal_keyin_title" />
+
+                    <EditText
+                        android:id="@+id/edtPhoneNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/state_bg_edt_grey_red"
+                        android:hint="Nhập số điện thoại"
+                        android:inputType="phone"
+                        android:textColor="@color/dark_grey"
+                        android:textColorHint="@color/light_grey"
+                        android:textSize="@dimen/textsize_normal_keyin"
+                        android:textStyle="bold" />
+
+                    <!-- Email -->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="Email:"
+                        android:textSize="@dimen/textsize_normal_keyin_title"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/edtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/state_bg_edt_grey_red"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/textsize_normal_keyin"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <!-- Họ tên BMBH -->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Họ tên BMBH:"
+                        android:textSize="@dimen/textsize_normal_keyin_title" />
+
+                    <EditText
+                        android:id="@+id/edtBMBH"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/state_bg_edt_grey_red"
+                        android:hint="Nhập tên BMBH"
+                        android:textColor="@color/dark_grey"
+                        android:textColorHint="@color/light_grey"
+                        android:textSize="@dimen/textsize_normal_keyin"
+                        android:textStyle="bold" />
+
+                    <!-- Số tiền thanh toán -->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Số tiền thanh toán"
+                        android:textSize="@dimen/textsize_normal_keyin_title" />
+
+                    <TextView
+                        android:id="@+id/tvSoTienThanhToan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/state_bg_edt_grey_red"
+                        android:hint="Nhập số tiền"
+                        android:inputType="number"
+                        android:textColor="@color/dark_grey"
+                        android:textColorHint="@color/light_grey"
+                        android:textSize="@dimen/textsize_normal_keyin"
+                        android:textStyle="bold" />
+
+                    <!-- Định kỳ đóng phí -->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Định kỳ đóng phí"
+                        android:textSize="@dimen/textsize_normal_keyin_title" />
+
+                    <Spinner
+                        android:id="@+id/spnDinhKyDongPhi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/state_bg_edt_bolder_radius"
+                        android:padding="10dp" />
+
+                    <!-- Hình thức thanh toán -->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Hình thức thanh toán"
+                        android:textSize="@dimen/textsize_normal_keyin_title"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvHinhThuc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/state_bg_edt_grey_red"
+                        android:text="Thẻ nội địa"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/textsize_normal_keyin"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btnThanhToan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/state_btn_page_home"
+                    android:gravity="center"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
+                    android:text="Thanh toán"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,201 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/red"
+    android:orientation="vertical"
+    tools:context="com.dlvn.mcustomerportal.afragment.FundUnitPriceFragment" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Kỳ định giá 13/12/2017"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize14" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3" >
+
+            <TextView
+                android:id="@+id/tvTangTruong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:text="16.732,44"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize15"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTangTruong"
+                android:layout_centerHorizontal="true"
+                android:text="Tăng trưởng"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize10" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/tv02"
+                android:layout_centerHorizontal="true"
+                android:background="#0000ff" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3" >
+
+            <TextView
+                android:id="@+id/tvPhatTrien"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="2dp"
+                android:singleLine="true"
+                android:text="13.896,27"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize15"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvPhatTrien"
+                android:layout_centerHorizontal="true"
+                android:text="Phát triển "
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize10" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/tv01"
+                android:layout_centerHorizontal="true"
+                android:background="#00ffff" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3" >
+
+            <TextView
+                android:id="@+id/tvBaoToan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:text="11.583,47"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize15"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvBaoToan"
+                android:layout_centerHorizontal="true"
+                android:text="Bảo toàn"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize10" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/tv03"
+                android:layout_centerHorizontal="true"
+                android:background="#ff00ff" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:text="BIỂU ĐỒ ĐƠN VỊ GIÁ"
+        android:textColor="@color/red"
+        android:textSize="@dimen/textsize14"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <!-- Month -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tvTruoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="&lt;"
+                android:textColor="@color/red"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMonth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/red"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSau"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text=">"
+                android:textColor="@color/red"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <lecho.lib.hellocharts.view.LineChartView
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:padding="10dp" >
+        </lecho.lib.hellocharts.view.LineChartView>
+    </LinearLayout>
+
+</LinearLayout>

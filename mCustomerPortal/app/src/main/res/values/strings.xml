@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">mCP</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+    <string name="keyMap_Dev">AIzaSyCO77nVxrBDTUPmjzPV9Zw1mUdMB9y3fkU</string>
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_infoGeneral">Thông tin chung</string>
+    <string name="nav_infoProduct">Thông tin sản phẩm</string>
+    <string name="nav_infoContract">Thông tin hợp đồng</string>
+    <string name="nav_bonusProgram">Chương trình điểm thưởng</string>
+    <string name="nav_fundPrice">Giá đơn vị quỹ</string>
+    <string name="nav_paymentOnline">Thanh toán trực tuyến</string>
+    <string name="nav_electricBill">Hóa đơn điện tử</string>
+    <string name="nav_listOffice">Mạng lưới văn phòng</string>
+    <string name="nav_notifications">Thông báo</string>
+    <string name="nav_settings">Cài đặt</string>
+    <string name="nav_logout">Đăng xuất</string>
+    <string name="nav_about_us">Hướng dẫn sử dụng</string>
+
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="nav_item_activity_titles">
+        <item>Trang chủ</item>
+        <item>Thông tin chung</item>
+        <item>Thông tin sản phẩm</item>
+        <item>Thông tin hợp đồng</item>
+        <item>Chương trình điểm thưởng</item>
+        <item>Giá đơn vị quỹ</item>
+        <item>Thanh toán trực tuyến</item>
+        <item>Hóa đơn điện tử</item>
+        <item>Mạng lưới văn phòng</item>
+        <item>Thông báo</item>
+        <item>Cài đặt</item>
+        <item>Đăng xuất</item>
+    </string-array>
+
+    <string name="activity_title_about_us">Hướng dẫn sử dụng</string>
+    <string name="activity_title_list_office">Mạng lưới văn phòng</string>
+    <string name="activity_title_contract_detail">Chi tiết hợp đồng</string>
+    <string name="activity_title_privacy_policy">Chính sách bảo mật</string>
+    <string name="action_clear_all">Xóa hết</string>
+    <string name="action_logout">Đăng xuất</string>
+    <string name="action_call">Liên hệ</string>
+    <string name="action_mark_all_read">Đánh dấu đã đọc</string>
+    <string name="privacy_policy">Chính sách bảo mật</string>
+
+    <!-- Request Permission -->
+    <string name="permission_info">Ứng dụng cần cấp quyền truy cập bộ nhớ máy.</string>
+    <string name="permission_force">Ứng dụng cần cấp quyền xem hình ảnh của bạn. Chọn Settings và đi đến mục Permissions để cấp quyền.</string>
+    <string name="permission_ok">OK</string>
+    <string name="permission_settings">Hệ thống</string>
+    <string name="permission_package">package</string>
+    <string name="confirm_yes">Yes</string>
+    <string name="confirm_no">No</string>
+    <string name="confirm_ok">Ok</string>
+    <string name="message_error_username_login">Username or password is invalid.</string>
+    <string name="message_error_date">Date is invalid.</string>
+    <string name="low_memory_message">App is low memory, image loader maybe slow.</string>
+    <string name="low_memory">Low memory</string>
+    <string name="message_alert_login_to_using_function">Anh/chị cần phải đăng nhập để sử dụng chức năng này.</string>
+    <string name="message_alert_logout">Anh/chị có thật sự muốn thoát khỏi chương trình này không ?.</string>
+    <string name="message_alert_download_file">Anh/chị có muốn download tập tin này không ?</string>
+    <string name="alert_input_payment">Anh/chị cần phải nhập số tiền và chọn phương thức thanh toán.</string>
+    <string name="home_welcome_user">Anh/chị có thể dễ dàng tra cứu thông tin hợp đồng bảo hiểm nhân thọ, thông tin điểm thưởng tích lũy của mình.</string>
+    <string name="home_welcome_guest">Đến với cổng thông tin khách hàng của Dai-Ichi-Life Việt Nam, vui lòng đăng nhập để sử dụng đầy đủ chức năng.</string>
+    <string name="home_welcom_article">
+<![CDATA[<strong><b>CHÀO MỪNG QUÝ KHÁCH ĐẾN VỚI "CỔNG THÔNG TIN KHÁCH HÀNG" !</b></strong> <br>
+
+Với mục tiêu phát triển mối quan hệ gắn kết với Khách hàng tham gia bảo hiểm thông qua việc cập nhật thường xuyên cho Khách hàng tất cả những thông tin về hợp đồng bảo hiểm của mình, Dai-ichi Life Việt Nam trân trọng giới thiệu đến toàn thể Quý Khách hàng trang thông tin trực tuyến dành cho Khách hàng <strong><b>"Cổng thông tin Khách hàng"</b></strong><br>
+
+Thông qua <strong><b>"Cổng thông tin Khách hàng"</b></strong>, dù đang ở bất kỳ nơi đâu, Quý khách đều có thể nhanh chóng và dễ dàng tra cứu những thông tin về hợp đồng bảo hiểm nhân thọ của mình: các sản phẩm bảo hiểm, ngày đáo hạn hợp đồng, ngày đến hạn nộp phí, phí bảo hiểm định kỳ phải nộp, phí bảo hiểm đã nộp, các giá trị của hợp đồng như lãi tích lũy, tiền mặt định kỳ, giá trị hoàn lại … Bên cạnh đó, Quý khách còn có thể tra cứu và sử dụng điểm thưởng tích lũy của chương trình tích lũy điểm thưởng "Gắn bó dài lâu".<br>
+
+Chúng tôi tin rằng <strong><b>"Cổng thông tin Khách hàng"</b></strong> này không chỉ mang lại nhiều tiện ích cho Quý khách hàng trong suốt thời gian tham gia bảo hiểm mà còn là cầu nối mang Dai-ichi Life Việt Nam đến gần Quý Khách hàng hơn.<br>
+
+Quý khách cần trao đổi thêm thông tin, xin vui lòng liên hệ với bất kỳ Văn phòng và Trung tâm Dịch vụ khách hàng, hoặc Tổng đài Dịch vụ khách hàng Dai-ichi Life Việt Nam, điện thoại: (028) 3810 0888, bấm phím số 1. Chúng tôi luôn sẵn sàng phục vụ Quý khách.<br>
+
+Kính chúc Quý khách cùng gia đình thật nhiều sức khỏe, hạnh phúc và thành công.<br>
+
+Trân trọng kính chào,<br>
+
+<strong><b>Dai-ichi Life Việt Nam</b></strong>]]>
+    </string>
+    
+    <string name="title_activity_notification">NotificationActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_web_napas">Thanh toán trực tuyến</string>
+    <string name="title_activity_profile">Thông tin cá nhân</string>
+    <string name="title_activity_contract_detail">ContractDetailActivity</string>
+    <string name="title_activity_contact">Liên hệ</string>
+    <string name="title_activity_bonus__nop_phi_bh">Nộp phí/ Hoàn trả</string>
+    <string name="non_spinner">Chọn</string>
+    <string name="title_activity_web_tutorial">Hướng dẫn</string>
+    <string name="title_activity_bonus__nop_phi_bh__step02_">Nộp phí/ Hoàn trả</string>
+    <string name="title_activity_bonus__nop_phi_bh__step03_">Nộp phí/ Hoàn trả</string>
+    <string name="title_activity_product_detail">Chi tiết sản phẩm</string>
+    <string name="title_activity_change_profile">Thay đổi thông tin</string>
+    <string name="title_activity_change_password">Thay đổi mật khẩu</string>
+    <string name="title_activity_transaction_history">Lịch sử giao dịch</string>
+    <string name="title_activity_transaction_detail">Chi tiết giao dịch</string>
+    <string name="title_activity_news">Bản tin Dai-Ichi-Life</string>
+
+</resources>

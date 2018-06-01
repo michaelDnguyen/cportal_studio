@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <!-- Thông tin khách hàng -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/contract_detail_header_bg"
+        android:padding="10dp"
+        android:text="Thông tin khách hàng"
+        android:textColor="@color/red"
+        android:textSize="@dimen/textsize14"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:text="Quý khách" />
+
+        <TextView
+            android:id="@+id/tvTenKhachHang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.4"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:text="Mã khách hàng" />
+
+        <TextView
+            android:id="@+id/tvMaKhachHang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.4"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Policy -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:text="ĐIỀU KHOẢN SỬ DỤNG DỊCH VỤ THANH TOÁN TRỰC TUYẾN"
+        android:textColor="@color/red"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Khách hàng cam kết:"
+                android:textSize="@dimen/textsize14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="1.  Việc sử dụng dịch vụ thanh toán trực tuyến là hoàn toàn tự nguyện và khách hàng không thể hủy, thay đổi bất kỳ giao dịch thanh toán nào đã được thực hiện thành công."
+                android:textSize="@dimen/textsize14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="2.  Đảm bảo tính chính xác của các thông tin thẻ (Tên chủ thẻ, số thẻ, thời hạn thẻ, mã số xác minh thẻ gồm 03 số phía sau thẻ) và thông tin thanh toán khi thực hiện giao dịch thanh toán trực tuyến."
+                android:textSize="@dimen/textsize14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="3.  Chịu trách nhiệm bảo mật thông tin đăng nhập tài khoản thanh toán trực tuyến, các thông tin thẻ, mã OTP (được cung cấp qua điện thoại) và chịu toàn bộ thiệt hại xảy ra do vô tình hay cố ý để bất kỳ cá nhân, tổ chức nào sử dụng thông tin đăng nhập tài khoản thanh toán trực tuyến, các thông tin thẻ, mã OTP nhằm thực hiện các hành vi gian lận trong dịch vụ thanh toán trực tuyến."
+                android:textSize="@dimen/textsize14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="4.  Tuân thủ đúng, đầy đủ Thỏa thuận sử dụng dịch vụ giao dịch điện tử mà khách hàng và Dai-ichi Life đã ký kết.(Xem chi tiết)"
+                android:textSize="@dimen/textsize14" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Mọi chi tiết liên quan đến các giao dịch thanh toán trực tuyến sẽ được bảo mật theo quy định của pháp luật."
+                android:textSize="@dimen/textsize14" />
+        </LinearLayout>
+    </ScrollView>
+
+    <CheckedTextView
+        android:id="@+id/ctvAccept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:checked="false"
+        android:clickable="true"
+        android:drawableLeft="@drawable/st_checkmark_chktv"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="Tôi đã đọc và đồng ý với mọi điều khoản thanh toán." />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnTiepTuc"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/state_btn_page_home"
+            android:gravity="center"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:text="Tiếp tục"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>
