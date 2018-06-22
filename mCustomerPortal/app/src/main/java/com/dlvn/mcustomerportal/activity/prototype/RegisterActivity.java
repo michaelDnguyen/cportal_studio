@@ -1,6 +1,5 @@
 package com.dlvn.mcustomerportal.activity.prototype;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,9 +11,9 @@ import android.widget.TextView;
 
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.afragment.prototype.LoginStep1Fragment;
-import com.dlvn.mcustomerportal.utils.listerner.onRegisterFragmentListener;
+import com.dlvn.mcustomerportal.utils.listerner.OnRegisterFragmentListener;
 
-public class RegisterActivity extends AppCompatActivity implements onRegisterFragmentListener{
+public class RegisterActivity extends AppCompatActivity implements OnRegisterFragmentListener {
 
     LinearLayout lloBack;
     Button btnTiepTuc;

@@ -129,5 +129,6 @@ Trân trọng kính chào,<br>
     <string name="txt_policy_term"><![CDATA[Bằng cách bấm các nú Tiếp tục quý khách hàng đã đồng ý với <strong>Điều khoản sử dụng.</strong>]]></string>
     <string name="txt_copyright_daiichi">Copyright © 2013 Dai-ichi Life Việt Nam. All rights reserved.\nĐiện thoại: (028) 3810 0888 - Fax:(028) 3997 3000 \nhttps://www.dai-ichi-life.com.vn/</string>
     <string name="txt_show_pasword">Hiện mật khẩu</string>
+    <string name="txt_register_step01">Hãy tạo một mật khẩu để đăng nhập</string>
 
 </resources>

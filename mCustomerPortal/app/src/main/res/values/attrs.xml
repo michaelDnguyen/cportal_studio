@@ -69,4 +69,22 @@
         <attr name="android:background"/>
 </declare-styleable>
 
+    <!--Declared for ClearableAutoCompleteTextView-->
+    <declare-styleable name="ClearableAutoCompleteTextView" parent="ClearableEditText">
+        <attr name="clearIconDrawable"/>
+        <attr name="clearIconDrawWhenFocused"/>
+    </declare-styleable>
+
+    <!--Declared for ClearableEditText-->
+    <declare-styleable name="ClearableEditText">
+        <attr format="color|reference" name="clearIconDrawable"/>
+        <attr format="boolean" name="clearIconDrawWhenFocused"/>
+    </declare-styleable>
+
+    <!--Declared for ClearableTextInputEditText-->
+    <declare-styleable name="ClearableTextInputEditText" parent="ClearableEditText">
+        <attr name="clearIconDrawable"/>
+        <attr name="clearIconDrawWhenFocused"/>
+    </declare-styleable>
+
 </resources>

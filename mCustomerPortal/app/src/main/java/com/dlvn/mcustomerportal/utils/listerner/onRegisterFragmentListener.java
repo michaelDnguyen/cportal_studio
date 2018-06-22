@@ -5,7 +5,7 @@ package com.dlvn.mcustomerportal.utils.listerner;
  * @create from 22-06-2018
  * @description using define event listen from fragment member of Register Activity
  */
-public interface onRegisterFragmentListener {
+public interface OnRegisterFragmentListener {
 
     //TODO: listener for listen event from Fragment member
     void onRegisterListener(int percent);
