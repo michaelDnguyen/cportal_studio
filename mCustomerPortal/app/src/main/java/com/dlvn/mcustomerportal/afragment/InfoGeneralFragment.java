@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dlvn.mcustomerportal.R;
-import com.dlvn.mcustomerportal.WebTutorialActivity;
+import com.dlvn.mcustomerportal.activity.WebTutorialActivity;
 import com.dlvn.mcustomerportal.adapter.HomeListAdapter;
 import com.dlvn.mcustomerportal.adapter.listener.RecyclerViewClickListener;
 import com.dlvn.mcustomerportal.adapter.listener.RecyclerViewTouchListener;

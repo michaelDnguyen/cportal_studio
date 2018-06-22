@@ -6,19 +6,19 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    
+
     <dimen name="fab_margin">16dp</dimen>
-    
+
     <dimen name="profile_width">60dp</dimen>
     <dimen name="profile_height">60dp</dimen>
-    
+
     <dimen name="activity_contract_detail_margin">7dp</dimen>
-    
+
     <dimen name="textsize_normal_keyin">16sp</dimen>
-	<dimen name="textsize_normal_keyin_title">14sp</dimen>
-	
-	<dimen name="minwidth_tv120">120dp</dimen>
-	<!-- Text size -->
+    <dimen name="textsize_normal_keyin_title">14sp</dimen>
+
+    <dimen name="minwidth_tv120">120dp</dimen>
+    <!-- Text size -->
     <dimen name="textsize10">10sp</dimen>
     <dimen name="textsize12">12sp</dimen>
     <dimen name="textsize13">13sp</dimen>
@@ -32,9 +32,9 @@
     <dimen name="textsize25">25sp</dimen>
     <dimen name="textsize30">30sp</dimen>
     <dimen name="textsize36">36sp</dimen>
-	
+
     <!-- Dimension of Indicator -->
     <dimen name="si_default_text_size">10sp</dimen>
     <dimen name="si_default_radius_max">4dp</dimen>
-	<dimen name="si_default_radius_min">2dp</dimen>
+    <dimen name="si_default_radius_min">2dp</dimen>
 </resources>

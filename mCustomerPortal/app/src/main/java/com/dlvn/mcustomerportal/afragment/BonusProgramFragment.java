@@ -3,12 +3,11 @@ package com.dlvn.mcustomerportal.afragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dlvn.mcustomerportal.Bonus_NopPhiBH_Step01_Activity;
+import com.dlvn.mcustomerportal.activity.Bonus_NopPhiBH_Step01_Activity;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.adapter.BonusListAdapter;
 import com.dlvn.mcustomerportal.adapter.listener.RecyclerViewClickListener;
 import com.dlvn.mcustomerportal.adapter.listener.RecyclerViewTouchListener;
-import com.dlvn.mcustomerportal.adapter.model.BonusItemModel;
 import com.dlvn.mcustomerportal.adapter.model.BonusItemModel;
 import com.dlvn.mcustomerportal.view.DividerItemDecoration;
 import com.dlvn.mcustomerportal.view.RecyclerSmoothGridLayoutManager;

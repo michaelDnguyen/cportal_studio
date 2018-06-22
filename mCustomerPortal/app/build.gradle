@@ -10,7 +10,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('C:/Users/nn.tai/AndroidStudioProjects/mAGP_Studio/mAGP/mAGP')
+            storeFile file('D:/WORKING/WORKSPACE_BACKUP/AndroidStudioProjects/mCustomerPortal/app/mAGP')
             keyAlias 'dai-ichi-life vn'
             keyPassword 'P@ssw0rd123'
             storePassword 'P@ssw0rd123'
@@ -18,8 +18,8 @@ android {
     }
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.daiichi.dlvn_magp2"
-        minSdkVersion 16
+        applicationId "com.dlvn.mcustomerportal"
+        minSdkVersion 17
         targetSdkVersion 19
         versionCode 1
         versionName "1.0.0"
@@ -46,26 +46,39 @@ sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation fileTree(include: ['.jar', '.so'], dir: 'libs')
 
-    compile files('libs/commons-codec.jar')
-    compile files('libs/glide-full-4.3.1.jar')
-    compile files('libs/hellocharts-library-1.5.8.jar')
-    compile files('libs/logging-interceptor-3.8.1.jar')
-    compile files('libs/okhttp-3.8.1.jar')
-    compile files('libs/okio-1.13.0.jar')
-    compile files('libs/retrofit-2.3.0.jar')
-    compile files('libs/simple-xml-2.7.1.jar')
+//    implementation files('libs/commons-codec.jar')
+//    implementation files('libs/glide-full-4.3.1.jar')
+//    implementation files('libs/hellocharts-library-1.5.8.jar')
+//    implementation files('libs/logging-interceptor-3.8.1.jar')
+//    implementation files('libs/okhttp-3.8.1.jar')
+//    implementation files('libs/okio-1.13.0.jar')
+//    implementation files('libs/retrofit-2.3.0.jar')
+//    implementation files('libs/simple-xml-2.7.1.jar')
 
+    implementation 'commons-codec:commons-codec:1.8'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    implementation 'com.squareup.okio:okio:1.14.1'
     implementation 'com.google.code.gson:gson:2.8.1'
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support:recyclerview-v7:27.0.2'
-    implementation 'com.android.support:design:27.0.2'
-    implementation 'com.android.support:support-fragment:27.0.2'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    implementation 'com.google.android.gms:play-services-gcm:10.2.4'
-    implementation 'com.google.android.gms:play-services-maps:10.2.4'
-    implementation 'com.google.android.gms:play-services-base:10.2.4'
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    implementation "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:$OKHTTP_VERSION"
+    implementation "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
+
+
+    implementation "com.android.support:appcompat-v7:$LIBSUPPORT_VERSION"
+    implementation "com.android.support:recyclerview-v7:$LIBSUPPORT_VERSION"
+    implementation "com.android.support:design:$LIBSUPPORT_VERSION"
+    implementation "com.android.support:support-fragment:$LIBSUPPORT_VERSION"
+    implementation "com.android.support:support-v4:$LIBSUPPORT_VERSION"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+
+    implementation "com.google.android.gms:play-services-gcm:$PLAYSERVICES_VERSION"
+    implementation "com.google.android.gms:play-services-maps:$PLAYSERVICES_VERSION"
+    implementation "com.google.android.gms:play-services-base:$PLAYSERVICES_VERSION"
 }

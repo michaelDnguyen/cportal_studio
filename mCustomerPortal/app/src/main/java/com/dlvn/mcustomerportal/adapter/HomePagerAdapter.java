@@ -2,7 +2,7 @@ package com.dlvn.mcustomerportal.adapter;
 
 import java.util.List;
 
-import com.dlvn.mcustomerportal.ContractDetailActivity;
+import com.dlvn.mcustomerportal.activity.ContractDetailActivity;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.adapter.model.ContractModel;
 import com.dlvn.mcustomerportal.adapter.model.HomePageItemModel;

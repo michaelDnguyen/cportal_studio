@@ -3,7 +3,7 @@ package com.dlvn.mcustomerportal.afragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dlvn.mcustomerportal.ContractDetailActivity;
+import com.dlvn.mcustomerportal.activity.ContractDetailActivity;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.adapter.ContractListAdapter;
 import com.dlvn.mcustomerportal.adapter.model.ContractModel;

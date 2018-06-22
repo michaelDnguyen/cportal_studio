@@ -16,6 +16,8 @@
     <color name="blue">#2196F3</color>
     <color name="blue_dark">#1976D2</color>
     <color name="blue_light">#42A5F5</color>
+    <color name="blue_facebook">#fa03345b</color>
+
     
     <!-- <color name="red_dark">#c72c2c</color>
     <color name="red">#d32f2f</color> -->
@@ -34,6 +36,8 @@
     <color name="grey_light">#BDBDBD</color>
     <color name="grey_dark">#616161</color>
     <color name="gray">#D4D4D4</color>
+    <color name="gray_light">#e7e5e5</color>
+    <color name="gray_dark">#c2c1c1</color>
     
     <color name="contract_detail_header_bg">#E0E0E0</color>
     <color name="row_list_color_other">#FCE4EC</color>

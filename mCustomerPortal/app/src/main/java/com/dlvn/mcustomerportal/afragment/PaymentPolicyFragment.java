@@ -1,6 +1,6 @@
 package com.dlvn.mcustomerportal.afragment;
 
-import com.dlvn.mcustomerportal.PaymentMethodActivity;
+import com.dlvn.mcustomerportal.activity.PaymentMethodActivity;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.common.cPortalPref;
 

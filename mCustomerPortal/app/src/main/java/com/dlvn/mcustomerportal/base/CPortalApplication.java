@@ -1,6 +1,6 @@
 package com.dlvn.mcustomerportal.base;
 
-import com.dlvn.mcustomerportal.LoginActivity;
+import com.dlvn.mcustomerportal.activity.LoginActivity;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.common.cPortalPref;
 import com.dlvn.mcustomerportal.utils.Utilities;
@@ -9,7 +9,6 @@ import android.app.Application;
 import android.content.ComponentCallbacks2;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 public class CPortalApplication extends Application {

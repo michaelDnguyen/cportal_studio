@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.bumptech.glide.Glide;
-import com.dlvn.mcustomerportal.NewsActivity;
+import com.dlvn.mcustomerportal.activity.NewsActivity;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.adapter.HomePagerAdapter;
 import com.dlvn.mcustomerportal.adapter.model.HomeItemModel;

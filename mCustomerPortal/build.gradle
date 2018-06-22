@@ -8,6 +8,13 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.1'
     }
+
+    ext {
+        RETROFIT_VERSION = '2.4.0'
+        OKHTTP_VERSION = '3.10.0'
+        PLAYSERVICES_VERSION = '11.8.0'
+        LIBSUPPORT_VERSION = '27.1.1'
+    }
 }
 
 allprojects {

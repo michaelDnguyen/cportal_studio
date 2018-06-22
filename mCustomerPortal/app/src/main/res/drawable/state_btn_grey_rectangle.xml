@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_pressed="true"><shape>
-            <solid android:color="@color/red" />
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="@color/grey_dark" />
 
             <padding android:bottom="5dp" android:left="10dp" android:right="10dp" android:top="5dp" />
 
-        </shape></item>
-    <item android:state_activated="true"><shape>
-            <solid android:color="@color/red" />
+        </shape>
+    </item>
+    <item android:state_activated="true">
+        <shape>
+            <solid android:color="@color/grey_dark" />
 
             <padding android:bottom="5dp" android:left="10dp" android:right="10dp" android:top="5dp" />
 
-        </shape></item>
-    <item><shape>
-            <solid android:color="@color/red" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="@color/grey_light" />
 
             <padding android:bottom="5dp" android:left="10dp" android:right="10dp" android:top="5dp" />
 
-        </shape></item>
+        </shape>
+    </item>
 
 </selector>
