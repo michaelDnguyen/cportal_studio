@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSeekBar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ public class RegisterActivity extends AppCompatActivity implements OnRegisterFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        initViews();
+
         LoginStep1Fragment fragment = new LoginStep1Fragment();
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
@@ -32,7 +35,26 @@ public class RegisterActivity extends AppCompatActivity implements OnRegisterFra
         ft.addToBackStack(fragment.getClass().getName());
         ft.commit();
 
+        setListener();
 
+    }
+
+    private void initViews() {
+
+        lloBack = (LinearLayout) findViewById(R.id.lloBack);
+        btnTiepTuc = (Button) findViewById(R.id.btnTiepTuc);
+        tvStep = (TextView) findViewById(R.id.tvStep);
+        sbStep = (AppCompatSeekBar) findViewById(R.id.sbStep);
+    }
+
+    private void setListener() {
+
+        lloBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override
@@ -47,5 +69,6 @@ public class RegisterActivity extends AppCompatActivity implements OnRegisterFra
     @Override
     public void onRegisterListener(int percent) {
 
+        sbStep.setProgress(percent);
     }
 }

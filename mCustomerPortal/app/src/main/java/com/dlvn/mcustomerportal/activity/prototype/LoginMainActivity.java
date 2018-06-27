@@ -1,7 +1,9 @@
 package com.dlvn.mcustomerportal.activity.prototype;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -9,6 +11,7 @@ import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.afragment.prototype.LoginStep1Fragment;
 import com.dlvn.mcustomerportal.base.BaseActivity;
 import com.dlvn.mcustomerportal.utils.listerner.OnFragmentInteractionListener;
+import com.dlvn.mcustomerportal.utils.myLog;
 
 
 /**
@@ -43,5 +46,17 @@ public class LoginMainActivity extends BaseActivity implements OnFragmentInterac
             super.onBackPressed();
         }
     }
-}
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+                myLog.E("Activity", "ON RESULT CALLED");
+            }
+        } catch (Exception e) {
+            myLog.E("ERROR", e.toString());
+        }
+    }
+}

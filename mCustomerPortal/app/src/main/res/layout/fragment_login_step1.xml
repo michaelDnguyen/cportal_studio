@@ -41,23 +41,25 @@
                     android:src="@drawable/img_dai_ichi_life" />
             </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <!--<android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:hintTextAppearance="@color/black"
-                android:background="@color/gray_light">
+                android:background="@color/gray_light">-->
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
+                    android:background="@drawable/state_bg_edt_bolder_noradius"
                     android:maxLines="1"
-                    android:padding="5dp"
+                    android:padding="7dp"
                     android:singleLine="true" />
 
-            </android.support.design.widget.TextInputLayout>
+            <!--</android.support.design.widget.TextInputLayout>-->
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -83,7 +85,7 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/state_btn_red_rectangle"
                 android:text="@string/action_sign_in"
                 android:textColor="@color/white"
@@ -95,13 +97,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:visibility="gone"
                 android:background="@drawable/state_btn_facebook"
                 android:text="@string/signin_facebook"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/btnLoginFacebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/signin_facebook"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btnLoginGoogle"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/signin_google"
+                android:layout_marginBottom="20dp" />
+
             <Button
                 android:id="@+id/btnGoogle"
+                android:visibility="gone"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,13 +147,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:gravity="center"
+                android:textColorLink="@color/blue_dark"
                 android:text="@string/txt_policy_term"
                 android:textSize="@dimen/textsize12" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:layout_marginTop="10dp"
+                android:textColorLink="@color/red"
                 android:text="@string/txt_copyright_daiichi"
                 android:textSize="@dimen/textsize10" />
 

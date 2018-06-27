@@ -4,11 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
@@ -26,10 +28,33 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.dlvn.mcustomerportal.utils.myLog;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.appevents.AppEventsLogger;
+
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.utils.listerner.OnFragmentInteractionListener;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,22 +65,29 @@ import java.util.List;
  * Use the {@link LoginStep1Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginStep1Fragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class LoginStep1Fragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, GoogleApiClient.OnConnectionFailedListener {
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Button btnFacebook, btnGoogle;
     private View v;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
+    //facebook login
+    LoginButton btnLoginFacebook;
+    CallbackManager callbackManager;
+    AccessTokenTracker accessTokenTracker;
+    AccessToken accessToken;
+    ProfileTracker profileTracker;
+    private static String[] FACEBOOK_PERMISSION = {"publish_actions", "public_profile"};
+
+    //google
+    private GoogleApiClient mGoogleApiClient;
+    private SignInButton btnLoginGoogle;
+    private static final int RC_SIGN_IN = 007;
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -84,6 +116,8 @@ public class LoginStep1Fragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getActivity());
+        AppEventsLogger.activateApp(getActivity());
     }
 
     @Override
@@ -118,6 +152,94 @@ public class LoginStep1Fragment extends Fragment implements LoaderManager.Loader
 
             mLoginFormView = v.findViewById(R.id.login_form);
             mProgressView = v.findViewById(R.id.login_progress);
+
+            //FACEBOOK
+            btnFacebook = (Button) v.findViewById(R.id.btnFacebook);
+            btnFacebook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            btnLoginFacebook = (LoginButton) v.findViewById(R.id.btnLoginFacebook);
+            btnLoginFacebook.setPublishPermissions(Arrays.asList(FACEBOOK_PERMISSION));
+            callbackManager = CallbackManager.Factory.create();
+
+            // Callback registration
+            btnLoginFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    // App code
+                    myLog.E("Access token = "+ loginResult.getAccessToken());
+                }
+
+                @Override
+                public void onCancel() {
+                    // App code
+                }
+
+                @Override
+                public void onError(FacebookException exception) {
+                    // App code
+                }
+            });
+
+            accessTokenTracker = new AccessTokenTracker() {
+                @Override
+                protected void onCurrentAccessTokenChanged(
+                        AccessToken oldAccessToken,
+                        AccessToken currentAccessToken) {
+                    myLog.E("old token" + oldAccessToken.toString());
+                    myLog.E("current token" + currentAccessToken.toString());
+                    // Set the access token using
+                    // currentAccessToken when it's loaded or set.
+                }
+            };
+            // If the access token is available already assign it.
+            accessToken = AccessToken.getCurrentAccessToken();
+
+            profileTracker = new ProfileTracker() {
+                @Override
+                protected void onCurrentProfileChanged(
+                        Profile oldProfile,
+                        Profile currentProfile) {
+                    // App code
+                    myLog.E( "profile " + currentProfile);
+                    myLog.E( "id " + currentProfile.getId());
+                    myLog.E( "name " + currentProfile.getName());
+                    myLog.E( "linkUri " + currentProfile.getLinkUri());
+                }
+            };
+
+
+            //GOOGLE
+            btnGoogle = (Button) v.findViewById(R.id.btnGoogle);
+            btnGoogle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            btnLoginGoogle = (SignInButton) v.findViewById(R.id.btnLoginGoogle);
+            btnLoginGoogle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signIn();
+                }
+            });
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestProfile()
+                    .build();
+
+            mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                    .enableAutoManage(getActivity(), this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+
+            // Customizing G+ button
+            btnLoginGoogle.setSize(SignInButton.SIZE_STANDARD);
+            btnLoginGoogle.setScopes(gso.getScopeArray());
+
         }
         return v;
     }
@@ -171,6 +293,44 @@ public class LoginStep1Fragment extends Fragment implements LoaderManager.Loader
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
+    }
+
+    private void signIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+//                        updateUI(false);
+                    }
+                });
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        myLog.E("handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+
+            myLog.E( "display name: " + acct.getDisplayName());
+
+            String personName = acct.getDisplayName();
+            String email = acct.getEmail();
+            String personPhotoUrl = acct.getPhotoUrl() != null ? acct.getPhotoUrl().toString() : null;
+
+            myLog.E( "Name: " + personName + ", email: " + email
+                    + ", Image: " + personPhotoUrl);
+
+
+//            updateUI(true);
+        } else {
+            // Signed out, show unauthenticated UI.
+//            updateUI(false);
+        }
     }
 
     /**
@@ -252,6 +412,10 @@ public class LoginStep1Fragment extends Fragment implements LoaderManager.Loader
         mEmailView.setAdapter(adapter);
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        myLog.E(" Error Connecttion " + connectionResult);
+    }
 
     private interface ProfileQuery {
         String[] PROJECTION = {
@@ -268,6 +432,26 @@ public class LoginStep1Fragment extends Fragment implements LoaderManager.Loader
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+        myLog.E("FRAGMENT", "onResultCalled");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        accessTokenTracker.stopTracking();
+        profileTracker.stopTracking();
+
     }
 
     @Override

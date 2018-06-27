@@ -7,9 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckedTextView;
+import android.widget.TextView;
 
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.utils.listerner.OnRegisterFragmentListener;
+import com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +31,11 @@ public class RegisterStep01Fragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    public static final int REGISTER_STEP_01 = 1;
+    public static final int REGISTER_STEP_02 = 2;
+    public static final int REGISTER_STEP_03 = 3;
+    public static final int REGISTER_STEP_04 = 4;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -33,6 +43,9 @@ public class RegisterStep01Fragment extends Fragment {
     private OnRegisterFragmentListener mListener;
 
     View v;
+    TextView tvTitle;
+    ClearableEditText cedtInput;
+    CheckedTextView chkvShowPass;
 
     public RegisterStep01Fragment() {
         // Required empty public constructor
@@ -56,6 +69,12 @@ public class RegisterStep01Fragment extends Fragment {
         return fragment;
     }
 
+    public void setProcessNext(int step, Object user){
+
+
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +88,19 @@ public class RegisterStep01Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register_step01, container, false);
+        if(v ==null) {
+            v = inflater.inflate(R.layout.fragment_register_step01, container, false);
+
+            tvTitle = (TextView) v.findViewById(R.id.tvTitle);
+            cedtInput = (ClearableEditText) v.findViewById(R.id.cedtInput);
+            chkvShowPass = (CheckedTextView) v.findViewById(R.id.chbShowPassword);
+
+
+
+
+        }
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

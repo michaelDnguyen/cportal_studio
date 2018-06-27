@@ -74,9 +74,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/txt_nhap_matkhau" />
 
-                    <android.support.design.widget.TextInputLayout
+                    <!--<android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content">-->
 
                         <EditText
                             android:id="@+id/password"
@@ -90,7 +90,7 @@
                             android:maxLines="1"
                             android:singleLine="true" />
 
-                    </android.support.design.widget.TextInputLayout>
+                    <!--</android.support.design.widget.TextInputLayout>-->
                 </LinearLayout>
 
             </LinearLayout>
@@ -100,12 +100,12 @@
             android:id="@+id/chbShowPassword"
             android:layout_width="match_parent"
             android:layout_height="40dip"
-            android:checkMark="@drawable/st_checkmark_chktv"
-            android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
+            android:drawableLeft="@drawable/st_checkmark_chktv"
             android:gravity="center_vertical"
             android:paddingLeft="5dip"
+            android:drawablePadding="5dp"
             android:text="@string/txt_show_pasword"
-            android:textSize="@dimen/textsize12" />
+            android:textSize="@dimen/textsize15" />
 
         <Button
             android:id="@+id/email_sign_in_button"

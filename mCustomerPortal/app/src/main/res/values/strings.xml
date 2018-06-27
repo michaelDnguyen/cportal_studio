@@ -9,6 +9,9 @@
 
     <string name="keyMap_Dev">AIzaSyCO77nVxrBDTUPmjzPV9Zw1mUdMB9y3fkU</string>
 
+    <string name="facebook_app_id">611842019214776</string>
+    <string name="fb_login_protocol_scheme">fb611842019214776</string>
+
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Trang chủ</string>
     <string name="nav_infoGeneral">Thông tin chung</string>

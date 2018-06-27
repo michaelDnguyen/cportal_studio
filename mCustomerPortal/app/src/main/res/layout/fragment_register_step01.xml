@@ -12,15 +12,27 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_register_step01" />
 
         <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
-            android:id="@+id/cedtMatKhau"
+            android:id="@+id/cedtInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:textSize="@dimen/textsize15" />
+
+        <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/chbShowPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40dip"
+            android:checkMark="@drawable/st_checkmark_chktv"
+            android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dip"
+            android:text="@string/txt_show_pasword"
             android:textSize="@dimen/textsize15" />
     </LinearLayout>
 
