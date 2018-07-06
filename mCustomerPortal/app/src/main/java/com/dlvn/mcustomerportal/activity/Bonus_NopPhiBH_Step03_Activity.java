@@ -3,12 +3,9 @@ package com.dlvn.mcustomerportal.activity;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.base.BaseActivity;
 import com.dlvn.mcustomerportal.common.Constant;
-import com.dlvn.mcustomerportal.common.cPortalPref;
+import com.dlvn.mcustomerportal.common.CustomPref;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
@@ -49,10 +46,10 @@ public class Bonus_NopPhiBH_Step03_Activity extends BaseActivity {
 
 	private void initDatas() {
 		// TODO Auto-generated method stub
-		if (cPortalPref.haveLogin(this)) {
-			tvTenKhachHang.setText(cPortalPref.getUserName(this));
-			tvMaKhachHang.setText(cPortalPref.getUserProposal(this));
-			diemTichLuy = (float) cPortalPref.getUserPoint(this);
+		if (CustomPref.haveLogin(this)) {
+			tvTenKhachHang.setText(CustomPref.getUserName(this));
+			tvMaKhachHang.setText(CustomPref.getUserProposal(this));
+			diemTichLuy = (float) CustomPref.getUserPoint(this);
 			tvDiem.setText(diemTichLuy + "");
 		}
 		

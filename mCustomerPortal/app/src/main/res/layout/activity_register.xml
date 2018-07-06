@@ -40,8 +40,65 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/lloBottom"
-        app:layout_constraintTop_toTopOf="@id/imvLineTop"/>
+        app:layout_constraintTop_toTopOf="@id/imvLineTop" />
+
+    <!--Layout contain-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintBottom_toTopOf="@id/lloBottom"
+        app:layout_constraintTop_toBottomOf="@id/imvLineTop">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_register_step01" />
+
+        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+            android:id="@+id/cedtInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textCursorDrawable="@color/black"
+            android:textSize="@dimen/textsize15" />
+
+        <ToggleButton
+            android:id="@+id/tbGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/toggle_selector"
+            android:freezesText="true"
+            android:padding="6dp"
+            android:textColor="@drawable/state_bg_edt_grey_red"
+            android:textOff=""
+            android:textOn=""
+            android:visibility="gone" />
+
+        <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/ctvShowPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40dip"
+            android:drawableLeft="@drawable/st_checkmark_chktv"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:checked="true"
+            android:paddingLeft="5dip"
+            android:text="@string/txt_show_pasword"
+            android:textSize="@dimen/textsize15" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:textColor="@color/red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lloBottom"
@@ -51,29 +108,29 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:layout_width="match_parent"
-            android:gravity="right"
-            android:text="1/4"
-            android:padding="5dp"
             android:id="@+id/tvStep"
-            android:textStyle="bold"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="5dp"
+            android:text="1/4"
+            android:textStyle="bold" />
 
         <android.support.v7.widget.AppCompatSeekBar
-            android:layout_width="match_parent"
             android:id="@+id/sbStep"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
             android:max="100"
             android:min="0"
             android:progress="25"
-            android:progressDrawable="@color/grey_dark"
-            android:layout_height="5dp" />
+            android:progressDrawable="@drawable/state_process_seekbar" />
 
         <Button
             android:id="@+id/btnTiepTuc"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_margin="6dp"
             android:background="@drawable/state_btn_red_rectangle"
             android:text="@string/txt_tiep_tuc"
             android:textColor="@color/white"

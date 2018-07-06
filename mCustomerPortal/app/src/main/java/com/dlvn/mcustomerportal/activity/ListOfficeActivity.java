@@ -8,7 +8,7 @@ import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.adapter.model.OfficeAddressModel;
 import com.dlvn.mcustomerportal.base.BaseActivity;
 import com.dlvn.mcustomerportal.common.Constant;
-import com.dlvn.mcustomerportal.common.cPortalPref;
+import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.services.CurrentLocationService;
 import com.dlvn.mcustomerportal.services.NetworkUtils;
 import com.dlvn.mcustomerportal.services.ServicesGenerator;
@@ -252,14 +252,14 @@ public class ListOfficeActivity extends BaseActivity implements OnMapReadyCallba
 				Response<getMapMarkerResponse> response = null;
 
 //				User user = new User();
-//				user = cPortalPref.getPassword(ListOfficeActivity.this);
+//				user = CustomPref.getPassword(ListOfficeActivity.this);
 				
 				getMapMarkerRequest data = new getMapMarkerRequest();
-				data.setAgentId(cPortalPref.getUserID(ListOfficeActivity.this));
-				data.setPassword(cPortalPref.getPassword(ListOfficeActivity.this));
+				data.setAgentId(CustomPref.getUserID(ListOfficeActivity.this));
+				data.setPassword(CustomPref.getPassword(ListOfficeActivity.this));
 				data.setDeviceId(Utilities.getDeviceID(ListOfficeActivity.this));
 				data.setDeviceName(Utilities.getDeviceName());
-				data.setAPIToken(cPortalPref.getAPIToken(ListOfficeActivity.this));
+				data.setAPIToken(CustomPref.getAPIToken(ListOfficeActivity.this));
 				data.setLat("10.794834");
 				data.setLng("106.676285");
 				data.setTypeOffice(officeType);

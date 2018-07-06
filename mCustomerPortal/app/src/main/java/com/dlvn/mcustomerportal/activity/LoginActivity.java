@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.base.BaseActivity;
-import com.dlvn.mcustomerportal.common.cPortalPref;
+import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.services.ServicesGenerator;
 import com.dlvn.mcustomerportal.services.ServicesRequest;
 import com.dlvn.mcustomerportal.services.model.BaseRequest;
@@ -57,8 +57,8 @@ public class LoginActivity extends BaseActivity {
 		actAccount = (AutoCompleteTextView) findViewById(R.id.actUsername);
 		edtPassword = (EditText) findViewById(R.id.edtPassword);
 
-		if (!TextUtils.isEmpty(cPortalPref.getUserID(LoginActivity.this)))
-			actAccount.setText(cPortalPref.getUserID(LoginActivity.this));
+		if (!TextUtils.isEmpty(CustomPref.getUserID(LoginActivity.this)))
+			actAccount.setText(CustomPref.getUserID(LoginActivity.this));
 
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnLogin.setOnClickListener(new OnClickListener() {
@@ -146,9 +146,9 @@ public class LoginActivity extends BaseActivity {
 								user.setPoint(rand.nextInt(10000));
 								user.setProposalNo("000" + rand.nextInt(99999));
 
-								cPortalPref.saveUserLogin(LoginActivity.this, user);
-								cPortalPref.setLogin(LoginActivity.this, true);
-								cPortalPref.setRefreshing(LoginActivity.this, true);
+								CustomPref.saveUserLogin(LoginActivity.this, user);
+								CustomPref.setLogin(LoginActivity.this, true);
+								CustomPref.setRefreshing(LoginActivity.this, true);
 
 								Intent i = new Intent(getBaseContext(), HomeActivity.class);
 								i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

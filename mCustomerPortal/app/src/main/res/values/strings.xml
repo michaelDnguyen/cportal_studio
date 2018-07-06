@@ -8,6 +8,8 @@
     <string name="closeDrawer">close_drawer</string>
 
     <string name="keyMap_Dev">AIzaSyCO77nVxrBDTUPmjzPV9Zw1mUdMB9y3fkU</string>
+    <string name="keyFCM_Dev">AIzaSyB-yGcYFaAwYEqwyzHtO4Tmh1bb1yxi3g4</string>
+    <string name="senderID_Dev">998850959193</string>
 
     <string name="facebook_app_id">611842019214776</string>
     <string name="fb_login_protocol_scheme">fb611842019214776</string>
@@ -43,10 +45,6 @@
         <item>Đăng xuất</item>
     </string-array>
 
-    <string name="activity_title_about_us">Hướng dẫn sử dụng</string>
-    <string name="activity_title_list_office">Mạng lưới văn phòng</string>
-    <string name="activity_title_contract_detail">Chi tiết hợp đồng</string>
-    <string name="activity_title_privacy_policy">Chính sách bảo mật</string>
     <string name="action_clear_all">Xóa hết</string>
     <string name="action_logout">Đăng xuất</string>
     <string name="action_call">Liên hệ</string>
@@ -56,20 +54,16 @@
     <!-- Request Permission -->
     <string name="permission_info">Ứng dụng cần cấp quyền truy cập bộ nhớ máy.</string>
     <string name="permission_force">Ứng dụng cần cấp quyền xem hình ảnh của bạn. Chọn Settings và đi đến mục Permissions để cấp quyền.</string>
-    <string name="permission_ok">OK</string>
+    <string name="permission_ok">Đồng ý</string>
     <string name="permission_settings">Hệ thống</string>
     <string name="permission_package">package</string>
-    <string name="confirm_yes">Yes</string>
-    <string name="confirm_no">No</string>
-    <string name="confirm_ok">Ok</string>
-    <string name="message_error_username_login">Username or password is invalid.</string>
-    <string name="message_error_date">Date is invalid.</string>
-    <string name="low_memory_message">App is low memory, image loader maybe slow.</string>
-    <string name="low_memory">Low memory</string>
-    <string name="message_alert_login_to_using_function">Anh/chị cần phải đăng nhập để sử dụng chức năng này.</string>
-    <string name="message_alert_logout">Anh/chị có thật sự muốn thoát khỏi chương trình này không ?.</string>
-    <string name="message_alert_download_file">Anh/chị có muốn download tập tin này không ?</string>
-    <string name="alert_input_payment">Anh/chị cần phải nhập số tiền và chọn phương thức thanh toán.</string>
+    <string name="confirm_yes">Đồng ý</string>
+    <string name="confirm_no">Không</string>
+    <string name="confirm_ok">Đồng ý</string>
+
+    <string name="low_memory_message">Ứng dụng đang thiếu bộ nhớ, việc tải hình ảnh có thể bị chậm.</string>
+    <string name="low_memory">Thiếu bộ nhớ.</string>
+
     <string name="home_welcome_user">Anh/chị có thể dễ dàng tra cứu thông tin hợp đồng bảo hiểm nhân thọ, thông tin điểm thưởng tích lũy của mình.</string>
     <string name="home_welcome_guest">Đến với cổng thông tin khách hàng của Dai-Ichi-Life Việt Nam, vui lòng đăng nhập để sử dụng đầy đủ chức năng.</string>
     <string name="home_welcom_article">
@@ -108,30 +102,82 @@ Trân trọng kính chào,<br>
     <string name="title_activity_transaction_detail">Chi tiết giao dịch</string>
     <string name="title_activity_news">Bản tin Dai-Ichi-Life</string>
     <string name="title_activity_login_main">Sign in</string>
+    <string name="activity_title_about_us">Hướng dẫn sử dụng</string>
+    <string name="activity_title_list_office">Mạng lưới văn phòng</string>
+    <string name="activity_title_contract_detail">Chi tiết hợp đồng</string>
+    <string name="activity_title_privacy_policy">Chính sách bảo mật</string>
+
+    <!--Settings-->
+    <string name="setting_txt_taikhoan">Tài khoản</string>
+    <string name="setting_txt_baomat">Bảo mật</string>
+    <string name="setting_txt_lktaikhoan">Liên kết tài khoản</string>
+    <string name="setting_txt_thongbao">Thông báo</string>
+    <string name="setting_txt_hdsd">Hướng dẫn sử dụng</string>
+    <string name="setting_txt_lichsu_thanhtoan">Lịch sử thanh toán online</string>
+    <string name="setting_txt_lienhe">Liên hệ</string>
+    <string name="setting_txt_thongtin">Thông tin mCP</string>
+    <string name="setting_txt_dangxuat">Đăng xuất</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Tên đăng nhập/Email</string>
     <string name="prompt_password">Mật khẩu</string>
     <string name="action_sign_in">Tiếp tục</string>
     <string name="action_sign_in_short">Đăng nhập</string>
-    <string name="error_invalid_email">Địa chỉ Email này không tồn tại</string>
-    <string name="error_invalid_password">Mật khẩu quá ngắn</string>
+    <string name="action_changepassword_short">Đổi Mật Khẩu</string>
+
+    <!--String for Forgot Password-->
+    <string name="forgotpassword_title">Vui lòng kiểm tra email</string>
+    <string name="forgotpassword_message">Chúng tôi đã gửi cách thức thực hiện khôi phục mật khẩu vào địa chỉ email %s</string>
+    <string name="forgotpassword_button">MỞ HỘP MAIL</string>
+
+    <string name="error_changepass_fail">Cập nhật mật khẩu thất bại, vui lòng thực hiện lại.</string>
+
+    <string name="error_invalid_email">Địa chỉ Email không hợp lệ, vui lòng kiểm tra lại.</string>
+    <string name="error_invalid_character">Tên đăng nhập/ email không được chứa kí tự đặc biệt.</string>
+    <string name="error_invalid_password">Mật khẩu chưa hợp lệ, vui lòng nhập lại.</string>
+    <string name="error_invalid_password_change">Mật khẩu chưa chính xác, vui lòng nhập lại.</string>
     <string name="error_incorrect_password">Sai mật khẩu</string>
     <string name="error_field_required">Không được để trống</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="error_incorrect_fullname">Họ tên không hợp lệ vui lòng kiểm tra lại.</string>
+    <string name="error_incorrect_phone">Số điện thoại không hợp lệ vui lòng kiểm tra lại.</string>
+    <string name="error_incorrect_verifycode">Mã xác nhận không chính xác.</string>
+    <string name="error_incorrect_newpassword">Vui lòng nhập lại mật khẩu hợp lệ.</string>
+    <string name="error_incorrect_inputcode">Mã không chính xác hoặc đã hết hạn.</string>
+
+    <string name="message_error_username_login">Tên đăng nhập không đúng hoặc không tồn tại.</string>
+    <string name="message_error_date">Ngày sai định dạng.</string>
+    <string name="message_alert_login_to_using_function">Anh/chị cần phải đăng nhập để sử dụng chức năng này.</string>
+    <string name="message_alert_logout">Anh/chị có thật sự muốn thoát khỏi chương trình này không ?.</string>
+    <string name="message_alert_download_file">Anh/chị có muốn download tập tin này không ?</string>
+    <string name="alert_input_payment">Anh/chị cần phải nhập số tiền và chọn phương thức thanh toán.</string>
+    <string name="message_alert_input_password">Vui lòng nhập lại mật khẩu hợp lệ.</string>
+
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="signin_facebook">Tiếp tục với Facebook</string>
+    <string name="signout_facebook">Thoát Facebook</string>
     <string name="signin_google">Tiếp tục với Google</string>
+    <string name="signout_google">Thoát Google</string>
+
     <string name="txt_quay_lai">Quay lại</string>
     <string name="txt_tiep_tuc">Tiếp tục</string>
-    <string name="txt_nhap_matkhau">Vui lòng nhập mật khẩu để đăng nhập</string>
-    <string name="txt_policy_term"><![CDATA[Bằng cách bấm các nú Tiếp tục quý khách hàng đã đồng ý với <strong>Điều khoản sử dụng.</strong>]]></string>
-    <string name="txt_copyright_daiichi">Copyright © 2013 Dai-ichi Life Việt Nam. All rights reserved.\nĐiện thoại: (028) 3810 0888 - Fax:(028) 3997 3000 \nhttps://www.dai-ichi-life.com.vn/</string>
+
+    <string name="txt_nhap_matkhau">Vui lòng nhập mật khẩu để đăng nhập.</string>
+    <string name="txt_taomoi_matkhau">Vui lòng nhập mật khẩu mới để đăng nhập.</string>
+    <string name="hint_taomoi_matkhau">Nhập lại mật khẩu.</string>
+
+    <string name="txt_policy_term"><![CDATA[Bằng cách bấm các nút Tiếp tục quý khách hàng đã đồng ý với <a href="https://www.dai-ichi-life.com.vn/dieu-khoan-thoa-thuan/399/"><strong>Điều khoản sử dụng.</strong></a>]]></string>
+    <string name="txt_copyright_daiichi"><![CDATA[Copyright © 2013 Dai-ichi Life Việt Nam. All rights reserved.<br>Điện thoại: (028) 3810 0888 - Fax:(028) 3997 3000 <br><a href="https://www.dai-ichi-life.com.vn/"><font color="D50000">https://www.dai-ichi-life.com.vn/</font></a>]]></string>
     <string name="txt_show_pasword">Hiện mật khẩu</string>
     <string name="txt_register_step01">Hãy tạo một mật khẩu để đăng nhập</string>
+    <string name="title_activity_dashboard">Trang chủ</string>
+
+    <string name="title_home">Trang chủ</string>
+    <string name="title_contract">Hợp đồng</string>
+    <string name="title_fundbonus">Điểm thưởng</string>
+    <string name="title_notifications">Thông báo</string>
+    <string name="title_other">Khác</string>
+    <string name="txt_recovery_password">Khôi phục mật khẩu ?</string>
 
 </resources>

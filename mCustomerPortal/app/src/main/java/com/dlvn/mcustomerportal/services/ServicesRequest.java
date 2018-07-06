@@ -2,6 +2,7 @@ package com.dlvn.mcustomerportal.services;
 
 import com.dlvn.mcustomerportal.services.model.BaseRequest;
 import com.dlvn.mcustomerportal.services.model.response.getMapMarkerResponse;
+import com.dlvn.mcustomerportal.services.model.response.loginNewResponse;
 import com.dlvn.mcustomerportal.services.model.response.loginResponse;
 
 import retrofit2.Call;
@@ -19,30 +20,6 @@ public interface ServicesRequest {
 	// @Path("password") String password,
 	// @Path("deviceid") String deviceid);
 
-//	@POST("ApprovalLogin")
-//	Call<ApprovalLoginResponse> ApprovalLogin(@Body BaseRequest request);
-//
-//	@POST("GetInquiryMasterData")
-//	Call<InquiryMasterDataReponse> getInquiryMasterData(@Body BaseRequest request);
-//
-//	@POST("GetInquirySummary")
-//	Call<InquirySummaryResponse> getInquirySummary(@Body BaseRequest request);
-//
-//	@POST("GetDetailInquirySummary")
-//	Call<DetailInquirySummaryResponse> getDetailInquirySummary(@Body BaseRequest request);
-//
-//	@POST("GetExpenseDetail")
-//	Call<ExpenseDetailResponse> getExpenseDetail(@Body BaseRequest request);
-//
-//	@POST("GetInvoiceDetail")
-//	Call<InvoiceDetailResponse> getInvoiceDetail(@Body BaseRequest request);
-//
-//	@POST("SavePostComment")
-//	Call<SavePostCommentResponse> savePostComment(@Body BaseRequest request);
-//
-//	@POST("ApproveRequisition")
-//	Call<ApproveRequisitionResponse> ApproveRequisition(@Body BaseRequest request);
-//
 //	// @Streaming
 //	// @GET
 //	// Call<ResponseBody> downloadFileAttach(@Url String fileUrl);
@@ -55,4 +32,7 @@ public interface ServicesRequest {
 	
 	@POST("PDLPadAuthLogin")
 	Call<loginResponse> PDLPadAuthLogin(@Body BaseRequest request);
+
+	@POST("CPRegisterAccountLink")
+	Call<loginNewResponse> CPRegisterAccount(@Body BaseRequest request);
 }

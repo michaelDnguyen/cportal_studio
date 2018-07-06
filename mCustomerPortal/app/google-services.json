@@ -1,0 +1,117 @@
+{
+  "project_info": {
+    "project_number": "998850959193",
+    "firebase_url": "https://my-demo-gcm-dlvn.firebaseio.com",
+    "project_id": "my-demo-gcm-dlvn",
+    "storage_bucket": "my-demo-gcm-dlvn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998850959193:android:b7a505323bbbbdf6",
+        "android_client_info": {
+          "package_name": "com.daiichi.dlvn_magp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998850959193-lhms5jlmknkr054bolrpt3lbgdld9gqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJLIloC0orp08A8oyjx79hH1D720jzxuo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998850959193:android:01e54ce138e4677b",
+        "android_client_info": {
+          "package_name": "com.dlvn.mcustomerportal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998850959193-vra02gda3boukam5ee5k3jh0b6jl0qa7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dlvn.mcustomerportal",
+            "certificate_hash": "d7782e62feb2a61546d1eeac8583cc50eb924bfd"
+          }
+        },
+        {
+          "client_id": "998850959193-lhms5jlmknkr054bolrpt3lbgdld9gqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJLIloC0orp08A8oyjx79hH1D720jzxuo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998850959193-qif4q1qcsjfui92n61h7lcpg5m9oeqru.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998850959193:android:47d13055f98ce1dc",
+        "android_client_info": {
+          "package_name": "com.nnt.mydemo01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998850959193-lhms5jlmknkr054bolrpt3lbgdld9gqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJLIloC0orp08A8oyjx79hH1D720jzxuo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

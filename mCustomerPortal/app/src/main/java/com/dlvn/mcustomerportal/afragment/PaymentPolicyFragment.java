@@ -2,7 +2,7 @@ package com.dlvn.mcustomerportal.afragment;
 
 import com.dlvn.mcustomerportal.activity.PaymentMethodActivity;
 import com.dlvn.mcustomerportal.R;
-import com.dlvn.mcustomerportal.common.cPortalPref;
+import com.dlvn.mcustomerportal.common.CustomPref;
 
 import android.content.Context;
 import android.content.Intent;
@@ -93,9 +93,9 @@ public class PaymentPolicyFragment extends Fragment {
 
 		btnTiepTuc = (Button) view.findViewById(R.id.btnTiepTuc);
 
-		if (cPortalPref.haveLogin(getActivity())) {
-			tvTenKhachHang.setText(cPortalPref.getUserName(getActivity()));
-			tvMaKhachHang.setText(cPortalPref.getUserProposal(getActivity()));
+		if (CustomPref.haveLogin(getActivity())) {
+			tvTenKhachHang.setText(CustomPref.getUserName(getActivity()));
+			tvMaKhachHang.setText(CustomPref.getUserProposal(getActivity()));
 		}
 	}
 

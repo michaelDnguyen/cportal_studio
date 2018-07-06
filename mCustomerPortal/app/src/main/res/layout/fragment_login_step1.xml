@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,11 +7,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.dlvn.mcustomerportal.afragment.prototype.LoginStep1Fragment">
+    tools:context="com.dlvn.mcustomerportal.afragment.prototype.LoginInputUserNameFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <!-- Login progress -->
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -35,10 +34,74 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!--action bar-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/daiichilife" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="(028) 3810 0888" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone"
+                                android:src="@android:drawable/ic_menu_sort_by_size" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="right|center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="5dp"
+                                android:src="@drawable/ico_youtube" />
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:src="@drawable/ico_facebook" />
+
+                            <ImageView
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
+                                android:src="@drawable/ico_gmail" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    android:src="@drawable/img_dai_ichi_life" />
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="180dp"
+                    android:background="@drawable/img_dai_ichi_life" />
             </LinearLayout>
 
             <!--<android.support.design.widget.TextInputLayout
@@ -47,17 +110,18 @@
                 app:hintTextAppearance="@color/black"
                 android:background="@color/gray_light">-->
 
-                <AutoCompleteTextView
-                    android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="@string/prompt_email"
-                    android:inputType="textEmailAddress"
-                    android:background="@drawable/state_bg_edt_bolder_noradius"
-                    android:maxLines="1"
-                    android:padding="7dp"
-                    android:singleLine="true" />
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/state_bg_edt_bolder_noradius"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:padding="7dp"
+                android:singleLine="true"
+                android:textCursorDrawable="@color/black" />
 
             <!--</android.support.design.widget.TextInputLayout>-->
 
@@ -91,46 +155,56 @@
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnFacebook"
-                style="?android:textAppearanceSmall"
+            <!--Facebook button-->
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:visibility="gone"
-                android:background="@drawable/state_btn_facebook"
-                android:text="@string/signin_facebook"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:layout_marginTop="30dp">
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/btnLoginFacebook"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/signin_facebook"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="30dp" />
+                <Button
+                    android:id="@+id/btnFacebook"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/state_btn_facebook"
+                    android:drawableLeft="@drawable/ico_facebook_24px"
+                    android:text="@string/signin_facebook"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/btnLoginGoogle"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/signin_google"
-                android:layout_marginBottom="20dp" />
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/btnLoginFacebook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone" />
+            </FrameLayout>
 
-            <Button
-                android:id="@+id/btnGoogle"
-                android:visibility="gone"
-                style="?android:textAppearanceSmall"
+            <!--Google button-->
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/state_btn_google"
-                android:text="@string/signin_google"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:layout_marginTop="6dp">
+
+                <Button
+                    android:id="@+id/btnGoogle"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/state_btn_google"
+                    android:drawableLeft="@drawable/ico_google_24px"
+                    android:text="@string/signin_google"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <com.google.android.gms.common.SignInButton
+                    android:id="@+id/btn_signinGoogle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:visibility="gone" />
+            </FrameLayout>
 
             <Button
                 android:id="@+id/btnBack"
@@ -140,24 +214,27 @@
                 android:layout_marginTop="6dp"
                 android:background="@drawable/state_btn_grey_rectangle"
                 android:text="@string/txt_quay_lai"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <TextView
+                android:id="@+id/tvPolicy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:gravity="center"
-                android:textColorLink="@color/blue_dark"
                 android:text="@string/txt_policy_term"
+                android:textColorLink="@color/blue_dark"
                 android:textSize="@dimen/textsize12" />
 
             <TextView
+                android:id="@+id/tvCopyRight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="10dp"
-                android:textColorLink="@color/red"
+                android:gravity="center"
                 android:text="@string/txt_copyright_daiichi"
+                android:textColorLink="@color/red"
                 android:textSize="@dimen/textsize10" />
 
         </LinearLayout>

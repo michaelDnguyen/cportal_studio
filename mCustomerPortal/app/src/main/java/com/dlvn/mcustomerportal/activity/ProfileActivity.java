@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.base.BaseActivity;
-import com.dlvn.mcustomerportal.common.cPortalPref;
+import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.utils.myLog;
 
 import android.content.Intent;
@@ -73,7 +73,7 @@ public class ProfileActivity extends BaseActivity {
 					}
 				}).into(imvProfile);
 
-		tvName.setText(cPortalPref.getUserName(this));
+		tvName.setText(CustomPref.getUserName(this));
 	}
 
 	private void setListener() {

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 def getDate() {
     def date = new Date()
@@ -49,15 +50,6 @@ dependencies {
 //    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation fileTree(include: ['.jar', '.so'], dir: 'libs')
 
-//    implementation files('libs/commons-codec.jar')
-//    implementation files('libs/glide-full-4.3.1.jar')
-//    implementation files('libs/hellocharts-library-1.5.8.jar')
-//    implementation files('libs/logging-interceptor-3.8.1.jar')
-//    implementation files('libs/okhttp-3.8.1.jar')
-//    implementation files('libs/okio-1.13.0.jar')
-//    implementation files('libs/retrofit-2.3.0.jar')
-//    implementation files('libs/simple-xml-2.7.1.jar')
-
     implementation 'commons-codec:commons-codec:1.8'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
@@ -77,14 +69,19 @@ dependencies {
     implementation "com.android.support:design:$LIBSUPPORT_VERSION"
     implementation "com.android.support:support-fragment:$LIBSUPPORT_VERSION"
     implementation "com.android.support:support-v4:$LIBSUPPORT_VERSION"
+    implementation "com.android.support:support-vector-drawable:$LIBSUPPORT_VERSION"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-
-    implementation "com.google.android.gms:play-services-gcm:$PLAYSERVICES_VERSION"
-    implementation "com.google.android.gms:play-services-maps:$PLAYSERVICES_VERSION"
-    implementation "com.google.android.gms:play-services-base:$PLAYSERVICES_VERSION"
-    implementation 'com.android.support:support-v4:27.0.2'
 
     //google services
     implementation "com.google.android.gms:play-services-auth:$PLAYSERVICES_VERSION"
+    implementation "com.google.android.gms:play-services-gcm:$PLAYSERVICES_VERSION"
+    implementation "com.google.android.gms:play-services-maps:$PLAYSERVICES_VERSION"
+    implementation "com.google.android.gms:play-services-base:$PLAYSERVICES_VERSION"
     implementation "com.google.android.gms:play-services-safetynet:$PLAYSERVICES_VERSION"
+
+    //Firebase
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.3'
+    implementation "com.google.firebase:firebase-core:$FIREBASE_VERSION"
+
 }
+apply plugin: 'com.google.gms.google-services'

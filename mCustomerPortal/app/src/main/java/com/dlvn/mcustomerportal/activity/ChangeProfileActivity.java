@@ -2,7 +2,7 @@ package com.dlvn.mcustomerportal.activity;
 
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.base.BaseActivity;
-import com.dlvn.mcustomerportal.common.cPortalPref;
+import com.dlvn.mcustomerportal.common.CustomPref;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -43,9 +43,9 @@ public class ChangeProfileActivity extends BaseActivity {
 
 	private void initData() {
 		// TODO Auto-generated method stub
-		if (cPortalPref.haveLogin(this)) {
-			tvTenKH.setText(cPortalPref.getUserName(this));
-			tvMaKH.setText(cPortalPref.getUserProposal(this));
+		if (CustomPref.haveLogin(this)) {
+			tvTenKH.setText(CustomPref.getUserName(this));
+			tvMaKH.setText(CustomPref.getUserProposal(this));
 		}
 	}
 

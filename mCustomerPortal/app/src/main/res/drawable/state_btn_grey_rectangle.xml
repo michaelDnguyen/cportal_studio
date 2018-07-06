@@ -3,7 +3,7 @@
 
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/grey_dark" />
+            <solid android:color="@color/gray_dark" />
 
             <padding android:bottom="5dp" android:left="10dp" android:right="10dp" android:top="5dp" />
 
@@ -11,7 +11,7 @@
     </item>
     <item android:state_activated="true">
         <shape>
-            <solid android:color="@color/grey_dark" />
+            <solid android:color="@color/gray_dark" />
 
             <padding android:bottom="5dp" android:left="10dp" android:right="10dp" android:top="5dp" />
 
@@ -19,7 +19,7 @@
     </item>
     <item>
         <shape>
-            <solid android:color="@color/grey_light" />
+            <solid android:color="@color/gray_light" />
 
             <padding android:bottom="5dp" android:left="10dp" android:right="10dp" android:top="5dp" />
 

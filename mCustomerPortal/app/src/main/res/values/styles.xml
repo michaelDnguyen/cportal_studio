@@ -7,7 +7,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        
+
         <!-- <item name="android:titleTextStyle">@style/MyActionBarTextStyle</item> -->
 
         <!-- <item name="android:textColorPrimary">@color/red</item> -->
@@ -16,7 +16,7 @@
         <!-- color for icon menu -->
         <!-- <item name="actionMenuTextColor">@color/red</item> -->
 
-       <!-- <item name="android:actionBarStyle">@style/MyActionBarTextStyle</item> -->
+        <!-- <item name="android:actionBarStyle">@style/MyActionBarTextStyle</item> -->
     </style>
 
     <style name="MyActionBarTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
@@ -50,5 +50,11 @@
         <!-- theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/red</item>
     </style>
+
+    <!--<style name="SeekBarTheme" parent="Theme.AppCompat.Light">
+        <item name="android:progressBackgroundTint">@color/grey_light</item>
+        <item name="android:progressTint">@color/grey_dark</item>
+        <item name="android:colorControlActivated">null</item>
+    </style>-->
 
 </resources>

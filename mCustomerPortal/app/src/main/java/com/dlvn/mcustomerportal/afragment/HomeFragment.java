@@ -11,7 +11,7 @@ import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.adapter.HomePagerAdapter;
 import com.dlvn.mcustomerportal.adapter.model.HomeItemModel;
 import com.dlvn.mcustomerportal.adapter.model.HomePageItemModel;
-import com.dlvn.mcustomerportal.common.cPortalPref;
+import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.indicator.CirclePageIndicator;
 import com.dlvn.mcustomerportal.view.indicator.ScrollerViewPager;
@@ -190,8 +190,8 @@ public class HomeFragment extends Fragment {
 	 */
 	private void initData() {
 
-		if (cPortalPref.haveLogin(getActivity())) {
-			tvWelcome.setText("Chào mừng " + cPortalPref.getUserName(getActivity()));
+		if (CustomPref.haveLogin(getActivity())) {
+			tvWelcome.setText("Chào mừng " + CustomPref.getUserName(getActivity()));
 			tvDescription.setText(getActivity().getString(R.string.home_welcome_user));
 			lloHopDong.setVisibility(View.VISIBLE);
 			lloTransaction.setVisibility(View.VISIBLE);

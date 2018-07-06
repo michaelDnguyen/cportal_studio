@@ -10,7 +10,7 @@ import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.base.BaseActivity;
 import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.Constant.FeeFrequency;
-import com.dlvn.mcustomerportal.common.cPortalPref;
+import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.utils.Utilities;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
@@ -87,8 +87,8 @@ public class PaymentInputActivity extends BaseActivity {
 		if (!TextUtils.isEmpty(Amount))
 			tvSoTienThanhToan.setText(Amount);
 
-		tvProposalNo.setText(cPortalPref.getUserProposal(this));
-		edtHotenNguoiNop.setText(cPortalPref.getUserName(this));
+		tvProposalNo.setText(CustomPref.getUserProposal(this));
+		edtHotenNguoiNop.setText(CustomPref.getUserName(this));
 		edtPhoneNumber.setText("0987654123");
 
 		List<String> list = new ArrayList<String>();

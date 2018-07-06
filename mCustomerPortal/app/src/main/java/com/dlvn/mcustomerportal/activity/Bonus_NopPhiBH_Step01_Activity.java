@@ -8,7 +8,7 @@ import java.util.Locale;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.base.BaseActivity;
 import com.dlvn.mcustomerportal.common.Constant;
-import com.dlvn.mcustomerportal.common.cPortalPref;
+import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.utils.Utilities;
 
 import android.content.Intent;
@@ -70,10 +70,10 @@ public class Bonus_NopPhiBH_Step01_Activity extends BaseActivity {
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spnHopDong.setAdapter(dataAdapter);
 
-		if (cPortalPref.haveLogin(this)) {
-			tvTenKhachHang.setText(cPortalPref.getUserName(this));
-			tvMaKhachHang.setText(cPortalPref.getUserProposal(this));
-			tvDiem.setText(cPortalPref.getUserPoint(this) + "");
+		if (CustomPref.haveLogin(this)) {
+			tvTenKhachHang.setText(CustomPref.getUserName(this));
+			tvMaKhachHang.setText(CustomPref.getUserProposal(this));
+			tvDiem.setText(CustomPref.getUserPoint(this) + "");
 		}
 	}
 

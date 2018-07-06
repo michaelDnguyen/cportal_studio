@@ -1,5 +1,8 @@
 package com.dlvn.mcustomerportal.services.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,280 +10,382 @@ import com.google.gson.annotations.SerializedName;
  * @author nn.tai
  * @create Nov 6, 2017
  */
-public class User {
+public class User implements Parcelable {
 
-	public static final String USER_NAME = "USER_NAME";
-	public static final String USER_ID = "USER_ID";
-	public static final String PASSWORD = "PASSWORD";
-	public static final String TOKEN_LOGIN = "TOKEN_LOGIN";
+    public static final String USER_NAME = "USER_NAME";
+    public static final String USER_ID = "USER_ID";
+    public static final String PASSWORD = "PASSWORD";
+    public static final String TOKEN_LOGIN = "TOKEN_LOGIN";
 
-	public static final String USER_CONTRACT = "USER_CONTRACT";
-	public static final String USER_POINT = "USER_POINT";
-	public static final String USER_AMOUNT = "USER_AMOUNT";
-	public static final String USER_PROPOSAL = "USER_PROPOSAL";
+    public static final String USER_CONTRACT = "USER_CONTRACT";
+    public static final String USER_POINT = "USER_POINT";
+    public static final String USER_AMOUNT = "USER_AMOUNT";
+    public static final String USER_PROPOSAL = "USER_PROPOSAL";
 
-	@SerializedName("APIToken")
-	@Expose
-	private String aPIToken;
+    public static final String FULLNAME = "USER_FULLNAME";
+    public static final String GENDER = "USER_GENDER";
+    public static final String ADDRESS = "USER_ADDRESS";
+    public static final String EMAIL = "USER_EMAIL";
+    public static final String PHONE_NUMBER = "USER_PHONE_NUMBER";
+    public static final String FACEBOOK = "USER_FACEBOOK";
+    public static final String GOOGLE = "USER_GOOGLE";
+    public static final String DAYOFBIRTH = "USER_DOB";
 
-	@SerializedName("AuthStatus")
-	@Expose
-	private String authStatus;
 
-	@SerializedName("InsightURL")
-	@Expose
-	private String insightURL;
+    @SerializedName("APIToken")
+    @Expose
+    private String aPIToken;
 
-	@SerializedName("Level")
-	@Expose
-	private String level;
+    @SerializedName("AuthStatus")
+    @Expose
+    private String authStatus;
 
-	@SerializedName("Region")
-	@Expose
-	private String region;
+    @SerializedName("InsightURL")
+    @Expose
+    private String insightURL;
 
-	@SerializedName("ResponseMsg")
-	@Expose
-	private String responseMsg;
+    @SerializedName("Level")
+    @Expose
+    private String level;
 
-	@SerializedName("TeamNo")
-	@Expose
-	private String teamNo;
+    @SerializedName("Region")
+    @Expose
+    private String region;
 
-	@SerializedName("UserID")
-	@Expose
-	private String userID;
+    @SerializedName("ResponseMsg")
+    @Expose
+    private String responseMsg;
 
-	@SerializedName("UserName")
-	@Expose
-	private String userName;
+    @SerializedName("TeamNo")
+    @Expose
+    private String teamNo;
 
-	@SerializedName("UserStatus")
-	@Expose
-	private String userStatus;
+    @SerializedName("UserID")
+    @Expose
+    private String userID;
 
-	private String password;
+    @SerializedName("UserName")
+    @Expose
+    private String userName;
 
-	private String proposalNo;
-	private int numberContract;
-	private long amountContract;
-	private int point;
+    @SerializedName("UserStatus")
+    @Expose
+    private String userStatus;
 
-	public String getProposalNo() {
-		return proposalNo;
-	}
+    private String password;
+    private String email;
+    private String gender;
+    private String address;
+    private String fullname;
+    private String dayOfbirth;
+    private String phone;
 
-	public void setProposalNo(String proposalNo) {
-		this.proposalNo = proposalNo;
-	}
+    private String linkFacebook;
+    private String linkGmail;
 
-	public int getNumberContract() {
-		return numberContract;
-	}
+    private String proposalNo;
+    private int numberContract;
+    private long amountContract;
+    private int point;
 
-	public void setNumberContract(int numberContract) {
-		this.numberContract = numberContract;
-	}
+    public String getProposalNo() {
+        return proposalNo;
+    }
 
-	public long getAmountContract() {
-		return amountContract;
-	}
+    public void setProposalNo(String proposalNo) {
+        this.proposalNo = proposalNo;
+    }
 
-	public void setAmountContract(long amountContract) {
-		this.amountContract = amountContract;
-	}
+    public int getNumberContract() {
+        return numberContract;
+    }
 
-	public int getPoint() {
-		return point;
-	}
+    public void setNumberContract(int numberContract) {
+        this.numberContract = numberContract;
+    }
 
-	public void setPoint(int point) {
-		this.point = point;
-	}
+    public long getAmountContract() {
+        return amountContract;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setAmountContract(long amountContract) {
+        this.amountContract = amountContract;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public int getPoint() {
+        return point;
+    }
 
-	/**
-	 * 
-	 * @return The aPIToken
-	 */
-	public String getAPIToken() {
-		return aPIToken;
-	}
+    public void setPoint(int point) {
+        this.point = point;
+    }
 
-	/**
-	 * 
-	 * @param aPIToken
-	 *            The APIToken
-	 */
-	public void setAPIToken(String aPIToken) {
-		this.aPIToken = aPIToken;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	/**
-	 * 
-	 * @return The authStatus
-	 */
-	public String getAuthStatus() {
-		return authStatus;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	/**
-	 * 
-	 * @param authStatus
-	 *            The AuthStatus
-	 */
-	public void setAuthStatus(String authStatus) {
-		this.authStatus = authStatus;
-	}
+    /**
+     * @return The aPIToken
+     */
+    public String getAPIToken() {
+        return aPIToken;
+    }
 
-	/**
-	 * 
-	 * @return The insightURL
-	 */
-	public String getInsightURL() {
-		return insightURL;
-	}
+    /**
+     * @param aPIToken The APIToken
+     */
+    public void setAPIToken(String aPIToken) {
+        this.aPIToken = aPIToken;
+    }
 
-	/**
-	 * 
-	 * @param insightURL
-	 *            The InsightURL
-	 */
-	public void setInsightURL(String insightURL) {
-		this.insightURL = insightURL;
-	}
+    /**
+     * @return The authStatus
+     */
+    public String getAuthStatus() {
+        return authStatus;
+    }
 
-	/**
-	 * 
-	 * @return The level
-	 */
-	public String getLevel() {
-		return level;
-	}
+    /**
+     * @param authStatus The AuthStatus
+     */
+    public void setAuthStatus(String authStatus) {
+        this.authStatus = authStatus;
+    }
 
-	/**
-	 * 
-	 * @param level
-	 *            The Level
-	 */
-	public void setLevel(String level) {
-		this.level = level;
-	}
+    /**
+     * @return The insightURL
+     */
+    public String getInsightURL() {
+        return insightURL;
+    }
 
-	/**
-	 * 
-	 * @return The region
-	 */
-	public String getRegion() {
-		return region;
-	}
+    /**
+     * @param insightURL The InsightURL
+     */
+    public void setInsightURL(String insightURL) {
+        this.insightURL = insightURL;
+    }
 
-	/**
-	 * 
-	 * @param region
-	 *            The Region
-	 */
-	public void setRegion(String region) {
-		this.region = region;
-	}
+    /**
+     * @return The level
+     */
+    public String getLevel() {
+        return level;
+    }
 
-	/**
-	 * 
-	 * @return The responseMsg
-	 */
-	public String getResponseMsg() {
-		return responseMsg;
-	}
+    /**
+     * @param level The Level
+     */
+    public void setLevel(String level) {
+        this.level = level;
+    }
 
-	/**
-	 * 
-	 * @param responseMsg
-	 *            The ResponseMsg
-	 */
-	public void setResponseMsg(String responseMsg) {
-		this.responseMsg = responseMsg;
-	}
+    /**
+     * @return The region
+     */
+    public String getRegion() {
+        return region;
+    }
 
-	/**
-	 * 
-	 * @return The teamNo
-	 */
-	public String getTeamNo() {
-		return teamNo;
-	}
+    /**
+     * @param region The Region
+     */
+    public void setRegion(String region) {
+        this.region = region;
+    }
 
-	/**
-	 * 
-	 * @param teamNo
-	 *            The TeamNo
-	 */
-	public void setTeamNo(String teamNo) {
-		this.teamNo = teamNo;
-	}
+    /**
+     * @return The responseMsg
+     */
+    public String getResponseMsg() {
+        return responseMsg;
+    }
 
-	/**
-	 * 
-	 * @return The userID
-	 */
-	public String getUserID() {
-		return userID;
-	}
+    /**
+     * @param responseMsg The ResponseMsg
+     */
+    public void setResponseMsg(String responseMsg) {
+        this.responseMsg = responseMsg;
+    }
 
-	/**
-	 * 
-	 * @param userID
-	 *            The UserID
-	 */
-	public void setUserID(String userID) {
-		this.userID = userID;
-	}
+    /**
+     * @return The teamNo
+     */
+    public String getTeamNo() {
+        return teamNo;
+    }
 
-	/**
-	 * 
-	 * @return The userName
-	 */
-	public String getUserName() {
-		return userName;
-	}
+    /**
+     * @param teamNo The TeamNo
+     */
+    public void setTeamNo(String teamNo) {
+        this.teamNo = teamNo;
+    }
 
-	/**
-	 * 
-	 * @param userName
-	 *            The UserName
-	 */
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    /**
+     * @return The userID
+     */
+    public String getUserID() {
+        return userID;
+    }
 
-	/**
-	 * 
-	 * @return The userStatus
-	 */
-	public String getUserStatus() {
-		return userStatus;
-	}
+    /**
+     * @param userID The UserID
+     */
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
-	/**
-	 * 
-	 * @param userStatus
-	 *            The UserStatus
-	 */
-	public void setUserStatus(String userStatus) {
-		this.userStatus = userStatus;
-	}
+    /**
+     * @return The userName
+     */
+    public String getUserName() {
+        return userName;
+    }
 
-	@Override
-	public String toString() {
-		return "User [aPIToken=" + aPIToken + ", authStatus=" + authStatus + ", insightURL=" + insightURL + ", level="
-				+ level + ", region=" + region + ", responseMsg=" + responseMsg + ", teamNo=" + teamNo + ", userID="
-				+ userID + ", userName=" + userName + ", userStatus=" + userStatus + "]";
-	}
+    /**
+     * @param userName The UserName
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
+    /**
+     * @return The userStatus
+     */
+    public String getUserStatus() {
+        return userStatus;
+    }
+
+    /**
+     * @param userStatus The UserStatus
+     */
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "User [aPIToken=" + aPIToken + ", authStatus=" + authStatus + ", insightURL=" + insightURL + ", level="
+                + level + ", region=" + region + ", responseMsg=" + responseMsg + ", teamNo=" + teamNo + ", userID="
+                + userID + ", userName=" + userName + ", userStatus=" + userStatus + "]";
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getDayOfbirth() {
+        return dayOfbirth;
+    }
+
+    public void setDayOfbirth(String dayOfbirth) {
+        this.dayOfbirth = dayOfbirth;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getLinkFacebook() {
+        return linkFacebook;
+    }
+
+    public void setLinkFacebook(String linkFacebook) {
+        this.linkFacebook = linkFacebook;
+    }
+
+    public String getLinkGmail() {
+        return linkGmail;
+    }
+
+    public void setLinkGmail(String linkGmail) {
+        this.linkGmail = linkGmail;
+    }
+
+    public User() {
+
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userID);
+        dest.writeString(userName);
+        dest.writeString(password);
+        dest.writeString(email);
+        dest.writeString(fullname);
+        dest.writeString(gender);
+        dest.writeString(dayOfbirth);
+        dest.writeString(phone);
+
+        dest.writeString(linkFacebook);
+        dest.writeString(linkGmail);
+    }
+
+    public User(Parcel in) {
+        userID = in.readString();
+        userName = in.readString();
+        password = in.readString();
+        email = in.readString();
+        fullname = in.readString();
+        gender = in.readString();
+        dayOfbirth = in.readString();
+        phone = in.readString();
+
+        linkFacebook = in.readString();
+        linkGmail = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

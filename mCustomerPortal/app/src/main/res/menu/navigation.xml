@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_contract"
+        android:icon="@drawable/ico_contract"
+        android:title="@string/title_contract" />
+    <item
+        android:id="@+id/navigation_fundbonus"
+        android:icon="@drawable/ico_fundbonus"
+        android:title="@string/title_fundbonus" />
+
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ico_message"
+        android:title="@string/title_notifications" />
+
+    <item
+        android:id="@+id/navigation_other"
+        android:icon="@drawable/ico_more"
+        android:title="@string/title_other" />
+</menu>

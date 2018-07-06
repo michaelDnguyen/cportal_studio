@@ -47,7 +47,7 @@ public class ServicesGenerator {
 
 	public static <S> S createServiceWithTokenParam(Class<S> serviceClass, final String authToken) {
 		HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-		logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+		logging.setLevel(Constant.LOG_LEVEL);
 
 		if (authToken != null) {
 			httpClient.addInterceptor(logging).addInterceptor(new Interceptor() {
@@ -81,7 +81,7 @@ public class ServicesGenerator {
 	public static synchronized <S> S createServiceWithTokenParam(final Context app, Class<S> serviceClass,
 			final String authToken) {
 		HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-		logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+		logging.setLevel(Constant.LOG_LEVEL);
 
 		httpClient.addInterceptor(logging).addInterceptor(new Interceptor() {
 			@Override

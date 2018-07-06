@@ -14,7 +14,7 @@ import com.dlvn.mcustomerportal.afragment.NotificationsFragment;
 import com.dlvn.mcustomerportal.afragment.PaymentPolicyFragment;
 import com.dlvn.mcustomerportal.afragment.ProductInfoFragment;
 import com.dlvn.mcustomerportal.afragment.SettingsFragment;
-import com.dlvn.mcustomerportal.common.cPortalPref;
+import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
 
@@ -162,14 +162,14 @@ public class HomeActivity extends AppCompatActivity {
 	 */
 	private void loadNavHeader() {
 		// name, website
-		if (cPortalPref.haveLogin(this)) {
-			txtName.setText(cPortalPref.getUserName(this));
+		if (CustomPref.haveLogin(this)) {
+			txtName.setText(CustomPref.getUserName(this));
 			txtLogin.setVisibility(View.GONE);
 			lloProfile.setVisibility(View.VISIBLE);
 
-			tvHopDong.setText(cPortalPref.getUserContract(this) + "");
-			tvGTHD.setText(NumberFormat.getNumberInstance(Locale.US).format(cPortalPref.getUserAmount(this)) + " VND");
-			tvPoint.setText(cPortalPref.getUserPoint(this) + "");
+			tvHopDong.setText(CustomPref.getUserContract(this) + "");
+			tvGTHD.setText(NumberFormat.getNumberInstance(Locale.US).format(CustomPref.getUserAmount(this)) + " VND");
+			tvPoint.setText(CustomPref.getUserPoint(this) + "");
 
 		} else {
 			txtName.setText("Guest");
@@ -216,7 +216,7 @@ public class HomeActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 
-				if (cPortalPref.haveLogin(getBaseContext())) {
+				if (CustomPref.haveLogin(getBaseContext())) {
 					Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
 					startActivity(intent);
 				}
@@ -340,8 +340,8 @@ public class HomeActivity extends AppCompatActivity {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
-							cPortalPref.clearUserLogin(HomeActivity.this);
-							cPortalPref.setLogin(getBaseContext(), false);
+							CustomPref.clearUserLogin(HomeActivity.this);
+							CustomPref.setLogin(getBaseContext(), false);
 							Intent intent = new Intent(getBaseContext(), HomeActivity.class);
 							intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 							startActivity(intent);
@@ -399,7 +399,7 @@ public class HomeActivity extends AppCompatActivity {
 					break;
 				case R.id.nav_infoContract:
 
-					if (cPortalPref.haveLogin(HomeActivity.this)) {
+					if (CustomPref.haveLogin(HomeActivity.this)) {
 						navItemIndex = 3;
 						CURRENT_TAG = TAG_TTHOPDONG;
 						break;
@@ -418,7 +418,7 @@ public class HomeActivity extends AppCompatActivity {
 
 				case R.id.nav_bonusProgram:
 
-					if (cPortalPref.haveLogin(HomeActivity.this)) {
+					if (CustomPref.haveLogin(HomeActivity.this)) {
 						navItemIndex = 4;
 						CURRENT_TAG = TAG_CTDIEMTHUONG;
 						break;
@@ -439,7 +439,7 @@ public class HomeActivity extends AppCompatActivity {
 					CURRENT_TAG = TAG_GIA_DV_QUY;
 					break;
 				case R.id.nav_payment:
-					if (cPortalPref.haveLogin(HomeActivity.this)) {
+					if (CustomPref.haveLogin(HomeActivity.this)) {
 						navItemIndex = 6;
 						CURRENT_TAG = TAG_TT_TRUCTUYEN;
 						break;
@@ -457,7 +457,7 @@ public class HomeActivity extends AppCompatActivity {
 					}
 
 				case R.id.nav_electricBill:
-					if (cPortalPref.haveLogin(HomeActivity.this)) {
+					if (CustomPref.haveLogin(HomeActivity.this)) {
 						navItemIndex = 7;
 						CURRENT_TAG = TAG_HOADONDIENTU;
 						break;

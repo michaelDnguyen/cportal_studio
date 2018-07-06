@@ -2,7 +2,7 @@ package com.dlvn.mcustomerportal.base;
 
 import com.dlvn.mcustomerportal.activity.LoginActivity;
 import com.dlvn.mcustomerportal.R;
-import com.dlvn.mcustomerportal.common.cPortalPref;
+import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.utils.Utilities;
 
 import android.app.Application;
@@ -94,8 +94,8 @@ public class CPortalApplication extends Application {
 	 */
 	public void logout() {
 		// xoa data
-		cPortalPref.clearUserLogin(this);
-		cPortalPref.setLogin(this, false);
+		CustomPref.clearUserLogin(this);
+		CustomPref.setLogin(this, false);
 		Utilities.deleteAllFileInFolder(getExternalFilesDir(null).getAbsolutePath());
 
 		Intent intent = new Intent(this, LoginActivity.class);
