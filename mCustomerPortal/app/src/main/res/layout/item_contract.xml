@@ -5,104 +5,114 @@
     android:layout_margin="5dp"
     android:background="@drawable/st_bg_layout"
     android:elevation="5dp"
-    android:orientation="vertical"
-    android:padding="@dimen/activity_horizontal_margin" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="Đang hiệu lực"
-            android:textColor="@color/red"
-            android:textSize="@dimen/textsize14"
-            android:textStyle="bold" />
-    </LinearLayout>
+    android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/imvProduct"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/blue_light" />
+        android:layout_height="wrap_content"
+        android:src="@drawable/an_tam_hung_thinh_2" />
+
+    <TextView
+        android:id="@+id/tvProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:text="An Tâm Hưng Thịnh"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textsize16"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical" >
+        android:background="@color/red"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-        <TextView
-            android:id="@+id/tvProposal"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Mã HĐ: 000073256"
-            android:textColor="@color/dark_grey"
-            android:textSize="@dimen/textsize16"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Số hợp đồng"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize13" />
 
-        <TextView
-            android:id="@+id/tvProduct"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="An Tâm Hưng Thịnh"
-            android:textColor="@color/dark_grey"
-            android:textSize="@dimen/textsize14"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvProposal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:hint="000073256"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize14"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvAmount"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="right"
-            android:text="816,140,710 VND"
-            android:textColor="@color/red"
-            android:textSize="@dimen/textsize14"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Tình trạng"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize13" />
 
-        <TextView
-            android:id="@+id/tvActiveDate"
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:hint="Đang hiệu lực"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize14"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ngày HL - 11/02/2016"
-            android:textColor="@color/dark_grey"
-            android:textSize="@dimen/textsize12" />
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvEndDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Ngày HH - 11/02/2022"
-            android:textColor="@color/dark_grey"
-            android:textSize="@dimen/textsize12" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text=" Số tiền HĐ"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize13" />
+
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:hint="xxx,xxx,xxx"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize14"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

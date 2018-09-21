@@ -87,8 +87,8 @@ public class PaymentInputActivity extends BaseActivity {
 		if (!TextUtils.isEmpty(Amount))
 			tvSoTienThanhToan.setText(Amount);
 
-		tvProposalNo.setText(CustomPref.getUserProposal(this));
-		edtHotenNguoiNop.setText(CustomPref.getUserName(this));
+		tvProposalNo.setText(CustomPref.getUserID(this));
+		edtHotenNguoiNop.setText(CustomPref.getFullName(this));
 		edtPhoneNumber.setText("0987654123");
 
 		List<String> list = new ArrayList<String>();

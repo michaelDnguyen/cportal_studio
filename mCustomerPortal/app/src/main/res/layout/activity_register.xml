@@ -63,6 +63,7 @@
             android:id="@+id/cedtInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:cursorVisible="true"
             android:layout_marginTop="5dp"
             android:textCursorDrawable="@color/black"
             android:textSize="@dimen/textsize15" />

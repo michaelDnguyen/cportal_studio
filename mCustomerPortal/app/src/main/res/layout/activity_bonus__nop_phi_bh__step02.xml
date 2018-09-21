@@ -232,6 +232,7 @@
                     android:text="Phí bảo hiểm" />
 
                 <TextView
+                    android:id="@+id/phiBaoHiem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
@@ -266,6 +267,7 @@
                     android:text="Tạm ứng đóng phí" />
 
                 <TextView
+                    android:id="@+id/tamUngDongPhi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
@@ -300,6 +302,7 @@
                     android:text="Tạm ứng" />
 
                 <TextView
+                    android:id="@+id/tamUng"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
@@ -321,6 +324,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="invisible"
                 android:layout_marginTop="15dp"
                 android:background="@color/grey" />
 
@@ -356,6 +360,7 @@
                 </LinearLayout>
 
                 <EditText
+                    android:id="@+id/edtEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -387,6 +392,7 @@
                 </LinearLayout>
 
                 <EditText
+                    android:id="@+id/edtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -398,6 +404,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="invisible"
                 android:layout_marginTop="15dp"
                 android:background="@color/grey" />
 
@@ -408,9 +415,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/state_btn_page_home"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp"
-                android:text="Xác nhận"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:text="Thanh toán"
                 android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>

@@ -1,27 +1,91 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_milk"
-    tools:context="com.dlvn.mcustomerportal.afragment.NotificationsFragment" >
+    android:orientation="vertical"
+    tools:context="com.dlvn.mcustomerportal.afragment.NotificationsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:paddingTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnQuaTrinhTichLuy"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/st_btn_red_left"
+                    android:text="Thông báo"
+                    android:textColor="@drawable/st_textcolor_red_white"
+                    android:textSize="@dimen/textsize14"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
+                    android:background="@color/blue"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnQuaTrinhSuDung"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/st_btn_red_right"
+                    android:text="Hộp thư"
+                    android:textColor="@drawable/st_textcolor_red_white"
+                    android:textSize="@dimen/textsize14"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvCount"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin">
 
             <ListView
                 android:id="@+id/lvNotification"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:divider="@android:color/transparent"
-                android:dividerHeight="2dp"
+                android:dividerHeight="1dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:scrollbars="none" />
@@ -38,4 +102,4 @@
         </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 
-</FrameLayout>
+</LinearLayout>

@@ -48,7 +48,7 @@ public class Bonus_NopPhiBH_Step03_Activity extends BaseActivity {
 		// TODO Auto-generated method stub
 		if (CustomPref.haveLogin(this)) {
 			tvTenKhachHang.setText(CustomPref.getUserName(this));
-			tvMaKhachHang.setText(CustomPref.getUserProposal(this));
+			tvMaKhachHang.setText(CustomPref.getUserID(this));
 			diemTichLuy = (float) CustomPref.getUserPoint(this);
 			tvDiem.setText(diemTichLuy + "");
 		}

@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -132,7 +133,9 @@ public class ClearableEditText extends AppCompatEditText implements TextWatcher 
             if (mClearIconDrawable != null) {
                 setCompoundDrawablesWithIntrinsicBounds(null, null, mClearIconDrawable, null);
             } else {
-                setCompoundDrawablesWithIntrinsicBounds(0, 0, DEFAULT_CLEAR_ICON_RES_ID, 0);
+                Drawable icon_res = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_clear, null);
+                setCompoundDrawablesWithIntrinsicBounds(null, null, icon_res, null);//setCompoundDrawablesWithIntrinsicBounds(0, 0, DEFAULT_CLEAR_ICON_RES_ID, 0);
+
             }
         } else {
             // remove icon

@@ -27,11 +27,12 @@ import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.activity.prototype.DashboardActivity;
 import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.CustomPref;
+import com.dlvn.mcustomerportal.services.NetworkUtils;
 import com.dlvn.mcustomerportal.services.ServicesGenerator;
 import com.dlvn.mcustomerportal.services.ServicesRequest;
 import com.dlvn.mcustomerportal.services.model.BaseRequest;
-import com.dlvn.mcustomerportal.services.model.User;
 import com.dlvn.mcustomerportal.services.model.request.loginNewRequest;
+import com.dlvn.mcustomerportal.services.model.response.ClientProfile;
 import com.dlvn.mcustomerportal.services.model.response.loginNewResponse;
 import com.dlvn.mcustomerportal.services.model.response.loginNewResult;
 import com.dlvn.mcustomerportal.utils.Utilities;
@@ -65,7 +66,7 @@ public class LoginInputPasswordFragment extends Fragment {
     private TextView tvForgotPassword;
     private ProgressDialog mProgressDialog;
 
-    User currentUser = null;
+    ClientProfile currentUser = null;
     ServicesRequest svRequester;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -83,7 +84,7 @@ public class LoginInputPasswordFragment extends Fragment {
      * @return A new instance of fragment LoginInputPasswordFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LoginInputPasswordFragment newInstance(User user) {
+    public static LoginInputPasswordFragment newInstance(ClientProfile user) {
         LoginInputPasswordFragment fragment = new LoginInputPasswordFragment();
         Bundle args = new Bundle();
         args.putParcelable(USER, user);
@@ -160,8 +161,10 @@ public class LoginInputPasswordFragment extends Fragment {
                         return;
 
 
-                    mAuthTask = new UserLoginTask(currentUser, Constant.LOGIN_ACTION_FORGOTPASSWORD);
-                    mAuthTask.execute((Void) null);
+                    if (NetworkUtils.isConnectedHaveDialog(getActivity())) {
+                        mAuthTask = new UserLoginTask(currentUser, Constant.LOGIN_ACTION_FORGOTPASSWORD);
+                        mAuthTask.execute((Void) null);
+                    }
                 }
             });
         }
@@ -203,7 +206,9 @@ public class LoginInputPasswordFragment extends Fragment {
             // perform the user login attempt.
             currentUser.setPassword(password);
             mAuthTask = new UserLoginTask(currentUser);
-            mAuthTask.execute((Void) null);
+
+            if (NetworkUtils.isConnectedHaveDialog(getActivity()))
+                mAuthTask.execute((Void) null);
         }
     }
 
@@ -213,15 +218,15 @@ public class LoginInputPasswordFragment extends Fragment {
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Response<loginNewResponse>> {
 
-        User user;
+        ClientProfile user;
         String acction;
 
-        UserLoginTask(User u) {
+        UserLoginTask(ClientProfile u) {
             user = u;
             acction = Constant.LOGIN_ACTION_CPLOGIN;
         }
 
-        UserLoginTask(User u, String Acc) {
+        UserLoginTask(ClientProfile u, String Acc) {
             user = u;
             acction = Acc;
         }
@@ -239,11 +244,11 @@ public class LoginInputPasswordFragment extends Fragment {
             try {
 
                 loginNewRequest data = new loginNewRequest();
-                data.setUserLogin(user.getUserName());
+                data.setUserLogin(user.getLoginName());
                 data.setPassword(user.getPassword());
 
                 data.setDeviceID(Utilities.getDeviceID(getActivity()));
-                data.setDeviceName(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
                 data.setProject(Constant.Project_ID);
                 data.setAction(acction);
                 data.setAuthentication(Constant.Project_Authentication);
@@ -255,6 +260,7 @@ public class LoginInputPasswordFragment extends Fragment {
                 result = call.execute();
 
             } catch (Exception e) {
+                myLog.printTrace(e);
                 return null;
             }
 
@@ -278,11 +284,11 @@ public class LoginInputPasswordFragment extends Fragment {
 
                                     if (result.getResult() != null && result.getResult().equals("false")) {
                                         //If account not exits --> link to register
-                                        Toast.makeText(getActivity(), "Login error: " + result.getErrLog(), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getActivity(), "Đăng nhập lỗi: " + result.getErrLog(), Toast.LENGTH_LONG).show();
                                     } else if (result.getResult() != null && result.getResult().equals("true")) {
 
                                         if (!TextUtils.isEmpty(result.getNewAPIToken()))
-                                            currentUser.setAPIToken(result.getNewAPIToken());
+                                            currentUser.setaPIToken(result.getNewAPIToken());
 
                                         if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CLINOEXIST)) {
 
@@ -324,6 +330,15 @@ public class LoginInputPasswordFragment extends Fragment {
 
                                             //Save info client profile
                                             CustomPref.setLogin(getActivity(), true);
+
+                                            //get user profile
+                                            ClientProfile user = result.getClientProfile().get(0);
+                                            if (TextUtils.isEmpty(user.getaPIToken()))
+                                                user.setaPIToken(result.getNewAPIToken());
+
+                                            //save user profile
+                                            CustomPref.saveUserLogin(getActivity(), user);
+
                                             Intent intent = new Intent(getActivity(), DashboardActivity.class);
                                             startActivity(intent);
                                             getActivity().finish();
@@ -352,16 +367,18 @@ public class LoginInputPasswordFragment extends Fragment {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(getActivity());
             mProgressDialog.setMessage("Đang kiểm tra...");
-            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setCanceledOnTouchOutside(false);
         }
 
-        mProgressDialog.show();
+        if (!getActivity().isFinishing())
+            mProgressDialog.show();
     }
 
     private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
-        }
+        if (!getActivity().isFinishing())
+            if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                mProgressDialog.hide();
+            }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -374,12 +391,12 @@ public class LoginInputPasswordFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override

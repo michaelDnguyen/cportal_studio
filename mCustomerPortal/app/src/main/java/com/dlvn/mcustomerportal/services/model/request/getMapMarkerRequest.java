@@ -5,98 +5,120 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * 
  * @author nn.tai
  * @date Dec 20, 2017
  */
 public class getMapMarkerRequest extends JsonDataInput {
-	
-	@SerializedName("AgentID")
-	@Expose
-	private String agentId;
-	@SerializedName("Password")
-	@Expose
-	private String password;
-	@SerializedName("DeviceID")
-	@Expose
-	private String deviceId;
-	@SerializedName("Lat")
-	@Expose
-	private String lat;
-	@SerializedName("DeviceName")
-	@Expose
-	private String deviceName;
-	@SerializedName("Lng")
-	@Expose
-	private String lng;
-	@SerializedName("TypeOffice")
-	@Expose
-	private String typeOffice;
-	@SerializedName("APIToken")
-	@Expose
-	private String aPIToken;
 
-	public String getAgentId() {
-		return agentId;
-	}
+    @SerializedName("AgentID")
+    @Expose
+    private String agentId;
+    @SerializedName("Password")
+    @Expose
+    private String password;
+    @SerializedName("DeviceID")
+    @Expose
+    private String deviceId;
+    @SerializedName("Lat")
+    @Expose
+    private String lat;
+    @SerializedName("DeviceName")
+    @Expose
+    private String deviceName;
+    @SerializedName("Lng")
+    @Expose
+    private String lng;
+    @SerializedName("TypeOffice")
+    @Expose
+    private String typeOffice;
+    @SerializedName("APIToken")
+    @Expose
+    private String aPIToken;
+    @SerializedName("Search")
+    @Expose
+    private String search;
+    @SerializedName("Distance")
+    @Expose
+    private String distance;
 
-	public void setAgentId(String agentId) {
-		this.agentId = agentId;
-	}
+    public String getAgentId() {
+        return agentId;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setAgentId(String agentId) {
+        this.agentId = agentId;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getDeviceId() {
-		return deviceId;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
-	}
+    public String getDeviceId() {
+        return deviceId;
+    }
 
-	public String getLat() {
-		return lat;
-	}
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
 
-	public void setLat(String lat) {
-		this.lat = lat;
-	}
+    public String getLat() {
+        return lat;
+    }
 
-	public String getDeviceName() {
-		return deviceName;
-	}
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
 
-	public void setDeviceName(String deviceName) {
-		this.deviceName = deviceName;
-	}
+    public String getDeviceName() {
+        return deviceName;
+    }
 
-	public String getLng() {
-		return lng;
-	}
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
 
-	public void setLng(String lng) {
-		this.lng = lng;
-	}
+    public String getLng() {
+        return lng;
+    }
 
-	public String getTypeOffice() {
-		return typeOffice;
-	}
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
 
-	public void setTypeOffice(String typeOffice) {
-		this.typeOffice = typeOffice;
-	}
+    public String getTypeOffice() {
+        return typeOffice;
+    }
 
-	public String getAPIToken() {
-		return aPIToken;
-	}
+    public void setTypeOffice(String typeOffice) {
+        this.typeOffice = typeOffice;
+    }
 
-	public void setAPIToken(String aPIToken) {
-		this.aPIToken = aPIToken;
-	}
+    public String getAPIToken() {
+        return aPIToken;
+    }
+
+    public void setAPIToken(String aPIToken) {
+        this.aPIToken = aPIToken;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
 }

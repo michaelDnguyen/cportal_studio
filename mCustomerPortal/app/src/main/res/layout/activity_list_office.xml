@@ -1,24 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rloParent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rloHeader"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:theme="@style/MyActionBar">
+
+        <ImageButton
+            android:id="@+id/ibtnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:src="@drawable/ic_back_white" />
+
+        <Spinner
+            android:id="@+id/spnTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <Spinner
+            android:id="@+id/spnDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/spnTitle"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
 
     <fragment
         android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="com.google.android.gms.maps.SupportMapFragment" />
+        android:layout_below="@id/lloSearch" />
+
+    <LinearLayout
+        android:id="@+id/lloSearch"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/rloHeader"
+        android:background="#c7bcbcbc"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/state_bg_bolder_dialog"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/svSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:queryHint="Tìm kiếm" />
+
+            <TextView
+                android:id="@+id/tvHuySearch"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Hủy" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvOffice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/lloSearch"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone" />
+
 
     <!-- Button bottom -->
     <LinearLayout
         android:id="@+id/llobutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/btnVanPhong"
@@ -28,7 +109,7 @@
             android:background="@drawable/st_btn_red_left"
             android:text="Văn phòng"
             android:textColor="@drawable/st_textcolor_red_white"
-            android:textSize="@dimen/textsize14"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -46,20 +127,8 @@
             android:background="@drawable/st_btn_red_right"
             android:text="Phòng khám"
             android:textColor="@drawable/st_textcolor_red_white"
-            android:textSize="@dimen/textsize14"
+            android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imvMyLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:padding="5dp"
-        android:visibility="gone"
-        android:layout_marginBottom="40dp"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/ic_my_location_black_24dp" />
 
 </RelativeLayout>

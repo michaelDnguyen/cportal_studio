@@ -132,28 +132,28 @@ public class LoginActivity extends BaseActivity {
 						if (response.getPDLPadAuthLoginResult() != null) {
 							loginResult result = response.getPDLPadAuthLoginResult().get(0);
 							if (result != null) {
-								User user = new User();
-								user.setUserID(userID);
-								user.setPassword(password);
-								user.setUserName(result.getUserName());
-								user.setAPIToken(result.getAPIToken());
-								
-								// random value demo
-								int nhd = 0, tgt = 0, point = 0;
-								Random rand = new Random();
-								user.setNumberContract(rand.nextInt(10) % 10);
-								user.setAmountContract((rand.nextInt(1000) % 1000) * 1000000);
-								user.setPoint(rand.nextInt(10000));
-								user.setProposalNo("000" + rand.nextInt(99999));
-
-								CustomPref.saveUserLogin(LoginActivity.this, user);
-								CustomPref.setLogin(LoginActivity.this, true);
-								CustomPref.setRefreshing(LoginActivity.this, true);
-
-								Intent i = new Intent(getBaseContext(), HomeActivity.class);
-								i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-								startActivity(i);
-								finish();
+//								User user = new User();
+//								user.setUserID(userID);
+//								user.setPassword(password);
+//								user.setUserName(result.getUserName());
+//								user.setAPIToken(result.getAPIToken());
+//
+//								// random value demo
+//								int nhd = 0, tgt = 0, point = 0;
+//								Random rand = new Random();
+//								user.setNumberContract(rand.nextInt(10) % 10);
+//								user.setAmountContract((rand.nextInt(1000) % 1000) * 1000000);
+//								user.setPoint(rand.nextInt(10000));
+//								user.setProposalNo("000" + rand.nextInt(99999));
+//
+//								CustomPref.saveUserLogin(LoginActivity.this, user);
+//								CustomPref.setLogin(LoginActivity.this, true);
+//								CustomPref.setRefreshing(LoginActivity.this, true);
+//
+//								Intent i = new Intent(getBaseContext(), HomeActivity.class);
+//								i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//								startActivity(i);
+//								finish();
 							}
 						}
 				}

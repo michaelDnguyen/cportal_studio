@@ -1,16 +1,17 @@
 package com.dlvn.mcustomerportal.adapter;
 
-import java.util.List;
-
-import com.dlvn.mcustomerportal.R;
-import com.dlvn.mcustomerportal.adapter.model.NotificationModel;
-
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.dlvn.mcustomerportal.R;
+import com.dlvn.mcustomerportal.adapter.model.NotificationModel;
+
+import java.util.List;
 
 public class NotificationListAdapter extends ArrayAdapter<NotificationModel> {
 
@@ -47,7 +48,6 @@ public class NotificationListAdapter extends ArrayAdapter<NotificationModel> {
 
 			holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
 			holder.tvDate = (TextView) convertView.findViewById(R.id.tvDate);
-			holder.tvStatus = (TextView) convertView.findViewById(R.id.tvStatus);
 
 			convertView.setTag(holder);
 		} else
@@ -57,15 +57,15 @@ public class NotificationListAdapter extends ArrayAdapter<NotificationModel> {
 			holder.tvName.setText(item.getTitle());
 			holder.tvDate.setText(item.getCreateDate());
 			if (item.isRead())
-				holder.tvStatus.setVisibility(View.VISIBLE);
+				holder.tvName.setTextColor(Color.GRAY);
 			else
-				holder.tvStatus.setVisibility(View.GONE);
+				holder.tvName.setTextColor(Color.RED);
 		}
 		return convertView;
 	}
 
 	private class ViewHolder {
-		TextView tvName, tvDate, tvStatus;
+		TextView tvName, tvDate;
 	}
 
 }

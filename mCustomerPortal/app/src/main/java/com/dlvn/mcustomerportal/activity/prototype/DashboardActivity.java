@@ -1,15 +1,27 @@
 package com.dlvn.mcustomerportal.activity.prototype;
 
+import android.annotation.TargetApi;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dlvn.mcustomerportal.R;
@@ -19,15 +31,38 @@ import com.dlvn.mcustomerportal.afragment.InfoContractFragment;
 import com.dlvn.mcustomerportal.afragment.NotificationsFragment;
 import com.dlvn.mcustomerportal.afragment.SettingsFragment;
 import com.dlvn.mcustomerportal.base.BaseActivity;
+import com.dlvn.mcustomerportal.common.Constant;
+import com.dlvn.mcustomerportal.common.CustomPref;
+import com.dlvn.mcustomerportal.services.ServicesGenerator;
+import com.dlvn.mcustomerportal.services.ServicesRequest;
+import com.dlvn.mcustomerportal.services.model.BaseRequest;
+import com.dlvn.mcustomerportal.services.model.request.GetPointByCLIIDRequest;
+import com.dlvn.mcustomerportal.services.model.response.GetPointByCLIIDResponse;
+import com.dlvn.mcustomerportal.services.model.response.GetPointByCLIIDResult;
 import com.dlvn.mcustomerportal.utils.Utilities;
+import com.dlvn.mcustomerportal.utils.listerner.OnFragmentInteractionListener;
 import com.dlvn.mcustomerportal.utils.myLog;
+import com.dlvn.mcustomerportal.view.MyCustomDialog;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.Stack;
 
-public class DashboardActivity extends BaseActivity {
+import retrofit2.Call;
+import retrofit2.Response;
+
+public class DashboardActivity extends BaseActivity implements OnFragmentInteractionListener {
+
+    /**
+     * The code used when requesting permissions
+     */
+    private static final int PERMISSIONS_REQUEST = 1234;
 
     private TextView mTextMessage;
+
+    ServicesRequest svRequester;
 
     private HashMap<String, Stack<Fragment>> mStacks;
     private String mCurrentTab;
@@ -37,6 +72,7 @@ public class DashboardActivity extends BaseActivity {
     public static final String TAB_FUNDBONUS = "tab_fundbonus";
     public static final String TAB_NOTIFICATIONS = "tab_notifications";
     public static final String TAB_OTHER = "tab_other";
+    LinearLayout lloHeader;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -70,6 +106,10 @@ public class DashboardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        svRequester = ServicesGenerator.createService(ServicesRequest.class);
+
+        //TODO: declare lloHeader
+        lloHeader = (LinearLayout) this.findViewById(R.id.lloHeader);
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -91,6 +131,12 @@ public class DashboardActivity extends BaseActivity {
             myLog.printTrace(e);
         }
 
+        //check permission required
+        if (Build.VERSION.SDK_INT >= 23) {
+            checkPermissions();
+        }
+
+        new getClientPointTask(this).execute();
     }
 
     private void gotoFragment(Fragment selectedFragment) {
@@ -101,7 +147,7 @@ public class DashboardActivity extends BaseActivity {
     }
 
     private void selectedTab(String tabId) {
-        myLog.E("selectedTab");
+        myLog.E("selectedTab " + tabId);
         mCurrentTab = tabId;
 
         if (mStacks.get(tabId).size() == 0) {
@@ -136,7 +182,8 @@ public class DashboardActivity extends BaseActivity {
             mStacks.get(tag).push(fragment);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
-        ft.replace(R.id.main_container, fragment);
+        ft.replace(R.id.main_container, fragment, fragment.getTag());
+        ft.addToBackStack(fragment.getTag());
         ft.commit();
     }
 
@@ -159,16 +206,33 @@ public class DashboardActivity extends BaseActivity {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        myLog.E("Change " + newConfig);
+    }
+
+    @Override
     public void onBackPressed() {
         if (mStacks != null)
             if (mStacks.get(mCurrentTab).size() == 1) {
                 // We are already showing first fragment of current tab, so when back pressed, we will finish this activity..
                 finish();
                 return;
-            } else
-                finish();
-        else
-            finish();
+            }
+//            else
+//                finish();
+//        else
+//            finish();
 
         /* Goto previous fragment in navigation stack of this tab */
         popFragments();
@@ -189,5 +253,151 @@ public class DashboardActivity extends BaseActivity {
         }
 
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onFragmentAddstackListener(String tagId, Fragment frag, boolean shouldAdd) {
+        pushFragments(tagId, frag, shouldAdd);
+    }
+
+    /**
+     * Check if the required permissions have been granted, and
+     * {@link #requestPermissions(String[], int)}.
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    private void checkPermissions() {
+        String[] ungrantedPermissions = requiredPermissionsStillNeeded();
+        if (ungrantedPermissions.length != 0) {
+            requestPermissions(ungrantedPermissions, PERMISSIONS_REQUEST);
+        }
+    }
+
+    /**
+     * Convert the array of required permissions to a {@link } to remove
+     * redundant elements. Then remove already granted permissions, and return
+     * an array of ungranted permissions.
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    private String[] requiredPermissionsStillNeeded() {
+
+        Set<String> permissions = new HashSet<String>();
+        String[] lsPermission = Utilities.getRequiredPermissions(DashboardActivity.this);
+        myLog.E("Permission Required " + lsPermission.toString());
+        for (String permission : lsPermission) {
+            permissions.add(permission);
+        }
+        for (Iterator<String> i = permissions.iterator(); i.hasNext(); ) {
+            String permission = i.next();
+            if (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
+                myLog.E(DashboardActivity.class.getSimpleName(),
+                        "Permission: " + permission + " already granted.");
+                i.remove();
+            } else {
+                myLog.E(DashboardActivity.class.getSimpleName(),
+                        "Permission: " + permission + " not yet granted.");
+            }
+        }
+        return permissions.toArray(new String[permissions.size()]);
+    }
+
+    /**
+     * See if we now have all of the required dangerous permissions. Otherwise,
+     * tell the user that they cannot continue without granting the permissions,
+     * and then request the permissions again.
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUEST) {
+//            checkPermissions();
+            myLog.E("String[]permission " + permissions + " -- Result = " + grantResults);
+        }
+    }
+
+    /**
+     * Task call API get client point By CLient ID in Background
+     */
+    public class getClientPointTask extends AsyncTask<Void, Void, Response<GetPointByCLIIDResponse>> {
+        Context context;
+
+        public getClientPointTask(Context c) {
+            context = c;
+        }
+
+        @Override
+        protected Response<GetPointByCLIIDResponse> doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+            Response<GetPointByCLIIDResponse> result = null;
+            try {
+                GetPointByCLIIDRequest data = new GetPointByCLIIDRequest();
+
+                data.setClientID(CustomPref.getUserID(context));
+                data.setAPIToken(CustomPref.getAPIToken(context));
+                data.setDeviceID(Utilities.getDeviceID(context));
+                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setProject(Constant.Project_ID);
+                data.setAuthentication(Constant.Project_Authentication);
+                data.setUserLogin(CustomPref.getUserName(context));
+
+                BaseRequest request = new BaseRequest();
+                request.setJsonDataInput(data);
+
+                Call<GetPointByCLIIDResponse> call = svRequester.GetPointByCLIID(request);
+                result = call.execute();
+
+            } catch (Exception e) {
+                myLog.printTrace(e);
+                return null;
+            }
+
+            // TODO: register the new account here.
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(final Response<GetPointByCLIIDResponse> success) {
+            if (success != null) {
+                try {
+                    if (success.isSuccessful()) {
+                        GetPointByCLIIDResponse response = success.body();
+                        if (response != null)
+                            if (response.getResponse() != null) {
+                                GetPointByCLIIDResult result = response.getResponse();
+                                if (result != null) {
+
+                                    if (result.getResult() != null && result.getResult().equals("false")) {
+                                        //If account not exits --> link to register
+                                        myLog.E("BonusProgramFragment", "Get Point: " + result.getErrLog());
+
+//                                        if (result.getNewAPIToken().equalsIgnoreCase("invalidtoken")) {
+//                                            Utilities.processLoginAgain(context, getString(R.string.message_alert_relogin));
+//                                        }
+
+                                    } else if (result.getResult() != null && result.getResult().equals("true")) {
+
+                                        //Save Token
+                                        if (!TextUtils.isEmpty(result.getNewAPIToken()))
+                                            CustomPref.saveToken(context, result.getNewAPIToken());
+
+                                        if (result.getPoint() != null) {
+                                            String point = result.getPoint();
+                                            String rank = result.getClassPO();
+                                            CustomPref.saveUserPoint(context, Float.parseFloat(result.getPoint()) / 1000);
+                                            CustomPref.saveUserRank(context, rank);
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                } catch (Exception e) {
+                    myLog.printTrace(e);
+                }
+            }
+        }
     }
 }

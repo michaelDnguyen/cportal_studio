@@ -45,7 +45,7 @@ public class ChangeProfileActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		if (CustomPref.haveLogin(this)) {
 			tvTenKH.setText(CustomPref.getUserName(this));
-			tvMaKH.setText(CustomPref.getUserProposal(this));
+			tvMaKH.setText(CustomPref.getUserID(this));
 		}
 	}
 

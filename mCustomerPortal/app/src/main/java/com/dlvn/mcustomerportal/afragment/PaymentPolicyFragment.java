@@ -95,7 +95,7 @@ public class PaymentPolicyFragment extends Fragment {
 
 		if (CustomPref.haveLogin(getActivity())) {
 			tvTenKhachHang.setText(CustomPref.getUserName(getActivity()));
-			tvMaKhachHang.setText(CustomPref.getUserProposal(getActivity()));
+			tvMaKhachHang.setText(CustomPref.getUserID(getActivity()));
 		}
 	}
 

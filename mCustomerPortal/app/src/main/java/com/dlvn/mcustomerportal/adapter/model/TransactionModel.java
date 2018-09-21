@@ -6,19 +6,91 @@ import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /*
  * @author nn.tai
  * @date Jan 4, 2018
  * @Do TODO
  */
-public class TransactionModel implements Parcelable {
+public class TransactionModel implements Parcelable{
 
-	String maGiaoDich;
-	String soHD;
-	String soTien;
-	String trangThai;
-	String ngayGD;
-	List<TransactionDetailModel> lstDetail;
+	@SerializedName("CreateDate")
+	@Expose
+	private String createDate;
+	@SerializedName("TransactionDetailID")
+	@Expose
+	private String transactionDetailID;
+	@SerializedName("PolicyNo")
+	@Expose
+	private String policyNo;
+	@SerializedName("Refno")
+	@Expose
+	private String refno;
+	@SerializedName("Amount")
+	@Expose
+	private String amount;
+	@SerializedName("Status")
+	@Expose
+	private String status;
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getTransactionDetailID() {
+		return transactionDetailID;
+	}
+
+	public void setTransactionDetailID(String transactionDetailID) {
+		this.transactionDetailID = transactionDetailID;
+	}
+
+	public String getPolicyNo() {
+		return policyNo;
+	}
+
+	public void setPolicyNo(String policyNo) {
+		this.policyNo = policyNo;
+	}
+
+	public String getRefno() {
+		return refno;
+	}
+
+	public void setRefno(String refno) {
+		this.refno = refno;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public TransactionModel(Parcel in){
+		transactionDetailID = in.readString();
+		policyNo = in.readString();
+		amount = in.readString();
+		status = in.readString();
+		createDate = in.readString();
+		refno = in.readString();
+	}
 
 	@Override
 	public int describeContents() {
@@ -29,24 +101,12 @@ public class TransactionModel implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		// TODO Auto-generated method stub
-		dest.writeString(maGiaoDich);
-		dest.writeString(soHD);
-		dest.writeString(soTien);
-		dest.writeString(trangThai);
-		dest.writeString(ngayGD);
-		dest.writeList(lstDetail);
-	}
-
-	public TransactionModel(Parcel in) {
-		maGiaoDich = in.readString();
-		soHD = in.readString();
-		soTien = in.readString();
-		trangThai = in.readString();
-		ngayGD = in.readString();
-
-		lstDetail = new ArrayList<>();
-		in.readList(lstDetail, TransactionDetailModel.class.getClassLoader());
-//		lstDetail = in.readArrayList(TransactionModel.class.getClassLoader());
+		dest.writeString(transactionDetailID);
+		dest.writeString(policyNo);
+		dest.writeString(amount);
+		dest.writeString(status);
+		dest.writeString(createDate);
+		dest.writeString(refno);
 	}
 
 	public static final Creator<TransactionModel> CREATOR = new Creator<TransactionModel>() {
@@ -63,64 +123,4 @@ public class TransactionModel implements Parcelable {
 			return new TransactionModel(source);
 		}
 	};
-
-	public TransactionModel(String maGiaoDich, String soHD, String soTien, String trangThai, String ngayGD,
-			List<TransactionDetailModel> lstDetail) {
-		super();
-		this.maGiaoDich = maGiaoDich;
-		this.soHD = soHD;
-		this.soTien = soTien;
-		this.trangThai = trangThai;
-		this.ngayGD = ngayGD;
-		this.lstDetail = lstDetail;
-	}
-
-	public String getMaGiaoDich() {
-		return maGiaoDich;
-	}
-
-	public void setMaGiaoDich(String maGiaoDich) {
-		this.maGiaoDich = maGiaoDich;
-	}
-
-	public String getSoHD() {
-		return soHD;
-	}
-
-	public void setSoHD(String soHD) {
-		this.soHD = soHD;
-	}
-
-	public String getSoTien() {
-		return soTien;
-	}
-
-	public void setSoTien(String soTien) {
-		this.soTien = soTien;
-	}
-
-	public String getTrangThai() {
-		return trangThai;
-	}
-
-	public void setTrangThai(String trangThai) {
-		this.trangThai = trangThai;
-	}
-
-	public String getNgayGD() {
-		return ngayGD;
-	}
-
-	public void setNgayGD(String ngayGD) {
-		this.ngayGD = ngayGD;
-	}
-
-	public List<TransactionDetailModel> getLstDetail() {
-		return lstDetail;
-	}
-
-	public void setLstDetail(List<TransactionDetailModel> lstDetail) {
-		this.lstDetail = lstDetail;
-	}
-
 }

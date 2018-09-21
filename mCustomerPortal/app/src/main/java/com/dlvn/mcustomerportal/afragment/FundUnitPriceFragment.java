@@ -7,18 +7,29 @@ import java.util.Date;
 import java.util.List;
 
 import com.dlvn.mcustomerportal.R;
+import com.dlvn.mcustomerportal.common.Constant;
+import com.dlvn.mcustomerportal.services.ServicesGenerator;
+import com.dlvn.mcustomerportal.services.ServicesRequest;
+import com.dlvn.mcustomerportal.services.model.BaseRequest;
+import com.dlvn.mcustomerportal.services.model.request.GetPriceILPRequest;
+import com.dlvn.mcustomerportal.services.model.response.GetPriceILPResponse;
+import com.dlvn.mcustomerportal.services.model.response.GetPriceILPResult;
+import com.dlvn.mcustomerportal.services.model.response.PriceILPModel;
+import com.dlvn.mcustomerportal.utils.myLog;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
@@ -29,323 +40,343 @@ import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class FundUnitPriceFragment extends Fragment {
-	// TODO: Rename parameter arguments, choose names that match
-	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-	private static final String ARG_PARAM1 = "param1";
-	private static final String ARG_PARAM2 = "param2";
 
-	// TODO: Rename and change types of parameters
-	private String mParam1;
-	private String mParam2;
+    private static final String TAG = "FundUnitPriceFragment2";
 
-	private OnFragmentInteractionListener mListener;
+    View view;
+    TextView tvMonth;
+    ImageView imvTruoc, imvSau;
 
-	View view;
+    ServicesRequest svRequester;
+    int year, month;
+    List<PriceILPModel> lsChart;
 
-	TextView tvMonth, tvTruoc, tvSau;
+    private LineChartView chart;
+    private LineChartData data;
+    private int numberOfLines = 5;
+    private int maxNumberOfLines = 5;
+    private int numberOfPoints = 5;
 
-	int year, month;
+    float[][] randomNumbersTab = new float[maxNumberOfLines][numberOfPoints];
+    int[] colorLine = {Color.BLUE, Color.CYAN, Color.MAGENTA, Color.YELLOW, Color.RED};
 
-	private LineChartView chart;
-	private LineChartData data;
-	private int numberOfLines = 3;
-	private int maxNumberOfLines = 4;
-	private int numberOfPoints = 4;
+    private boolean hasAxes = true;
+    private boolean hasAxesNames = true;
+    private boolean hasLines = true;
+    private boolean hasPoints = true;
+    private ValueShape shape = ValueShape.CIRCLE;
+    private boolean isFilled = false;
+    private boolean hasLabels = false;
+    private boolean isCubic = false;
+    private boolean hasLabelForSelected = false;
+    private boolean pointsHaveDifferentColor;
+    private boolean hasGradientToTransparent = false;
 
-	float[][] randomNumbersTab = new float[maxNumberOfLines][numberOfPoints];
-	int[] colorLine = { Color.BLUE, Color.CYAN, Color.MAGENTA };
+    public FundUnitPriceFragment() {
+        // Required empty public constructor
+    }
 
-	private boolean hasAxes = true;
-	private boolean hasAxesNames = true;
-	private boolean hasLines = true;
-	private boolean hasPoints = true;
-	private ValueShape shape = ValueShape.CIRCLE;
-	private boolean isFilled = false;
-	private boolean hasLabels = false;
-	private boolean isCubic = false;
-	private boolean hasLabelForSelected = false;
-	private boolean pointsHaveDifferentColor;
-	private boolean hasGradientToTransparent = false;
+    /**
+     * Use this factory method to create a new instance of this fragment using
+     * the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment PhotosFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static FundUnitPriceFragment newInstance(String param1, String param2) {
+        FundUnitPriceFragment fragment = new FundUnitPriceFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
-	public FundUnitPriceFragment() {
-		// Required empty public constructor
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
 
-	/**
-	 * Use this factory method to create a new instance of this fragment using
-	 * the provided parameters.
-	 *
-	 * @param param1
-	 *            Parameter 1.
-	 * @param param2
-	 *            Parameter 2.
-	 * @return A new instance of fragment PhotosFragment.
-	 */
-	// TODO: Rename and change types and number of parameters
-	public static FundUnitPriceFragment newInstance(String param1, String param2) {
-		FundUnitPriceFragment fragment = new FundUnitPriceFragment();
-		Bundle args = new Bundle();
-		args.putString(ARG_PARAM1, param1);
-		args.putString(ARG_PARAM2, param2);
-		fragment.setArguments(args);
-		return fragment;
-	}
+        }
+        svRequester = ServicesGenerator.createService(ServicesRequest.class);
+    }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		if (getArguments() != null) {
-			mParam1 = getArguments().getString(ARG_PARAM1);
-			mParam2 = getArguments().getString(ARG_PARAM2);
-		}
-	}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_fundprice, container, false);
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
-		if (view == null) {
-			view = inflater.inflate(R.layout.fragment_fundprice, container, false);
+            getViews(view);
+            initDatas();
+            setListener();
+        }
 
-			getViews(view);
-			initDatas();
-			setListener();
-		}
+        return view;
+    }
 
-		return view;
-	}
+    private void getViews(View v) {
+        // TODO Auto-generated method stub
+        chart = (LineChartView) v.findViewById(R.id.chart);
+        tvMonth = (TextView) v.findViewById(R.id.tvMonth);
+        imvTruoc = v.findViewById(R.id.imvTruoc);
+        imvSau = v.findViewById(R.id.imvSau);
+    }
 
-	private void getViews(View v) {
-		// TODO Auto-generated method stub
-		chart = (LineChartView) v.findViewById(R.id.chart);
-		tvMonth = (TextView) v.findViewById(R.id.tvMonth);
-		tvTruoc = (TextView) v.findViewById(R.id.tvTruoc);
-		tvSau = (TextView) v.findViewById(R.id.tvSau);
-	}
+    private void initDatas() {
+        // TODO Auto-generated method stub
+        Calendar c = Calendar.getInstance();
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH) + 1;
+        tvMonth.setText(month + "/" + year);
 
-	private void initDatas() {
-		// TODO Auto-generated method stub
-		Calendar c = Calendar.getInstance();
-		year = c.get(Calendar.YEAR);
-		month = c.get(Calendar.MONTH) + 1;
-		tvMonth.setText(month + "/" + year);
+        new GetILPPriceTask().execute();
+//        generateValues();
+//        generateData();
+//        chart.setViewportCalculationEnabled(false);
+//        resetViewport();
+    }
 
-		generateValues();
+    private void setListener() {
+        // TODO Auto-generated method stub
+        chart.setOnValueTouchListener(new ValueTouchListener());
 
-		generateData();
+        imvTruoc.setOnClickListener(new OnClickListener() {
 
-		// Disable viewport recalculations, see toggleCubic() method for more
-		// info.
-		chart.setViewportCalculationEnabled(false);
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                month--;
+                if (month <= 0) {
+                    month = 12;
+                    year--;
+                }
+                tvMonth.setText(month + "/" + year);
 
-		resetViewport();
-	}
+//                reset();
+//                generateValues();
+//                generateData();
+            }
+        });
 
-	private void setListener() {
-		// TODO Auto-generated method stub
-		chart.setOnValueTouchListener(new ValueTouchListener());
+        imvSau.setOnClickListener(new OnClickListener() {
 
-		tvTruoc.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                month++;
+                if (month > 12) {
+                    month = 1;
+                    year++;
+                }
+                tvMonth.setText(month + "/" + year);
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				month--;
-				if (month <= 0) {
-					month = 12;
-					year--;
-				}
-				tvMonth.setText(month + "/" + year);
+//                reset();
+//                generateValues();
+//                generateData();
+            }
+        });
+    }
 
-				reset();
-				generateValues();
-				generateData();
-			}
-		});
+    private void generateValues() {
+        for (int j = 0; j < lsChart.size(); ++j) {
+            randomNumbersTab[0][j] = Float.parseFloat(lsChart.get(j).getILPF1());
+            randomNumbersTab[1][j] = Float.parseFloat(lsChart.get(j).getILPF2());
+            randomNumbersTab[2][j] = Float.parseFloat(lsChart.get(j).getILPF3());
+            randomNumbersTab[3][j] = Float.parseFloat(lsChart.get(j).getILPF4());
+            randomNumbersTab[4][j] = Float.parseFloat(lsChart.get(j).getILPF5());
+        }
+    }
 
-		tvSau.setOnClickListener(new OnClickListener() {
+    private void reset() {
+        numberOfLines = 5;
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				month++;
-				if (month > 12) {
-					month = 1;
-					year++;
-				}
-				tvMonth.setText(month + "/" + year);
+        hasAxes = true;
+        hasAxesNames = true;
+        hasLines = true;
+        hasPoints = true;
+        shape = ValueShape.CIRCLE;
+        isFilled = false;
+        hasLabels = false;
+        isCubic = false;
+        hasLabelForSelected = false;
+        pointsHaveDifferentColor = false;
 
-				reset();
-				generateValues();
-				generateData();
-			}
-		});
-	}
+        chart.setValueSelectionEnabled(hasLabelForSelected);
+        resetViewport();
+    }
 
-	private void generateValues() {
-		for (int i = 0; i < maxNumberOfLines; ++i) {
-			for (int j = 0; j < numberOfPoints; ++j) {
-				randomNumbersTab[i][j] = (float) Math.random() * 7000f + 10000;
-			}
-		}
-	}
+    private void resetViewport() {
+        // Reset viewport height range to (0,100)
+        final Viewport v = new Viewport(chart.getMaximumViewport());
+        v.bottom = 9000;
+        v.top = 11000;
+        v.left = 0;
+        v.right = lsChart.size();
+        chart.setMaximumViewport(v);
+        chart.setCurrentViewportWithAnimation(v);
+    }
 
-	private void reset() {
-		numberOfLines = 3;
+    private void generateData() {
 
-		hasAxes = true;
-		hasAxesNames = true;
-		hasLines = true;
-		hasPoints = true;
-		shape = ValueShape.CIRCLE;
-		isFilled = false;
-		hasLabels = false;
-		isCubic = false;
-		hasLabelForSelected = false;
-		pointsHaveDifferentColor = false;
+        List<Line> lines = new ArrayList<Line>();
+        for (int i = 0; i < numberOfLines; ++i) {
 
-		chart.setValueSelectionEnabled(hasLabelForSelected);
-		resetViewport();
-	}
+            List<PointValue> values = new ArrayList<PointValue>();
+            for (int j = 0; j < lsChart.size(); ++j) {
+                values.add(new PointValue(j, randomNumbersTab[i][j]));
+            }
 
-	private void resetViewport() {
-		// Reset viewport height range to (0,100)
-		final Viewport v = new Viewport(chart.getMaximumViewport());
-		v.bottom = 10000;
-		v.top = 17000;
-		v.left = 0;
-		v.right = numberOfPoints - 1;
-		chart.setMaximumViewport(v);
-		chart.setCurrentViewport(v);
-	}
+            Line line = new Line(values);
+            line.setColor(colorLine[i]);
+            line.setShape(shape);
+            line.setCubic(isCubic);
+            line.setFilled(isFilled);
+            line.setHasLabels(hasLabels);
+            line.setHasLabelsOnlyForSelected(hasLabelForSelected);
+            line.setHasLines(hasLines);
+            line.setHasPoints(hasPoints);
+            if (pointsHaveDifferentColor) {
+                line.setPointColor(ChartUtils.COLORS[(i + 1) % ChartUtils.COLORS.length]);
+            }
+            lines.add(line);
+        }
 
-	private void generateData() {
+        data = new LineChartData(lines);
 
-		List<Line> lines = new ArrayList<Line>();
-		for (int i = 0; i < numberOfLines; ++i) {
+        List<AxisValue> axisValues = new ArrayList<AxisValue>();
 
-			List<PointValue> values = new ArrayList<PointValue>();
-			for (int j = 0; j < numberOfPoints; ++j) {
-				values.add(new PointValue(j, randomNumbersTab[i][j]));
-			}
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        int month = cal.get(Calendar.MONTH);
+        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
 
-			Line line = new Line(values);
-			line.setColor(colorLine[i]);
-			line.setShape(shape);
-			line.setCubic(isCubic);
-			line.setFilled(isFilled);
-			line.setHasLabels(hasLabels);
-			line.setHasLabelsOnlyForSelected(hasLabelForSelected);
-			line.setHasLines(hasLines);
-			line.setHasPoints(hasPoints);
-			if (pointsHaveDifferentColor) {
-				line.setPointColor(ChartUtils.COLORS[(i + 1) % ChartUtils.COLORS.length]);
-			}
-			lines.add(line);
-		}
+        for (int i = 0; i < lsChart.size(); i++) {
+//            int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+//            axisValues.add(new AxisValue(i).setLabel(fmt.format(cal.getTime())));
+//            cal.add(Calendar.DAY_OF_MONTH, 7);
+            axisValues.add(new AxisValue(i).setLabel(lsChart.get(i).getSubmitDate()));
+        }
 
-		data = new LineChartData(lines);
+        if (hasAxes) {
+            Axis axisX = new Axis(axisValues);
+            Axis axisY = new Axis().setHasLines(true);
+            if (hasAxesNames) {
+                axisX.setName("Kỳ định giá");
+                axisY.setName("");
+            }
 
-		List<AxisValue> axisValues = new ArrayList<AxisValue>();
+            axisX.setTextColor(Color.RED);
+            axisY.setTextColor(Color.RED);
 
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.DAY_OF_MONTH, 1);
-		int month = cal.get(Calendar.MONTH);
-		SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+            data.setAxisXBottom(axisX);
+            data.setAxisYLeft(axisY);
+        } else {
+            data.setAxisXBottom(null);
+            data.setAxisYLeft(null);
+        }
 
-		for (int i = 0; i < 4; i++) {
-			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-			axisValues.add(new AxisValue(i).setLabel(fmt.format(cal.getTime())));
-			cal.add(Calendar.DAY_OF_MONTH, 7);
-		}
+        data.setBaseValue(Float.POSITIVE_INFINITY);
+        chart.setLineChartData(data);
+        chart.startDataAnimation();
+        chart.setValueSelectionEnabled(true);
+    }
 
-		if (hasAxes) {
-			Axis axisX = new Axis(axisValues);
-			Axis axisY = new Axis().setHasLines(true);
-			if (hasAxesNames) {
-				axisX.setName("Kỳ định giá");
-				axisY.setName("Giá đơn vị");
-			}
-			data.setAxisXBottom(axisX);
-			data.setAxisYLeft(axisY);
-		} else {
-			data.setAxisXBottom(null);
-			data.setAxisYLeft(null);
-		}
+    private class ValueTouchListener implements LineChartOnValueSelectListener {
 
-		data.setBaseValue(Float.NEGATIVE_INFINITY);
-		chart.setLineChartData(data);
+        @Override
+        public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
+            Toast.makeText(getActivity(), "Selected: " + value, Toast.LENGTH_SHORT).show();
+        }
 
-	}
+        @Override
+        public void onValueDeselected() {
+            // TODO Auto-generated method stub
 
-	/**
-	 * Adds lines to data, after that data should be set again with
-	 * {@link LineChartView#setLineChartData(LineChartData)}. Last 4th line has
-	 * non-monotonically x values.
-	 */
-	private void addLineToData() {
-		if (data.getLines().size() >= maxNumberOfLines) {
-			Toast.makeText(getActivity(), "Samples app uses max 4 lines!", Toast.LENGTH_SHORT).show();
-			return;
-		} else {
-			++numberOfLines;
-		}
+        }
+    }
 
-		generateData();
-	}
+    /**
+     * Get Price ILP task
+     */
+    private class GetILPPriceTask extends AsyncTask<Void, Void, Response<GetPriceILPResponse>> {
 
-	private class ValueTouchListener implements LineChartOnValueSelectListener {
+        @Override
+        protected Response<GetPriceILPResponse> doInBackground(Void... voids) {
+            Response<GetPriceILPResponse> res = null;
 
-		@Override
-		public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
-			Toast.makeText(getActivity(), "Selected: " + value, Toast.LENGTH_SHORT).show();
-		}
+            try {
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-		@Override
-		public void onValueDeselected() {
-			// TODO Auto-generated method stub
+                //get fromDate - toDate for query
+                Date crDate = calendar.getTime();
+                String toDate = format.format(crDate);
+                myLog.E(TAG, "toDate : " + toDate);
 
-		}
+                calendar.add(Calendar.MONTH, -3);
+                Date date = calendar.getTime();
+                String fromDate = format.format(date);
+                myLog.E(TAG, "fromDate : " + fromDate);
 
-	}
+                GetPriceILPRequest data = new GetPriceILPRequest();
+                data.setProject(Constant.Project_ID);
+                data.setFromDate(fromDate);
+                data.setToDate(toDate);
 
-	// TODO: Rename method, update argument and hook method into UI event
-	public void onButtonPressed(Uri uri) {
-		if (mListener != null) {
-			mListener.onFragmentInteraction(uri);
-		}
-	}
+                BaseRequest request = new BaseRequest();
+                request.setJsonDataInput(data);
+                Call<GetPriceILPResponse> call = svRequester.GetPriceILP(request);
+                res = call.execute();
+            } catch (Exception e) {
+                myLog.printTrace(e);
+            }
+            return res;
+        }
 
-	@Override
-	public void onAttach(Context context) {
-		super.onAttach(context);
-		// if (context instanceof OnFragmentInteractionListener) {
-		// mListener = (OnFragmentInteractionListener) context;
-		// } else {
-		// throw new RuntimeException(context.toString()
-		// + " must implement OnFragmentInteractionListener");
-		// }
-	}
+        @Override
+        protected void onPostExecute(Response<GetPriceILPResponse> res) {
+            super.onPostExecute(res);
+            if (res.isSuccessful()) {
+                GetPriceILPResponse response = res.body();
+                if (response != null) {
+                    GetPriceILPResult result = response.getResponse();
+                    if (result != null) {
+                        if (result.getResult().equalsIgnoreCase("true")) {
+                            lsChart = result.getDtProposal();
+                            if (lsChart != null) {
+                                generateValues();
+                                generateData();
+                                chart.setViewportCalculationEnabled(false);
+                                resetViewport();
+                            }
+                        } else {
+                            myLog.E(TAG, "Get Price ILP Error: " + result.getErrLog());
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	@Override
-	public void onDetach() {
-		super.onDetach();
-		mListener = null;
-	}
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        // if (context instanceof OnFragmentInteractionListener) {
+        // mListener = (OnFragmentInteractionListener) context;
+        // } else {
+        // throw new RuntimeException(context.toString()
+        // + " must implement OnFragmentInteractionListener");
+        // }
+    }
 
-	/**
-	 * This interface must be implemented by activities that contain this
-	 * fragment to allow an interaction in this fragment to be communicated to
-	 * the activity and potentially other fragments contained in that activity.
-	 * <p>
-	 * See the Android Training lesson <a href=
-	 * "http://developer.android.com/training/basics/fragments/communicating.html"
-	 * >Communicating with Other Fragments</a> for more information.
-	 */
-	public interface OnFragmentInteractionListener {
-		// TODO: Update argument type and name
-		void onFragmentInteraction(Uri uri);
-	}
+    @Override
+    public void onDetach() {
+        super.onDetach();
 
+    }
 }

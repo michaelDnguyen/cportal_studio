@@ -1,6 +1,7 @@
 package com.dlvn.mcustomerportal.utils.listerner;
 
 import android.net.Uri;
+import android.support.v4.app.Fragment;
 
 /**
  * This interface must be implemented by activities that contain this
@@ -15,4 +16,6 @@ import android.net.Uri;
 public interface OnFragmentInteractionListener {
     // TODO: Update argument type and name
     void onFragmentInteraction(Uri uri);
+
+    void onFragmentAddstackListener(String tagId, Fragment frag, boolean shouldAdd);
 }

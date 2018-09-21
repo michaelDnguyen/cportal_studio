@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.prototype.PointDonActivity">
+
+    <!--layout point-->
+    <LinearLayout
+        android:id="@+id/lloPoint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:textSize="@dimen/textsize15"
+            android:text="Số điểm quý khách hiện có"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:gravity="right"
+            android:textColor="@color/red"
+            android:textSize="@dimen/textsize18" />
+    </LinearLayout>
+
+    <!--layout search policy no-->
+    <LinearLayout
+        android:id="@+id/lloPolicy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:orientation="vertical"
+        android:translationZ="3dp"
+        app:layout_constraintTop_toBottomOf="@id/lloPoint">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Quý khách vui lòng nhập số hợp đồng của người muốn tặng điểm" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Số hợp đồng"
+                android:textSize="@dimen/textsize15" />
+
+            <EditText
+                android:id="@+id/edtPolicyNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@android:color/transparent"
+                android:gravity="right"
+                android:hint="Nhập số hợp đồng"
+                android:inputType="number"
+                android:textColor="@color/red"
+                android:textCursorDrawable="@color/dark_grey"
+                android:textSize="@dimen/textsize15" />
+
+            <ImageButton
+                android:id="@+id/ibtnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="@color/black"
+                android:background="@android:color/transparent"
+                android:padding="5dp"
+                android:src="@android:drawable/ic_menu_search" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--layout thong tin tim duoc-->
+    <LinearLayout
+        android:id="@+id/lloInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/lloPolicy">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Thông tin người được tặng điểm" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="40dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Họ tên"
+                android:textSize="@dimen/textsize15" />
+
+            <TextView
+                android:id="@+id/tvCusName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@android:color/transparent"
+                android:gravity="right"
+                android:textAllCaps="true"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/textsize15" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            android:gravity="center_vertical"
+            android:minHeight="50dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="Nhập số điểm tặng (*)"
+                android:textColor="@color/red"
+                android:textSize="@dimen/textsize15" />
+
+            <EditText
+                android:id="@+id/edtPointDon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@android:color/transparent"
+                android:gravity="right"
+                android:hint="Nhập số điểm"
+                android:inputType="numberDecimal"
+                android:textColor="@color/red"
+                android:textCursorDrawable="@color/dark_grey"
+                android:textSize="@dimen/textsize15" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="(*) Quý khách vui lòng nhập điểm theo số nguyên gồm một số thập phân. Ví dụ: 10.0 tương đương 10 điểm; 10.5 tương đương 10.5 điểm " />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingRight="10dp">
+
+            <Button
+                android:id="@+id/btnTieptuc"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@drawable/state_btn_red_rectangle"
+                android:text="Tiếp tục"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

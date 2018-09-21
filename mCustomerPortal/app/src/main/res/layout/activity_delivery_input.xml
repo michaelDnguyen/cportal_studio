@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.prototype.DeliveryInputActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lloDeliveryConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--Ho ten-->
+                <LinearLayout
+                    android:id="@+id/lloHoten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="3dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="50dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:text="Họ tên"
+                        android:textSize="@dimen/textsize15" />
+
+                    <EditText
+                        android:id="@+id/edtHoTen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="@android:color/transparent"
+                        android:gravity="right"
+                        android:hint="Điền họ tên"
+                        android:inputType="textPersonName"
+                        android:textCursorDrawable="@color/dark_grey"
+                        android:textSize="@dimen/textsize15" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/medium_grey" />
+
+                <!--So nha, Duong pho-->
+                <LinearLayout
+                    android:id="@+id/lloDiachi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:elevation="3dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="50dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:text="Địa chỉ"
+                        android:textSize="@dimen/textsize15" />
+
+                    <EditText
+                        android:id="@+id/edtDiachi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="@android:color/transparent"
+                        android:gravity="right"
+                        android:hint="Điền địa chỉ"
+                        android:inputType="textPostalAddress"
+                        android:textCursorDrawable="@color/dark_grey"
+                        android:textSize="@dimen/textsize15" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/medium_grey" />
+
+                <!--So đt-->
+                <LinearLayout
+                    android:id="@+id/lloSoDT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:elevation="3dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="50dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:text="Số điện thoại"
+                        android:textSize="@dimen/textsize15" />
+
+                    <EditText
+                        android:id="@+id/edtSoDT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="@android:color/transparent"
+                        android:gravity="right"
+                        android:hint="Điền Số đt"
+                        android:inputType="phone"
+                        android:textCursorDrawable="@color/dark_grey"
+                        android:textSize="@dimen/textsize15" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/medium_grey" />
+
+                <!--Phuong xa-->
+                <LinearLayout
+                    android:id="@+id/lloPhuongXa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:elevation="3dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="50dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:text="Phường xã"
+                        android:textSize="@dimen/textsize15" />
+
+                    <EditText
+                        android:id="@+id/edtPhuongXa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="@android:color/transparent"
+                        android:gravity="right"
+                        android:hint="Điền phường xã"
+                        android:textCursorDrawable="@color/dark_grey"
+                        android:textSize="@dimen/textsize15" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/medium_grey" />
+
+                <!--Tinh Thanh-->
+                <LinearLayout
+                    android:id="@+id/lloTinhThanh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:elevation="3dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="50dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:text="Tỉnh thành"
+                        android:textSize="@dimen/textsize15" />
+
+                    <TextView
+                        android:id="@+id/tvTinhThanh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@drawable/ico_arrow_right"
+                        android:drawableTint="@color/dark_grey"
+                        android:gravity="right"
+                        android:hint="Chọn tỉnh thành"
+                        android:textCursorDrawable="@color/dark_grey"
+                        android:textSize="@dimen/textsize15" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/medium_grey" />
+
+                <!--Quan huyen-->
+                <LinearLayout
+                    android:id="@+id/lloQuanHuyen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:elevation="3dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="50dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:text="Quận huyện"
+                        android:textSize="@dimen/textsize15" />
+
+                    <TextView
+                        android:id="@+id/tvQuanHuyen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@drawable/ico_arrow_right"
+                        android:drawableTint="@color/dark_grey"
+                        android:gravity="right"
+                        android:hint="Chọn quận huyện"
+                        android:textCursorDrawable="@color/dark_grey"
+                        android:textSize="@dimen/textsize15" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lloEmailConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/medium_grey" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Xác nhận khi hoàn tất giao hàng" />
+                <!--Email-->
+                <LinearLayout
+                    android:id="@+id/lloEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:elevation="3dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="50dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:text="Email"
+                        android:textSize="@dimen/textsize15" />
+
+                    <EditText
+                        android:id="@+id/edtEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="@android:color/transparent"
+                        android:gravity="right"
+                        android:hint="Điền email"
+                        android:inputType="textEmailAddress"
+                        android:textCursorDrawable="@color/dark_grey"
+                        android:textSize="@dimen/textsize15" />
+                </LinearLayout>
+
+                <!--Phone-->
+                <LinearLayout
+                    android:id="@+id/lloPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:elevation="3dp"
+                    android:gravity="center_vertical"
+                    android:minHeight="50dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:text="Số điện thoại xác nhận"
+                        android:textSize="@dimen/textsize15" />
+
+                    <EditText
+                        android:id="@+id/edtPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="@android:color/transparent"
+                        android:gravity="right"
+                        android:hint="Điền Số đt"
+                        android:inputType="phone"
+                        android:textCursorDrawable="@color/dark_grey"
+                        android:textSize="@dimen/textsize15" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnThanhToan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/state_btn_red_radius"
+        android:text="Thanh toán"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

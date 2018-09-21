@@ -89,25 +89,25 @@ public class TransactionHistoryActivity extends BaseActivity {
 
 	private void initDataSearch() {
 		List<TransactionDetailModel> lstDetail = new ArrayList<>();
-		lstDetail.add(new TransactionDetailModel("Phí bảo hiểm định kỳ", "6,500,000", "Hoàn tất"));
-		lstDetail.add(new TransactionDetailModel("Khoản tạm ứng từ giá trị hoàn lại", "3,120,000", "Hoàn tất"));
-
-		List<TransactionDetailModel> lstDetail2 = new ArrayList<>();
-		lstDetail2.add(new TransactionDetailModel("Phí bảo hiểm định kỳ", "14,684,000", "Hoàn tất"));
-
-		List<TransactionDetailModel> lstDetail3 = new ArrayList<>();
-		lstDetail3.add(new TransactionDetailModel("Phí bảo hiểm định kỳ", "7,500,000", "Hoàn tất"));
-		lstDetail3.add(new TransactionDetailModel("Khoản tạm ứng từ giá trị hoàn lại", "2,420,000", "Hoàn tất"));
-
-		List<TransactionDetailModel> lstDetail4 = new ArrayList<>();
-		lstDetail4.add(new TransactionDetailModel("Khoản tạm ứng từ giá trị hoàn lại", "5,720,000", "Hoàn tất"));
-
-		lstData = new ArrayList<>();
-		lstData.add(new TransactionModel("125895", "00886596", "9,620,000", "Hoàn tất", "14/12/2017", lstDetail));
-		lstData.add(new TransactionModel("12468", "00956324", "860,000", "Hoàn tất", "14/12/2017", null));
-		lstData.add(new TransactionModel("12145", "00886596", "14,684,000", "Hoàn tất", "14/12/2017", lstDetail2));
-		lstData.add(new TransactionModel("11864", "00956324", "10,920,000", "Hoàn tất", "14/12/2017", lstDetail3));
-		lstData.add(new TransactionModel("10586", "00369544", "5,720,000", "Hoàn tất", "14/12/2017", lstDetail2));
+//		lstDetail.add(new TransactionDetailModel("Phí bảo hiểm định kỳ", "6,500,000", "Hoàn tất"));
+//		lstDetail.add(new TransactionDetailModel("Khoản tạm ứng từ giá trị hoàn lại", "3,120,000", "Hoàn tất"));
+//
+//		List<TransactionDetailModel> lstDetail2 = new ArrayList<>();
+//		lstDetail2.add(new TransactionDetailModel("Phí bảo hiểm định kỳ", "14,684,000", "Hoàn tất"));
+//
+//		List<TransactionDetailModel> lstDetail3 = new ArrayList<>();
+//		lstDetail3.add(new TransactionDetailModel("Phí bảo hiểm định kỳ", "7,500,000", "Hoàn tất"));
+//		lstDetail3.add(new TransactionDetailModel("Khoản tạm ứng từ giá trị hoàn lại", "2,420,000", "Hoàn tất"));
+//
+//		List<TransactionDetailModel> lstDetail4 = new ArrayList<>();
+//		lstDetail4.add(new TransactionDetailModel("Khoản tạm ứng từ giá trị hoàn lại", "5,720,000", "Hoàn tất"));
+//
+//		lstData = new ArrayList<>();
+//		lstData.add(new TransactionModel("125895", "00886596", "9,620,000", "Hoàn tất", "14/12/2017", lstDetail));
+//		lstData.add(new TransactionModel("12468", "00956324", "860,000", "Hoàn tất", "14/12/2017", null));
+//		lstData.add(new TransactionModel("12145", "00886596", "14,684,000", "Hoàn tất", "14/12/2017", lstDetail2));
+//		lstData.add(new TransactionModel("11864", "00956324", "10,920,000", "Hoàn tất", "14/12/2017", lstDetail3));
+//		lstData.add(new TransactionModel("10586", "00369544", "5,720,000", "Hoàn tất", "14/12/2017", lstDetail2));
 
 		adapter = new TransactionListAdapter(this, lstData);
 		lvTransaction.setAdapter(adapter);

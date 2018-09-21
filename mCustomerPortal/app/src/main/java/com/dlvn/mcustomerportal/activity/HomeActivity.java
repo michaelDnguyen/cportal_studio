@@ -167,7 +167,7 @@ public class HomeActivity extends AppCompatActivity {
 			txtLogin.setVisibility(View.GONE);
 			lloProfile.setVisibility(View.VISIBLE);
 
-			tvHopDong.setText(CustomPref.getUserContract(this) + "");
+//			tvHopDong.setText(CustomPref.getUserContract(this) + "");
 			tvGTHD.setText(NumberFormat.getNumberInstance(Locale.US).format(CustomPref.getUserAmount(this)) + " VND");
 			tvPoint.setText(CustomPref.getUserPoint(this) + "");
 

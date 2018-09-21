@@ -27,26 +27,26 @@
         <!-- min indicator radius when moving -->
         <attr name="siRadiusMin" format="dimension" />
     </declare-styleable>
-    
+
     <declare-styleable name="ViewPagerIndicator">
         <!-- Style of the circle indicator. -->
-        <attr name="vpiCirclePageIndicatorStyle" format="reference"/>
+        <attr name="vpiCirclePageIndicatorStyle" format="reference" />
         <!-- Style of the icon indicator's views. -->
-        <attr name="vpiIconPageIndicatorStyle" format="reference"/>
+        <attr name="vpiIconPageIndicatorStyle" format="reference" />
         <!-- Style of the line indicator. -->
-        <attr name="vpiLinePageIndicatorStyle" format="reference"/>
+        <attr name="vpiLinePageIndicatorStyle" format="reference" />
         <!-- Style of the title indicator. -->
-        <attr name="vpiTitlePageIndicatorStyle" format="reference"/>
+        <attr name="vpiTitlePageIndicatorStyle" format="reference" />
         <!-- Style of the tab indicator's tabs. -->
-        <attr name="vpiTabPageIndicatorStyle" format="reference"/>
+        <attr name="vpiTabPageIndicatorStyle" format="reference" />
         <!-- Style of the underline indicator. -->
-        <attr name="vpiUnderlinePageIndicatorStyle" format="reference"/>
+        <attr name="vpiUnderlinePageIndicatorStyle" format="reference" />
     </declare-styleable>
 
     <attr name="centered" format="boolean" />
     <attr name="selectedColor" format="color" />
     <attr name="strokeWidth" format="dimension" />
-	<attr name="unselectedColor" format="color" />
+    <attr name="unselectedColor" format="color" />
 
     <declare-styleable name="CirclePageIndicator">
         <!-- Whether or not the indicators should be centered. -->
@@ -56,7 +56,7 @@
         <!-- Color of the filled circles that represents pages. -->
         <attr name="pageColor" format="color" />
         <!-- Orientation of the indicator. -->
-        <attr name="android:orientation"/>
+        <attr name="android:orientation" />
         <!-- Radius of the circles. This is also the spacing between circles. -->
         <attr name="radius" format="dimension" />
         <!-- Whether or not the selected indicator snaps to the circles. -->
@@ -66,25 +66,71 @@
         <!-- Width of the stroke used to draw the circles. -->
         <attr name="strokeWidth" />
         <!-- View background -->
-        <attr name="android:background"/>
-</declare-styleable>
+        <attr name="android:background" />
+    </declare-styleable>
 
     <!--Declared for ClearableAutoCompleteTextView-->
     <declare-styleable name="ClearableAutoCompleteTextView" parent="ClearableEditText">
-        <attr name="clearIconDrawable"/>
-        <attr name="clearIconDrawWhenFocused"/>
+        <attr name="clearIconDrawable" />
+        <attr name="clearIconDrawWhenFocused" />
     </declare-styleable>
 
     <!--Declared for ClearableEditText-->
     <declare-styleable name="ClearableEditText">
-        <attr format="color|reference" name="clearIconDrawable"/>
-        <attr format="boolean" name="clearIconDrawWhenFocused"/>
+        <attr name="clearIconDrawable" format="color|reference" />
+        <attr name="clearIconDrawWhenFocused" format="boolean" />
     </declare-styleable>
 
     <!--Declared for ClearableTextInputEditText-->
     <declare-styleable name="ClearableTextInputEditText" parent="ClearableEditText">
-        <attr name="clearIconDrawable"/>
-        <attr name="clearIconDrawWhenFocused"/>
+        <attr name="clearIconDrawable" />
+        <attr name="clearIconDrawWhenFocused" />
+    </declare-styleable>
+
+
+    <!-- SwipeLayout -->
+    <declare-styleable name="SwipeRevealLayout">
+        <attr name="dragEdge">
+            <flag name="left" value="1" />
+            <flag name="right" value="2" />
+            <flag name="top" value="4" />
+            <flag name="bottom" value="8" />
+        </attr>
+
+        <attr name="mode">
+            <enum name="normal" value="0" />
+            <enum name="same_level" value="1" />
+        </attr>
+
+        <attr name="flingVelocity" format="integer" />
+
+        <attr name="minDistRequestDisallowParent" format="dimension" />
+    </declare-styleable>
+
+    <!--PinLock-->
+    <declare-styleable name="PinLockView">
+        <attr name="pinLength" format="integer" />
+        <attr name="keypadTextColor" format="color" />
+        <attr name="keypadTextSize" format="dimension" />
+        <attr name="keypadButtonSize" format="dimension" />
+        <attr name="keypadVerticalSpacing" format="dimension" />
+        <attr name="keypadHorizontalSpacing" format="dimension" />
+        <attr name="keypadButtonBackgroundDrawable" format="integer" />
+        <attr name="keypadDeleteButtonDrawable" format="integer" />
+        <attr name="keypadDeleteButtonSize" format="dimension" />
+        <attr name="keypadShowDeleteButton" format="boolean" />
+        <attr name="keypadDeleteButtonPressedColor" format="color" />
+
+        <attr name="dotEmptyBackground" format="reference" />
+        <attr name="dotFilledBackground" format="reference" />
+        <attr name="dotDiameter" format="dimension" />
+        <attr name="dotSpacing" format="dimension" />
+        <attr name="indicatorType" format="enum">
+            <enum name="fixed" value="0" />
+            <enum name="fill" value="1" />
+            <enum name="fillWithAnimation" value="2" />
+        </attr>
+
     </declare-styleable>
 
 </resources>

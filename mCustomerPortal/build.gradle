@@ -9,7 +9,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.android.tools.build:gradle:3.1.3'
         classpath 'io.fabric.tools:gradle:1.25.4'
         classpath 'com.google.gms:google-services:4.0.1'
     }
@@ -18,7 +18,6 @@ buildscript {
         RETROFIT_VERSION = '2.4.0'
         OKHTTP_VERSION = '3.10.0'
         PLAYSERVICES_VERSION = '15.0.1'
-        FIREBASE_VERSION = '16.0.1'
         LIBSUPPORT_VERSION = '27.1.1'
     }
 }
@@ -29,6 +28,7 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url "https://maven.google.com" }
+        maven { url 'https://jitpack.io' }
     }
 }
 task clean(type: Delete) {

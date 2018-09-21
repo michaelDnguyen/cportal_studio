@@ -34,9 +34,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
+                android:textStyle="bold"
                 android:gravity="right"
                 android:text="14,973,000"
-                android:textSize="@dimen/textsize15" />
+                android:textSize="@dimen/textsize17" />
         </LinearLayout>
 
         <LinearLayout

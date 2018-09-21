@@ -37,4 +37,17 @@
     <dimen name="si_default_text_size">10sp</dimen>
     <dimen name="si_default_radius_max">4dp</dimen>
     <dimen name="si_default_radius_min">2dp</dimen>
+
+    <!--height of layout payment no login-->
+    <dimen name="height_llo_paymentnologin">30dp</dimen>
+
+    <!--PinLock-->
+    <dimen name="pinlock_text_size">16sp</dimen>
+    <dimen name="pinlock_button_size">60dp</dimen>
+    <dimen name="pinlock_delete_button_size">16dp</dimen>
+    <dimen name="pinlock_horizontal_spacing">32dp</dimen>
+    <dimen name="pinlock_vertical_spacing">0dp</dimen>
+
+    <dimen name="pinlock_dot_diameter">8dp</dimen>
+    <dimen name="pinlock_dot_spacing">8dp</dimen>
 </resources>

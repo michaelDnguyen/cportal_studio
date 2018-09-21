@@ -15,12 +15,12 @@ public class loginNewRequest extends JsonDataInput {
     @SerializedName("Password")
     @Expose
     private String password;
-    @SerializedName("DeviceID")
+    @SerializedName("DeviceId")
     @Expose
     private String deviceID;
-    @SerializedName("DeviceName")
+    @SerializedName("DeviceToken")
     @Expose
-    private String deviceName;
+    private String deviceToken;
     @SerializedName("APIToken")
     @Expose
     private String apiToken;
@@ -36,6 +36,9 @@ public class loginNewRequest extends JsonDataInput {
     @SerializedName("PODOB")
     @Expose
     private String pODOB;
+    @SerializedName("PolicyNo")
+    @Expose
+    private String policyNo;
     @SerializedName("Gender")
     @Expose
     private String gender;
@@ -63,6 +66,9 @@ public class loginNewRequest extends JsonDataInput {
     @SerializedName("Authentication")
     @Expose
     private String authentication;
+    @SerializedName("OTP")
+    @Expose
+    private String otp;
 
     public String getAction() {
         return action;
@@ -96,12 +102,12 @@ public class loginNewRequest extends JsonDataInput {
         this.deviceID = deviceID;
     }
 
-    public String getDeviceName() {
-        return deviceName;
+    public String getDeviceToken() {
+        return deviceToken;
     }
 
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
     public String getApiToken() {
@@ -142,6 +148,14 @@ public class loginNewRequest extends JsonDataInput {
 
     public void setPODOB(String pODOB) {
         this.pODOB = pODOB;
+    }
+
+    public String getPolicyNo() {
+        return policyNo;
+    }
+
+    public void setPolicyNo(String policyNo) {
+        this.policyNo = policyNo;
     }
 
     public String getGender() {
@@ -214,5 +228,13 @@ public class loginNewRequest extends JsonDataInput {
 
     public void setAuthentication(String authentication) {
         this.authentication = authentication;
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
     }
 }

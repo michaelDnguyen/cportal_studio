@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -11,9 +12,13 @@ import java.util.regex.Pattern;
 
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.base.CPortalApplication;
+import com.dlvn.mcustomerportal.services.model.request.CartItemModel;
+import com.dlvn.mcustomerportal.services.model.response.MasterData_Category;
+import com.dlvn.mcustomerportal.services.model.response.ProductLoyaltyModel;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -37,6 +42,8 @@ import android.provider.Settings.Secure;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -158,6 +165,15 @@ public class Utilities {
         }
     }
 
+    public static void hideSoftInputKeyboard(Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+
     /**
      * Get version OS of device
      *
@@ -273,6 +289,26 @@ public class Utilities {
         return "";
     }
 
+    /**
+     * @param c
+     * @return
+     * @author nn.tai
+     */
+    public static String[] getRequiredPermissions(Context c) {
+        String[] permissions = null;
+        try {
+            permissions = c.getPackageManager().getPackageInfo(c.getPackageName(),
+                    PackageManager.GET_PERMISSIONS).requestedPermissions;
+        } catch (PackageManager.NameNotFoundException e) {
+            myLog.printTrace(e);
+        }
+        if (permissions == null) {
+            return new String[0];
+        } else {
+            return permissions.clone();
+        }
+    }
+
 
     /**
      * Format number by Locate US
@@ -330,16 +366,28 @@ public class Utilities {
             @Override
             public void run() {
                 try {
-                    DialogUtils.showAlertDialogWithCallback(context, message, new DialogInterface.OnClickListener() {
+                    MyCustomDialog dialog = new MyCustomDialog.Builder(context)
+                            .setTitle("Thông báo")
+                            .setMessage(message)
+                            .setPositiveButton(context.getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    CPortalApplication.getInstance().reLogin();
+                                }
+                            }).create();
+                    dialog.show();
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            CPortalApplication.getInstance().logout();
-                        }
-                    });
+//                    DialogUtils.showAlertDialogWithCallback(context, message, new DialogInterface.OnClickListener() {
+//
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//
+//                        }
+//                    });
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    myLog.printTrace(e);
                 }
             }
         });
@@ -421,6 +469,22 @@ public class Utilities {
             map.animateCamera(CameraUpdateFactory.zoomTo(17), 2000, null);
         }
     }
+
+    public static void showMap(GoogleMap map, LatLng point, String address, boolean isMind) {
+        if (point != null) {
+            // create marker
+            MarkerOptions marker = new MarkerOptions().position(point).title(address);
+            if (isMind)
+                marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ico_mylocation_marker));
+
+            // adding marker
+            map.addMarker(marker);
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 15.0f));
+            // Zoom in, animating the camera.
+            map.animateCamera(CameraUpdateFactory.zoomTo(17), 2000, null);
+        }
+    }
+
 
     /**
      * Display Setting alert about enable Location Provider, Ex: GPS
@@ -509,6 +573,7 @@ public class Utilities {
 
     /**
      * Open mail app
+     *
      * @param context
      */
     public static void actionOpenMailApp(Context context) {
@@ -538,7 +603,8 @@ public class Utilities {
         boolean rs = true;
         if (!email.contains("@"))
             rs = false;
-        else if (email.length() > 255)
+
+        if (email.length() > 255)
             rs = false;
 
         return rs;
@@ -637,7 +703,7 @@ public class Utilities {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             mFinishActivity = getArguments().getBoolean(ARGUMENT_FINISH_ACTIVITY);
 
-            return new AlertDialog.Builder(getActivity()).setMessage("location permission denied")
+            return new AlertDialog.Builder(getActivity()).setMessage("Không được phân quyền xác định vị trí.")
                     .setPositiveButton(android.R.string.ok, null).create();
         }
 
@@ -645,7 +711,7 @@ public class Utilities {
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
             if (mFinishActivity) {
-                Toast.makeText(getActivity(), "Permission required toast", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Cần cấp quyền để xác định vị trí.", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
         }
@@ -694,7 +760,7 @@ public class Utilities {
             final int requestCode = arguments.getInt(ARGUMENT_PERMISSION_REQUEST_CODE);
             mFinishActivity = arguments.getBoolean(ARGUMENT_FINISH_ACTIVITY);
 
-            return new AlertDialog.Builder(getActivity()).setMessage("Permission rationale location")
+            return new AlertDialog.Builder(getActivity()).setMessage("Cấp quyền xác định vị trí.")
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -712,10 +778,125 @@ public class Utilities {
         public void onDismiss(DialogInterface dialog) {
             super.onDismiss(dialog);
             if (mFinishActivity) {
-                Toast.makeText(getActivity(), "Permission required toast", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Cần cấp quyền xác định vị trí", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
         }
     }
 
+    /**
+     * method to reformat the input money for mCP
+     *
+     * @param number
+     * @return money + "%"
+     */
+    public static String formatMoneyToVND(String number) {
+        String result = "";
+        if (number == null || number.equals("0") || number.equals(""))
+            return "0";
+        try {
+            DecimalFormat formatter = new DecimalFormat("#,###,###");
+            result = formatter.format(Double.parseDouble(number));
+            return result;
+        } catch (Exception ex) {
+            myLog.printTrace(ex);
+            return "0";
+        }
+    }
+
+    /**
+     * method to reformat the input money for mCP
+     *
+     * @return money + "%"
+     */
+    public static String formatMoneyToVND(long number) {
+        String result = "";
+        if (number == 0)
+            return "0";
+        try {
+            DecimalFormat formatter = new DecimalFormat("#,###,###");
+            result = formatter.format(Double.parseDouble(number + ""))+" VNĐ";
+            return result;
+        } catch (Exception ex) {
+            myLog.printTrace(ex);
+            return "0";
+        }
+    }
+
+    public static String formatMoneyToPoint(long str) {
+        double value = (double) str / 1000;
+        DecimalFormat formatter = new DecimalFormat("#,###,###.#");
+        return formatter.format(Double.parseDouble(value + "")) + " điểm.";
+    }
+
+
+    /**
+     * @param html
+     * @return
+     * @author nn.tai
+     * control function parse Html by version OS
+     */
+    @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String html) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(html);
+        }
+    }
+
+    /**
+     * format distance to km
+     *
+     * @param distance
+     * @return
+     * @arthor nn.tai
+     * @modify Mar 18, 2018
+     */
+    public static final String FormatDistance(Double distance) {
+        String result = "";
+        if (distance == 0.0)
+            return "0";
+        try {
+            result = String.format("%.2f", distance);
+            return result;
+        } catch (Exception ex) {
+            return "";
+        }
+    }
+
+    /**
+     * @param cart
+     * @return
+     * @author nn.tai - count total item in Cart list
+     */
+    public static int countItemInCart(List<CartItemModel> cart) {
+        int count = 0;
+        if (cart != null)
+            for (CartItemModel item : cart) {
+                for (ProductLoyaltyModel mo : item.getLsItems())
+                    count += mo.getQuantity();
+            }
+
+        return count;
+    }
+
+    public static List<ProductLoyaltyModel> addProductToCart(ProductLoyaltyModel item, List<ProductLoyaltyModel> lsCart) {
+        boolean isExist = false;
+        try {
+            for (int i = 0; i < lsCart.size(); i++) {
+                if (lsCart.get(i).getProductID().equals(item.getProductID())) {
+                    isExist = true;
+                    int quantity = lsCart.get(i).getQuantity();
+                    lsCart.get(i).setQuantity(quantity + item.getQuantity());
+                }
+            }
+
+            if (!isExist)
+                lsCart.add(item);
+        } catch (Exception e) {
+            myLog.printTrace(e);
+        }
+        return lsCart;
+    }
 }

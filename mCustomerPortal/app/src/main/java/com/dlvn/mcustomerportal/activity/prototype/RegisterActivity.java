@@ -1,33 +1,45 @@
 package com.dlvn.mcustomerportal.activity.prototype;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSeekBar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.dlvn.mcustomerportal.R;
+import com.dlvn.mcustomerportal.activity.WebNapasActivity;
 import com.dlvn.mcustomerportal.base.BaseActivity;
 import com.dlvn.mcustomerportal.common.Constant;
+import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.services.ServicesGenerator;
 import com.dlvn.mcustomerportal.services.ServicesRequest;
 import com.dlvn.mcustomerportal.services.model.BaseRequest;
-import com.dlvn.mcustomerportal.services.model.User;
 import com.dlvn.mcustomerportal.services.model.request.loginNewRequest;
+import com.dlvn.mcustomerportal.services.model.response.ClientProfile;
 import com.dlvn.mcustomerportal.services.model.response.loginNewResponse;
 import com.dlvn.mcustomerportal.services.model.response.loginNewResult;
 import com.dlvn.mcustomerportal.utils.Utilities;
@@ -35,12 +47,19 @@ import com.dlvn.mcustomerportal.utils.listerner.OnRegisterFragmentListener;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
 import com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText;
+import com.dlvn.mcustomerportal.view.pinlock.IndicatorDots;
+import com.dlvn.mcustomerportal.view.pinlock.PinLockListener;
+import com.dlvn.mcustomerportal.view.pinlock.PinLockView;
+
+import java.io.UnsupportedEncodingException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity implements OnRegisterFragmentListener {
+
+    private static final String TAG = "RegisterActivity";
 
     LinearLayout lloBack;
     Button btnTiepTuc;
@@ -50,7 +69,7 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
     AppCompatSeekBar sbStep;
     ToggleButton tbGender;
 
-    User user = null;
+    ClientProfile user = null;
     int step = 1;
     int percent = 25;
     ServicesRequest svRequester;
@@ -66,7 +85,7 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
         initViews();
         setListener();
 
-        user = new User();
+        user = new ClientProfile();
         if (getIntent().getExtras() != null)
             if (getIntent().getExtras().containsKey(Constant.INTENT_USER_DATA))
                 user = getIntent().getParcelableExtra(Constant.INTENT_USER_DATA);
@@ -163,8 +182,8 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
                 ctvShowPassword.setVisibility(View.GONE);
                 tbGender.setVisibility(View.GONE);
 
-                if (!TextUtils.isEmpty(user.getFullname())) {
-                    cedtInput.setText(user.getFullname());
+                if (!TextUtils.isEmpty(user.getFullName())) {
+                    cedtInput.setText(user.getFullName());
                 }
 
                 break;
@@ -185,7 +204,11 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
                 cedtInput.setVisibility(View.VISIBLE);
                 cedtInput.setInputType(InputType.TYPE_CLASS_PHONE);
                 tbGender.setVisibility(View.GONE);
-                cedtInput.setText("");
+
+                if (!TextUtils.isEmpty(user.getCellPhone()))
+                    cedtInput.setText(user.getCellPhone());
+                else
+                    cedtInput.setText("");
                 break;
             default:
                 break;
@@ -243,12 +266,12 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
             if (step == 1)
                 user.setPassword(strInput);
             else if (step == 2)
-                user.setFullname(strInput);
+                user.setFullName(strInput);
             else if (step == 3)
                 user.setGender("");
             else if (step == 4) {
-                user.setPhone(strInput);
-                doCPRegister(RegisterActivity.this, user, Constant.LOGIN_ACTION_REGISTERACCOUNT);
+                user.setCellPhone(strInput);
+                doCPRegister(RegisterActivity.this, user, Constant.LOGIN_ACTION_REGISTERACCOUNT, null);
             }
 
             step++;
@@ -261,27 +284,30 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
         }
     }
 
-    public void doCPRegister(final Context c, final User user, String Acction) {
+    public void doCPRegister(final Context context, final ClientProfile user, String Action, String otp) {
 
-        final ProgressDialog process = new ProgressDialog(c);
+        final ProgressDialog process = new ProgressDialog(context);
         process.setMessage("Đăng kí tài khoản...");
         process.setCanceledOnTouchOutside(false);
         process.show();
 
         loginNewRequest data = new loginNewRequest();
 
-        data.setUserLogin(user.getUserName());
-        data.setFullName(user.getFullname());
+        data.setUserLogin(user.getLoginName());
+        data.setFullName(user.getFullName());
         data.setGender(user.getGender());
-        data.setCellPhone(user.getPhone());
+        data.setCellPhone(user.getCellPhone());
         data.setPassword(user.getPassword());
         data.setLinkGMail(user.getLinkGmail());
-        data.setLinkFB(user.getLinkFacebook());
+        data.setLinkFB(user.getLinkFaceBook());
 
-        data.setDeviceID(Utilities.getDeviceID(c));
-        data.setDeviceName(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+        if (otp != null)
+            data.setOtp(otp);
+
+        data.setDeviceID(Utilities.getDeviceID(context));
+        data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
         data.setProject(Constant.Project_ID);
-        data.setAction(Acction);
+        data.setAction(Action);
         data.setAuthentication(Constant.Project_Authentication);
 
         BaseRequest request = new BaseRequest();
@@ -304,7 +330,7 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
                                     if (result.getResult() != null && result.getResult().equals("false")) {
 
                                         // If false -> show dialog
-                                        MyCustomDialog.Builder builder = new MyCustomDialog.Builder(c);
+                                        MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
                                         builder.setMessage(getString(R.string.message_error_username_login))
                                                 .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
                                                     @Override
@@ -320,8 +346,27 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
 
 
                                         } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CLIREGSUCC)) {
-                                            Intent intent = new Intent(c, DashboardActivity.class);
+
+                                            showDialogInputOTP(context);
+//                                            Intent intent = new Intent(c, DashboardActivity.class);
+//                                            startActivity(intent);
+                                        } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_SUCCESSFUL)) {
+                                            Intent intent = new Intent(context, LoginMainActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
+                                            finish();
+                                        } else if (result.getErrLog().equalsIgnoreCase(Constant.ERR_CPLOGIN_OTPINCORRECT)) {
+                                            MyCustomDialog dialog = new MyCustomDialog.Builder(context)
+                                                    .setTitle("Thông báo")
+                                                    .setMessage("Bạn nhập sai mã OTP. Xin vui lòng thử lại")
+                                                    .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            showDialogInputOTP(context);
+                                                            dialog.dismiss();
+                                                        }
+                                                    }).create();
+                                            dialog.show();
                                         }
                                     }
 
@@ -339,7 +384,6 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
                                 process.dismiss();
                         }
                     });
-
             }
 
             @Override
@@ -359,13 +403,74 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
         });
     }
 
+    private void showDialogInputOTP(final Context context) {
+        AlertDialog.Builder alerDialog = new AlertDialog.Builder(context);
+        LayoutInflater li = LayoutInflater.from(context);
+        View view = li.inflate(R.layout.dialog_input_otp, null);
+        alerDialog.setView(view);
+        final AlertDialog dialog = alerDialog.create();
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        dialog.setCanceledOnTouchOutside(true);
+
+        PinLockView mPinLockView;
+        IndicatorDots mIndicatorDots;
+
+        mPinLockView = dialog.findViewById(R.id.pin_lock_view);
+        mIndicatorDots = dialog.findViewById(R.id.indicator_dots);
+
+        mPinLockView.attachIndicatorDots(mIndicatorDots);
+
+        mPinLockView.setPinLength(Constant.OTP_LENGTH);
+
+        mPinLockView.setTextColor(ContextCompat.getColor(context, R.color.white));
+        mIndicatorDots.setIndicatorType(IndicatorDots.IndicatorType.FILL_WITH_ANIMATION);
+
+        mPinLockView.setPinLockListener(new PinLockListener() {
+            @Override
+            public void onComplete(String pin) {
+                myLog.E(TAG, "OTP dialog pin = " + pin);
+                if (pin.length() == Constant.OTP_LENGTH) {
+                    doCPRegister(RegisterActivity.this, user, Constant.LOGIN_ACTION_CHECKOTP, pin);
+                    dialog.dismiss();
+                } else {
+                    MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+                    builder.setMessage("Mã OTP phải bao gồm 6 số.")
+                            .setPositiveButton(getString(R.string.confirm_no), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.create().show();
+                }
+            }
+
+            @Override
+            public void onEmpty() {
+                myLog.E(TAG, " OTP dialog empty");
+            }
+
+            @Override
+            public void onPinChange(int pinLength, String intermediatePin) {
+                myLog.E(TAG, " OTP dialog onPinChange length = " + pinLength + " ** inter : " + intermediatePin);
+            }
+        });
+
+        dialog.show();
+    }
+
     @Override
     public void onBackPressed() {
-//        if (getFragmentManager().getBackStackEntryCount() > 0) {
-//            getFragmentManager().popBackStackImmediate();
-//        } else {
-//            super.onBackPressed();
-//        }
         if (step > 1) {
             step--;
             setUpStepRegister();

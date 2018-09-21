@@ -165,11 +165,12 @@
                     android:text="Số tiền phải thanh toán" />
 
                 <TextView
+                    android:id="@+id/soTienPhaiThanhToanPhiDinhKy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="center"
-                    android:text="32,450,000 VND"
+                    android:text="0 VND"
                     android:textSize="@dimen/textsize14"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -227,6 +228,7 @@
                     android:text="Số tiền phải thanh toán" />
 
                 <TextView
+                    android:id="@+id/soTienPhaiThanhToanKhoanTamUngDeDongPhi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
@@ -289,11 +291,12 @@
                     android:text="Số tiền phải thanh toán" />
 
                 <TextView
+                    android:id="@+id/soTienPhaiThanhToanKhoanTamUng"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="center"
-                    android:text="65,450,000 VND"
+                    android:text="0 VND"
                     android:textSize="@dimen/textsize14"
                     android:textStyle="bold" />
             </LinearLayout>

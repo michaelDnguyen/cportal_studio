@@ -3,26 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.dlvn.mcustomerportal.afragment.InfoContractFragment" >
+    tools:context="com.dlvn.mcustomerportal.afragment.InfoContractFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="10dp" >
+        android:paddingTop="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btnHDCaNhan"
@@ -30,7 +28,7 @@
                     android:layout_height="35dp"
                     android:layout_weight="1"
                     android:background="@drawable/st_btn_red_left"
-                    android:text="Cá nhân"
+                    android:text="Hợp đồng bảo hiểm"
                     android:textColor="@drawable/st_textcolor_red_white"
                     android:textSize="@dimen/textsize14"
                     android:textStyle="bold" />
@@ -48,7 +46,7 @@
                     android:layout_height="35dp"
                     android:layout_weight="1"
                     android:background="@drawable/st_btn_red_right"
-                    android:text="Nhóm"
+                    android:text="Yêu cầu bảo hiểm"
                     android:textColor="@drawable/st_textcolor_red_white"
                     android:textSize="@dimen/textsize14"
                     android:textStyle="bold" />
@@ -71,12 +69,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <!-- List Hop dong Ca Nhan -->
 
@@ -86,12 +86,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:clipToPadding="false"
+                android:dividerHeight="5dp"
+                android:divider="@android:color/transparent"
+                android:paddingBottom="20dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="20dp"
-                android:clipToPadding="false"
-                android:divider="@android:color/transparent" />
+                android:paddingTop="10dp" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

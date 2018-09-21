@@ -95,9 +95,6 @@ public class RegisterStep01Fragment extends Fragment {
             cedtInput = (ClearableEditText) v.findViewById(R.id.cedtInput);
             chkvShowPass = (CheckedTextView) v.findViewById(R.id.chbShowPassword);
 
-
-
-
         }
 
         return v;

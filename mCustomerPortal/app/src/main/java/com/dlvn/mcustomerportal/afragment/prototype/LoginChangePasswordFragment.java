@@ -26,11 +26,12 @@ import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.activity.prototype.DashboardActivity;
 import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.CustomPref;
+import com.dlvn.mcustomerportal.services.NetworkUtils;
 import com.dlvn.mcustomerportal.services.ServicesGenerator;
 import com.dlvn.mcustomerportal.services.ServicesRequest;
 import com.dlvn.mcustomerportal.services.model.BaseRequest;
-import com.dlvn.mcustomerportal.services.model.User;
 import com.dlvn.mcustomerportal.services.model.request.loginNewRequest;
+import com.dlvn.mcustomerportal.services.model.response.ClientProfile;
 import com.dlvn.mcustomerportal.services.model.response.loginNewResponse;
 import com.dlvn.mcustomerportal.services.model.response.loginNewResult;
 import com.dlvn.mcustomerportal.utils.Utilities;
@@ -61,7 +62,7 @@ public class LoginChangePasswordFragment extends Fragment {
     private CheckedTextView chbShowPassword;
     private ProgressDialog mProgressDialog;
 
-    User currentUser = null;
+    ClientProfile currentUser = null;
     ServicesRequest svRequester;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -73,7 +74,7 @@ public class LoginChangePasswordFragment extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
-    public static LoginChangePasswordFragment newInstance(User user) {
+    public static LoginChangePasswordFragment newInstance(ClientProfile user) {
         LoginChangePasswordFragment fragment = new LoginChangePasswordFragment();
         Bundle args = new Bundle();
         args.putParcelable(USER, user);
@@ -204,8 +205,10 @@ public class LoginChangePasswordFragment extends Fragment {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             currentUser.setPassword(password);
-            mAuthTask = new UserLoginTask(currentUser, Constant.LOGIN_ACTION_CHANGEPASSWORD);
-            mAuthTask.execute((Void) null);
+            if (NetworkUtils.isConnectedHaveDialog(getActivity())) {
+                mAuthTask = new UserLoginTask(currentUser, Constant.LOGIN_ACTION_CHANGEPASSWORD);
+                mAuthTask.execute((Void) null);
+            }
         }
     }
 
@@ -215,15 +218,15 @@ public class LoginChangePasswordFragment extends Fragment {
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Response<loginNewResponse>> {
 
-        User user;
+        ClientProfile user;
         String acction;
 
-        UserLoginTask(User u) {
+        UserLoginTask(ClientProfile u) {
             user = u;
             acction = Constant.LOGIN_ACTION_CPLOGIN;
         }
 
-        UserLoginTask(User u, String Acc) {
+        UserLoginTask(ClientProfile u, String Acc) {
             user = u;
             acction = Acc;
         }
@@ -241,12 +244,12 @@ public class LoginChangePasswordFragment extends Fragment {
             try {
 
                 loginNewRequest data = new loginNewRequest();
-                data.setUserLogin(user.getUserName());
+                data.setUserLogin(user.getLoginName());
                 data.setPassword(user.getPassword());
 
-                data.setApiToken(user.getAPIToken());
+                data.setApiToken(user.getaPIToken());
                 data.setDeviceID(Utilities.getDeviceID(getActivity()));
-                data.setDeviceName(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
                 data.setProject(Constant.Project_ID);
                 data.setAction(acction);
                 data.setAuthentication(Constant.Project_Authentication);
@@ -282,7 +285,7 @@ public class LoginChangePasswordFragment extends Fragment {
 
                                     if (result.getResult() != null && result.getResult().equals("false")) {
                                         //If account not exits --> link to register
-                                        Toast.makeText(getActivity(), "Login error: " + result.getErrLog(), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getActivity(), "Đăng nhập lỗi: " + result.getErrLog(), Toast.LENGTH_LONG).show();
                                     } else if (result.getResult() != null && result.getResult().equals("true")) {
 
                                         if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CLINOEXIST)) {
@@ -311,7 +314,15 @@ public class LoginChangePasswordFragment extends Fragment {
 
                                         } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CHANGEPASSSUCC)) {
 
+                                            //Save Login Profile & Token
                                             CustomPref.setLogin(getActivity(), true);
+
+                                            ClientProfile user = result.getClientProfile().get(0);
+
+                                            if (TextUtils.isEmpty(user.getaPIToken()))
+                                                user.setaPIToken(result.getNewAPIToken());
+                                            CustomPref.saveUserLogin(getActivity(), user);
+
                                             Intent intent = new Intent(getActivity(), DashboardActivity.class);
                                             startActivity(intent);
                                             getActivity().finish();

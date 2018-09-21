@@ -1,0 +1,1159 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.ContractDetailActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="5dp"
+            android:text="Chọn hợp đồng:"
+            android:textSize="@dimen/textsize14"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spnHopDong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="right"
+            android:prompt="@string/non_spinner"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scvDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:background="@color/main_bgtrans50"
+        android:visibility="visible" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical" >
+
+            <!-- Chi tiết hợp đồng -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/contract_detail_header_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="Chi tiết hợp đồng"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/textsize16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_contract_detail_margin"
+                    android:layout_marginLeft="@dimen/activity_contract_detail_margin"
+                    android:layout_marginRight="@dimen/activity_contract_detail_margin"
+                    android:elevation="1dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_contract_detail_margin" >
+
+                    <!-- Sản phẩm chính -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Sản phẩm chính"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvSanPhamChinh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="An phúc hưng thịnh"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Tinh trang hop dong -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Tình trạng hợp đồng"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTinhTrangHD"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="Đang hiệu lực"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Ngay hieu luc -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Ngày hiệu lực"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvNgayHieuLuc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="18/03/2014"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Ngày đáo hạn -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Ngày đáo hạn"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvNgayDaoHan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="18/03/2030"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Dinh ky dong phi -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Định kỳ đóng phí"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvDinhKyDongPhi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="Quý"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Số tiền bảo hiểm -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Số tiền bảo hiểm"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvSoTienBaoHiem"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="1,400,000,000"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Phi bao hiem -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Phí bảo hiểm cơ bản định kỳ"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvPhiBaoHiem"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="4,250,000"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Ngay den han -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Ngày đến hạn đóng phí"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvNgayDenHan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="18/12/2017"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Ngay ket thuc -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Ngày kết thúc thời gian gia hạn nộp phí"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvNgayKetThuc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="17/12/2017"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Thời gian gia hạn -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Thời gian gia hạn nộp phí còn"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTGGiaHan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="6 ngày"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Thong tin phi -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/contract_detail_header_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="Thông tin phí"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/textsize16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_contract_detail_margin"
+                    android:layout_marginLeft="@dimen/activity_contract_detail_margin"
+                    android:layout_marginRight="@dimen/activity_contract_detail_margin"
+                    android:elevation="1dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_contract_detail_margin" >
+
+                    <!-- Phi bao hiem dinh ky -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Phí bảo hiểm định kỳ"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvPhiDinhKy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="42,800,000"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Tổng phi -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Tổng phí bảo hiểm đã đóng (bao gồm các khoản phí bảo hiểm được đóng tự động từ giá trị hoàn lại)"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTongPhiDaDong"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="800,500,000"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Phi dong du -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Phí bảo hiểm đóng dư"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvPhiDongDu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="0"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Cac gia tri hop dong -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/contract_detail_header_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="Các giá trị hợp đồng"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/textsize16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_contract_detail_margin"
+                    android:layout_marginLeft="@dimen/activity_contract_detail_margin"
+                    android:layout_marginRight="@dimen/activity_contract_detail_margin"
+                    android:elevation="1dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_contract_detail_margin" >
+
+                    <!-- Tong lai chia tich luy -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Tổng các khoản lãi chia tích lũy"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTongLaiChiTichLuy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="80,500,000"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Tong tien mat dinh ky -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Tổng quyền lợi tiền mặt định kỳ"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTongTienMatDinhKy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="31,200,000"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Tien mat cham soc suc khoe dinh ky -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Quyền lợi tiền mặt chăm sóc sức khỏe định kỳ"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTienMatChamSocSKDinhKy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="-"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Giá trị hoàn lại -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Giá trị hoàn lại"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvGiaTriHoanLai"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="280,500,000"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Tổng tạm ứng và khoản giảm thu nhập -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Tổng các khoản tạm ứng và khoản giảm thu nhập đầu tư"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTongTamUng_GiamThuNhap"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="65,300,000"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Tổng các khoản tạm ứng để đóng phí tự động và khoản giảm thu nhập đầu tư -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Tổng các khoản tạm ứng để đóng phí tự động và khoản giảm thu nhập đầu tư"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTongTamUngDongPhiTuDong"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="-"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Bên mua bảo hiểm -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/contract_detail_header_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="Bên mua bảo hiểm"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/textsize16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_contract_detail_margin"
+                    android:layout_marginLeft="@dimen/activity_contract_detail_margin"
+                    android:layout_marginRight="@dimen/activity_contract_detail_margin"
+                    android:elevation="1dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_contract_detail_margin" >
+
+                    <!-- Ten KH -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Tên khách hàng"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTenKH"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="NGUYỄN NGỌC TÚ"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- gioi tinh -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Giới tính"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvGioitinh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="Nữ"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- CMND -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Chứng minh nhân dân"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvCMND"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="248655249"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Birthday -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Năm sinh"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvNamSinh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="20/04/1994"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Dia chi -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Địa chỉ"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvDiachi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="41 Nguyễn Cảnh Chân, p.6, quận Tân Bình, TP.HCM"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Dien thoai -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Điện thoại"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvDienthoai"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="0986 556 884"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Email -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Email"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="nntu@gmail.com"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Nguoi duoc bao hiem -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/contract_detail_header_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="Người được bảo hiểm"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/textsize16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_contract_detail_margin"
+                    android:layout_marginLeft="@dimen/activity_contract_detail_margin"
+                    android:layout_marginRight="@dimen/activity_contract_detail_margin"
+                    android:elevation="1dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_contract_detail_margin" >
+
+                    <!-- Ten KH -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Họ tên"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTenNDBH"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="NGUYỄN NGỌC TÚ"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- gioi tinh -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Giới tính"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvGioitinhNDBH"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="Nữ"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- CMND -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Chứng minh nhân dân"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvCMND_NDBH"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="248673594"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Birthday -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Năm sinh"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvNamSinhNDBH"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="20/04/1994"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Dia chi -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Địa chỉ"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvDiachiNDBH"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="42 Nguyễn Cảnh chân p.11, q.Tân Bình"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Thong tin TVTC và Nhân vien thu phi -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/contract_detail_header_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:text="Thông tin TVTC và nhân viên thu phí"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/textsize16" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_contract_detail_margin"
+                    android:layout_marginLeft="@dimen/activity_contract_detail_margin"
+                    android:layout_marginRight="@dimen/activity_contract_detail_margin"
+                    android:elevation="1dp"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_contract_detail_margin" >
+
+                    <!-- Tư van tai chinh -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Tư vấn tài chính"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvTuVanTaiChinh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="110555- Nguyễn Văn Toàn Cơ"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Nhan vien thu phi -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="@dimen/minwidth_tv120"
+                            android:text="Nhân viên thu phí"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvNhanVienThuPhi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="right"
+                            android:padding="5dp"
+                            android:text="110555- Nguyễn Văn Toàn Cơ"
+                            android:textSize="@dimen/textsize14"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -12,26 +12,6 @@ import com.google.gson.annotations.SerializedName;
  */
 public class User implements Parcelable {
 
-    public static final String USER_NAME = "USER_NAME";
-    public static final String USER_ID = "USER_ID";
-    public static final String PASSWORD = "PASSWORD";
-    public static final String TOKEN_LOGIN = "TOKEN_LOGIN";
-
-    public static final String USER_CONTRACT = "USER_CONTRACT";
-    public static final String USER_POINT = "USER_POINT";
-    public static final String USER_AMOUNT = "USER_AMOUNT";
-    public static final String USER_PROPOSAL = "USER_PROPOSAL";
-
-    public static final String FULLNAME = "USER_FULLNAME";
-    public static final String GENDER = "USER_GENDER";
-    public static final String ADDRESS = "USER_ADDRESS";
-    public static final String EMAIL = "USER_EMAIL";
-    public static final String PHONE_NUMBER = "USER_PHONE_NUMBER";
-    public static final String FACEBOOK = "USER_FACEBOOK";
-    public static final String GOOGLE = "USER_GOOGLE";
-    public static final String DAYOFBIRTH = "USER_DOB";
-
-
     @SerializedName("APIToken")
     @Expose
     private String aPIToken;

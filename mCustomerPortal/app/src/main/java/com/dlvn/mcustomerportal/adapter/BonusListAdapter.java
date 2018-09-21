@@ -6,7 +6,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.adapter.model.BonusItemModel;
-import com.dlvn.mcustomerportal.adapter.model.HomeItemModel;
+import com.dlvn.mcustomerportal.services.model.response.MasterData_Category;
+import com.dlvn.mcustomerportal.utils.myLog;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -17,21 +18,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 public class BonusListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 	private static final String TAG = "BonusListAdapter";
 
-	List<BonusItemModel> data;
+	List<MasterData_Category> data;
 	Context context;
 
 	RequestOptions cropOptions;
 	Point sizeScreen;
 
-	public BonusListAdapter(Context c, List<BonusItemModel> obj) {
+	public BonusListAdapter(Context c, List<MasterData_Category> obj) {
 		context = c;
 		data = obj;
 
@@ -51,31 +52,38 @@ public class BonusListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 	 */
 	public class ProductViewHolder extends RecyclerView.ViewHolder {
 
+		LinearLayout lloContent;
 		ImageView imvImage;
 		TextView tvTitle, tvContent;
 
 		public ProductViewHolder(View itemView) {
 			super(itemView);
+			lloContent = itemView.findViewById(R.id.lloContent);
 			imvImage = (ImageView) itemView.findViewById(R.id.imvImage);
 			tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
 			tvContent = (TextView) itemView.findViewById(R.id.tvContent);
 		}
 
-		public void bind(final ProductViewHolder holder, final BonusItemModel item, final int postition) {
-			holder.tvTitle.setText(item.get_title());
-			holder.tvContent.setText(item.get_content());
+		public void bind(final ProductViewHolder holder, final MasterData_Category item, final int postition) {
 
-			// resize of imageview
+			myLog.E(item.getProductTitle() + " *** " + item.getProductContent());
+			holder.tvTitle.setText(item.getProductTitle());
+			holder.tvContent.setText(item.getProductContent());
+
+			// resize of layout/image
 			holder.imvImage.post(new Runnable() {
 
 				@Override
 				public void run() {
 
 					int width = sizeScreen.x;
-					int size = (width - 20) / 2;
+					int size = (int)(width* 0.4);
 
-					RelativeLayout.LayoutParams param = new LayoutParams((int) size, (int) size);
+					LinearLayout.LayoutParams param = new LinearLayout.LayoutParams((int) size, (int) size);
+//					lloContent.setLayoutParams(param);
+
 					imvImage.setLayoutParams(param);
+					imvImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
 					imvImage.getParent().requestLayout();
 
 					Glide.with(context).load(item.getResourceID()).into(holder.imvImage);
@@ -134,14 +142,14 @@ public class BonusListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		return new ProductViewHolder(v);
 	}
 
-	public void setData(List<BonusItemModel> obj) {
+	public void setData(List<MasterData_Category> obj) {
 		if (this.data != obj) {
 			this.data = obj;
 			notifyItemRangeChanged(0, data.size());
 		}
 	}
 
-	public List<BonusItemModel> getData() {
+	public List<MasterData_Category> getData() {
 		return data;
 	}
 

@@ -3,86 +3,96 @@ package com.dlvn.mcustomerportal.adapter.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /*
  * @author nn.tai
  * @date Jan 4, 2018
  * @Do TODO
  */
-public class TransactionDetailModel implements Parcelable{
+public class TransactionDetailModel implements Parcelable {
 
-	String loaiGD;
-	String soTien;
-	String trangThai;
+    @SerializedName("PolicyNo")
+    @Expose
+    private String policyNo;
+    @SerializedName("ReceiptNo")
+    @Expose
+    private String receiptNo;
+    @SerializedName("ReceiptType")
+    @Expose
+    private String receiptType;
+    @SerializedName("Amount")
+    @Expose
+    private String amount;
 
-	public TransactionDetailModel() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public String getPolicyNo() {
+        return policyNo;
+    }
 
-	public TransactionDetailModel(String loaiGD, String soTien, String trangThai) {
-		super();
-		this.loaiGD = loaiGD;
-		this.soTien = soTien;
-		this.trangThai = trangThai;
-	}
-	
-	public TransactionDetailModel(Parcel in) {
-		loaiGD = in.readString();
-		soTien = in.readString();
-		trangThai = in.readString();
-	}
+    public void setPolicyNo(String policyNo) {
+        this.policyNo = policyNo;
+    }
 
-	public String getLoaiGD() {
-		return loaiGD;
-	}
+    public String getReceiptNo() {
+        return receiptNo;
+    }
 
-	public void setLoaiGD(String loaiGD) {
-		this.loaiGD = loaiGD;
-	}
+    public void setReceiptNo(String receiptNo) {
+        this.receiptNo = receiptNo;
+    }
 
-	public String getSoTien() {
-		return soTien;
-	}
+    public String getReceiptType() {
+        return receiptType;
+    }
 
-	public void setSoTien(String soTien) {
-		this.soTien = soTien;
-	}
+    public void setReceiptType(String receiptType) {
+        this.receiptType = receiptType;
+    }
 
-	public String getTrangThai() {
-		return trangThai;
-	}
+    public String getAmount() {
+        return amount;
+    }
 
-	public void setTrangThai(String trangThai) {
-		this.trangThai = trangThai;
-	}
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
 
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public TransactionDetailModel(Parcel in) {
+        policyNo = in.readString();
+        receiptNo = in.readString();
+        receiptType = in.readString();
+        amount = in.readString();
+    }
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		// TODO Auto-generated method stub
-		dest.writeString(loaiGD);
-		dest.writeString(soTien);
-		dest.writeString(trangThai);
-	}
-	
-	public static final Creator<TransactionDetailModel> CREATOR = new Creator<TransactionDetailModel>() {
-		
-		@Override
-		public TransactionDetailModel[] newArray(int size) {
-			// TODO Auto-generated method stub
-			return new TransactionDetailModel[size];
-		}
-		
-		@Override
-		public TransactionDetailModel createFromParcel(Parcel source) {
-			// TODO Auto-generated method stub
-			return new TransactionDetailModel(source);
-		}
-	};
+    @Override
+    public int describeContents() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        // TODO Auto-generated method stub
+        dest.writeString(policyNo);
+        dest.writeString(receiptNo);
+        dest.writeString(receiptType);
+        dest.writeString(amount);
+    }
+
+    public static final Creator<TransactionDetailModel> CREATOR = new Creator<TransactionDetailModel>() {
+
+        @Override
+        public TransactionDetailModel[] newArray(int size) {
+            // TODO Auto-generated method stub
+            return new TransactionDetailModel[size];
+        }
+
+        @Override
+        public TransactionDetailModel createFromParcel(Parcel source) {
+            // TODO Auto-generated method stub
+            return new TransactionDetailModel(source);
+        }
+    };
 
 }
