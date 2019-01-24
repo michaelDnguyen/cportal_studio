@@ -5,109 +5,133 @@
     android:orientation="vertical"
     tools:context="com.dlvn.mcustomerportal.afragment.InfoContractFragment">
 
-    <LinearLayout
+    <!--Button add policy-->
+    <Button
+        android:id="@+id/btnAddPolicy"
+        style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="horizontal"
-        android:paddingTop="10dp">
+        android:background="@drawable/state_btn_red_radius_gradien"
+        android:drawableLeft="@android:drawable/ic_input_add"
+        android:drawableTint="@color/white"
+        android:text="Thêm yêu cầu bảo hiểm mới"
+        android:layout_margin="10dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/lloData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--Layout button tab-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:paddingTop="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnHDCaNhan"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/st_btn_red_left"
+                        android:text="Hợp đồng bảo hiểm"
+                        android:textColor="@drawable/st_textcolor_red_white"
+                        android:textSize="@dimen/textsize14"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@color/blue"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btnHDNhom"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/st_btn_red_right"
+                        android:text="Yêu cầu bảo hiểm"
+                        android:textColor="@drawable/st_textcolor_red_white"
+                        android:textSize="@dimen/textsize14"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvCount"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
-            <LinearLayout
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent">
 
-                <Button
-                    android:id="@+id/btnHDCaNhan"
+                <!-- List Hop dong Ca Nhan -->
+
+                <ListView
+                    android:id="@+id/lvDataCaNhan"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/st_btn_red_left"
-                    android:text="Hợp đồng bảo hiểm"
-                    android:textColor="@drawable/st_textcolor_red_white"
-                    android:textSize="@dimen/textsize14"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="0.5dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
-                    android:background="@color/blue"
-                    android:visibility="gone" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:clipToPadding="false"
+                    android:scrollbars="none"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="5dp"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="10dp" />
 
-                <Button
-                    android:id="@+id/btnHDNhom"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/st_btn_red_right"
-                    android:text="Yêu cầu bảo hiểm"
-                    android:textColor="@drawable/st_textcolor_red_white"
-                    android:textSize="@dimen/textsize14"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            </android.support.v4.widget.SwipeRefreshLayout>
 
             <TextView
-                android:id="@+id/tvCount"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
+                android:id="@+id/tvNoData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@android:color/transparent"
                 android:gravity="center"
-                android:text="0"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                android:padding="10dp"
+                android:text="No Data"
+                android:textColor="@color/grey_dark"
+                android:textSize="@dimen/textsize22"
+                android:textStyle="bold" />
         </RelativeLayout>
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <!-- List Hop dong Ca Nhan -->
-
-            <ListView
-                android:id="@+id/lvDataCaNhan"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:clipToPadding="false"
-                android:dividerHeight="5dp"
-                android:divider="@android:color/transparent"
-                android:paddingBottom="20dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="10dp" />
-
-        </android.support.v4.widget.SwipeRefreshLayout>
-
-        <TextView
-            android:id="@+id/tvNoData"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="No Data"
-            android:textColor="@color/grey_dark"
-            android:textSize="@dimen/textsize22"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
 </LinearLayout>

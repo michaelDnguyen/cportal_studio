@@ -3,35 +3,34 @@ package com.dlvn.mcustomerportal.afragment;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.activity.ContactActivity;
 import com.dlvn.mcustomerportal.activity.ListOfficeActivity;
+import com.dlvn.mcustomerportal.activity.prototype.ClaimsHistoryActivity;
 import com.dlvn.mcustomerportal.activity.prototype.DashboardActivity;
-import com.dlvn.mcustomerportal.activity.prototype.LoginMainActivity;
 import com.dlvn.mcustomerportal.activity.prototype.SettingsActivity;
 import com.dlvn.mcustomerportal.base.CPortalApplication;
 import com.dlvn.mcustomerportal.common.CustomPref;
-import com.dlvn.mcustomerportal.utils.listerner.OnFragmentInteractionListener;
+import com.dlvn.mcustomerportal.database.DataClient;
+import com.dlvn.mcustomerportal.utils.Utilities;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
-import com.google.android.gms.maps.model.Dash;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     View v;
-    Button btnAccount, btnSecurity, btnLink, btnInfo, btnNotification, btnTutorial, btnHistory, btnContact, btnLogout, btnMap, btnPriceILP;
+    Button btnAccount, btnSecurity, btnLink, btnInfo, btnNotification, btnTutorial, btnHistory, btnContact, btnLogout, btnMap, btnPriceILP, btnClaims;
     TextView tvVersion;
 
     public SettingsFragment() {
@@ -71,6 +70,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             btnLogout = v.findViewById(R.id.btnLogout);
             btnMap = v.findViewById(R.id.btnMap);
             btnPriceILP = v.findViewById(R.id.btnPriceILP);
+            btnClaims = v.findViewById(R.id.btnClaims);
 
             tvVersion = v.findViewById(R.id.tvVersion);
             try {
@@ -80,6 +80,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             } catch (PackageManager.NameNotFoundException e) {
                 myLog.printTrace(e);
             }
+
+            if (CustomPref.haveLogin(getActivity()))
+                btnLogout.setVisibility(View.VISIBLE);
+            else
+                btnLogout.setVisibility(View.GONE);
 
 
             btnAccount.setOnClickListener(this);
@@ -93,6 +98,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             btnLogout.setOnClickListener(this);
             btnMap.setOnClickListener(this);
             btnPriceILP.setOnClickListener(this);
+            btnClaims.setOnClickListener(this);
         }
         return v;
     }
@@ -114,37 +120,81 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         switch (id) {
             case R.id.btnAccount:
-                intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_ACCOUNT);
-                startActivity(intent);
+                if (CustomPref.haveLogin(getActivity())) {
+                    intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_ACCOUNT);
+                    startActivity(intent);
+                } else {
+                    intent = null;
+                    Utilities.showDialogAlertLoginNormal(getActivity());
+                }
                 break;
             case R.id.btnSecurity:
-                intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_SECURITY);
-                startActivity(intent);
+                if (CustomPref.haveLogin(getActivity())) {
+                    intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_SECURITY);
+                    startActivity(intent);
+                } else {
+                    intent = null;
+                    Utilities.showDialogAlertLoginNormal(getActivity());
+                }
                 break;
 
             case R.id.btnLink:
-                intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_LINK);
-                startActivity(intent);
+                if (CustomPref.haveLogin(getActivity())) {
+                    intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_LINK);
+                    startActivity(intent);
+                } else {
+                    intent = null;
+                    Utilities.showDialogAlertLoginNormal(getActivity());
+                }
+                break;
+
+            case R.id.btnClaims:
+                if (CustomPref.haveLogin(getActivity())) {
+                    intent = new Intent(getActivity(), ClaimsHistoryActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = null;
+                    Utilities.showDialogAlertLoginNormal(getActivity());
+                }
                 break;
 
             case R.id.btnInfo:
+                intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_INFO);
+                startActivity(intent);
                 break;
 
             case R.id.btnNotification:
+                if (CustomPref.haveLogin(getActivity())) {
+                    intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_NOTIFICATION);
+                    startActivity(intent);
+                } else {
+                    intent = null;
+                    Utilities.showDialogAlertLoginNormal(getActivity());
+                }
                 break;
 
             case R.id.btnTutorial:
+                intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_TUTORIAL);
+                startActivity(intent);
                 break;
 
             case R.id.btnHistory:
-                intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_HISTORY_PAYMENT);
-                startActivity(intent);
+                if (CustomPref.haveLogin(getActivity())) {
+                    intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_HISTORY_PAYMENT);
+                    startActivity(intent);
+                } else {
+                    intent = null;
+                    Utilities.showDialogAlertLoginNormal(getActivity());
+                }
                 break;
 
             case R.id.btnMap:
                 intent = null;
-                Intent imap = new Intent(getActivity(), ListOfficeActivity.class);
-                startActivity(imap);
+                if (CustomPref.haveLogin(getActivity())) {
+                    Intent imap = new Intent(getActivity(), ListOfficeActivity.class);
+                    startActivity(imap);
+                } else
+                    Utilities.showDialogAlertLoginNormal(getActivity());
                 break;
             case R.id.btnPriceILP:
                 intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_UNIT_PRICE);
@@ -152,8 +202,18 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.btnContact:
-                Intent contactIntent = new Intent(getActivity(), ContactActivity.class);
-                startActivity(contactIntent);
+                if (CustomPref.haveLogin(getActivity())) {
+                    if (!TextUtils.isEmpty(CustomPref.getUserID(getActivity()))) {
+                        Intent contactIntent = new Intent(getActivity(), ContactActivity.class);
+                        startActivity(contactIntent);
+                    } else {
+                        Utilities.showDialogAlertLoginDLVNAcc(getActivity());
+                        intent = null;
+                    }
+                } else {
+                    Utilities.showDialogAlertLoginNormal(getActivity());
+                    intent = null;
+                }
                 break;
 
             case R.id.btnLogout:
@@ -161,26 +221,15 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
                 MyCustomDialog.Builder builder = new MyCustomDialog.Builder(getActivity());
                 builder.setMessage(getString(R.string.message_alert_logout))
-                        .setNegativeButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                        .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                if (!CustomPref.haveAuthFinger(getActivity()))
-                                    CustomPref.clearUserLogin(getActivity());
-
-                                CustomPref.setLogin(getActivity(), false);
                                 CPortalApplication.getInstance().reLogin();
-
                                 dialog.dismiss();
 
-                                //start Login Activity
-//                                Intent intent = new Intent(getActivity(), LoginMainActivity.class);
-//                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                startActivity(intent);
-//                                getActivity().finish();
-
                             }
-                        }).setPositiveButton(getString(R.string.confirm_no), new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(getString(R.string.confirm_no), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

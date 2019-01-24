@@ -2,18 +2,18 @@ package com.dlvn.mcustomerportal.afragment.prototype;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.KeyguardManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.fingerprint.FingerprintManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
+import android.os.CountDownTimer;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
@@ -21,28 +21,25 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Base64;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dlvn.mcustomerportal.R;
+import com.dlvn.mcustomerportal.activity.ContactActivity;
 import com.dlvn.mcustomerportal.activity.prototype.DashboardActivity;
-import com.dlvn.mcustomerportal.activity.prototype.PaymentNoLoginActivity;
 import com.dlvn.mcustomerportal.activity.prototype.RegisterActivity;
 import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.CustomPref;
@@ -59,6 +56,9 @@ import com.dlvn.mcustomerportal.utils.listerner.OnFragmentInteractionListener;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
 import com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText;
+import com.dlvn.mcustomerportal.view.pinlock.IndicatorDots;
+import com.dlvn.mcustomerportal.view.pinlock.PinLockListener;
+import com.dlvn.mcustomerportal.view.pinlock.PinLockView;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -78,7 +78,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
@@ -86,6 +85,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
@@ -94,9 +95,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -124,16 +123,17 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
     private static final int FLAG_SOCIAL_FACEBOOK = 1;
     private static final int FLAG_SOCIAL_GMAIL = 2;
 
+    ImageView imvYoutube, imvFacebook, imvMail;
+    TextView tvHotLine;
+
     // UI references.
-    private ClearableEditText mEmailView;
-    private EditText mPasswordView;
+    private ClearableEditText cedtEmail;
     private TextView tvPolicy, tvCopyRight;
-    private Button btnFacebook, btnGoogle, btnPayment;
+    private Button btnFacebook, btnGoogle, btnBack;
     private View v;
 
-    private ProgressDialog mProgressDialog;
-
     int flag_social = 0;
+    boolean isRePin = true;
 
     //facebook login
     LoginButton btnLoginFacebook;
@@ -152,6 +152,7 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
     private static final int RC_GOOGLE_SIGN_IN = 007;
 
     ClientProfile currentUser = null;
+    String userPhotoPath = "";
     ServicesRequest svRequester;
 
     /**
@@ -166,11 +167,6 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
     LinearLayout lloFingerPrintButton;
     private KeyStore mKeyStore;
     private KeyGenerator mKeyGenerator;
-
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private OnFragmentInteractionListener mListener;
 
     public LoginInputUserNameFragment() {
         // Required empty public constructor
@@ -198,12 +194,6 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
 //        FacebookSdk.sdkInitialize(getActivity());
 //        AppEventsLogger.activateApp(getActivity());
 
-        try {
-            LoginManager.getInstance().logOut();
-        } catch (Exception e) {
-            myLog.printTrace(e);
-        }
-
         currentUser = new ClientProfile();
         svRequester = ServicesGenerator.createService(ServicesRequest.class);
     }
@@ -215,27 +205,25 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
         if (v == null) {
             v = inflater.inflate(R.layout.fragment_login_step1, container, false);
 
-            mEmailView = (ClearableEditText) v.findViewById(R.id.email);
-//            populateAutoComplete();
-
-            mPasswordView = (EditText) v.findViewById(R.id.password);
-            mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            btnBack = v.findViewById(R.id.btnBack);
+            btnBack.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                    if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                        attemptLogin();
-                        return true;
-                    }
-                    return false;
+                public void onClick(View v) {
+                    getActivity().onBackPressed();
                 }
             });
 
-            Button mEmailSignInButton = (Button) v.findViewById(R.id.email_sign_in_button);
+            cedtEmail = v.findViewById(R.id.email);
+//            populateAutoComplete();
+
+            Button mEmailSignInButton = v.findViewById(R.id.email_sign_in_button);
             mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    flag_social = 0;
-                    attemptLogin();
+                    if (flag_social == FLAG_SOCIAL_FACEBOOK || flag_social == FLAG_SOCIAL_GMAIL)
+                        doCPLogin(currentUser, Constant.LOGIN_ACTION_CPLOGIN, null, null);
+                    else
+                        attemptLogin();
                 }
             });
 
@@ -250,43 +238,50 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
                 @Override
                 public void onSuccess(LoginResult loginResult) {
                     // App code
-                    myLog.E("registerCallback onSuccess");
-                    myLog.E("Access token = " + loginResult.getAccessToken().getToken());
-                    myLog.E("User ID = " + loginResult.getAccessToken().getUserId());
-                    myLog.E("Permission = " + loginResult.getAccessToken().getPermissions());
-                    myLog.E("Expires = " + loginResult.getAccessToken().getExpires());
+                    myLog.e("registerCallback onSuccess");
+                    myLog.e("Access token = " + loginResult.getAccessToken().getToken());
+                    myLog.e("User ID = " + loginResult.getAccessToken().getUserId());
+                    myLog.e("Permission = " + loginResult.getAccessToken().getPermissions());
+                    myLog.e("Expires = " + loginResult.getAccessToken().getExpires());
 
-                    currentUser.setLinkFaceBook(loginResult.getAccessToken().getUserId());
-                    flag_social = FLAG_SOCIAL_FACEBOOK;
+                    final String facebookID = loginResult.getAccessToken().getUserId();
 
                     GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                             new GraphRequest.GraphJSONObjectCallback() {
                                 @Override
                                 public void onCompleted(JSONObject object, GraphResponse response) {
 
-                                    myLog.E("LoginActivity", response.toString());
+                                    myLog.e("LoginActivity", response.toString());
                                     try {
 
-//                                        try {
-//                                            URL profile_pic = new URL(
-//                                                    "http://graph.facebook.com/" + id + "/picture?type=large");
-//                                            myLog.E("profile_pic", profile_pic + "");
-//
-//                                        } catch (MalformedURLException e) {
-//                                            myLog.printTrace(e);
-//                                        }
+                                        URL profile_pic = null;
+                                        try {
+                                            profile_pic = new URL(
+                                                    "http://graph.facebook.com/" + facebookID + "/picture?type=large");
+                                            myLog.e("profile_pic", profile_pic + "");
+
+                                        } catch (MalformedURLException e) {
+                                            myLog.printTrace(e);
+                                        }
+
+                                        flag_social = FLAG_SOCIAL_FACEBOOK;
+                                        currentUser.setLinkFaceBook(facebookID);
+
+                                        if (profile_pic != null)
+                                            userPhotoPath = profile_pic.toString();
 
                                         if (object.has("name"))
                                             currentUser.setFullName(object.getString("name"));
                                         if (object.has("email")) {
                                             currentUser.setEmail(object.getString("email"));
                                             currentUser.setLoginName(object.getString("email"));
+                                            cedtEmail.setText(currentUser.getEmail());
                                         }
                                         if (object.has("gender"))
                                             currentUser.setGender(object.getString("gender"));
 
                                         //check account with services
-                                        doCPLogin(currentUser, Constant.LOGIN_ACTION_CPLOGIN);
+                                        doCPLogin(currentUser, Constant.LOGIN_ACTION_CPLOGIN, null, null);
 //                                        String birthday = object.getString("birthday");
 
                                     } catch (JSONException e) {
@@ -304,13 +299,13 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
                 @Override
                 public void onCancel() {
                     // App code
-                    myLog.E("Cancel from login with facebook");
+                    myLog.e("Cancel from login with facebook");
                 }
 
                 @Override
                 public void onError(FacebookException exception) {
                     // App code
-                    myLog.E("Error from login with facebook: ");
+                    myLog.e("Error from login with facebook: ");
                     myLog.printTrace(exception);
                 }
             });
@@ -321,11 +316,11 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
                         AccessToken oldAccessToken,
                         AccessToken currentAccessToken) {
 
-                    myLog.E("onCurrentAccessTokenChanged");
+                    myLog.e("onCurrentAccessTokenChanged");
                     if (oldAccessToken != null)
-                        myLog.E("old token" + oldAccessToken.getToken());
+                        myLog.e("old token" + oldAccessToken.getToken());
                     if (currentAccessToken != null) {
-                        myLog.E("current token" + currentAccessToken.getToken());
+                        myLog.e("current token" + currentAccessToken.getToken());
                         accessToken = currentAccessToken;
                     }
                     // Set the access token using
@@ -339,31 +334,32 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
                         Profile oldProfile,
                         Profile currentProfile) {
 
-                    myLog.E("onCurrentProfileChanged");
+                    myLog.e("onCurrentProfileChanged");
                     // App code
                     facebookProfile = currentProfile;
                     if (facebookProfile != null) {
-                        myLog.E("profile " + currentProfile.getFirstName() + currentProfile.getMiddleName() + currentProfile.getLastName());
-                        myLog.E("id " + currentProfile.getId());
-                        myLog.E("name " + currentProfile.getName());
+                        myLog.e("profile " + currentProfile.getFirstName() + currentProfile.getMiddleName() + currentProfile.getLastName());
+                        myLog.e("id " + currentProfile.getId());
+                        myLog.e("name " + currentProfile.getName());
                     }
                 }
             };
 
-            btnFacebook = (Button) v.findViewById(R.id.btnFacebook);
+            btnFacebook = v.findViewById(R.id.btnFacebook);
             btnFacebook.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if (accessToken != null && !accessToken.isExpired()) {
-                        if (facebookProfile != null) {
-                            currentUser.setLinkFaceBook(facebookProfile.getId());
-                            currentUser.setFullName(facebookProfile.getName());
-                            doCPLogin(currentUser, Constant.LOGIN_ACTION_CPLOGIN);
-                        }
-                    } else {
-                        btnLoginFacebook.performClick();
-                    }
+//                    if (accessToken != null && !accessToken.isExpired()) {
+//                        if (facebookProfile != null) {
+//                            flag_social = FLAG_SOCIAL_FACEBOOK;
+//                            currentUser.setLinkFaceBook(facebookProfile.getId());
+//                            currentUser.setFullName(facebookProfile.getName());
+//                            doCPLogin(currentUser, Constant.LOGIN_ACTION_CPLOGIN, null, null);
+//                        }
+//                    } else {
+                    btnLoginFacebook.performClick();
+//                    }
 
                     //for test
 //                    currentUser.setEmail("david_jlmbmfu_nokia@tfbnw.net");
@@ -376,14 +372,14 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
             });
 
             //GOOGLE
-            btnGoogle = (Button) v.findViewById(R.id.btnGoogle);
+            btnGoogle = v.findViewById(R.id.btnGoogle);
             btnGoogle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (googleProfile != null)
-                        doCPLogin(currentUser, Constant.LOGIN_ACTION_CPLOGIN);
-                    else
-                        googleSignIn();
+//                    if (googleProfile != null)
+//                        doCPLogin(currentUser, Constant.LOGIN_ACTION_CPLOGIN, null, null);
+//                    else
+                    googleSignIn();
 
                     //for test
 //                    currentUser.setEmail("jonynguyen87@gmail.com");
@@ -395,15 +391,6 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
                 }
             });
 
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestProfile()
-                    .requestEmail()
-                    .build();
-            mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                    .enableAutoManage(getActivity(), this)
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build();
-
             //setup conpany info & policy
             tvPolicy = (TextView) v.findViewById(R.id.tvPolicy);
             tvPolicy.setText(Html.fromHtml(getString(R.string.txt_policy_term)));
@@ -413,20 +400,60 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
             tvCopyRight.setText(Html.fromHtml(getString(R.string.txt_copyright_daiichi)));
             tvCopyRight.setMovementMethod(LinkMovementMethod.getInstance());
 
-            btnPayment = v.findViewById(R.id.payment_button);
-            btnPayment.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent payment = new Intent(getActivity(), PaymentNoLoginActivity.class);
-                    startActivity(payment);
-                }
-            });
-
             /**
              * Actions for Finger Print Authentication
              */
             lloFingerPrintButton = v.findViewById(R.id.lloFingerPrintButton);
             initFingerPrint();
+
+            /**
+             * Action for youtube,facebook,mail
+             */
+            tvHotLine = v.findViewById(R.id.tvHotLine);
+            imvYoutube = v.findViewById(R.id.imvYoutube);
+            imvFacebook = v.findViewById(R.id.imvFacebook);
+            imvMail = v.findViewById(R.id.imvMail);
+
+            tvHotLine.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MyCustomDialog dialog = new MyCustomDialog.Builder(getActivity())
+                            .setMessage(getString(R.string.message_conform_call_customer_service))
+                            .setPositiveButton(getString(R.string.confirm_yes), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Utilities.actionCallPhoneNumber(getActivity(), Constant.PHONE_CUSTOMER_SERVICE);
+                                }
+                            }).setNegativeButton(getString(R.string.confirm_no), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).create();
+                    dialog.show();
+                }
+            });
+            imvMail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Utilities.actionOpenMailApp(getActivity());
+                    startActivity(new Intent(getActivity(), ContactActivity.class));
+                }
+            });
+
+            imvYoutube.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utilities.actionOpenYoutubeApp(getActivity());
+                }
+            });
+
+            imvFacebook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Utilities.actionOpenFacebookApp(getActivity());
+                }
+            });
         }
         return v;
     }
@@ -438,19 +465,18 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
      */
     private void attemptLogin() {
         // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
+        cedtEmail.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        String email = cedtEmail.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+            cedtEmail.setError(getString(R.string.error_field_required));
+            focusView = cedtEmail;
             cancel = true;
         }
 
@@ -462,23 +488,7 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
                 currentUser.setEmail(email);
 
             if (NetworkUtils.isConnectedHaveDialog(getActivity()))
-                doCPLogin(currentUser, Constant.LOGIN_ACTION_CHECKACCOUNT);
-        }
-    }
-
-    private void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(getActivity());
-            mProgressDialog.setMessage("Đang kiểm tra...");
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
+                doCPLogin(currentUser, Constant.LOGIN_ACTION_CHECKACCOUNT, null, null);
         }
     }
 
@@ -512,7 +522,7 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
      * @param result
      */
     private void handleSignInResult(GoogleSignInResult result) {
-        myLog.E("handleSignInResult: " + result.isSuccess());
+        myLog.e("handleSignInResult: " + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             googleProfile = result.getSignInAccount();
@@ -520,16 +530,20 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
             String id = googleProfile.getId();
             String personName = googleProfile.getDisplayName();
             String email = googleProfile.getEmail();
-//            String personPhotoUrl = acct.getPhotoUrl() != null ? acct.getPhotoUrl().toString() : null;
+            String personPhotoUrl = googleProfile.getPhotoUrl() != null ? googleProfile.getPhotoUrl().toString() : null;
 
-            myLog.E("Name: " + personName + ", email: " + email);
+            myLog.e("Name: " + personName + ", email: " + email + "   image profile " + personPhotoUrl);
             flag_social = FLAG_SOCIAL_GMAIL;
             currentUser.setFullName(personName);
             currentUser.setLinkGmail(id);
             currentUser.setLoginName(email);
             currentUser.setEmail(email);
+            if (personPhotoUrl != null)
+                userPhotoPath = personPhotoUrl;
 
-            doCPLogin(currentUser, Constant.LOGIN_ACTION_CHECKACCOUNT);
+            cedtEmail.setText(email);
+
+            doCPLogin(currentUser, Constant.LOGIN_ACTION_CPLOGIN, null, null);
 //            updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
@@ -671,16 +685,19 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
 //            showConfirmation(encrypted);
 
             //Goto Dashboard
-            myLog.E("Login throught FingerPrint");
+            myLog.e("Login throught FingerPrint");
             Intent intent = new Intent(getActivity(), DashboardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
             CustomPref.setLogin(getActivity(), true);
+
             startActivity(intent);
             getActivity().finish();
 
         } catch (BadPaddingException | IllegalBlockSizeException e) {
             Toast.makeText(getActivity(), "Failed to encrypt the data with the generated key. "
                     + "Retry the purchase", Toast.LENGTH_LONG).show();
-            myLog.E(TAG, "Failed to encrypt the data with the generated key." + e.getMessage());
+            myLog.e(TAG, "Failed to encrypt the data with the generated key." + e.getMessage());
         }
     }
 
@@ -746,13 +763,133 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
         }
     }
 
+    private void showDialogInputOTP(final Context context) {
+
+        AlertDialog.Builder alerDialog = new AlertDialog.Builder(context);
+        LayoutInflater li = LayoutInflater.from(context);
+        View view = li.inflate(R.layout.dialog_input_otp, null);
+        alerDialog.setView(view);
+        final AlertDialog dialog = alerDialog.create();
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCanceledOnTouchOutside(true);
+
+        final PinLockView mPinLockView;
+        IndicatorDots mIndicatorDots;
+        final TextView tvRefeshPin, tvCountdown;
+        Button btnOpenMail;
+
+        mPinLockView = dialog.findViewById(R.id.pin_lock_view);
+        mIndicatorDots = dialog.findViewById(R.id.indicator_dots);
+        tvRefeshPin = dialog.findViewById(R.id.tvRefeshPin);
+        tvCountdown = dialog.findViewById(R.id.tvCountdown);
+        btnOpenMail = dialog.findViewById(R.id.btnOpenMail);
+
+        mPinLockView.attachIndicatorDots(mIndicatorDots);
+
+        mPinLockView.setPinLength(Constant.OTP_LENGTH);
+
+        mPinLockView.setTextColor(ContextCompat.getColor(context, R.color.grey_dark));
+        mIndicatorDots.setIndicatorType(IndicatorDots.IndicatorType.FILL_WITH_ANIMATION);
+
+        final CountDownTimer timer = new CountDownTimer(Constant.TIMER_COUNTDOWN_OTP, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                tvCountdown.setText("" + millisUntilFinished / 1000);
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+                isRePin = true;
+                tvCountdown.setText("0");
+            }
+        };
+        timer.start();
+
+        mPinLockView.setPinLockListener(new PinLockListener() {
+            @Override
+            public void onComplete(String pin) {
+                myLog.e(TAG, "OTP dialog pin = " + pin);
+                if (pin.length() == Constant.OTP_LENGTH) {
+                    if (!tvCountdown.getText().toString().equalsIgnoreCase("0"))
+                        doCPLogin(currentUser, Constant.LOGIN_ACTION_CHECKOTP, pin, dialog);
+                    else {
+                        MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+                        builder.setMessage("Mã Pin đã hết hạn, xin vui lòng nhấn nút Gửi lại mã Pin và thử lại.")
+                                .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.create().show();
+                    }
+                }
+                mPinLockView.resetPinLockView();
+            }
+
+            @Override
+            public void onEmpty() {
+                myLog.e(TAG, " OTP dialog empty");
+            }
+
+            @Override
+            public void onPinChange(int pinLength, String intermediatePin) {
+                myLog.e(TAG, " OTP dialog onPinChange length = " + pinLength + " ** inter : " + intermediatePin);
+            }
+        });
+
+        tvRefeshPin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isRePin) {
+                    doCPLogin(currentUser, Constant.LOGIN_ACTION_GENERATEOTP, null, dialog);
+                    try {
+                        Thread.sleep(3000);
+                        timer.start();
+                    } catch (InterruptedException e) {
+                        myLog.printTrace(e);
+                    }
+                } else {
+                    MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+                    builder.setMessage("Mã Pin đã được gửi vào địa chỉ email của quý khách. Xin vui lòng kiểm tra lại.")
+                            .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.create().show();
+                }
+            }
+        });
+
+        btnOpenMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utilities.actionOpenMailApp(context);
+            }
+        });
+
+        dialog.show();
+    }
+
     /**
      * Check user exist or Login if Social
      *
      * @param user
-     * @param Acction
+     * @param Action
      */
-    public void doCPLogin(final ClientProfile user, String Acction) {
+    public void doCPLogin(final ClientProfile user, final String Action, String otp, final AlertDialog alertDialog) {
 
         final ProgressDialog process = new ProgressDialog(getActivity());
         process.setMessage("Kiểm tra thông tin...");
@@ -768,10 +905,12 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
 
         data.setApiToken(CustomPref.getAPIToken(getActivity()));
         data.setDeviceID(Utilities.getDeviceID(getActivity()));
-        data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+        data.setOS(Utilities.getDeviceOS());
         data.setProject(Constant.Project_ID);
-        data.setAction(Acction);
+        data.setAction(Action);
         data.setAuthentication(Constant.Project_Authentication);
+        if (otp != null)
+            data.setOtp(otp);
 
         final BaseRequest request = new BaseRequest();
         request.setJsonDataInput(data);
@@ -808,7 +947,7 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
                                         if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CLIEXIST)) {
 
                                             if (flag_social == FLAG_SOCIAL_FACEBOOK || flag_social == FLAG_SOCIAL_GMAIL) {
-                                                doCPLogin(user, Constant.LOGIN_ACTION_CPLOGIN);
+                                                doCPLogin(user, Constant.LOGIN_ACTION_CPLOGIN, null, null);
                                             } else {
                                                 LoginInputPasswordFragment fragment = LoginInputPasswordFragment.newInstance(currentUser);
                                                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -816,11 +955,80 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
                                                 transaction.addToBackStack(fragment.getClass().getName());
                                                 transaction.commit();
                                             }
+                                        } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CLIEXISTNOACTIVE)) {
+                                            showDialogInputOTP(getActivity());
+
+                                        } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_OTPEXPIRY)) {
+
+                                            MyCustomDialog.Builder builder = new MyCustomDialog.Builder(getActivity());
+                                            builder.setMessage("Mã Pin đã hết hạn, xin vui lòng nhấn nút Gửi lại mã Pin và thử lại.")
+                                                    .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            builder.create().show();
+
+                                        } else if (result.getErrLog().equalsIgnoreCase(Constant.ERR_CPLOGIN_OTPINCORRECT)) {
+
+                                            MyCustomDialog dialog = new MyCustomDialog.Builder(getActivity())
+                                                    .setMessage("Bạn nhập sai mã Pin. Xin vui lòng thử lại")
+                                                    .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    }).create();
+                                            dialog.show();
+                                        } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_SUCCESSFUL)) {
+
+                                            if (Action.equalsIgnoreCase(Constant.LOGIN_ACTION_GENERATEOTP)) {
+                                                isRePin = false;
+                                                //OTP re-generate
+                                                MyCustomDialog.Builder builder = new MyCustomDialog.Builder(getActivity());
+                                                builder.setMessage("Mã Pin đã được gửi lại vào địa chỉ email của quý khách.")
+                                                        .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                dialog.dismiss();
+                                                            }
+                                                        });
+                                                builder.create().show();
+                                            } else {
+                                                alertDialog.dismiss();
+
+                                                CustomPref.setLogin(getActivity(), true);
+                                                CustomPref.saveUserLogin(getActivity(), user);
+
+                                                Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
+                                                getActivity().finish();
+                                            }
+                                        } else if (result.getErrLog().equalsIgnoreCase("SUCC")) {
+                                            //OTP re-generate
+                                            Toast.makeText(getActivity(), "Mã Pin đã được gửi lại vào địa chỉ email của quý khách.", Toast.LENGTH_LONG).show();
+
                                         } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CLINOEXIST)) {
-                                            Intent intent = new Intent(getActivity(), RegisterActivity.class);
-                                            intent.putExtra(Constant.INTENT_USER_DATA, user);
-                                            startActivity(intent);
+
+                                            if (Utilities.validateEmail(user.getLoginName())) {
+                                                Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                                                intent.putExtra(Constant.INTENT_USER_DATA, user);
+                                                startActivity(intent);
+                                            } else {
+                                                MyCustomDialog dialog = new MyCustomDialog.Builder(getActivity())
+                                                        .setMessage("Tài khoản này không tồn tại, nếu muốn đăng kí mới Anh/Chị cần nhập địa chỉ email.")
+                                                        .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                dialog.dismiss();
+                                                            }
+                                                        }).create();
+                                                dialog.show();
+                                            }
                                         } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_LINKNOEXIST)) {
+
                                             Intent intent = new Intent(getActivity(), RegisterActivity.class);
                                             intent.putExtra(Constant.INTENT_USER_DATA, user);
                                             startActivity(intent);
@@ -831,11 +1039,15 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
                                             if (TextUtils.isEmpty(user.getaPIToken()))
                                                 user.setaPIToken(result.getNewAPIToken());
 
+                                            if (flag_social == FLAG_SOCIAL_FACEBOOK || flag_social == FLAG_SOCIAL_GMAIL)
+                                                user.setProfilePhoto(userPhotoPath);
+
                                             //Save Login Profile & Token
                                             CustomPref.setLogin(getActivity(), true);
                                             CustomPref.saveUserLogin(getActivity(), user);
 
                                             Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
                                             getActivity().finish();
                                         }
@@ -859,7 +1071,7 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
             @Override
             public void onFailure(Call<loginNewResponse> call, Throwable t) {
                 // TODO Auto-generated method stub
-                myLog.E(t.getMessage());
+                myLog.e("Failure " + t.getMessage());
                 if (!getActivity().isFinishing())
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -874,7 +1086,7 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        myLog.E(" Error Connecttion " + connectionResult);
+        myLog.e(" Error Connecttion " + connectionResult);
     }
 
     @Override
@@ -883,7 +1095,7 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_GOOGLE_SIGN_IN) {
-            myLog.E("Fragment result: " + data);
+            myLog.e("Fragment result: " + data);
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
 //            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -892,31 +1104,60 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
         } else
             callbackManager.onActivityResult(requestCode, resultCode, data);
 
-        myLog.E("FRAGMENT", "onResultCalled");
+        myLog.e("FRAGMENT", "onResultCalled");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        accessTokenTracker.startTracking();
-        profileTracker.startTracking();
+
+        try {
+            LoginManager.getInstance().logOut();
+        } catch (Exception e) {
+            myLog.printTrace(e);
+        }
+
+        if (accessTokenTracker != null)
+            accessTokenTracker.startTracking();
+        if (profileTracker != null)
+            profileTracker.startTracking();
 
         // If the access token is available already assign it.
         accessToken = AccessToken.getCurrentAccessToken();
         facebookProfile = Profile.getCurrentProfile();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestProfile()
+                .requestEmail()
+                .build();
+        if (mGoogleApiClient == null)
+            mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                    .enableAutoManage(getActivity(), this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+
+        if (mGoogleApiClient.isConnected())
+            googleSignOut();
+
+        currentUser = new ClientProfile();
+        flag_social = 0;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-
         //sigin silent
 //        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
 //        if (opr.isDone()) {
 //            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
 //            // and the GoogleSignInResult will be available instantly.
-//            myLog.E("Got cached sign-in");
+//            myLog.e("Got cached sign-in");
 //            GoogleSignInResult result = opr.get();
 //
 //            if (result.isSuccess()) {
@@ -956,7 +1197,6 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
         super.onDestroy();
         accessTokenTracker.stopTracking();
         profileTracker.stopTracking();
-
     }
 
     @Override
@@ -973,6 +1213,5 @@ public class LoginInputUserNameFragment extends Fragment implements GoogleApiCli
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 }

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical"
+    tools:context=".afragment.prototype.SettingNotificationFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thiết lập việc nhận thông báo"
+        android:textSize="@dimen/textsize17" />
+
+    <!--Notifications Push-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Thông báo đẩy"
+        android:textSize="@dimen/textsize15"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/medium_grey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical">
+
+        <!--Thay doi thong tin tai khoan-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Thay đổi Thông tin tài khoản" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/swChangeAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/SCBSwitch" />
+        </LinearLayout>
+
+        <!--Thay doi thong tin hop dong-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Thay đổi Thông tin hợp đồng" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/swChangePolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/SCBSwitch" />
+        </LinearLayout>
+
+        <!--Sự kiện (sinh nhat, le, tet)-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sự kiện (sinh nhật, lễ, tết...)" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/swEventHoliday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/SCBSwitch" />
+        </LinearLayout>
+
+        <!--Using Loyalty Point-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sử dụng điểm thưởng" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/swUsingLoyalty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/SCBSwitch" />
+        </LinearLayout>
+
+        <!--Dai-Ichi-Life News-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Bản tin Dai-Ichi-Life" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/swNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/SCBSwitch" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--Thong bao qua Email & SMS-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Thông báo qua Email và SMS"
+        android:textSize="@dimen/textsize15"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/medium_grey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical">
+
+        <!--Thay doi thong tin tai khoan-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Thay đổi Thông tin tài khoản" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/swChangeAcc2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/SCBSwitch" />
+        </LinearLayout>
+
+        <!--Thay doi thong tin hop dong-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Thay đổi Thông tin hợp đồng" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/swChangePolicy2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/SCBSwitch" />
+        </LinearLayout>
+
+        <!--Loyalty Point-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sử dụng điểm thưởng" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/swUsingLoyalty2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/SCBSwitch" />
+        </LinearLayout>
+
+        <!--Bản tin Dai-Ichi-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Bản tin Dai-Ichi-Life" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/swNews2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:theme="@style/SCBSwitch" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

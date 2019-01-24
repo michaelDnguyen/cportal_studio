@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
+import okhttp3.CertificatePinner;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -28,10 +29,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServicesGenerator {
     private static final String APITOKEN_PARAM = "Token";
 
+    /**
+     * 21-12-2018: VA&Pentest SSL Certificate Pining
+     * Todo: Change public key when to PRD
+     */
+    private static CertificatePinner certPinner = new CertificatePinner.Builder().add("magpcmsuat2.dai-ichi-life.com.vn",
+            "sha256/Ffc18IJHE4R6yJVbtG1+VYhQG1ARAhcEwkRodZkMOYA=").build();
+    /**
+     * End Cert Pining
+     */
+
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30,TimeUnit.SECONDS);
+            .connectTimeout(90, TimeUnit.SECONDS)
+            .readTimeout(90, TimeUnit.SECONDS)
+            .writeTimeout(90, TimeUnit.SECONDS)
+            .certificatePinner(certPinner);
 
 
     private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(Constant.URL)

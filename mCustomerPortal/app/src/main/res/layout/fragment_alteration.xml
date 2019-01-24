@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".afragment.prototype.AlterationFragment">
+
+    <include layout="@layout/toolbar_back" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/title_update_info"
+        android:textAllCaps="true"
+        android:textSize="@dimen/textsize17"
+        android:textStyle="bold" />
+
+    <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ctvCapNhatBMBH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/state_btn_grey_rectangle"
+        android:drawableLeft="@drawable/st_checkmark_chktv"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/red"
+        android:padding="10dp"
+        android:text="Thông tin Bên Mua Bảo Hiểm"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold" />
+
+    <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ctvCapNhatNDBH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/state_btn_grey_rectangle"
+        android:drawableLeft="@drawable/st_checkmark_chktv"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/red"
+        android:padding="10dp"
+        android:text="Thông tin Người Được Bảo Hiểm"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold" />
+
+    <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ctvCapNhatNTH"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/state_btn_grey_rectangle"
+        android:drawableLeft="@drawable/st_checkmark_chktv"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/red"
+        android:padding="10dp"
+        android:text="Thông tin Người Thụ Hưởng"
+        android:textColor="@color/dark_grey"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btnTiepTuc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/state_btn_red_radius_gradien"
+        android:text="Tiếp tục"
+        android:textAllCaps="false"
+        android:textColor="@color/white" />
+
+</LinearLayout>

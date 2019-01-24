@@ -1,404 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.dlvn.mcustomerportal.afragment.HomeFragment" >
+    tools:context="afragment.HomeFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="30dp" >
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical" >
-
-            <!-- Layout header home origin -->
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <ImageView
-                android:id="@+id/imv_ads"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:src="@drawable/img_homepage" />
 
-            <!-- Layout header home by Customer template Outsystem -->
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <LinearLayout
-                    android:id="@+id/llo01"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@color/red"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingBottom="50dp" >
-
-                    <TextView
-                        android:id="@+id/tvWelcome"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Chào mừng Nguyen Van Nam"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/textsize14"
-                        android:textStyle="bold"
-                        android:typeface="sans"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tvDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:padding="5dp"
-                        android:text=""
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/textsize12"
-                        android:visibility="gone" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lloHopDong"
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_below="@id/llo01"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="-60dp"
-                    android:background="@drawable/st_bg_page_home"
-                    android:orientation="vertical" >
-
-                    <com.dlvn.mcustomerportal.view.indicator.ScrollerViewPager
-                        android:id="@+id/view_pager"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
-
-                    <com.dlvn.mcustomerportal.view.indicator.CirclePageIndicator
-                        android:id="@+id/indicator"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        app:centered="true" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <!-- layout quảng cáo CTBH -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="Bảo vệ hạnh phúc của những người thân yêu"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textsize20" />
 
             <LinearLayout
+                style="@style/LineButtonMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:orientation="vertical"
-                android:padding="10dp" >
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                android:gravity="center_horizontal">
 
-                <!-- QC1 -->
+                <Button
+                    android:id="@+id/btnWelcome"
+                    style="@style/TextViewMainButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/state_homebtn_radius_gradien"
+                    android:drawableTop="@drawable/ico_bank"
+                    android:drawablePadding="10dp"
+                    android:elevation="5dp"
+                    android:paddingTop="10dp"
+                    android:text="Giới thiệu" />
 
-                <RelativeLayout
-                    android:id="@+id/rloTinTuc"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@drawable/st_bg_layout"
-                    android:clickable="true"
-                    android:elevation="3dp"
-                    android:focusable="true"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.3"
-                        android:clickable="false"
-                        android:duplicateParentState="true"
-                        android:focusable="false"
-                        android:background="@drawable/img_dai_ichi_life"
-                        android:backgroundTintMode="multiply" />
-
-                    <TextView
-                        android:id="@+id/tvtitleTinTuc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="10dp"
-                        android:capitalize="sentences"
-                        android:duplicateParentState="true"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:text="BẢN TIN DAI-ICHI-LIFE VIỆT NAM"
-                        android:textColor="@color/dark_grey"
-                        android:textSize="@dimen/textsize16"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvcontentTinTuc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="30dp"
-                        android:capitalize="sentences"
-                        android:duplicateParentState="true"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:text="Tin tức định kỳ phát hành hàng quý chia sẻ cho quý khách hàng về các hoạt động nổi bật cũng như tình hình phát triển của Dai-Ichi-Life Việt Nam."
-                        android:textColor="@color/dark_grey"
-                        android:textSize="@dimen/textsize12" />
-                </RelativeLayout>
-
-                <!-- QC2 -->
-
-                <RelativeLayout
-                    android:id="@+id/rloThongTinChung"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/st_bg_layout"
-                    android:elevation="3dp"
-                    android:orientation="vertical"
-                    android:visibility="gone" >
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:alpha="0.3"
-                        android:background="@drawable/phieu_kiem_tra_y_te"
-                        android:backgroundTintMode="multiply" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:capitalize="sentences"
-                        android:text="GIỚI THIỆU VÀ HƯỚNG DẪN SỬ DỤNG"
-                        android:textColor="@color/dark_grey"
-                        android:textSize="@dimen/textsize16"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="30dp"
-                        android:capitalize="sentences"
-                        android:text="Hướng dẫn sử dụng cổng thông tin khách hàng của Dai-Ichi-Life Việt Nam, giới thiệu các chương"
-                        android:textColor="@color/dark_grey"
-                        android:textSize="@dimen/textsize12" />
-                </RelativeLayout>
-
-                <!-- Biểu đồ giá đơn vị -->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/main_bgtrans70"
-                    android:orientation="vertical"
-                    android:padding="10dp" >
-
-                    <lecho.lib.hellocharts.view.LineChartView
-                        android:id="@+id/chart"
-                        android:layout_width="match_parent"
-                        android:layout_height="250dp" >
-                    </lecho.lib.hellocharts.view.LineChartView>
-                </LinearLayout>
+                <Button
+                    android:id="@+id/btnNews"
+                    style="@style/TextViewMainButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/state_homebtn_radius_gradien"
+                    android:drawableTop="@drawable/ico_bank"
+                    android:drawablePadding="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Tin tức sự kiện" />
             </LinearLayout>
 
-            <!-- layout transaction -->
-
             <LinearLayout
-                android:id="@+id/lloTransaction"
+                style="@style/LineButtonMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/st_bg_page_home"
-                android:orientation="vertical"
-                android:padding="10dp" >
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                <Button
+                    android:id="@+id/btnVideo"
+                    style="@style/TextViewMainButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/state_homebtn_radius_gradien"
+                    android:drawableTop="@drawable/ico_bank"
+                    android:drawablePadding="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Video giới thiệu" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ico_transaction" />
+                <Button
+                    android:id="@+id/btnProduct"
+                    style="@style/TextViewMainButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/state_homebtn_radius_gradien"
+                    android:drawableTop="@drawable/ico_bank"
+                    android:drawablePadding="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Sản phẩm bảo hiểm" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="Lịch sử giao dịch"
-                        android:textColor="@color/red"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvCheckOutTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
-                <!-- list item -->
+            <LinearLayout
+                style="@style/LineButtonMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                <Button
+                    android:id="@+id/btnService"
+                    style="@style/TextViewMainButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/state_homebtn_radius_gradien"
+                    android:drawableTop="@drawable/ico_bank"
+                    android:drawablePadding="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Tư vấn chọn bảo hiểm" />
 
-                    <!-- item 1 -->
+                <Button
+                    android:id="@+id/btnPayment"
+                    style="@style/TextViewMainButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/state_homebtn_radius_gradien"
+                    android:drawableTop="@drawable/ico_bank"
+                    android:drawablePadding="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Thanh toán phí bảo hiểm" />
+            </LinearLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="10dp"
-                        android:padding="5dp" >
+            <LinearLayout
+                style="@style/LineButtonMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal">
 
-                        <ImageView
-                            android:id="@+id/imvIcoTrans"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:adjustViewBounds="true"
-                            android:background="@drawable/st_bg_white_border_noradius"
-                            android:padding="3dp"
-                            android:src="@drawable/ico_transaction" />
+                <Button
+                    android:id="@+id/btnFacebook"
+                    style="@style/TextViewMainButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/state_homebtn_radius_gradien"
+                    android:drawableTop="@drawable/ico_bank"
+                    android:drawablePadding="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Facebook" />
 
-                        <TextView
-                            android:id="@+id/tvTransMaGiaoDich"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_toRightOf="@id/imvIcoTrans"
-                            android:text="Mã giao dịch 34213"
-                            android:textColor="@color/red" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tvTransMaGiaoDich"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_toRightOf="@id/imvIcoTrans"
-                            android:text="Mua thẻ cào 50.0 điểm." />
-
-                        <ImageView
-                            android:id="@+id/imvIcoTrans2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:padding="3dp"
-                            android:src="@drawable/ico_arrow_right" />
-                    </RelativeLayout>
-
-                    <!-- item 2 -->
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="10dp"
-                        android:padding="5dp" >
-
-                        <ImageView
-                            android:id="@+id/imv2IcoTrans"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:adjustViewBounds="true"
-                            android:background="@drawable/st_bg_white_border_noradius"
-                            android:padding="3dp"
-                            android:src="@drawable/ico_transaction" />
-
-                        <TextView
-                            android:id="@+id/tv2TransMaGiaoDich"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_toRightOf="@id/imv2IcoTrans"
-                            android:text="Mã giao dịch 65894"
-                            android:textColor="@color/red" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tv2TransMaGiaoDich"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_toRightOf="@id/imv2IcoTrans"
-                            android:text="Đổi phiếu khám chữa bênh 100.0 điểm" />
-
-                        <ImageView
-                            android:id="@+id/imv2IcoTrans2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:padding="3dp"
-                            android:src="@drawable/ico_arrow_right" />
-                    </RelativeLayout>
-
-                    <!-- item 3 -->
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="10dp"
-                        android:padding="5dp" >
-
-                        <ImageView
-                            android:id="@+id/imv3IcoTrans"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:adjustViewBounds="true"
-                            android:background="@drawable/st_bg_white_border_noradius"
-                            android:padding="3dp"
-                            android:src="@drawable/ico_transaction" />
-
-                        <TextView
-                            android:id="@+id/tv3TransMaGiaoDich"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_toRightOf="@id/imv3IcoTrans"
-                            android:text="Mã giao dịch 245876"
-                            android:textColor="@color/red" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tv3TransMaGiaoDich"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_toRightOf="@id/imv3IcoTrans"
-                            android:text="Đổi phiếu mua hàng siêu thị 200.0 điểm" />
-
-                        <ImageView
-                            android:id="@+id/imv3IcoTrans2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:padding="3dp"
-                            android:src="@drawable/ico_arrow_right" />
-                    </RelativeLayout>
-                </LinearLayout>
+                <Button
+                    android:id="@+id/btnYoutube"
+                    style="@style/TextViewMainButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/state_homebtn_radius_gradien"
+                    android:drawableTop="@drawable/ico_bank"
+                    android:drawablePadding="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Youtube" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

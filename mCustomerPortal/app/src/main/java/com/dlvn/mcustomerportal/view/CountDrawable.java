@@ -26,7 +26,7 @@ public class CountDrawable extends Drawable {
         float mTextSize = context.getResources().getDimension(R.dimen.textsize13);
 
         mBadgePaint = new Paint();
-        mBadgePaint.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.blue));
+        mBadgePaint.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.red));
         mBadgePaint.setAntiAlias(true);
         mBadgePaint.setStyle(Paint.Style.FILL);
 

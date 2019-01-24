@@ -42,12 +42,12 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
         // noinspection ResourceType
         boolean result = mFingerprintManager.isHardwareDetected()
                 && mFingerprintManager.hasEnrolledFingerprints();
-        myLog.E(TAG, "is Fingerprint Auth Available " + result);
+        myLog.e(TAG, "is Fingerprint Auth Available " + result);
         return result;
     }
 
     public void startListening(FingerprintManager.CryptoObject cryptoObject) {
-        myLog.E(TAG, "start Listenening ");
+        myLog.e(TAG, "start Listenening ");
         if (!isFingerprintAuthAvailable()) {
             return;
         }
@@ -61,7 +61,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
     }
 
     public void stopListening() {
-        myLog.E(TAG, "stop Listener");
+        myLog.e(TAG, "stop Listener");
         if (mCancellationSignal != null) {
             mSelfCancelled = true;
             mCancellationSignal.cancel();

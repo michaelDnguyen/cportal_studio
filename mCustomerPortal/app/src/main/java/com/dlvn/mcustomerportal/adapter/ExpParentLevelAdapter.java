@@ -1,17 +1,17 @@
 package com.dlvn.mcustomerportal.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.adapter.model.ContractDetailModel;
-import com.dlvn.mcustomerportal.adapter.model.HomeItemModel;
+import com.dlvn.mcustomerportal.adapter.model.PolicyItemDetailModel;
 import com.dlvn.mcustomerportal.utils.DateUtils;
 import com.dlvn.mcustomerportal.utils.Utilities;
 import com.dlvn.mcustomerportal.view.holder.ExpViewHolder;
@@ -45,7 +45,7 @@ public class ExpParentLevelAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int arg0, int arg1) {
-        return lstData.get(arg0).getLstDetail().get(arg1);
+        return lstData.get(arg0).getLstValue().get(arg1);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ExpParentLevelAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView,
                              ViewGroup parent) {
 
-        HomeItemModel item = lstData.get(groupPosition).getLstValue().get(childPosition);
+        PolicyItemDetailModel item = lstData.get(groupPosition).getLstValue().get(childPosition);
         ExpViewHolder holder;
 
         if (convertView == null) {
@@ -68,6 +68,7 @@ public class ExpParentLevelAdapter extends BaseExpandableListAdapter {
 
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             holder.tvContent = (TextView) convertView.findViewById(R.id.tvValue);
+
 //            // icon
 //            holder.imvIcon = (ImageView) convertView.findViewById(R.id.imvIconExpand);
             convertView.setTag(holder);
@@ -78,13 +79,16 @@ public class ExpParentLevelAdapter extends BaseExpandableListAdapter {
          * Chỉnh sửa format dữ liệu từ server
          */
         if (item != null) {
-            if (item.get_title() != null)
+
+            if (!TextUtils.isEmpty(item.get_title()))
                 holder.tvTitle.setText(item.get_title());
-            if (item.get_content() != null) {
+
+            if (!TextUtils.isEmpty(item.get_content())) {
+                holder.tvContent.setVisibility(View.VISIBLE);
 
                 //Chỉnh sửa ngày tháng
                 if (item.get_title().equals("Ngày sinh") || item.get_title().equals("Ngày đáo hạn") || item.get_title().equals("Ngày bắt đầu quyền lợi bảo hiểm")
-                        || item.get_title().equals("Ngày bắt đầu hiệu lực hợp đồng")) {
+                        || item.get_title().equals("Ngày bắt đầu hiệu lực hợp đồng") || item.get_title().equals("Ngày tháng năm sinh")) {
                     holder.tvContent.setText(DateUtils.parseDateForMCP(item.get_content().trim()));
                 }
 
@@ -110,7 +114,8 @@ public class ExpParentLevelAdapter extends BaseExpandableListAdapter {
                 else if (item.get_title().equals("Tỉ lệ")) {
                     holder.tvContent.setText(item.get_content().trim() + "%");
                 } else holder.tvContent.setText(item.get_content().trim());
-            }
+            } else
+                holder.tvContent.setVisibility(View.GONE);
         }
 
         return convertView;

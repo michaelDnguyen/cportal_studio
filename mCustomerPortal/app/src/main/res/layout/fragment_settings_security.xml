@@ -24,12 +24,19 @@
             android:layout_height="wrap_content"
             android:text="Email" />
 
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_width="wrap_content"
+        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+            android:id="@+id/cedtEmail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv01"
             android:layout_marginTop="7dp"
+            android:layout_toLeftOf="@id/tvVerifyEmail"
+            android:background="@android:color/transparent"
+            android:cursorVisible="true"
+            android:enabled="false"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textCursorDrawable="@null"
             android:textStyle="bold" />
 
         <TextView
@@ -38,6 +45,10 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/tvEmail"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
             android:text="Xác thực ngay"
             android:textColor="@color/red"
             android:textStyle="bold" />
@@ -62,21 +73,29 @@
             android:layout_height="wrap_content"
             android:text="Số điện thoại" />
 
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="wrap_content"
+        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+            android:id="@+id/cedtPhone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv02"
+            android:enabled="false"
             android:layout_marginTop="7dp"
+            android:layout_toLeftOf="@id/tvVerifyPhone"
+            android:background="@android:color/transparent"
+            android:cursorVisible="true"
+            android:textCursorDrawable="@null"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvVerifyPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/tvPhone"
+            android:layout_alignBottom="@id/cedtPhone"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
             android:text="Xác thực ngay"
             android:textColor="@color/red"
             android:textStyle="bold" />
@@ -145,8 +164,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:theme="@style/switch2Layer"
-            android:checked="false" />
+            android:checked="false"
+            android:theme="@style/switch2Layer" />
 
     </RelativeLayout>
 
@@ -181,10 +200,10 @@
             android:id="@+id/swFinger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/switchFinger"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:checked="false" />
+            android:checked="false"
+            android:theme="@style/switchFinger" />
 
     </RelativeLayout>
 

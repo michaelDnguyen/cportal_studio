@@ -50,10 +50,12 @@ public class FundUnitPriceFragment extends Fragment {
     View view;
     TextView tvMonth;
     ImageView imvTruoc, imvSau;
+    ImageView imvTangTruong, imvPhattrien,imvBaoToan,imvThinhVuong,imvDamBao;
 
     ServicesRequest svRequester;
     int year, month;
     List<PriceILPModel> lsChart;
+    SimpleDateFormat format;
 
     private LineChartView chart;
     private LineChartData data;
@@ -67,12 +69,12 @@ public class FundUnitPriceFragment extends Fragment {
     private boolean hasAxes = true;
     private boolean hasAxesNames = true;
     private boolean hasLines = true;
-    private boolean hasPoints = true;
+    private boolean hasPoints = false;
     private ValueShape shape = ValueShape.CIRCLE;
     private boolean isFilled = false;
     private boolean hasLabels = false;
     private boolean isCubic = false;
-    private boolean hasLabelForSelected = false;
+    private boolean hasLabelForSelected = true;
     private boolean pointsHaveDifferentColor;
     private boolean hasGradientToTransparent = false;
 
@@ -125,16 +127,41 @@ public class FundUnitPriceFragment extends Fragment {
         tvMonth = (TextView) v.findViewById(R.id.tvMonth);
         imvTruoc = v.findViewById(R.id.imvTruoc);
         imvSau = v.findViewById(R.id.imvSau);
+
+        imvTangTruong = v.findViewById(R.id.imvTangTruong);
+        imvPhattrien = v.findViewById(R.id.imvPhatTrien);
+        imvBaoToan = v.findViewById(R.id.imvBaoToan);
+        imvThinhVuong = v.findViewById(R.id.imvThinhvuong);
+        imvDamBao = v.findViewById(R.id.imvDamBao);
+
+        imvTangTruong.setBackgroundColor(colorLine[0]);
+        imvPhattrien.setBackgroundColor(colorLine[1]);
+        imvBaoToan.setBackgroundColor(colorLine[2]);
+        imvThinhVuong.setBackgroundColor(colorLine[3]);
+        imvDamBao.setBackgroundColor(colorLine[4]);
     }
 
     private void initDatas() {
         // TODO Auto-generated method stub
-        Calendar c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH) + 1;
+        format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+
+
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
         tvMonth.setText(month + "/" + year);
 
-        new GetILPPriceTask().execute();
+        //get fromDate - toDate for query
+        Date crDate = calendar.getTime();
+        String toDate = format.format(crDate);
+        myLog.e(TAG, "toDate : " + toDate);
+
+        calendar.set(Calendar.DATE, 1);
+        Date date = calendar.getTime();
+        String fromDate = format.format(date);
+        myLog.e(TAG, "fromDate : " + fromDate);
+
+        new GetILPPriceTask(fromDate, toDate).execute();
 //        generateValues();
 //        generateData();
 //        chart.setViewportCalculationEnabled(false);
@@ -157,6 +184,17 @@ public class FundUnitPriceFragment extends Fragment {
                 }
                 tvMonth.setText(month + "/" + year);
 
+                Calendar c = Calendar.getInstance();
+                c.set(Calendar.YEAR, year);
+                c.set(Calendar.MONTH, month-1);
+                c.set(Calendar.DATE, 1);
+
+                String fromDate = format.format(c.getTime());
+
+                c.set(Calendar.DATE, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+                String toDate = format.format(c.getTime());
+
+                new GetILPPriceTask(fromDate, toDate).execute();
 //                reset();
 //                generateValues();
 //                generateData();
@@ -174,6 +212,18 @@ public class FundUnitPriceFragment extends Fragment {
                     year++;
                 }
                 tvMonth.setText(month + "/" + year);
+
+                Calendar c = Calendar.getInstance();
+                c.set(Calendar.YEAR, year);
+                c.set(Calendar.MONTH, month-1);
+                c.set(Calendar.DATE, 1);
+
+                String fromDate = format.format(c.getTime());
+
+                c.set(Calendar.DATE, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+                String toDate = format.format(c.getTime());
+
+                new GetILPPriceTask(fromDate, toDate).execute();
 
 //                reset();
 //                generateValues();
@@ -305,23 +355,18 @@ public class FundUnitPriceFragment extends Fragment {
      */
     private class GetILPPriceTask extends AsyncTask<Void, Void, Response<GetPriceILPResponse>> {
 
+        String fromDate, toDate;
+
+        public GetILPPriceTask(String from, String to) {
+            fromDate = from;
+            toDate = to;
+        }
+
         @Override
         protected Response<GetPriceILPResponse> doInBackground(Void... voids) {
             Response<GetPriceILPResponse> res = null;
 
             try {
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-                //get fromDate - toDate for query
-                Date crDate = calendar.getTime();
-                String toDate = format.format(crDate);
-                myLog.E(TAG, "toDate : " + toDate);
-
-                calendar.add(Calendar.MONTH, -3);
-                Date date = calendar.getTime();
-                String fromDate = format.format(date);
-                myLog.E(TAG, "fromDate : " + fromDate);
 
                 GetPriceILPRequest data = new GetPriceILPRequest();
                 data.setProject(Constant.Project_ID);
@@ -355,7 +400,7 @@ public class FundUnitPriceFragment extends Fragment {
                                 resetViewport();
                             }
                         } else {
-                            myLog.E(TAG, "Get Price ILP Error: " + result.getErrLog());
+                            myLog.e(TAG, "Get Price ILP Error: " + result.getErrLog());
                         }
                     }
                 }
@@ -377,6 +422,5 @@ public class FundUnitPriceFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-
     }
 }

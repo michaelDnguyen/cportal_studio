@@ -8,7 +8,7 @@ import com.dlvn.mcustomerportal.activity.WebTutorialActivity;
 import com.dlvn.mcustomerportal.adapter.HomeListAdapter;
 import com.dlvn.mcustomerportal.adapter.listener.RecyclerViewClickListener;
 import com.dlvn.mcustomerportal.adapter.listener.RecyclerViewTouchListener;
-import com.dlvn.mcustomerportal.adapter.model.HomeItemModel;
+import com.dlvn.mcustomerportal.adapter.model.PolicyItemDetailModel;
 import com.dlvn.mcustomerportal.view.DividerItemDecoration;
 import com.dlvn.mcustomerportal.view.RecyclerSmoothLayoutManager;
 
@@ -40,7 +40,7 @@ public class InfoGeneralFragment extends Fragment {
 	RecyclerView rvContent;
 	HomeListAdapter rvAdapter;
 
-	List<HomeItemModel> lstData;
+	List<PolicyItemDetailModel> lstData;
 
 	public InfoGeneralFragment() {
 		// Required empty public constructor
@@ -102,28 +102,28 @@ public class InfoGeneralFragment extends Fragment {
 
 	private void initDatas() {
 		// TODO Auto-generated method stub
-		lstData = new ArrayList<HomeItemModel>();
+		lstData = new ArrayList<PolicyItemDetailModel>();
 
-		lstData.add(new HomeItemModel("HƯỚNG DẪN SỬ DỤNG CỔNG THÔNG TIN DỊCH VỤ KHÁCH HÀNG",
+		lstData.add(new PolicyItemDetailModel("HƯỚNG DẪN SỬ DỤNG CỔNG THÔNG TIN DỊCH VỤ KHÁCH HÀNG",
 				"Hướng dẫn sử dụng các chức năng của cổng thông tin khách hàng như đăng nhập, thay đổi mật khẩu, sửa đổi thông tin, thông tin hợp đồng, chương trình điểm thưởng... ",
 				"http://baohiemtuonglai.vn/wp-content/uploads/2017/06/tuyen-nhan-vien-kinh-doanh-luong-cao-2.jpg"));
-		lstData.add(new HomeItemModel("HƯỚNG DẪN NỘP PHÍ BẢO HIỂM ĐỊNH KỲ",
+		lstData.add(new PolicyItemDetailModel("HƯỚNG DẪN NỘP PHÍ BẢO HIỂM ĐỊNH KỲ",
 				"Để hợp đồng bảo hiểm được duy trì hiệu lực liên tục nhằm đảm bảo các quyền lợi bảo hiểm của mình, Quý khách vui lòng nộp phí bảo hiểm định kỳ đúng hạn và có thể lựa chọn...",
 				"https://www.baohiem-dai-ichi-life.com/wp-content/uploads/2016/05/3phut-tu-van-bao-hiem-nhan-tho-dai-ichi-life-nhat-ban12.png"));
-		lstData.add(new HomeItemModel("CÁC LOẠI BIỂU MẪU",
+		lstData.add(new PolicyItemDetailModel("CÁC LOẠI BIỂU MẪU",
 				"Cung cấp các loại biểu mẫu cho khách hàng như đăng kí dịch vụ SMS, yêu cầu sử dụng điểm thưởng, giải quyết quyền lợi bảo hiểm, thanh toán quyền lợi hợp đồng bảo hiểm...",
 				"https://dai-ichi-life.com.vn/images/news/165/1701/attribute/74/Outpatient-Healthcare.jpg"));
-		lstData.add(new HomeItemModel("Ý KIẾN KHÁCH HÀNG",
+		lstData.add(new PolicyItemDetailModel("Ý KIẾN KHÁCH HÀNG",
 				"Với mục tiêu phục vụ khách hàng ngày càng tốt hơn, chúng tôi rất vui lòng tiếp nhận các ý kiến đóng ghóp của quý khách hàng thông qua việc thu thập ý kiến đóng ghóp qua Cổng thông tin khách hàng.",
 				"https://thue.today/media/images/section/brand/168706156912166_dai-ichi-life-viet-nam-cover.png"));
-		lstData.add(new HomeItemModel("KHẢO SÁT",
+		lstData.add(new PolicyItemDetailModel("KHẢO SÁT",
 				"Nhằm nâng cao và hoàn thiện hơn nữa chất lượng phục vụ khách hàng, Quý khách vui lòng dành thời gian trả lời ĐẦY ĐỦ nội dung 20 câu hỏi được nêu trong bảng khảo sát dưới đây, ở mức độ chính xác cao nhất có thể. ",
 				"https://viecoi.vn/jobs/jobfullview/userdata/jobs/5273/241216-002.jpg"));
 
-		lstData.add(new HomeItemModel("GIỚI THIỆU TIÊU CHÍ ĐIỂM THƯỞNG",
+		lstData.add(new PolicyItemDetailModel("GIỚI THIỆU TIÊU CHÍ ĐIỂM THƯỞNG",
 				"Điểm thưởng sẽ được cập nhật tự động vào tài khoản điểm thưởng của Quý khách sau khi đáp ứng các tiêu chí thưởng điểm của Chương trình, trong đó 1 (một) điểm thưởng tương đương với 1.000 (một nghìn) đồng. ",
 				"https://www.baohiem-dai-ichi-life.com/wp-content/uploads/2016/05/3phut-tu-van-bao-hiem-nhan-tho-dai-ichi-life-nhat-ban12.png"));
-		lstData.add(new HomeItemModel("HƯỚNG DẪN SỬ DỤNG ĐIỂM THƯỞNG",
+		lstData.add(new PolicyItemDetailModel("HƯỚNG DẪN SỬ DỤNG ĐIỂM THƯỞNG",
 				"Quý khách có thể sử dụng hoặc tích lũy điểm thưởng của mình để sử dụng các dịch vụ được  Dai-ichi Life Việt Nam cung cấp sau đây:",
 				"https://dai-ichi-life.com.vn/images/news/165/1701/attribute/74/Outpatient-Healthcare.jpg"));
 

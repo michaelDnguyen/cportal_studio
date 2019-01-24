@@ -111,8 +111,11 @@ public class CPPolicyInfo {
     private String princIntAmt;
 
     /**
-     * Action Agent
+     * Action Policy Agent
      */
+    @SerializedName("PrimAgentID")
+    @Expose
+    private String primAgentID;
     @SerializedName("PrimaryAgent")
     @Expose
     private String primaryAgent;
@@ -122,6 +125,10 @@ public class CPPolicyInfo {
     @SerializedName("ContactEmail")
     @Expose
     private String contactEmail;
+    @SerializedName("CellPhone")
+    @Expose
+    private String cellPhone;
+
 
     /**
      * Action Policy Client
@@ -129,6 +136,44 @@ public class CPPolicyInfo {
     @SerializedName("ClientID")
     @Expose
     private String clientID;
+
+    /**
+     * Action Policy Pending
+     */
+    @SerializedName("IssueReqDesc")
+    @Expose
+    private String issueReqDesc;
+    @SerializedName("IssueCreatedDate")
+    @Expose
+    private String issueCreatedDate;
+    @SerializedName("IssueFolwupDate")
+    @Expose
+    private String issueFolwupDate;
+
+    public String getIssueReqDesc() {
+        return issueReqDesc;
+    }
+
+    public void setIssueReqDesc(String issueReqDesc) {
+        this.issueReqDesc = issueReqDesc;
+    }
+
+    public String getIssueCreatedDate() {
+        return issueCreatedDate;
+    }
+
+    public void setIssueCreatedDate(String issueCreatedDate) {
+        this.issueCreatedDate = issueCreatedDate;
+    }
+
+    public String getIssueFolwupDate() {
+        return issueFolwupDate;
+    }
+
+    public void setIssueFolwupDate(String issueFolwupDate) {
+        this.issueFolwupDate = issueFolwupDate;
+    }
+
 
     /**
      * For Action POINFO_ACTION_POLICYPRODUCT
@@ -367,7 +412,7 @@ public class CPPolicyInfo {
     }
 
     /**
-     * Action Agent
+     * Action Policy Agent
      */
     public String getPrimaryAgent() {
         return primaryAgent;
@@ -391,6 +436,22 @@ public class CPPolicyInfo {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getPrimAgentID() {
+        return primAgentID;
+    }
+
+    public void setPrimAgentID(String primAgentID) {
+        this.primAgentID = primAgentID;
+    }
+
+    public String getCellPhone() {
+        return cellPhone;
+    }
+
+    public void setCellPhone(String cellPhone) {
+        this.cellPhone = cellPhone;
     }
 
     /**

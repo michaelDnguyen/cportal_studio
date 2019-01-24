@@ -1,93 +1,96 @@
 package com.dlvn.mcustomerportal.adapter.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 /**
  * Model data of Hoa Don Dien Tu
- * 
+ *
  * @author nn.tai
  * @date Dec 18, 2017
  */
 public class ElectricBillModel {
 
-	String maHoaDon;
-	String maHopDong;
-	String tenKhachHang;
-	String soTienBH;
-	String ngayLap;
+    @SerializedName("TaxInvoiceID")
+    @Expose
+    private String taxInvoiceID;
+    @SerializedName("InvoiceSign")
+    @Expose
+    private String invoiceSign;
+    @SerializedName("PolicyNo")
+    @Expose
+    private String policyNo;
+    @SerializedName("Amount")
+    @Expose
+    private String amount;
+    @SerializedName("PrintedDate")
+    @Expose
+    private String printedDate;
+    //    @SerializedName("PDFFile")
+//    @Expose
+//    private String pDFFile;
+    @SerializedName("PDFFile")
+    @Expose
+    private List<Integer> pDFFile = null;
+    @SerializedName("XMLFile")
+    @Expose
+    private String xMLFile;
 
-	String pathPDF;
-	String pathXML;
+    public List<Integer> getpDFFile() {
+        return pDFFile;
+    }
 
-	public ElectricBillModel() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public void setpDFFile(List<Integer> pDFFile) {
+        this.pDFFile = pDFFile;
+    }
 
-	public ElectricBillModel(String maHoaDon, String maHopDong, String tenKhachHang, String soTienBH, String ngayLap,
-			String pathPDF, String pathXML) {
-		super();
-		this.maHoaDon = maHoaDon;
-		this.maHopDong = maHopDong;
-		this.tenKhachHang = tenKhachHang;
-		this.soTienBH = soTienBH;
-		this.ngayLap = ngayLap;
-		this.pathPDF = pathPDF;
-		this.pathXML = pathXML;
-	}
+    public String getXMLFile() {
+        return xMLFile;
+    }
 
-	public String getMaHopDong() {
-		return maHopDong;
-	}
+    public void setXMLFile(String xMLFile) {
+        this.xMLFile = xMLFile;
+    }
 
-	public void setMaHopDong(String maHopDong) {
-		this.maHopDong = maHopDong;
-	}
+    public String getTaxInvoiceID() {
+        return taxInvoiceID;
+    }
 
-	public String getMaHoaDon() {
-		return maHoaDon;
-	}
+    public void setTaxInvoiceID(String taxInvoiceID) {
+        this.taxInvoiceID = taxInvoiceID;
+    }
 
-	public void setMaHoaDon(String maHoaDon) {
-		this.maHoaDon = maHoaDon;
-	}
+    public String getInvoiceSign() {
+        return invoiceSign;
+    }
 
-	public String getTenKhachHang() {
-		return tenKhachHang;
-	}
+    public void setInvoiceSign(String invoiceSign) {
+        this.invoiceSign = invoiceSign;
+    }
 
-	public void setTenKhachHang(String tenKhachHang) {
-		this.tenKhachHang = tenKhachHang;
-	}
+    public String getPolicyNo() {
+        return policyNo;
+    }
 
-	public String getSoTienBH() {
-		return soTienBH;
-	}
+    public void setPolicyNo(String policyNo) {
+        this.policyNo = policyNo;
+    }
 
-	public void setSoTienBH(String soTienBH) {
-		this.soTienBH = soTienBH;
-	}
+    public String getAmount() {
+        return amount;
+    }
 
-	public String getNgayLap() {
-		return ngayLap;
-	}
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
 
-	public void setNgayLap(String ngayLap) {
-		this.ngayLap = ngayLap;
-	}
+    public String getPrintedDate() {
+        return printedDate;
+    }
 
-	public String getPathPDF() {
-		return pathPDF;
-	}
-
-	public void setPathPDF(String pathPDF) {
-		this.pathPDF = pathPDF;
-	}
-
-	public String getPathXML() {
-		return pathXML;
-	}
-
-	public void setPathXML(String pathXML) {
-		this.pathXML = pathXML;
-	}
-
+    public void setPrintedDate(String printedDate) {
+        this.printedDate = printedDate;
+    }
 }

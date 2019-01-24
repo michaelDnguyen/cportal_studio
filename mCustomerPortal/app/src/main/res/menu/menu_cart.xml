@@ -9,7 +9,7 @@
         android:id="@+id/ic_group"
         android:icon="@drawable/actionbar_cart_group"
         android:title="@string/menu_cart_group_title"
-        android:iconTint="@color/white"
+        android:iconTint="@color/dark_grey"
         android:iconTintMode="src_atop"
         app:showAsAction="always" />
 

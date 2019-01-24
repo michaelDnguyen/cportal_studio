@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlHandle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/state_doccard_bg"
+    android:descendantFocusability="afterDescendants"
+    android:elevation="3dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:outlineProvider="paddedBounds"
+    android:translationZ="3dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="2dp">
+
+        <com.dlvn.mcustomerportal.view.GridImageItemView
+            android:id="@+id/imvImage"
+            android:layout_width="94dp"
+            android:layout_height="130dp"
+            android:adjustViewBounds="true"
+            android:background="@color/grey"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_add_black_24dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:id="@+id/imvDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvThemMoi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:padding="3dp"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/imvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/red"
+        android:visibility="invisible" />
+
+</LinearLayout>

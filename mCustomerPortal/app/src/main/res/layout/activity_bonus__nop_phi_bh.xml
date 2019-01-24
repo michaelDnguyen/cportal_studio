@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="${relativePackage}.${activityClass}" >
+    tools:context="${relativePackage}.${activityClass}">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,18 +14,18 @@
         android:paddingBottom="20dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="20dp" >
+        android:paddingTop="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.4"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.6" >
+            android:layout_weight="0.6">
 
             <TextView
                 android:id="@+id/tvDiem"
@@ -102,13 +102,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp" >
+            android:padding="10dp">
 
             <!-- Chọn hợp đồng -->
 
@@ -116,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -180,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -194,6 +194,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:background="@drawable/state_bg_edt_bolder_radius"
+                    android:gravity="right"
                     android:inputType="number" />
 
                 <TextView
@@ -219,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -243,7 +244,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -257,6 +258,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:background="@drawable/state_bg_edt_bolder_radius"
+                    android:gravity="right"
                     android:inputType="number" />
 
                 <TextView
@@ -282,7 +284,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -306,7 +308,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -320,6 +322,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:background="@drawable/state_bg_edt_bolder_radius"
+                    android:gravity="right"
                     android:inputType="number" />
 
                 <TextView

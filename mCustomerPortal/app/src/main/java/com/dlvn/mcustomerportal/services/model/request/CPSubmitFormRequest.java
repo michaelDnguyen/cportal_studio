@@ -1,14 +1,20 @@
 package com.dlvn.mcustomerportal.services.model.request;
 
 import com.dlvn.mcustomerportal.services.model.JsonDataInput;
+import com.dlvn.mcustomerportal.services.model.response.PaymentDetailModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class CPSubmitFormRequest extends JsonDataInput {
 
     @SerializedName("Action")
     @Expose
     private String action;
+    @SerializedName("Active")
+    @Expose
+    private String active;
     @SerializedName("Project")
     @Expose
     private String project;
@@ -27,6 +33,9 @@ public class CPSubmitFormRequest extends JsonDataInput {
     @SerializedName("UserLogin")
     @Expose
     private String userLogin;
+    @SerializedName("ClientID")
+    @Expose
+    private String clientID;
     @SerializedName("APIToken")
     @Expose
     private String aPIToken;
@@ -43,12 +52,51 @@ public class CPSubmitFormRequest extends JsonDataInput {
     @Expose
     private String contactContent;
 
+    /**
+     * For Alteration Form PO Info
+     *
+     * @return
+     */
+    @SerializedName("ContactPhone")
+    @Expose
+    private String contactPhone;
+    @SerializedName("HomeAddress")
+    @Expose
+    private String homeAddress;
+    @SerializedName("BusinessAddress")
+    @Expose
+    private String businessAddress;
+    @SerializedName("FullName")
+    @Expose
+    private String fullName;
+
+    @SerializedName("lstClient")
+    @Expose
+    List<PaymentDetailModel> lstClient;
+
+    /**
+     * For Update Notification Settings
+     *
+     * @return
+     */
+    @SerializedName("MessageCode")
+    @Expose
+    private String messageCode;
+
     public String getAction() {
         return action;
     }
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
     }
 
     public String getProject() {
@@ -137,5 +185,61 @@ public class CPSubmitFormRequest extends JsonDataInput {
 
     public void setOS(String OS) {
         this.OS = OS;
+    }
+
+    public String getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(String clientID) {
+        this.clientID = clientID;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public String getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public String getBusinessAddress() {
+        return businessAddress;
+    }
+
+    public void setBusinessAddress(String businessAddress) {
+        this.businessAddress = businessAddress;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getMessageCode() {
+        return messageCode;
+    }
+
+    public void setMessageCode(String messageCode) {
+        this.messageCode = messageCode;
+    }
+
+    public List<PaymentDetailModel> getLstClient() {
+        return lstClient;
+    }
+
+    public void setLstClient(List<PaymentDetailModel> lstClient) {
+        this.lstClient = lstClient;
     }
 }

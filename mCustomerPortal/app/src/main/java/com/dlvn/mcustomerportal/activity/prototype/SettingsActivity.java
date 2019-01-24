@@ -2,7 +2,6 @@ package com.dlvn.mcustomerportal.activity.prototype;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
@@ -12,12 +11,20 @@ import android.widget.Toast;
 
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.afragment.FundUnitPriceFragment;
+import com.dlvn.mcustomerportal.afragment.InfoGeneralFragment;
+import com.dlvn.mcustomerportal.afragment.ProductInfoFragment;
 import com.dlvn.mcustomerportal.afragment.prototype.LienHeFragment;
-import com.dlvn.mcustomerportal.afragment.prototype.LienKetTaiKhoanFragment;
 import com.dlvn.mcustomerportal.afragment.prototype.SettingAccountFragment;
+import com.dlvn.mcustomerportal.afragment.prototype.SettingLinkFragment;
+import com.dlvn.mcustomerportal.afragment.prototype.SettingNotificationFragment;
 import com.dlvn.mcustomerportal.afragment.prototype.SettingSecurityFragment;
 import com.dlvn.mcustomerportal.afragment.prototype.SettingTransHistoryFragment;
+import com.dlvn.mcustomerportal.afragment.prototype.SettingTutorialFragment;
+import com.dlvn.mcustomerportal.afragment.prototype.UpdateAccountFragment;
 import com.dlvn.mcustomerportal.base.BaseActivity;
+import com.dlvn.mcustomerportal.common.Constant;
+import com.dlvn.mcustomerportal.common.CustomPref;
+import com.dlvn.mcustomerportal.services.model.response.ClientProfile;
 import com.dlvn.mcustomerportal.utils.myLog;
 
 public class SettingsActivity extends BaseActivity {
@@ -35,6 +42,8 @@ public class SettingsActivity extends BaseActivity {
     public static final int SETTING_LOGOUT = 159;
     public static final int SETTING_UNIT_PRICE = 160;
 
+    public static final int SETTING_UPDATE_PROFILE = 113;
+
     int settings_type = 0;
 
     LinearLayout lloBack;
@@ -44,7 +53,7 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         lloBack = findViewById(R.id.lloBack);
@@ -75,17 +84,21 @@ public class SettingsActivity extends BaseActivity {
                 break;
 
             case SETTING_LINK:
-                LienKetTaiKhoanFragment fmlink = new LienKetTaiKhoanFragment();
+                SettingLinkFragment fmlink = new SettingLinkFragment();
                 fragmentTransaction.replace(R.id.main_container, fmlink);
                 fragmentTransaction.commit();
                 break;
 
             case SETTING_NOTIFICATION:
-
+                SettingNotificationFragment fmNotify = new SettingNotificationFragment();
+                fragmentTransaction.replace(R.id.main_container, fmNotify);
+                fragmentTransaction.commit();
                 break;
 
             case SETTING_TUTORIAL:
-
+                SettingTutorialFragment fmTutorial = new SettingTutorialFragment();
+                fragmentTransaction.replace(R.id.main_container, fmTutorial);
+                fragmentTransaction.commit();
                 break;
 
             case SETTING_UNIT_PRICE:
@@ -113,6 +126,13 @@ public class SettingsActivity extends BaseActivity {
             case SETTING_LOGOUT:
 
                 break;
+            case SETTING_UPDATE_PROFILE:
+
+                ClientProfile user = CustomPref.getUserLogin(SettingsActivity.this);
+                UpdateAccountFragment updateAccountFragment = UpdateAccountFragment.newInstance(user, false);
+                fragmentTransaction.replace(R.id.main_container, updateAccountFragment);
+                fragmentTransaction.commit();
+                break;
 
             default:
                 Toast.makeText(SettingsActivity.this, "Không tìm thấy Settings tương ứng!", Toast.LENGTH_LONG).show();
@@ -131,10 +151,10 @@ public class SettingsActivity extends BaseActivity {
         try {
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 fragment.onActivityResult(requestCode, resultCode, data);
-                myLog.E("onActivityResult", "ON RESULT CALLED");
+                myLog.e("onActivityResult", "ON RESULT CALLED");
             }
         } catch (Exception e) {
-            myLog.E("onActivityResult", e.toString());
+            myLog.e("onActivityResult", e.toString());
         }
     }
 }

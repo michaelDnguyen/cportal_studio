@@ -59,13 +59,13 @@ public class AppLocationService extends Service implements LocationListener {
         try {
             gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         } catch (Exception ex) {
-            myLog.E(ex.getMessage());
+            myLog.e(ex.getMessage());
         }
 
         try {
             network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         } catch (Exception ex) {
-            myLog.E(ex.getMessage());
+            myLog.e(ex.getMessage());
         }
 
         if (!gps_enabled && !network_enabled) {
@@ -78,22 +78,22 @@ public class AppLocationService extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        myLog.E(TAG, "onLocationChanged " + location);
+        myLog.e(TAG, "onLocationChanged " + location);
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-        myLog.E(TAG, "onProviderDisabled " + provider);
+        myLog.e(TAG, "onProviderDisabled " + provider);
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        myLog.E(TAG, "onProviderEnabled " + provider);
+        myLog.e(TAG, "onProviderEnabled " + provider);
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        myLog.E(TAG, "onStatusChanged = " + provider + " ** " + status + " ** " + extras.toString());
+        myLog.e(TAG, "onStatusChanged = " + provider + " ** " + status + " ** " + extras.toString());
     }
 
     @Override

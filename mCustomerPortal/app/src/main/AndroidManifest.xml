@@ -10,12 +10,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <!-- action call phone -->
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-
-    <!-- permission for location -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- action call phone -->
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- permission for location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -30,43 +26,41 @@
         android:name="${applicationId}.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <!--
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <!-- permission for finger print -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- permission for finger print -->
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <application
         android:name=".base.CPortalApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--
-        <activity
-            android:name=".activity.prototype.DashboardActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <meta-data
+            android:name="firebase_messaging_auto_init_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
         <activity
-            android:name=".activity.prototype.LoginMainActivity"
+            android:name=".activity.WelcomeScreenActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme4"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -74,16 +68,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activity.prototype.DashboardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- Maps -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/keyMap_Dev" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
-        <!-- Firebase Services -->
-        <service android:name=".services.MyFirebaseMessagingService">
+            android:value="@integer/google_play_services_version" /> <!-- Firebase Services -->
+        <service
+            android:name=".services.MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -95,22 +92,25 @@
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
-
         <!--
-             <meta-data
-             android:name="com.google.firebase.messaging.default_notification_channel_id"
-             android:value="@string/default_notification_channel_id"/>
+     Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more.
         -->
-
-
-        <!-- Crash report -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher" />
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" /> <!-- Crash report -->
         <!--
             <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
         -->
-
-
         <!-- Facebook -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -131,12 +131,7 @@
 
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
-        </activity>
-        <!-- End Facebook -->
-
-        <activity
-            android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait" />
+        </activity> <!-- End Facebook -->
         <activity
             android:name=".activity.AboutUsActivity"
             android:label="@string/activity_title_about_us"
@@ -148,7 +143,8 @@
         <activity
             android:name=".activity.WebNapasActivity"
             android:label="@string/title_activity_web_napas"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ProfileActivity"
             android:label="@string/title_activity_profile"
@@ -187,8 +183,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ProductDetailActivity"
-            android:label="@string/title_activity_web_napas"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme3" />
         <activity
             android:name=".activity.PaymentMethodActivity"
             android:label="@string/title_activity_web_napas"
@@ -212,13 +208,12 @@
         <activity
             android:name=".activity.TransactionDetailActivity"
             android:label="@string/title_activity_transaction_detail"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.NewsActivity"
             android:label="@string/title_activity_news"
-            android:screenOrientation="portrait" />
-
-        <!-- Prototype -->
+            android:screenOrientation="portrait" /> <!-- Prototype -->
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_activity_login_main"
@@ -228,42 +223,131 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.prototype.DashboardActivity"
-            android:label="@string/title_activity_dashboard"
+            android:name=".activity.prototype.LoginMainActivity"
+            android:label="@string/title_activity_login_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.prototype.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".activity.prototype.PointListActivity"
+            android:name=".activity.prototype.PointAccountListActivity"
             android:label="@string/title_activity_point_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme3" />
+        <activity
+            android:name=".activity.prototype.ProductByCategoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.prototype.ProductByCategoryActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.prototype.ProductCategoryDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.prototype.CartManagerActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.prototype.DeliveryInputActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.prototype.PaymentNoLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.PaymentResultActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.prototype.PointDonActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SampleActivity" />
+        <activity
+            android:name=".activity.prototype.VideoYoutubeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.prototype.PdfViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.prototype.PointAccountDetailActivity"
+            android:label="@string/title_activity_point_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme3" /> <!-- Claims -->
+        <activity
+            android:name=".activity.prototype.ClaimsLifeInsureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.prototype.ClaimsRequesterInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.prototype.ClaimsAddPhotoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.prototype.ClaimsSupplementActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.prototype.ClaimsInsuranceBenefitActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.prototype.ClaimsPaymentMethodActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.prototype.ClaimsTreatmentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.prototype.ClaimsReasonActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.prototype.ClaimsDrugTreatmentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.prototype.ClaimsHistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme3"
+            android:windowSoftInputMode="stateHidden|adjustResize" /> <!-- End Claims -->
+        <activity
+            android:name=".activity.prototype.NotificationDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.OTPActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.NoInternetActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.ProductListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme3" />
     </application>
 
 </manifest>

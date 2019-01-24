@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".afragment.prototype.AddProposalFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <!--Header-->
+        <LinearLayout
+            android:id="@+id/lloBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_arrow_left_grey_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/txt_quay_lai"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imvLineTop"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/red"
+            app:layout_constraintTop_toBottomOf="@id/lloBack" />
+
+        <!--Content-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_payment_nologin_step01"
+                android:textSize="@dimen/textsize17" />
+
+            <!--Policy No-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Số yêu cầu bảo hiểm"
+                android:textSize="@dimen/textsize15" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtPolicy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:cursorVisible="true"
+                android:minHeight="50dp"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textsize17" />
+
+            <!--Client ID-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/hint_payment_nologin_poid"
+                android:textSize="@dimen/textsize15" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtPOID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:cursorVisible="true"
+                android:inputType="number"
+                android:minHeight="50dp"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textsize17" />
+
+            <!--DOB-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/hint_payment_nologin_dob"
+                android:textSize="@dimen/textsize15" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtDOB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:cursorVisible="true"
+                android:enabled="true"
+                android:focusable="false"
+                android:inputType="date"
+                android:minHeight="50dp"
+                android:textCursorDrawable="@color/black"
+                android:textSize="@dimen/textsize17" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="error"
+            android:textColor="@color/red" />
+
+        <ImageButton
+            android:id="@+id/ibtnReCapcha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_captch_normal" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/btnTiepTuc"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="@string/txt_tiep_tuc"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

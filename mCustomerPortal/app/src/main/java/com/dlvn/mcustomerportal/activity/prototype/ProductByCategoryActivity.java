@@ -1,20 +1,18 @@
 package com.dlvn.mcustomerportal.activity.prototype;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.adapter.ProductLoyaltyListAdapter;
@@ -24,10 +22,7 @@ import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.services.ServicesGenerator;
 import com.dlvn.mcustomerportal.services.ServicesRequest;
 import com.dlvn.mcustomerportal.services.model.BaseRequest;
-import com.dlvn.mcustomerportal.services.model.request.CPGetPolicyListByCLIIDRequest;
 import com.dlvn.mcustomerportal.services.model.request.GetProductByCategoryRequest;
-import com.dlvn.mcustomerportal.services.model.response.CPGetPolicyListByCLIIDResponse;
-import com.dlvn.mcustomerportal.services.model.response.CPGetPolicyListByCLIIDResult;
 import com.dlvn.mcustomerportal.services.model.response.GetProductByCategoryResponse;
 import com.dlvn.mcustomerportal.services.model.response.GetProductByCategoryResult;
 import com.dlvn.mcustomerportal.services.model.response.MasterData_Category;
@@ -46,6 +41,7 @@ public class ProductByCategoryActivity extends BaseActivity {
 
     public static final String INT_CATEGORY_PRODUCT = "category_product";
 
+    LinearLayout lloBack;
     ListView lvData;
     TextView tvNoData;
     SwipeRefreshLayout swipeContainer;
@@ -60,7 +56,6 @@ public class ProductByCategoryActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_category);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getViews();
         initData();
@@ -68,6 +63,8 @@ public class ProductByCategoryActivity extends BaseActivity {
     }
 
     private void getViews() {
+        lloBack = findViewById(R.id.lloBack);
+
         tvNoData = (TextView) findViewById(R.id.tvNoData);
         tvNoData.setVisibility(View.GONE);
 
@@ -90,6 +87,8 @@ public class ProductByCategoryActivity extends BaseActivity {
             }
 
         lsProduct = new ArrayList<>();
+        if (category != null)
+            setTitle(category.getPRODUCTCATEGORYNAME());
     }
 
     private void initListview(Context c) {
@@ -118,10 +117,22 @@ public class ProductByCategoryActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ProductLoyaltyModel item = lsProduct.get(position);
-                Intent intent = new Intent(ProductByCategoryActivity.this, ProductCategoryDetailActivity.class);
-                intent.putExtra(ProductCategoryDetailActivity.INT_CATEGORY_PRODUCT_DETAIL, item);
-                intent.putExtra(INT_CATEGORY_PRODUCT, category);
-                startActivity(intent);
+                if (item.getProductID().equalsIgnoreCase("1072") || item.getProductID().equalsIgnoreCase("1073")) {
+                    //Todo: change acction for HDBank Card
+
+                } else {
+                    Intent intent = new Intent(ProductByCategoryActivity.this, ProductCategoryDetailActivity.class);
+                    intent.putExtra(ProductCategoryDetailActivity.INT_CATEGORY_PRODUCT_DETAIL, item);
+                    intent.putExtra(INT_CATEGORY_PRODUCT, category);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        lloBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
@@ -159,7 +170,7 @@ public class ProductByCategoryActivity extends BaseActivity {
                 data.setCategory(category);
 
                 data.setDeviceId(Utilities.getDeviceID(context));
-                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceOS());
                 data.setProject(Constant.Project_ID);
                 data.setAuthentication(Constant.Project_Authentication);
 
@@ -193,12 +204,12 @@ public class ProductByCategoryActivity extends BaseActivity {
 
                                     if (result.getResult() != null && result.getResult().equals("false")) {
                                         //If account not exits --> link to register
-                                        myLog.E("ProductByCategoryAct","Get Point: " + result.getErrLog());
+                                        myLog.e("ProductByCategoryAct", "Get Point: " + result.getErrLog());
                                     } else if (result.getResult() != null && result.getResult().equals("true")) {
 
                                         if (!TextUtils.isEmpty(result.getNewAPIToken()))
                                             //Save Token
-                                            CustomPref.saveToken(context, result.getNewAPIToken());
+                                            CustomPref.saveAPIToken(context, result.getNewAPIToken());
 
                                         if (result.getProductLoyalty() != null) {
 
@@ -212,7 +223,7 @@ public class ProductByCategoryActivity extends BaseActivity {
                                             tvNoData.setVisibility(View.VISIBLE);
                                         }
                                     } else {
-                                        if (result.getNewAPIToken().equalsIgnoreCase("invalidtoken")) {
+                                        if (result.getNewAPIToken().equalsIgnoreCase(Constant.ERROR_TOKENINVALID)) {
                                             Utilities.processLoginAgain(context, getString(R.string.message_alert_relogin));
                                         }
                                     }

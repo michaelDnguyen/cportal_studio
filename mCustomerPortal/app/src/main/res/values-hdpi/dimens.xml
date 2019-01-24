@@ -1,11 +1,11 @@
 <resources>
     <!-- Dimension of Indicator -->
     <dimen name="di_lp_rank_padding">-90dp</dimen>
-    <dimen name="di_lp_avatar">75dp</dimen>
+    <dimen name="di_lp_avatar">48dp</dimen>
     <dimen name="di_lp_money_text">25sp</dimen>
     <dimen name="di_lp_vnd_diem_text">10sp</dimen>
     <dimen name="di_lp_first_linear_layout_padding">6dp</dimen>
     <dimen name="di_lp_second_linear_layout_padding">60dp</dimen>
-    <dimen name="di_lp_viewpager_height">235dp</dimen>
+    <dimen name="di_lp_viewpager_height">230dp</dimen>
     <dimen name="di_lp_money_width">120dp</dimen>
 </resources>

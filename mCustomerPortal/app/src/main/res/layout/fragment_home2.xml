@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="afragment.Home2Fragment"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <!--Giới thiệu-->
+            <LinearLayout
+                android:id="@+id/llo01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Giới thiệu"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dark_grey"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tất cả"
+                    android:textColor="@color/blue"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvGioiThieu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginTop="10dp"
+                android:src="@color/red"
+                android:visibility="gone" />
+
+            <!--News-->
+            <LinearLayout
+                android:id="@+id/llo02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tin tức sự kiện"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dark_grey"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tất cả"
+                    android:textColor="@color/blue"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvNews"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:layout_height="wrap_content" />
+
+            <!--Các sản phẩm bảo hiểm-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@color/red"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Các sản phẩm bảo hiểm"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_grey"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tất cả"
+                        android:textColor="@color/blue"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvSanPham"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <!--Thanh toán phí bảo hiểm-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@color/red"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Thanh toán phí bảo hiểm trực tuyến"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dark_grey"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Quý khách có thể thực hiện thanh toán phí bảo hiểm, hoàn trả tạm ứng qua 3 bước đơn giản" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/xemThem2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Xem Thêm"
+                        android:textColor="@color/red"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/arrow2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/xemThem2"
+                        android:text=">>"
+                        android:textColor="@color/red" />
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="2dp"
+                        android:layout_below="@id/xemThem2"
+                        android:src="@color/red" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Tôi muốn thanh toán"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/textsize15"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center">
+
+                    <Spinner
+                        android:id="@+id/spnLoaiPhi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnThanhToanPhi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/state_btn_red_radius_gradien"
+                    android:text="Tiếp tục"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <!--View youtube-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Top video giới thiệu"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dark_grey"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tất cả"
+                    android:textColor="@color/blue"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginTop="10dp"
+                android:src="@color/red"
+                android:visibility="gone" />
+
+            <com.dlvn.mcustomerportal.view.indicator.ScrollerViewPager
+                android:id="@+id/vpYoutube"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center" />
+
+            <!--Claims-->
+            <LinearLayout
+                android:id="@+id/lloClaims"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@color/red"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Yêu cầu giải quyết quyền lợi bảo hiểm"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dark_grey"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Quý khách có thể yêu cầu thực hiện giải quyết quyền lợi bảo hiểm qua 4 bước đơn giản." />
+
+                <Button
+                    android:id="@+id/btnClaims"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/state_btn_red_radius_gradien"
+                    android:text="Tiếp tục"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

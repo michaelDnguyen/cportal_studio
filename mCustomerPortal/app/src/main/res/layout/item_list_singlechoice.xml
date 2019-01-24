@@ -3,26 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <LinearLayout
+        android:id="@+id/lloContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imvSelected"
+            android:tint="@color/red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/st_rdb_checkstate" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:textSize="@dimen/textsize15"
+            android:layout_weight="1"
+            android:text="Nguyen van A" />
 
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Nguyen van A" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvSubName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/textsize15"
+            android:gravity="right"
+            android:text="000015487" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -201,7 +201,7 @@ public class Bonus_NopPhiBH_Step02_Activity extends BaseActivity {
                     data.setClientID(CustomPref.getUserID(context));
                     data.setAPIToken(CustomPref.getAPIToken(context));
                     data.setDeviceID(Utilities.getDeviceID(context));
-                    data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                    data.setOS(Utilities.getDeviceOS());
                     data.setProject(Constant.Project_ID);
                     data.setAuthentication(Constant.Project_Authentication);
 
@@ -298,7 +298,7 @@ public class Bonus_NopPhiBH_Step02_Activity extends BaseActivity {
                                         }
                                     }
                                 } else {
-                                    if (result.getNewAPIToken().equalsIgnoreCase("invalidtoken")) {
+                                    if (result.getNewAPIToken().equalsIgnoreCase(Constant.ERROR_TOKENINVALID)) {
                                         Utilities.processLoginAgain(context, getString(R.string.message_alert_relogin));
                                     } else
                                         Toast.makeText(context, result.getErrLog(), Toast.LENGTH_SHORT).show();

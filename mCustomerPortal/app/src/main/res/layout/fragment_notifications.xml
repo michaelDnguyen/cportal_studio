@@ -26,7 +26,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnQuaTrinhTichLuy"
+                    android:id="@+id/btnNotification"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_weight="1"
@@ -44,7 +44,7 @@
                     android:visibility="gone" />
 
                 <Button
-                    android:id="@+id/btnQuaTrinhSuDung"
+                    android:id="@+id/btnMailbox"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_weight="1"

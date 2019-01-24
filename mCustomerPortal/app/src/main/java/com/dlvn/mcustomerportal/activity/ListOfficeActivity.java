@@ -229,7 +229,7 @@ public class ListOfficeActivity extends BaseActivity implements OnMapReadyCallba
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 OfficeAddressModel item = (OfficeAddressModel) parent.getItemAtPosition(position);
                 if (item != null && map != null) {
-                    myLog.E("ListView Item click " + item.getName());
+                    myLog.e("ListView Item click " + item.getName());
                     try {
                         lvOffice.setVisibility(View.GONE);
                         llTarget = new LatLng(Double.parseDouble(item.getLat()), Double.parseDouble(item.getLng()));
@@ -238,7 +238,7 @@ public class ListOfficeActivity extends BaseActivity implements OnMapReadyCallba
 //                        float zoomlevel = (float) (19 - Math.log(Integer.parseInt(distanceSelected.getValue()) * 5.508));
                         float zoomlevel = getZoomLevel(Integer.parseInt(distanceSelected.getValue()));
 
-                        myLog.E("Zoom level for " + distanceSelected.getTitle() + " = " + zoomlevel);
+                        myLog.e("Zoom level for " + distanceSelected.getTitle() + " = " + zoomlevel);
                         // zoom camera and animate to current location
                         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(llTarget, zoomlevel);
                         map.animateCamera(cameraUpdate);
@@ -290,7 +290,7 @@ public class ListOfficeActivity extends BaseActivity implements OnMapReadyCallba
 
     @Override
     public void onMapReady(GoogleMap arg0) {
-        myLog.E("onMapReady");
+        myLog.e("onMapReady");
         map = arg0;
 
         // setUp map
@@ -376,7 +376,7 @@ public class ListOfficeActivity extends BaseActivity implements OnMapReadyCallba
 
         if (spinner.getId() == R.id.spnTitle) {
             SpinnerOfficeModel item = (SpinnerOfficeModel) parent.getItemAtPosition(position);
-            myLog.E("Choice in Spinner Title: " + item.getValue());
+            myLog.e("Choice in Spinner Title: " + item.getValue());
             if (item != null) {
                 officeSelected = item;
                 if (item.getValue().equals(Constant.OFFICE_TYPE)) {
@@ -388,14 +388,14 @@ public class ListOfficeActivity extends BaseActivity implements OnMapReadyCallba
         } else if (spinner.getId() == R.id.spnDistance) {
 
             SpinnerOfficeModel item = (SpinnerOfficeModel) parent.getItemAtPosition(position);
-            myLog.E("Choice in Spinner Distance: " + item.getValue());
+            myLog.e("Choice in Spinner Distance: " + item.getValue());
             if (item != null) {
                 distanceSelected = item;
                 if (!TextUtils.isEmpty(svSearch.getQuery().toString())) {
 
 //                    float zoomlevel = (float) (19 - Math.log(Integer.parseInt(distanceSelected.getValue()) * 5.508));
                     float zoomlevel = getZoomLevel(Integer.parseInt(distanceSelected.getValue()));
-                    myLog.E("Zoom level for " + distanceSelected.getTitle() + " = " + zoomlevel);
+                    myLog.e("Zoom level for " + distanceSelected.getTitle() + " = " + zoomlevel);
 
                     // zoom camera and animate to current location
                     if (llTarget != null) {
@@ -419,7 +419,7 @@ public class ListOfficeActivity extends BaseActivity implements OnMapReadyCallba
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        myLog.E("Office Medic search text = " + query);
+        myLog.e("Office Medic search text = " + query);
         if (TextUtils.isEmpty(query))
             query = "";
         doGetMapMarker(officeSelected.getValue(), query, distanceSelected.getValue());
@@ -495,7 +495,7 @@ public class ListOfficeActivity extends BaseActivity implements OnMapReadyCallba
 //          float zoomlevel = (float) (19 - Math.log(Integer.parseInt(distanceSelected.getValue()) * 5.508));
             float zoomlevel = getZoomLevel(Integer.parseInt(distanceSelected.getValue()));
 
-            myLog.E("Zoom level for " + distanceSelected.getTitle() + " = " + zoomlevel);
+            myLog.e("Zoom level for " + distanceSelected.getTitle() + " = " + zoomlevel);
 
             // zoom camera and animate to current location
             if (llTarget != null) {
@@ -559,7 +559,7 @@ public class ListOfficeActivity extends BaseActivity implements OnMapReadyCallba
                 getMapMarkerRequest data = new getMapMarkerRequest();
                 data.setAgentId(CustomPref.getUserID(ListOfficeActivity.this));
                 data.setPassword(CustomPref.getPassword(ListOfficeActivity.this));
-                data.setDeviceName(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setDeviceName(Utilities.getDeviceOS());
                 data.setAPIToken(CustomPref.getAPIToken(ListOfficeActivity.this));
                 data.setLat(llCurrent.latitude + "");
                 data.setLng(llCurrent.longitude + "");

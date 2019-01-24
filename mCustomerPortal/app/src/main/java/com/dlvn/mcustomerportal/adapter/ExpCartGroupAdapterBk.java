@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dlvn.mcustomerportal.R;
+import com.dlvn.mcustomerportal.adapter.listener.OnItemCheckedCartListListener;
 import com.dlvn.mcustomerportal.common.Constant;
 
 import java.util.HashMap;
@@ -22,19 +25,23 @@ public class ExpCartGroupAdapterBk extends BaseExpandableListAdapter {
     //    private final ArrayList<HashMap<String, String>> childItems;
     private LayoutInflater inflater;
     private Context context;
+
     private HashMap<String, String> child;
     private int count = 0;
     private boolean isFromMyCategoriesFragment;
+    private long amount = 0;
+
+    private OnItemCheckedCartListListener listener;
 
     public ExpCartGroupAdapterBk(Context c, List<HashMap<String, String>> parentItems,
-                                 List<List<HashMap<String, String>>> childItems, boolean isFromMyCategoriesFragment) {
+                                 List<List<HashMap<String, String>>> childItems, boolean isFromMyCategoriesFragment, OnItemCheckedCartListListener ln) {
 
         this.parentItems = parentItems;
         this.childItems = childItems;
         this.context = c;
         this.isFromMyCategoriesFragment = isFromMyCategoriesFragment;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        this.listener = ln;
     }
 
     @Override
@@ -142,8 +149,13 @@ public class ExpCartGroupAdapterBk extends BaseExpandableListAdapter {
             viewHolderChild = new ViewHolderChild();
 
             viewHolderChild.tvSubCategoryName = convertView.findViewById(R.id.tvSubCategoryName);
+            viewHolderChild.edtQuantity = convertView.findViewById(R.id.edtQuantity);
             viewHolderChild.cbSubCategory = convertView.findViewById(R.id.cbSubCategory);
+            viewHolderChild.ibtnAdd = convertView.findViewById(R.id.ibtnAdd);
+
+            viewHolderChild.ibtnRemove = convertView.findViewById(R.id.ibtnRemove);
             viewHolderChild.viewDivider = convertView.findViewById(R.id.viewDivider);
+
             convertView.setTag(viewHolderChild);
         } else {
             viewHolderChild = (ViewHolderChild) convertView.getTag();
@@ -158,9 +170,12 @@ public class ExpCartGroupAdapterBk extends BaseExpandableListAdapter {
         }
 
         viewHolderChild.tvSubCategoryName.setText(child.get(Constant.Parameter.SUB_CATEGORY_NAME));
+        viewHolderChild.edtQuantity.setText(child.get(Constant.Parameter.CATEGORY_QUANTITY));
+
         viewHolderChild.cbSubCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (viewHolderChild.cbSubCategory.isChecked()) {
                     count = 0;
                     childItems.get(groupPosition).get(childPosition).put(Constant.Parameter.IS_CHECKED, Constant.CHECK_BOX_CHECKED_TRUE);
@@ -186,6 +201,42 @@ public class ExpCartGroupAdapterBk extends BaseExpandableListAdapter {
 
                 Constant.childItems = childItems;
                 Constant.parentItems = parentItems;
+            }
+        });
+
+        viewHolderChild.ibtnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int quantity = Integer.parseInt(child.get(Constant.Parameter.CATEGORY_QUANTITY));
+                if (quantity > 0)
+                    quantity += 1;
+                viewHolderChild.edtQuantity.setText(String.valueOf(quantity));
+
+                child.put(Constant.Parameter.CATEGORY_QUANTITY,String.valueOf(quantity));
+
+                amount += Integer.parseInt(child.get(Constant.Parameter.CATEGORY_PRICE));
+                listener.OnItemCartChange(groupPosition,childPosition,amount);
+                notifyDataSetChanged();
+            }
+        });
+
+        viewHolderChild.ibtnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int quantity = Integer.parseInt(child.get(Constant.Parameter.CATEGORY_QUANTITY));
+                if (quantity > 1) {
+                    quantity -= 1;
+                    viewHolderChild.edtQuantity.setText(String.valueOf(quantity));
+
+                    child.put(Constant.Parameter.CATEGORY_QUANTITY,String.valueOf(quantity));
+                    amount -= Integer.parseInt(child.get(Constant.Parameter.CATEGORY_PRICE));
+                    listener.OnItemCartChange(groupPosition,childPosition,amount);
+                } else {
+
+                    childItems.get(groupPosition).remove(childPosition);
+                    listener.OnDeleteItemCart(groupPosition, childPosition, amount);
+                }
+                notifyDataSetChanged();
             }
         });
 
@@ -217,7 +268,9 @@ public class ExpCartGroupAdapterBk extends BaseExpandableListAdapter {
     private class ViewHolderChild {
 
         TextView tvSubCategoryName;
+        EditText edtQuantity;
         CheckBox cbSubCategory;
+        ImageButton ibtnRemove, ibtnAdd;
         View viewDivider;
     }
 

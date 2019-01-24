@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.prototype.ClaimsTreatmentActivity">
+
+    <include layout="@layout/toolbar_back" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp">
+
+        <LinearLayout
+            android:id="@+id/lloClaimTreatment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vui lòng nhập Thông tin điều trị"
+                android:textColor="@color/red"
+                android:textStyle="bold" />
+
+            <!--Hospital-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Tên Bệnh viện/Phòng khám"
+                android:textStyle="bold" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtHospital"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:hint="- nhập bệnh viện/phòng khám"
+                android:inputType="textPostalAddress"
+                android:lines="1"
+                android:padding="5dp"
+                android:textCursorDrawable="@null" />
+
+            <!--group Nội - ngoại trú-->
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp">
+
+                <RadioButton
+                    android:id="@+id/rdbNoitru"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:button="@drawable/st_rdb_checkstate"
+                    android:paddingLeft="10dp"
+                    android:text="Nội trú" />
+
+                <RadioButton
+                    android:id="@+id/rdbNgoaitru"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:button="@drawable/st_rdb_checkstate"
+                    android:paddingLeft="10dp"
+                    android:text="Ngoại trú" />
+
+            </RadioGroup>
+
+            <!--Thời gian điều trị-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Thời gian điều trị"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp">
+
+                <TextView
+                    android:id="@+id/tvFromDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="0.5"
+                    android:drawableRight="@android:drawable/ic_menu_today"
+                    android:gravity="center_vertical"
+                    android:hint="Từ ngày"
+                    android:padding="5dp" />
+
+                <TextView
+                    android:id="@+id/tvToDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="0.5"
+                    android:drawableRight="@android:drawable/ic_menu_today"
+                    android:gravity="center_vertical"
+                    android:hint="Đến ngày"
+                    android:padding="5dp" />
+
+            </LinearLayout>
+            <!--Chuan doan-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Chuẩn đoán"
+                android:textStyle="bold" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtDiagnostic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:hint="- nhập thông tin chuẩn đoán"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
+                android:padding="5dp"
+                android:textCursorDrawable="@null" />
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Thêm thông tin điều trị"
+                android:textAllCaps="false"
+                android:textColor="@drawable/st_textcolor_blue_red" />
+
+            <ListView
+                android:id="@+id/lvTreatment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none" />
+        </LinearLayout>
+
+        <!--Claims Amount-->
+        <LinearLayout
+            android:id="@+id/lloClaimAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Vui lòng nhập số tiền yêu cầu bồi thường"
+                android:textColor="@color/red"
+                android:textSize="@dimen/textsize15"
+                android:textStyle="bold" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtClaimAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:hint=" - nhập số tiền bồi thường -"
+                android:inputType="number"
+                android:lines="1"
+                android:paddingVertical="5dp"
+                android:textCursorDrawable="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Số tiền yêu cầu bồi thường viết bằng chữ"
+                android:textSize="@dimen/textsize15"
+                android:textStyle="bold" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtClaimAmountChar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:hint=" - nhập số tiền bồi thường -"
+                android:inputType="number"
+                android:lines="1"
+                android:paddingVertical="5dp"
+                android:textCursorDrawable="@null" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--Layout bottom-->
+    <LinearLayout
+        android:id="@+id/lloBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="5dp">
+
+        <TextView
+            android:id="@+id/tvStep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="2/4"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/sbStep"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:progressDrawable="@drawable/state_process_seekbar"
+            android:thumb="@null"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnCapNhat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="Tiếp tục"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+</LinearLayout>

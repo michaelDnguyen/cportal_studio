@@ -8,7 +8,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.dlvn.mcustomerportal.R;
-import com.dlvn.mcustomerportal.adapter.model.HomeItemModel;
+import com.dlvn.mcustomerportal.adapter.model.PolicyItemDetailModel;
 import com.dlvn.mcustomerportal.view.ChildLevelExpandableListView;
 import com.dlvn.mcustomerportal.view.holder.ExpViewHolder;
 
@@ -21,18 +21,18 @@ public class ExpChildLevelAdapter extends BaseExpandableListAdapter {
     private Context context;
 
     //list data
-    private List<HomeItemModel> lstData;
+    private List<PolicyItemDetailModel> lstData;
     //array child view
     ChildLevelExpandableListView arrSecondLevelList[];
 
     //contructor
     public ExpChildLevelAdapter(Context context) {
         this.context = context;
-        this.lstData = new ArrayList<HomeItemModel>();
+        this.lstData = new ArrayList<PolicyItemDetailModel>();
         arrSecondLevelList = new ChildLevelExpandableListView[0];
     }
 
-    public ExpChildLevelAdapter(Context context, List<HomeItemModel> data) {
+    public ExpChildLevelAdapter(Context context, List<PolicyItemDetailModel> data) {
         this.context = context;
         this.lstData = data;
         arrSecondLevelList = new ChildLevelExpandableListView[data.size()];
@@ -57,7 +57,7 @@ public class ExpChildLevelAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
         //get data item
-        HomeItemModel item = lstData.get(groupPosition);
+        PolicyItemDetailModel item = lstData.get(groupPosition);
         ExpViewHolder holder;
 
         if (convertView == null) {

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.prototype.ClaimsAddPhotoActivity">
+
+    <include layout="@layout/toolbar_back" />
+
+    <!--Content-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!--Toolbar-->
+        <LinearLayout
+            android:id="@+id/lloToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_milk"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vui lòng Chụp hình/đính kèm chứng từ"
+                android:textColor="@color/red"
+                android:textSize="@dimen/textsize15"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvAddDoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:drawableTint="@color/dark_grey"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="10dp"
+                    android:text="Thêm giấy tờ"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+    </LinearLayout>
+
+    <!--bottom-->
+    <LinearLayout
+        android:id="@+id/lloBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="5dp">
+
+        <TextView
+            android:id="@+id/tvStep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:visibility="gone"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/sbStep"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:visibility="gone"
+            android:progressDrawable="@drawable/state_process_seekbar"
+            android:thumb="@null" />
+
+        <Button
+            android:id="@+id/btnCapNhat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="Gửi yêu cầu"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

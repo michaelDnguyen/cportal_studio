@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".activity.prototype.ClaimsInsuranceBenefitActivity">
+
+    <include layout="@layout/toolbar_back"/>
+
+    <!--Step 3 Chọn quyen loi-->
+    <LinearLayout
+        android:id="@+id/lloStep3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vui lòng chọn quyền lợi bảo hiểm cho"
+            android:textColor="@color/red"
+            android:textSize="@dimen/textsize15"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvLifeInsuredName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Nguyễn Văn A"
+            android:textAllCaps="true"
+            android:textSize="@dimen/textsize17"
+            android:textColor="@color/dark_grey"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Quyền lợi"
+                android:textColor="@color/dark_grey"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="right"
+                android:text="Số hợp đồng"
+                android:textColor="@color/dark_grey"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:background="@color/dark_grey"
+            android:layout_height="1dp" />
+
+        <ListView
+            android:id="@+id/lvData"
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ListView
+            android:id="@+id/lvHealthCare"
+            android:scrollbars="none"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <!--Layout bottom-->
+    <LinearLayout
+        android:id="@+id/lloBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvStep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:visibility="gone"
+            android:text="2/4"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/sbStep"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:visibility="gone"
+            android:progressDrawable="@drawable/state_process_seekbar"
+            android:thumb="@null" />
+
+        <Button
+            android:id="@+id/btnCapNhat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="Tiếp tục"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

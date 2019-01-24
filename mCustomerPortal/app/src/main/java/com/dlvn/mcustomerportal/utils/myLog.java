@@ -13,12 +13,12 @@ public class myLog {
             e.printStackTrace();
     }
 
-    public static void E(String tag, String mess) {
+    public static void e(String tag, String mess) {
         if (Constant.DEBUG)
             Log.e(tag, mess);
     }
 
-    public static void E(String mess) {
+    public static void e(String mess) {
         if (Constant.DEBUG)
             Log.e(TAG, mess);
     }

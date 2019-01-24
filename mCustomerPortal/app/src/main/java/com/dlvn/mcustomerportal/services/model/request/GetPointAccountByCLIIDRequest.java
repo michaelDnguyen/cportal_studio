@@ -15,7 +15,7 @@ public class GetPointAccountByCLIIDRequest extends JsonDataInput {
     @SerializedName("ClientID")
     @Expose
     private String clientID;
-    @SerializedName("DeviceID")
+    @SerializedName("DeviceId")
     @Expose
     private String deviceID;
     @SerializedName("DeviceToken")

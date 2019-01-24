@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.prototype.ClaimsPaymentMethodActivity">
+
+    <include layout="@layout/toolbar_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vui lòng chọn phương thức thanh toán"
+            android:textColor="@color/red"
+            android:textSize="@dimen/textsize15"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/rdgPaymentOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible">
+
+                    <!--Group nhan qua dong phi hop dong-->
+                    <RadioButton
+                        android:id="@+id/rdbNhanQuaDongPhi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:button="@drawable/st_rdb_checkstate"
+                        android:buttonTint="@color/red"
+                        android:drawableTint="@color/green_dark"
+                        android:paddingLeft="10dp"
+                        android:text="Chuyển đóng phí cho Hợp đồng."
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/lloNhanQuaDongPhi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chọn hợp đồng" />
+
+                        <Spinner
+                            android:id="@+id/spnPolicy"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp" />
+
+                    </LinearLayout>
+
+                    <!--Group Pacific Cross-->
+                    <RadioButton
+                        android:id="@+id/rdbNhanTienMatPacific"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:button="@drawable/st_rdb_checkstate"
+                        android:buttonTint="@color/red"
+                        android:drawableTint="@color/green_dark"
+                        android:paddingLeft="10dp"
+                        android:text="Nhận tiền mặt tại Pacific Crosss Việt Nam."
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/lloNhanTienMatPacific"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Lầu 4, tòa nhà Continental Tower, 81-85 Hàm Nghi, Phường Nguyễn Thái Bình, Q.1, TP.HCM." />
+
+                    </LinearLayout>
+
+                    <!--Group Nhan tien Bằn tien mat-->
+                    <RadioButton
+                        android:id="@+id/rdbNhanTienMat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:button="@drawable/st_rdb_checkstate"
+                        android:buttonTint="@color/red"
+                        android:drawableTint="@color/green_dark"
+                        android:paddingLeft="10dp"
+                        android:text="Nhận tiền mặt tại văn phòng chi nhánh Dai-ichi Life Việt Nam."
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/lloNhanTienMat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nhận tiền mặt tại văn phòng của Dai-Ichi Life Việt Nam (ít hơn 30 triệu)" />
+
+                    </LinearLayout>
+
+                    <!--Group Nhan qua CMND-->
+                    <RadioButton
+                        android:id="@+id/rdbNhanQuaCMND"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:button="@drawable/st_rdb_checkstate"
+                        android:buttonTint="@color/red"
+                        android:drawableTint="@color/green_dark"
+                        android:paddingLeft="10dp"
+                        android:text="Nhận tiền bằng CMND tại ngân hàng."
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/lloNhanQuaCMND"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Tên Ngân hàng"
+                            android:textStyle="bold" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtCMNDBankName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập tên ngân hàng"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null" />
+
+                        <!--Ten CHi Nhanh-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Tên chi nhánh"
+                            android:textStyle="bold" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtCMNDBankBranch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập tên chi nhánh"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null" />
+
+                        <!--Địa chỉ chi nhánh-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Địa chỉ chi nhánh"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtCMNDBankAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập địa chỉ chi nhánh"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null"
+                            android:visibility="gone" />
+
+                        <!--Họ tên người nhận tiền-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Họ tên người nhận tiền"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtCMNDReceiver"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập tên người nhận"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null"
+                            android:visibility="gone" />
+
+                        <!--CMND-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Số CMND"
+                            android:textStyle="bold" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtCMNDNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập số CMND"
+                            android:inputType="number"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null" />
+
+                        <!--Ngày cấp-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Ngày cấp"
+                            android:textStyle="bold" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtCMNDDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:inputType="date"
+                            android:hint="- nhập ngày cấp CMND"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null" />
+
+                        <!--Nơi cấp-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Nơi cấp CMND"
+                            android:textStyle="bold" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtCMNDPlace"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập nơi cấp CMND"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null" />
+
+
+                    </LinearLayout>
+
+                    <!--Group Nhan qua TK NH-->
+                    <RadioButton
+                        android:id="@+id/rdbNhanQuaNH"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:button="@drawable/st_rdb_checkstate"
+                        android:buttonTint="@color/red"
+                        android:drawableTint="@color/green_dark"
+                        android:paddingLeft="10dp"
+                        android:text="Chuyển khoản qua tài khoản cá nhân tại ngân hàng."
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/lloNhanQuaNH"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <!--Ten Ngan Hang-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Tên Ngân hàng"
+                            android:textStyle="bold" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtBankName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập tên ngân hàng"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null" />
+
+                        <!--Ten CHi Nhanh-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Tên chi nhánh"
+                            android:textStyle="bold" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtBankBranch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập tên chi nhánh"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null" />
+
+                        <!--Địa chỉ-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Địa chỉ chi nhánh"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtBankAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập địa chỉ chi nhánh"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null"
+                            android:visibility="gone" />
+
+                        <!--Chủ tài khoản-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Chủ tài khoản"
+                            android:textStyle="bold" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtAccountName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập tên chủ tài khoản"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null" />
+
+                        <!--Số tài khoản-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Số tài khoản"
+                            android:textStyle="bold" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtAccountNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập số tài khoản"
+                            android:inputType="number"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null" />
+
+                        <!--CMND-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Số CMND"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtBankCMND"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:hint="- nhập Số CMND"
+                            android:lines="1"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/tvPolicyPayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <!--Layout bottom-->
+    <LinearLayout
+        android:id="@+id/lloBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="5dp">
+
+        <TextView
+            android:id="@+id/tvStep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="4/4"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/sbStep"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:max="4"
+            android:min="0"
+            android:progress="4"
+            android:progressDrawable="@drawable/state_process_seekbar"
+            android:thumb="@null"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnCapNhat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="Tiếp tục"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

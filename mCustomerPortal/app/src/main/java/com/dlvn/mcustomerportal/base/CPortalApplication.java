@@ -1,20 +1,17 @@
 package com.dlvn.mcustomerportal.base;
 
-import com.dlvn.mcustomerportal.activity.LoginActivity;
+import android.app.Application;
+import android.content.ComponentCallbacks2;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.v7.app.AppCompatDelegate;
+
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.activity.prototype.LoginMainActivity;
 import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.services.model.request.CartModel;
 import com.dlvn.mcustomerportal.utils.Utilities;
 import com.dlvn.mcustomerportal.utils.myLog;
-import com.facebook.login.LoginManager;
-
-import android.app.Application;
-import android.content.ComponentCallbacks2;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.support.v7.app.AppCompatDelegate;
-import android.widget.Toast;
 
 public class CPortalApplication extends Application {
 
@@ -23,7 +20,7 @@ public class CPortalApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        myLog.E("CportalApplication onCreate");
+        myLog.e("CportalApplication onCreate");
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         mInstance = this;
     }
@@ -36,19 +33,19 @@ public class CPortalApplication extends Application {
     public void onConfigurationChanged(Configuration newConfig) {
         // TODO Auto-generated method stub
         super.onConfigurationChanged(newConfig);
-        myLog.E("Application config change " + newConfig);
+        myLog.e("Application config change " + newConfig);
     }
 
     @Override
     public void onTerminate() {
         // TODO Auto-generated method stub
         super.onTerminate();
-        myLog.E("onTerminate");
+        myLog.e("onTerminate");
     }
 
     @Override
     public void onTrimMemory(int level) {
-        myLog.E("onTrimMemory");
+        myLog.e("onTrimMemory");
         switch (level) {
             case ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN:
                 /*
@@ -81,7 +78,7 @@ public class CPortalApplication extends Application {
                 // AlertDialog.Builder(this).setTitle(R.string.low_memory).setMessage(R.string.low_memory_message).create()
                 // .show();
 //                Toast.makeText(this, R.string.low_memory_message, 2000).show();
-                myLog.E(getString(R.string.low_memory_message));
+                myLog.e(getString(R.string.low_memory_message));
                 break;
             default:
                 /*
@@ -98,7 +95,7 @@ public class CPortalApplication extends Application {
     public void onLowMemory() {
         // TODO Auto-generated method stub
         super.onLowMemory();
-        myLog.E("onLowMemory");
+        myLog.e("onLowMemory");
     }
 
     /**
@@ -110,7 +107,7 @@ public class CPortalApplication extends Application {
         // xoa data
         CustomPref.clearUserLogin(this);
         CustomPref.setLogin(this, false);
-        CustomPref.setAuthFinger(this,false);
+        CustomPref.setAuthFinger(this, false);
 
         Utilities.deleteAllFileInFolder(getExternalFilesDir(null).getAbsolutePath());
 
@@ -122,13 +119,23 @@ public class CPortalApplication extends Application {
 
     /**
      * Relogin, set Flag false and go to screen Login, not delete all data
+     *
      * @author nn.tai
      */
     public void reLogin() {
+
+        if (!CustomPref.haveAuthFinger(this))
+            CustomPref.clearUserLogin(this);
+
+        CustomPref.setTypeGenerateOTP(this, 0);
+        CustomPref.setTimeGenerateOTP(this, 0);
+        CustomPref.saveClaimsTemp(this, null);
+        CustomPref.saveShoppingCart(this, null);
+
         // xoa data
         CustomPref.setLogin(this, false);
-        CustomPref.saveUserPoint(this,0);
-        CustomPref.saveUserRank(this,"NORANK");
+        CustomPref.saveUserPoint(this, 0);
+        CustomPref.saveUserRank(this, "NORANK");
         CustomPref.saveShoppingCart(this, new CartModel());
 
         Intent intent = new Intent(this, LoginMainActivity.class);

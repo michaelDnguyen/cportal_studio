@@ -6,7 +6,7 @@ import java.util.List;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.adapter.ExpParentLevelAdapter;
 import com.dlvn.mcustomerportal.adapter.model.ContractDetailModel;
-import com.dlvn.mcustomerportal.adapter.model.HomeItemModel;
+import com.dlvn.mcustomerportal.adapter.model.PolicyItemDetailModel;
 import com.dlvn.mcustomerportal.base.BaseActivity;
 import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.CustomPref;
@@ -35,7 +35,6 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -193,7 +192,7 @@ public class ContractDetailActivity extends BaseActivity {
                 data.setPolID(itemPolicy.getPolicyID());
 
                 data.setDeviceId(Utilities.getDeviceID(context));
-                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceOS());
                 data.setProject(Constant.Project_ID);
                 data.setAuthentication(Constant.Project_Authentication);
 
@@ -228,17 +227,17 @@ public class ContractDetailActivity extends BaseActivity {
 
                                     if (result.getResult() != null && result.getResult().equals("false")) {
                                         //If account not exits --> link to register
-                                        myLog.E("ContactDetailActivity","Get Point: " + result.getErrLog());
+                                        myLog.e("ContactDetailActivity","Get Point: " + result.getErrLog());
                                     } else if (result.getResult() != null && result.getResult().equals("true")) {
 
                                         //Save Token
                                         if (!TextUtils.isEmpty(result.getNewAPIToken()))
-                                            CustomPref.saveToken(context, result.getNewAPIToken());
+                                            CustomPref.saveAPIToken(context, result.getNewAPIToken());
 
                                         if (result.getCpPolicyInfos() != null) {
 
                                             if (Action.equals(Constant.POINFO_ACTION_POLICYDETAIL)) {
-                                                List<HomeItemModel> lst = new ArrayList<>();
+                                                List<PolicyItemDetailModel> lst = new ArrayList<>();
 
                                                 for (CPPolicyInfo mo : result.getCpPolicyInfos()) {
                                                     lst.add(parseStringValue(mo.getPolicyID()));
@@ -250,7 +249,7 @@ public class ContractDetailActivity extends BaseActivity {
                                                 }
                                                 lstDetail.add(new ContractDetailModel("Chi tiết hợp đồng", lst));
                                             } else if (Action.equals(Constant.POINFO_ACTION_POLICYANN)) {
-                                                List<HomeItemModel> lst = new ArrayList<>();
+                                                List<PolicyItemDetailModel> lst = new ArrayList<>();
 
                                                 for (CPPolicyInfo mo : result.getCpPolicyInfos()) {
                                                     lst.add(parseStringValue(mo.getPolAccountValue()));
@@ -264,7 +263,7 @@ public class ContractDetailActivity extends BaseActivity {
                                                 }
                                                 lstDetail.add(new ContractDetailModel("Thông tin các giá trị hợp đồng", lst));
                                             } else if (Action.equals(Constant.POINFO_ACTION_POLICYLIFEINSURED)) {
-                                                List<HomeItemModel> lst = new ArrayList<>();
+                                                List<PolicyItemDetailModel> lst = new ArrayList<>();
 
                                                 for (CPPolicyInfo mo : result.getCpPolicyInfos()) {
                                                     lst.add(parseStringValue(mo.getDOB()));
@@ -276,7 +275,7 @@ public class ContractDetailActivity extends BaseActivity {
                                                 }
                                                 lstDetail.add(new ContractDetailModel("Thông tin người được bảo hiểm chính", lst));
                                             } else if (Action.equals(Constant.POINFO_ACTION_POLICYBENE)) {
-                                                List<HomeItemModel> lst = new ArrayList<>();
+                                                List<PolicyItemDetailModel> lst = new ArrayList<>();
 
                                                 for (CPPolicyInfo mo : result.getCpPolicyInfos()) {
                                                     lst.add(parseStringValue(mo.getDOB()));
@@ -288,7 +287,7 @@ public class ContractDetailActivity extends BaseActivity {
                                                 }
                                                 lstDetail.add(new ContractDetailModel("Thông tin người thụ hưởng", lst));
                                             } else if (Action.equals(Constant.POINFO_ACTION_POLICYPAYMENT)) {
-                                                List<HomeItemModel> lst = new ArrayList<>();
+                                                List<PolicyItemDetailModel> lst = new ArrayList<>();
 
                                                 for (CPPolicyInfo mo : result.getCpPolicyInfos()) {
                                                     lst.add(parseStringValue(mo.getPolicyID()));
@@ -300,7 +299,7 @@ public class ContractDetailActivity extends BaseActivity {
                                                 }
                                                 lstDetail.add(new ContractDetailModel("Thông tin người mua bảo hiểm", lst));
                                             } else if (Action.equals(Constant.POINFO_ACTION_POLICYPRODUCT)) {
-                                                List<HomeItemModel> lst = new ArrayList<>();
+                                                List<PolicyItemDetailModel> lst = new ArrayList<>();
 
                                                 for (CPPolicyInfo mo : result.getCpPolicyInfos()) {
                                                     lst.add(parseStringValue(mo.getPolicyLIName()));
@@ -311,7 +310,7 @@ public class ContractDetailActivity extends BaseActivity {
                                                 }
                                                 lstDetail.add(new ContractDetailModel("Thông tin sản phẩm", lst));
                                             } else if (Action.equals(Constant.POINFO_ACTION_POLICYAGENT)) {
-                                                List<HomeItemModel> lst = new ArrayList<>();
+                                                List<PolicyItemDetailModel> lst = new ArrayList<>();
 
                                                 for (CPPolicyInfo mo : result.getCpPolicyInfos()) {
                                                     lst.add(parseStringValue(mo.getPrimaryAgent()));
@@ -324,7 +323,7 @@ public class ContractDetailActivity extends BaseActivity {
                                             initListDetail();
                                         }
                                     } else {
-                                        if (result.getNewAPIToken().equalsIgnoreCase("invalidtoken")) {
+                                        if (result.getNewAPIToken().equalsIgnoreCase(Constant.ERROR_TOKENINVALID)) {
                                             Utilities.processLoginAgain(context, getString(R.string.message_alert_relogin));
                                         }
                                     }
@@ -351,14 +350,14 @@ public class ContractDetailActivity extends BaseActivity {
      * @param str
      * @return
      */
-    private HomeItemModel parseStringValue(String str) {
+    private PolicyItemDetailModel parseStringValue(String str) {
         if (TextUtils.isEmpty(str))
             return null;
         else if (str.contains(";")) {
             String[] arr = str.split(";");
-            return new HomeItemModel(arr[0], arr[1], "");
+            return new PolicyItemDetailModel(arr[0], arr[1], "");
         }
-        return new HomeItemModel(str, "", "");
+        return new PolicyItemDetailModel(str, "", "");
     }
 
     @Override

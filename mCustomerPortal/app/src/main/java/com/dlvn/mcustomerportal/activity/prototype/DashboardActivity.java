@@ -1,9 +1,9 @@
 package com.dlvn.mcustomerportal.activity.prototype;
 
 import android.annotation.TargetApi;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -12,27 +12,36 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dlvn.mcustomerportal.R;
-import com.dlvn.mcustomerportal.afragment.BonusProgramFragment;
+import com.dlvn.mcustomerportal.activity.ContactActivity;
 import com.dlvn.mcustomerportal.afragment.HomeFragment;
+import com.dlvn.mcustomerportal.afragment.LoyaltyProgramFragment;
+import com.dlvn.mcustomerportal.afragment.Home2Fragment;
 import com.dlvn.mcustomerportal.afragment.InfoContractFragment;
 import com.dlvn.mcustomerportal.afragment.NotificationsFragment;
 import com.dlvn.mcustomerportal.afragment.SettingsFragment;
 import com.dlvn.mcustomerportal.base.BaseActivity;
 import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.CustomPref;
+import com.dlvn.mcustomerportal.services.NetworkUtils;
 import com.dlvn.mcustomerportal.services.ServicesGenerator;
 import com.dlvn.mcustomerportal.services.ServicesRequest;
 import com.dlvn.mcustomerportal.services.model.BaseRequest;
@@ -42,7 +51,12 @@ import com.dlvn.mcustomerportal.services.model.response.GetPointByCLIIDResult;
 import com.dlvn.mcustomerportal.utils.Utilities;
 import com.dlvn.mcustomerportal.utils.listerner.OnFragmentInteractionListener;
 import com.dlvn.mcustomerportal.utils.myLog;
+import com.dlvn.mcustomerportal.view.BottomNavigationBehavior;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -55,12 +69,14 @@ import retrofit2.Response;
 
 public class DashboardActivity extends BaseActivity implements OnFragmentInteractionListener {
 
+    private static final String TAG = "DashboardActivity";
     /**
      * The code used when requesting permissions
      */
     private static final int PERMISSIONS_REQUEST = 1234;
 
-    private TextView mTextMessage;
+    private TextView tvHotLine;
+    ImageView imvLogoDaiIChi, imvYoutube, imvFacebook, imvMail;
 
     ServicesRequest svRequester;
 
@@ -85,14 +101,45 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
                     selectedTab(TAB_HOME);
                     return true;
                 case R.id.navigation_contract:
-                    selectedTab(TAB_CONTRACT);
-                    return true;
+                    if (CustomPref.haveLogin(DashboardActivity.this)) {
+//                        if (!TextUtils.isEmpty(CustomPref.getUserID(DashboardActivity.this))) {
+                        selectedTab(TAB_CONTRACT);
+                        return true;
+//                        } else {
+//                            Utilities.showDialogAlertLoginDLVNAcc(DashboardActivity.this);
+//                            return false;
+//                        }
+                    } else {
+                        Utilities.showDialogAlertLoginNormal(DashboardActivity.this);
+                        return false;
+                    }
+
                 case R.id.navigation_fundbonus:
-                    selectedTab(TAB_FUNDBONUS);
-                    return true;
+                    if (CustomPref.haveLogin(DashboardActivity.this)) {
+                        if (!TextUtils.isEmpty(CustomPref.getUserID(DashboardActivity.this))) {
+                            selectedTab(TAB_FUNDBONUS);
+                            return true;
+                        } else {
+                            Utilities.showDialogAlertLoginDLVNAcc(DashboardActivity.this);
+                            return false;
+                        }
+                    } else {
+                        Utilities.showDialogAlertLoginNormal(DashboardActivity.this);
+                        return false;
+                    }
                 case R.id.navigation_notifications:
-                    selectedTab(TAB_NOTIFICATIONS);
-                    return true;
+                    if (CustomPref.haveLogin(DashboardActivity.this)) {
+                        if (!TextUtils.isEmpty(CustomPref.getUserID(DashboardActivity.this))) {
+                            selectedTab(TAB_NOTIFICATIONS);
+                            return true;
+                        } else {
+                            Utilities.showDialogAlertLoginDLVNAcc(DashboardActivity.this);
+                            return false;
+                        }
+                    } else {
+                        Utilities.showDialogAlertLoginNormal(DashboardActivity.this);
+                        return false;
+                    }
                 case R.id.navigation_other:
                     selectedTab(TAB_OTHER);
                     return true;
@@ -107,12 +154,92 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
         setContentView(R.layout.activity_dashboard);
 
         svRequester = ServicesGenerator.createService(ServicesRequest.class);
+        if (FirebaseInstanceId.getInstance() != null) {
+            myLog.e(TAG, " tokem from Firebase = " + FirebaseInstanceId.getInstance().getToken());
+        }
+
+        /**
+         * FCM get token
+         */
+        // Get token
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            myLog.e(TAG, "getInstanceId failed " + task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        if (!TextUtils.isEmpty(token)) {
+                            CustomPref.setFirebaseToken(DashboardActivity.this, token);
+                        } else
+                            CustomPref.setFirebaseToken(DashboardActivity.this, null);
+                        // Log and toast
+                        myLog.e(TAG, "FCM Registration token = " + token);
+                    }
+                });
+
+        // check notification push page
+        try {
+            if (getIntent().getExtras() != null) {
+                if (getIntent().getExtras().containsKey(Constant.FCM_DESTINATION_ID)) {
+                    int code = getIntent().getExtras().getInt(Constant.FCM_DESTINATION_ID);
+                    myLog.e(TAG, "Notification Code = " + code);
+                    Intent myintent = null;
+                    switch (code) {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            myintent = new Intent(this, ClaimsHistoryActivity.class);
+
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 7:
+                            break;
+
+                        default:
+                            myintent = new Intent();
+                            break;
+                    }
+                    startActivity(myintent);
+                }
+            }
+        } catch (Exception e) {
+            myLog.printTrace(e);
+        }
 
         //TODO: declare lloHeader
-        lloHeader = (LinearLayout) this.findViewById(R.id.lloHeader);
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        lloHeader = findViewById(R.id.lloHeader);
+
+        final BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//        Utilities.disableShiftMode(navigation);
+
+//        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+//        if (menuView.getChildCount() == 5) {
+//            final View iconView = menuView.getChildAt(2).findViewById(android.support.design.R.id.icon);
+//            final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
+//            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+//            // set your height here
+//            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, displayMetrics);
+//            // set your width here
+//            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32, displayMetrics);
+//            iconView.setLayoutParams(layoutParams);
+//        }
+
+        // attaching bottom sheet behaviour - hide / show on scroll
+//        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+//        layoutParams.setBehavior(new BottomNavigationBehavior());
 
         //init stacks for Fragment
         mStacks = new HashMap<String, Stack<Fragment>>();
@@ -122,11 +249,11 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
         mStacks.put(TAB_NOTIFICATIONS, new Stack<Fragment>());
         mStacks.put(TAB_OTHER, new Stack<Fragment>());
 
-
+        //default open Home Page
         selectedTab(TAB_HOME);
         //get Hash key of App
         try {
-            myLog.E("App hashKey = " + Utilities.getApplicationHashKey(DashboardActivity.this));
+            myLog.e("App hashKey = " + Utilities.getApplicationHashKey(DashboardActivity.this));
         } catch (Exception e) {
             myLog.printTrace(e);
         }
@@ -136,18 +263,92 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
             checkPermissions();
         }
 
-        new getClientPointTask(this).execute();
+        //Nếu có login & có DLVN account thì getPoint sẵn
+        if (CustomPref.haveLogin(this))
+            if (!TextUtils.isEmpty(CustomPref.getUserID(this)))
+                if (NetworkUtils.isConnected(this))
+                    new getClientPointTask(this).execute();
+
+        /**
+         * Action for youtube,facebook,mail
+         */
+        tvHotLine = findViewById(R.id.tvHotLine);
+        imvLogoDaiIChi = findViewById(R.id.imvLogoDaiIChi);
+        imvYoutube = findViewById(R.id.imvYoutube);
+        imvFacebook = findViewById(R.id.imvFacebook);
+        imvMail = findViewById(R.id.imvMail);
+
+        tvHotLine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyCustomDialog dialog = new MyCustomDialog.Builder(DashboardActivity.this)
+                        .setMessage(getString(R.string.message_conform_call_customer_service))
+                        .setPositiveButton(getString(R.string.confirm_yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Utilities.actionCallPhoneNumber(DashboardActivity.this, Constant.PHONE_CUSTOMER_SERVICE);
+                            }
+                        }).setNegativeButton(getString(R.string.confirm_no), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+                dialog.show();
+            }
+        });
+        imvMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashboardActivity.this, ContactActivity.class));
+            }
+        });
+
+        imvYoutube.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utilities.actionOpenYoutubeApp(DashboardActivity.this);
+            }
+        });
+
+        imvFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utilities.actionOpenFacebookApp(DashboardActivity.this);
+            }
+        });
+
+        imvLogoDaiIChi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mCurrentTab.equals(TAB_HOME)) {
+                    selectedTab(TAB_HOME);
+                    navigation.setSelectedItemId(R.id.navigation_home);
+                }
+            }
+        });
+
+
+        /**
+         * Check if user not have email OR Phone, open screen request input it
+         */
+        if (CustomPref.haveLogin(this))
+            if (TextUtils.isEmpty(CustomPref.getEmail(this)) || TextUtils.isEmpty(CustomPref.getPhoneNumber(this))) {
+                Intent intent = new Intent(this, SettingsActivity.class);
+                intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_UPDATE_PROFILE);
+                startActivity(intent);
+            }
     }
 
     private void gotoFragment(Fragment selectedFragment) {
-        myLog.E("gotoFragment");
+        myLog.e("gotoFragment");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_container, selectedFragment);
         fragmentTransaction.commit();
     }
 
     private void selectedTab(String tabId) {
-        myLog.E("selectedTab " + tabId);
+        myLog.e("selectedTab " + tabId);
         mCurrentTab = tabId;
 
         if (mStacks.get(tabId).size() == 0) {
@@ -161,7 +362,7 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
             } else if (tabId.equals(TAB_CONTRACT)) {
                 pushFragments(tabId, new InfoContractFragment(), true);
             } else if (tabId.equals(TAB_FUNDBONUS)) {
-                pushFragments(tabId, new BonusProgramFragment(), true);
+                pushFragments(tabId, new LoyaltyProgramFragment(), true);
             } else if (tabId.equals(TAB_NOTIFICATIONS)) {
                 pushFragments(tabId, new NotificationsFragment(), true);
             } else if (tabId.equals(TAB_OTHER)) {
@@ -177,7 +378,7 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
     }
 
     public void pushFragments(String tag, Fragment fragment, boolean shouldAdd) {
-        myLog.E("pushFragment");
+        myLog.e("pushFragment");
         if (shouldAdd)
             mStacks.get(tag).push(fragment);
         FragmentManager manager = getSupportFragmentManager();
@@ -188,7 +389,7 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
     }
 
     public void popFragments() {
-        myLog.E("popFragment");
+        myLog.e("popFragment");
         /*
          *    Select the second last fragment in current tab's stack..
          *    which will be shown after the fragment transaction given below
@@ -206,6 +407,11 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
     }
@@ -218,7 +424,7 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        myLog.E("Change " + newConfig);
+        myLog.e("Change " + newConfig);
     }
 
     @Override
@@ -251,7 +457,6 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
             if (x < v.getLeft() || x > v.getRight() || y < v.getTop() || y > v.getBottom())
                 Utilities.hideSoftInputKeyboard(this, v);
         }
-
         return super.dispatchTouchEvent(ev);
     }
 
@@ -287,18 +492,18 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
 
         Set<String> permissions = new HashSet<String>();
         String[] lsPermission = Utilities.getRequiredPermissions(DashboardActivity.this);
-        myLog.E("Permission Required " + lsPermission.toString());
+        myLog.e("Permission Required " + lsPermission.toString());
         for (String permission : lsPermission) {
             permissions.add(permission);
         }
         for (Iterator<String> i = permissions.iterator(); i.hasNext(); ) {
             String permission = i.next();
             if (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
-                myLog.E(DashboardActivity.class.getSimpleName(),
+                myLog.e(DashboardActivity.class.getSimpleName(),
                         "Permission: " + permission + " already granted.");
                 i.remove();
             } else {
-                myLog.E(DashboardActivity.class.getSimpleName(),
+                myLog.e(DashboardActivity.class.getSimpleName(),
                         "Permission: " + permission + " not yet granted.");
             }
         }
@@ -315,7 +520,7 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (requestCode == PERMISSIONS_REQUEST) {
 //            checkPermissions();
-            myLog.E("String[]permission " + permissions + " -- Result = " + grantResults);
+            myLog.e("String[]permission " + permissions + " -- Result = " + grantResults);
         }
     }
 
@@ -339,7 +544,7 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
                 data.setClientID(CustomPref.getUserID(context));
                 data.setAPIToken(CustomPref.getAPIToken(context));
                 data.setDeviceID(Utilities.getDeviceID(context));
-                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceOS());
                 data.setProject(Constant.Project_ID);
                 data.setAuthentication(Constant.Project_Authentication);
                 data.setUserLogin(CustomPref.getUserName(context));
@@ -372,7 +577,7 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
 
                                     if (result.getResult() != null && result.getResult().equals("false")) {
                                         //If account not exits --> link to register
-                                        myLog.E("BonusProgramFragment", "Get Point: " + result.getErrLog());
+                                        myLog.e("LoyaltyProgramFragment", "Get Point: " + result.getErrLog());
 
 //                                        if (result.getNewAPIToken().equalsIgnoreCase("invalidtoken")) {
 //                                            Utilities.processLoginAgain(context, getString(R.string.message_alert_relogin));
@@ -382,7 +587,7 @@ public class DashboardActivity extends BaseActivity implements OnFragmentInterac
 
                                         //Save Token
                                         if (!TextUtils.isEmpty(result.getNewAPIToken()))
-                                            CustomPref.saveToken(context, result.getNewAPIToken());
+                                            CustomPref.saveAPIToken(context, result.getNewAPIToken());
 
                                         if (result.getPoint() != null) {
                                             String point = result.getPoint();

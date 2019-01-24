@@ -50,4 +50,11 @@
 
     <dimen name="pinlock_dot_diameter">8dp</dimen>
     <dimen name="pinlock_dot_spacing">8dp</dimen>
+
+    <!--Otp View-->
+    <dimen name="otp_view_item_size">48dp</dimen>
+    <dimen name="otp_view_item_radius">5dp</dimen>
+    <dimen name="otp_view_item_spacing">5dp</dimen>
+    <dimen name="otp_view_item_line_width">2dp</dimen>
+    <dimen name="otp_view_cursor_width">2dp</dimen>
 </resources>

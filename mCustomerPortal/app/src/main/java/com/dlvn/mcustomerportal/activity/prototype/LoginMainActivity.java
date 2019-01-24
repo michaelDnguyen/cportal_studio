@@ -1,48 +1,36 @@
 package com.dlvn.mcustomerportal.activity.prototype;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.afragment.prototype.LoginInputUserNameFragment;
 import com.dlvn.mcustomerportal.base.BaseActivity;
-import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.CustomPref;
-import com.dlvn.mcustomerportal.services.ServicesGenerator;
-import com.dlvn.mcustomerportal.services.ServicesRequest;
-import com.dlvn.mcustomerportal.services.model.BaseRequest;
-import com.dlvn.mcustomerportal.services.model.request.loginNewRequest;
-import com.dlvn.mcustomerportal.services.model.response.ClientProfile;
-import com.dlvn.mcustomerportal.services.model.response.loginNewResponse;
-import com.dlvn.mcustomerportal.services.model.response.loginNewResult;
 import com.dlvn.mcustomerportal.utils.Utilities;
-import com.dlvn.mcustomerportal.utils.listerner.OnFragmentInteractionListener;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import io.fabric.sdk.android.Fabric;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
@@ -56,10 +44,22 @@ public class LoginMainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        myLog.E("Oncreate LoginMainActivity");
+        myLog.e("Oncreate LoginMainActivity");
 
         setContentView(R.layout.activity_login_main);
         Fabric.with(this, new Crashlytics());
+
+        if (TextUtils.isEmpty(CustomPref.getFirebaseToken(this)))
+            if (FirebaseInstanceId.getInstance().getInstanceId() != null) {
+                Task<InstanceIdResult> resultTask = FirebaseInstanceId.getInstance().getInstanceId();
+                resultTask.addOnSuccessListener(this, new OnSuccessListener<InstanceIdResult>() {
+                    @Override
+                    public void onSuccess(InstanceIdResult instanceIdResult) {
+                        myLog.e("onSuccess Firebase token " + instanceIdResult.getToken());
+                        CustomPref.setFirebaseToken(LoginMainActivity.this, instanceIdResult.getToken());
+                    }
+                });
+            }
 
 //check permission for read contact
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
@@ -79,7 +79,7 @@ public class LoginMainActivity extends BaseActivity {
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                myLog.E("KeyHash: ", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                myLog.e("KeyHash: ", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
 
@@ -91,14 +91,14 @@ public class LoginMainActivity extends BaseActivity {
     private void startInitScreen() {
         // Set up the login form.
         if (!CustomPref.haveLogin(this)) {
-            myLog.E("LoginMain not login");
+            myLog.e("LoginMain not login");
             LoginInputUserNameFragment fragment = new LoginInputUserNameFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction ft = manager.beginTransaction();
+
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.main_container, fragment);
             ft.commit();
         } else {
-            myLog.E("LoginMain has login");
+            myLog.e("LoginMain has login");
             Intent intent = new Intent(this, DashboardActivity.class);
             startActivity(intent);
             finish();
@@ -107,7 +107,7 @@ public class LoginMainActivity extends BaseActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        myLog.E("dispatchTouchEvent");
+        myLog.e("dispatchTouchEvent");
         View v = getCurrentFocus();
         if (v != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE)
                 && v instanceof EditText) {
@@ -159,10 +159,10 @@ public class LoginMainActivity extends BaseActivity {
         try {
             for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                 fragment.onActivityResult(requestCode, resultCode, data);
-                myLog.E("onActivityResult", "ON RESULT CALLED");
+                myLog.e("onActivityResult", "ON RESULT CALLED");
             }
         } catch (Exception e) {
-            myLog.E("onActivityResult", e.toString());
+            myLog.e("onActivityResult", e.toString());
         }
     }
 }

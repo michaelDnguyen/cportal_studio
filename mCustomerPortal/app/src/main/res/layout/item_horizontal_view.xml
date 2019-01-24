@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:text="Giấy YCBH"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imvComment"
+            android:layout_width="wrap_content"
+            android:src="@android:drawable/stat_notify_chat"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/btnSapxep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="5dp"
+            android:padding="5dp"
+            android:text="Sửa"
+            android:textColor="@drawable/st_textcolor_normal_red"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/gray" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvDataView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal" />
+
+</LinearLayout>

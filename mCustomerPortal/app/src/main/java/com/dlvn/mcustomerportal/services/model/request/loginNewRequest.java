@@ -12,6 +12,9 @@ public class loginNewRequest extends JsonDataInput {
     @SerializedName("UserLogin")
     @Expose
     private String userLogin;
+    @SerializedName("ClientID")
+    @Expose
+    private String clientID;
     @SerializedName("Password")
     @Expose
     private String password;
@@ -39,6 +42,9 @@ public class loginNewRequest extends JsonDataInput {
     @SerializedName("PolicyNo")
     @Expose
     private String policyNo;
+    @SerializedName("ProposalNo")
+    @Expose
+    private String proposalNo;
     @SerializedName("Gender")
     @Expose
     private String gender;
@@ -70,6 +76,17 @@ public class loginNewRequest extends JsonDataInput {
     @Expose
     private String otp;
 
+    @SerializedName("Email")
+    @Expose
+    private String email;
+    @SerializedName("2FA")
+    @Expose
+    private String twoFA;
+    @SerializedName("UserName")
+    @Expose
+    private String userName;
+
+
     public String getAction() {
         return action;
     }
@@ -84,6 +101,14 @@ public class loginNewRequest extends JsonDataInput {
 
     public void setUserLogin(String userLogin) {
         this.userLogin = userLogin;
+    }
+
+    public String getClientID() {
+        return clientID;
+    }
+
+    public void setClientID(String clientID) {
+        this.clientID = clientID;
     }
 
     public String getPassword() {
@@ -236,5 +261,37 @@ public class loginNewRequest extends JsonDataInput {
 
     public void setOtp(String otp) {
         this.otp = otp;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getProposalNo() {
+        return proposalNo;
+    }
+
+    public void setProposalNo(String proposalNo) {
+        this.proposalNo = proposalNo;
+    }
+
+    public String getTwoFA() {
+        return twoFA;
+    }
+
+    public void setTwoFA(String twoFA) {
+        this.twoFA = twoFA;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

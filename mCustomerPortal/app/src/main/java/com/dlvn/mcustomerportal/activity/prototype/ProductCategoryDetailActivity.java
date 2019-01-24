@@ -7,11 +7,13 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.ActionMenuView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dlvn.mcustomerportal.R;
@@ -34,9 +36,11 @@ public class ProductCategoryDetailActivity extends BaseActivity {
 
     public static final String INT_CATEGORY_PRODUCT_DETAIL = "category_product_detail";
 
+    LinearLayout lloBack;
     ImageView imvProduct;
     TextView tvTitle, tvDescription;
     Button btnMuaHang;
+    ActionMenuView toolbar_menu;
 
     List<ProductLoyaltyModel> lsProduct;
     ProductLoyaltyModel productItem;
@@ -50,7 +54,6 @@ public class ProductCategoryDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_category_detail);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getViews();
         initData();
@@ -58,10 +61,33 @@ public class ProductCategoryDetailActivity extends BaseActivity {
     }
 
     private void getViews() {
+        lloBack = findViewById(R.id.lloBack);
+
         imvProduct = findViewById(R.id.imvProduct);
         tvTitle = findViewById(R.id.tvTitle);
         tvDescription = findViewById(R.id.tvDescription);
         btnMuaHang = findViewById(R.id.btnMuaHang);
+
+        toolbar_menu = findViewById(R.id.toolbar_menu);
+        toolbar_menu.setVisibility(View.VISIBLE);
+        getMenuInflater().inflate(R.menu.menu_cart, toolbar_menu.getMenu());
+        toolbar_menu.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        toolbar_menu.setOnMenuItemClickListener(new ActionMenuView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_group:
+                        Intent intent = new Intent(ProductCategoryDetailActivity.this, CartManagerActivity.class);
+                        saveMyCart(intent);
+                        return true;
+
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private void initData() {
@@ -78,7 +104,6 @@ public class ProductCategoryDetailActivity extends BaseActivity {
             tvTitle.setText(productItem.getStrDetail());
             tvDescription.setText(Utilities.fromHtml(productItem.getFullDescription()));
         }
-
     }
 
     private void setListener() {
@@ -95,11 +120,13 @@ public class ProductCategoryDetailActivity extends BaseActivity {
                             lsProduct.add(productItem);
                         }
                         count++;
-                        invalidateOptionsMenu();
+                        if (toolbar_menu != null)
+                            setCount(ProductCategoryDetailActivity.this, toolbar_menu.getMenu(), count + "");
+//                        invalidateOptionsMenu();
                     } else {
                         MyCustomDialog dialog = new MyCustomDialog.Builder(ProductCategoryDetailActivity.this)
                                 .setTitle(getString(R.string.title_alert))
-                                .setMessage("Anh/chị không đủ điểm để mua hàng.")
+                                .setMessage(getString(R.string.alert_notenough_for_checkout))
                                 .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -111,11 +138,18 @@ public class ProductCategoryDetailActivity extends BaseActivity {
                 }
             }
         });
+
+        lloBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        myLog.E(TAG, "onCreateOptionsMenu");
+        myLog.e(TAG, "onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.menu_cart, menu);
 
         return true;
@@ -123,7 +157,7 @@ public class ProductCategoryDetailActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        myLog.E(TAG, "onOptionsItemSelected");
+        myLog.e(TAG, "onOptionsItemSelected");
         // TODO Auto-generated method stub
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -143,10 +177,10 @@ public class ProductCategoryDetailActivity extends BaseActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        myLog.E(TAG, "onPrepareOptionsMenu");
+        myLog.e(TAG, "onPrepareOptionsMenu");
 
         setCount(this, menu, count + "");
-        myLog.E(TAG, "count = " + count);
+        myLog.e(TAG, "count = " + count);
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -183,7 +217,7 @@ public class ProductCategoryDetailActivity extends BaseActivity {
 
                 if (lsProduct != null)
                     lsProduct.clear();
-                if(myCartCategory != null)
+                if (myCartCategory != null)
                     myCartCategory.setLsItems(lsProduct);
 
                 if (myCart != null) {
@@ -201,7 +235,7 @@ public class ProductCategoryDetailActivity extends BaseActivity {
                         for (int i = 0; i < myCart.getLsCategory().size(); i++)
                             if (myCart.getLsCategory().get(i).getCategory().equals(category.getPRODUCTCATEGORYCD())) {
                                 myCartCategory = myCart.getLsCategory().get(i);
-                                myLog.E(TAG, "Load myCart container myCategory");
+                                myLog.e(TAG, "Load myCart container myCategory");
                                 break;
                             }
                     }
@@ -210,10 +244,10 @@ public class ProductCategoryDetailActivity extends BaseActivity {
                 if (myCartCategory != null) {
                     if (myCartCategory.getLsItems() != null) {
                         lsProduct = myCartCategory.getLsItems();
-                        myLog.E(TAG, "Load mycategory container list product");
+                        myLog.e(TAG, "Load mycategory container list product");
                     }
                 } else {
-                    myLog.E(TAG, "Load mycategory is null");
+                    myLog.e(TAG, "Load mycategory is null");
                     myCartCategory = new CartItemModel();
                     myCartCategory.setCategory(category.getPRODUCTCATEGORYCD());
                     myCartCategory.setCategoryName(category.getProductTitle());
@@ -221,12 +255,12 @@ public class ProductCategoryDetailActivity extends BaseActivity {
 
                 if (lsProduct == null) {
                     lsProduct = new ArrayList<>();
-                    myLog.E(TAG, "Load list product is null");
+                    myLog.e(TAG, "Load list product is null");
                 }
 
                 if (myCart != null) {
                     count = Utilities.countItemInCart(myCart.getLsCategory());
-                    myLog.E(TAG, "count = " + count);
+                    myLog.e(TAG, "count = " + count);
                 }
 
                 return null;
@@ -235,8 +269,11 @@ public class ProductCategoryDetailActivity extends BaseActivity {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                if (myCart != null)
-                    invalidateOptionsMenu();
+                if (myCart != null) {
+//                    invalidateOptionsMenu();
+                    if (toolbar_menu != null)
+                        setCount(ProductCategoryDetailActivity.this, toolbar_menu.getMenu(), count + "");
+                }
             }
         }.execute();
     }
@@ -269,7 +306,7 @@ public class ProductCategoryDetailActivity extends BaseActivity {
                                 break;
                             }
 
-                        myLog.E(TAG, "Save myCart  container category at " + pos);
+                        myLog.e(TAG, "Save myCart  container category at " + pos);
                         if (pos >= 0)
                             lst.set(pos, myCartCategory);
                         else
@@ -301,7 +338,7 @@ public class ProductCategoryDetailActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        myLog.E(TAG, "onResume");
+        myLog.e(TAG, "onResume");
         loadMyCart();
     }
 
@@ -313,13 +350,13 @@ public class ProductCategoryDetailActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        myLog.E(TAG, "onStop");
+        myLog.e(TAG, "onStop");
         saveMyCart(null);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        myLog.E(TAG, "onDestroy");
+        myLog.e(TAG, "onDestroy");
     }
 }

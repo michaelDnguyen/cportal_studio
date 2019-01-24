@@ -17,6 +17,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,6 +34,8 @@ public class TransactionDetailActivity extends BaseActivity {
     public static final String TAG = "TransactionDetailActivity";
 
     public static final String INT_TRANS_MODEL = "INT_TRANS_MODEL";
+
+    LinearLayout lloBack;
 
     TextView tvMaGD, tvNgayGD;
     SwipeRefreshLayout swRefresh;
@@ -56,6 +60,8 @@ public class TransactionDetailActivity extends BaseActivity {
 
     private void getViews() {
         // TODO Auto-generated method stub
+        lloBack = findViewById(R.id.lloBack);
+
         lvData = (ListView) findViewById(R.id.lvData);
 
         swRefresh = findViewById(R.id.swRefresh);
@@ -94,7 +100,12 @@ public class TransactionDetailActivity extends BaseActivity {
 
     private void setListener() {
         // TODO Auto-generated method stub
-
+        lloBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private class GetHistoryDetailTask extends AsyncTask<Void, Void, Response<HistoryPaymentDetailResponse>> {

@@ -42,14 +42,26 @@ android {
     }
     buildToolsVersion '27.0.3'
     compileOptions.encoding = 'UTF-8'
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
 }
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
 dependencies {
+
+    def room_version = "1.1.1"
+    def RETROFIT_VERSION = "2.4.0"
+    def OKHTTP_VERSION = "3.10.0"
+    def PLAYSERVICES_VERSION = "15.0.1"
+    def LIBSUPPORT_VERSION = "27.1.1"
+
 //    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation fileTree(include: ['.jar', '.so'], dir: 'libs')
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
     implementation 'commons-codec:commons-codec:1.8'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
@@ -83,10 +95,26 @@ dependencies {
     implementation "com.google.android.gms:play-services-safetynet:$PLAYSERVICES_VERSION"
 
     //Firebase
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.3'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
     implementation 'com.google.firebase:firebase-core:16.0.3'
-    implementation 'com.google.firebase:firebase-messaging:17.3.1'
+    implementation 'com.google.firebase:firebase-messaging:17.3.2'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 
+    implementation 'com.mcxiaoke.volley:library:1.0.19'
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
+    implementation 'pub.devrel:easypermissions:0.3.0'
+    implementation('com.google.api-client:google-api-client-android:1.25.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    implementation('com.google.apis:google-api-services-youtube:v3-rev205-1.25.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
+
+    //Data engine Room
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    implementation 'com.android.support:support-v4:27.1.1'
+    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
 }
 apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

@@ -1,23 +1,5 @@
 package com.dlvn.mcustomerportal.activity;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
-import com.dlvn.mcustomerportal.R;
-import com.dlvn.mcustomerportal.afragment.BonusProgramFragment;
-import com.dlvn.mcustomerportal.afragment.ElectricBillFragment;
-import com.dlvn.mcustomerportal.afragment.FundUnitPriceFragment;
-import com.dlvn.mcustomerportal.afragment.HomeFragment;
-import com.dlvn.mcustomerportal.afragment.InfoContractFragment;
-import com.dlvn.mcustomerportal.afragment.InfoGeneralFragment;
-import com.dlvn.mcustomerportal.afragment.NotificationsFragment;
-import com.dlvn.mcustomerportal.afragment.PaymentPolicyFragment;
-import com.dlvn.mcustomerportal.afragment.ProductInfoFragment;
-import com.dlvn.mcustomerportal.afragment.SettingsFragment;
-import com.dlvn.mcustomerportal.common.CustomPref;
-import com.dlvn.mcustomerportal.utils.myLog;
-import com.dlvn.mcustomerportal.view.MyCustomDialog;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -43,6 +25,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.dlvn.mcustomerportal.R;
+import com.dlvn.mcustomerportal.afragment.ElectricBillFragment;
+import com.dlvn.mcustomerportal.afragment.FundUnitPriceFragment;
+import com.dlvn.mcustomerportal.afragment.Home2Fragment;
+import com.dlvn.mcustomerportal.afragment.InfoContractFragment;
+import com.dlvn.mcustomerportal.afragment.InfoGeneralFragment;
+import com.dlvn.mcustomerportal.afragment.LoyaltyProgramFragment;
+import com.dlvn.mcustomerportal.afragment.NotificationsFragment;
+import com.dlvn.mcustomerportal.afragment.PaymentPolicyFragment;
+import com.dlvn.mcustomerportal.afragment.ProductInfoFragment;
+import com.dlvn.mcustomerportal.afragment.SettingsFragment;
+import com.dlvn.mcustomerportal.common.CustomPref;
+import com.dlvn.mcustomerportal.utils.myLog;
+import com.dlvn.mcustomerportal.view.MyCustomDialog;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -121,7 +121,7 @@ public class HomeActivity extends AppCompatActivity {
 				// Snackbar.make(view, "Your own action",
 				// Snackbar.LENGTH_LONG).setAction("Action", null)
 				// .show();
-				BonusProgramFragment fragment = new BonusProgramFragment();
+				LoyaltyProgramFragment fragment = new LoyaltyProgramFragment();
 				if (fragment != null) {
 					FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 					fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -138,8 +138,8 @@ public class HomeActivity extends AppCompatActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-				startActivity(intent);
+//				Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+//				startActivity(intent);
 			}
 		});
 
@@ -184,12 +184,12 @@ public class HomeActivity extends AppCompatActivity {
 		 * 
 		 * @Override public boolean onLoadFailed(GlideException arg0, Object
 		 * arg1, Target<Drawable> arg2, boolean arg3) { //
-		 * progress.setVisibility(View.GONE); myLog.E("Load Image Failed!");
+		 * progress.setVisibility(View.GONE); myLog.e("Load Image Failed!");
 		 * return false; }
 		 * 
 		 * @Override public boolean onResourceReady(Drawable arg0, Object arg1,
 		 * Target<Drawable> arg2, DataSource arg3, boolean arg4) { //
-		 * progress.setVisibility(View.GONE); myLog.E("Load Image Ready!");
+		 * progress.setVisibility(View.GONE); myLog.e("Load Image Ready!");
 		 * return false; } }).into(imgNavHeaderBg);
 		 */
 		// imgNavHeaderBg.setBackgroundColor(Color.parseColor("#d32f2f"));
@@ -202,12 +202,12 @@ public class HomeActivity extends AppCompatActivity {
 		 * 
 		 * @Override public boolean onLoadFailed(GlideException arg0, Object
 		 * arg1, Target<Drawable> arg2, boolean arg3) { //
-		 * progress.setVisibility(View.GONE); myLog.E("Load Image Failed!");
+		 * progress.setVisibility(View.GONE); myLog.e("Load Image Failed!");
 		 * return false; }
 		 * 
 		 * @Override public boolean onResourceReady(Drawable arg0, Object arg1,
 		 * Target<Drawable> arg2, DataSource arg3, boolean arg4) { //
-		 * progress.setVisibility(View.GONE); myLog.E("Load Image Ready!");
+		 * progress.setVisibility(View.GONE); myLog.e("Load Image Ready!");
 		 * return false; } }).into(imgProfile);
 		 */
 
@@ -260,7 +260,7 @@ public class HomeActivity extends AppCompatActivity {
 		Runnable mPendingRunnable = new Runnable() {
 			@Override
 			public void run() {
-				myLog.E(TAG, "loadHomeFragment mPendingRunnable");
+				myLog.e(TAG, "loadHomeFragment mPendingRunnable");
 				// update the main content by replacing fragments
 				Fragment fragment = getHomeFragment();
 				if (fragment != null) {
@@ -288,11 +288,11 @@ public class HomeActivity extends AppCompatActivity {
 	}
 
 	private Fragment getHomeFragment() {
-		myLog.E(TAG, "getHomeFragment navItemIndex = " + navItemIndex);
+		myLog.e(TAG, "getHomeFragment navItemIndex = " + navItemIndex);
 		switch (navItemIndex) {
 		case 0:
 			// home
-			HomeFragment homeFragment = new HomeFragment();
+			Home2Fragment homeFragment = new Home2Fragment();
 			return homeFragment;
 		case 1:
 			InfoGeneralFragment infoGeneralFragment = new InfoGeneralFragment();
@@ -304,7 +304,7 @@ public class HomeActivity extends AppCompatActivity {
 			InfoContractFragment infoContractFragment = new InfoContractFragment();
 			return infoContractFragment;
 		case 4:
-			BonusProgramFragment bonusFragment = new BonusProgramFragment();
+			LoyaltyProgramFragment bonusFragment = new LoyaltyProgramFragment();
 			return bonusFragment;
 		case 5:
 			FundUnitPriceFragment fundFragment = new FundUnitPriceFragment();
@@ -359,7 +359,7 @@ public class HomeActivity extends AppCompatActivity {
 			return null;
 
 		default:
-			return new HomeFragment();
+			return new Home2Fragment();
 		}
 	}
 

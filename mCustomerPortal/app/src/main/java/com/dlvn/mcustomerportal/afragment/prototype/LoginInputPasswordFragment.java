@@ -1,20 +1,26 @@
 package com.dlvn.mcustomerportal.afragment.prototype;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckedTextView;
@@ -25,6 +31,7 @@ import android.widget.Toast;
 
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.activity.prototype.DashboardActivity;
+import com.dlvn.mcustomerportal.activity.prototype.LoginMainActivity;
 import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.services.NetworkUtils;
@@ -39,6 +46,9 @@ import com.dlvn.mcustomerportal.utils.Utilities;
 import com.dlvn.mcustomerportal.utils.listerner.OnFragmentInteractionListener;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
+import com.dlvn.mcustomerportal.view.pinlock.IndicatorDots;
+import com.dlvn.mcustomerportal.view.pinlock.PinLockListener;
+import com.dlvn.mcustomerportal.view.pinlock.PinLockView;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -53,20 +63,18 @@ import retrofit2.Response;
  */
 public class LoginInputPasswordFragment extends Fragment {
 
+    private static final String TAG = "LoginInputPasswordFragment";
     public static final String USER = "user_login";
-
-    private OnFragmentInteractionListener mListener;
 
     private View v;
     private LinearLayout lloBack;
-    private EditText mPasswordView;
+    private EditText edtPassword;
     private CheckedTextView chbShowPassword;
-    private View mProgressView;
-    private View mLoginFormView;
     private TextView tvForgotPassword;
     private ProgressDialog mProgressDialog;
 
     ClientProfile currentUser = null;
+    boolean isRetryPassword = false;
     ServicesRequest svRequester;
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -108,8 +116,8 @@ public class LoginInputPasswordFragment extends Fragment {
         if (v == null) {
             v = inflater.inflate(R.layout.fragment_login_step2, container, false);
 
-            mPasswordView = (EditText) v.findViewById(R.id.password);
-            mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            edtPassword = v.findViewById(R.id.password);
+            edtPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                     if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
@@ -128,24 +136,21 @@ public class LoginInputPasswordFragment extends Fragment {
                 }
             });
 
-            mLoginFormView = v.findViewById(R.id.login_form);
-            mProgressView = v.findViewById(R.id.login_progress);
-
             chbShowPassword = (CheckedTextView) v.findViewById(R.id.chbShowPassword);
             chbShowPassword.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (chbShowPassword.isChecked()) {
                         chbShowPassword.setChecked(false);
-                        mPasswordView.setTransformationMethod(new PasswordTransformationMethod());
+                        edtPassword.setTransformationMethod(new PasswordTransformationMethod());
                     } else {
                         chbShowPassword.setChecked(true);
-                        mPasswordView.setTransformationMethod(null);
+                        edtPassword.setTransformationMethod(null);
                     }
                 }
             });
 
-            lloBack = (LinearLayout) v.findViewById(R.id.lloBack);
+            lloBack = v.findViewById(R.id.lloBack);
             lloBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -182,19 +187,27 @@ public class LoginInputPasswordFragment extends Fragment {
         }
 
         // Reset errors.
-        mPasswordView.setError(null);
+        edtPassword.setError(null);
 
         // Store values at the time of the login attempt.
-        String password = mPasswordView.getText().toString();
+        String password = edtPassword.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password) | !Utilities.isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
+        if (isRetryPassword) {
+            if (TextUtils.isEmpty(password)) {
+                edtPassword.setError(getString(R.string.error_invalid_password));
+                focusView = edtPassword;
+                cancel = true;
+            }
+        } else {
+            if (TextUtils.isEmpty(password)) {
+                edtPassword.setError(getString(R.string.error_invalid_password));
+                focusView = edtPassword;
+                cancel = true;
+            }
         }
 
         if (cancel) {
@@ -220,6 +233,8 @@ public class LoginInputPasswordFragment extends Fragment {
 
         ClientProfile user;
         String acction;
+        String pin = null;
+        AlertDialog alertDialog = null;
 
         UserLoginTask(ClientProfile u) {
             user = u;
@@ -229,6 +244,13 @@ public class LoginInputPasswordFragment extends Fragment {
         UserLoginTask(ClientProfile u, String Acc) {
             user = u;
             acction = Acc;
+        }
+
+        UserLoginTask(ClientProfile u, String Acc, String pin, AlertDialog alert) {
+            user = u;
+            acction = Acc;
+            this.pin = pin;
+            alertDialog = alert;
         }
 
         @Override
@@ -244,14 +266,23 @@ public class LoginInputPasswordFragment extends Fragment {
             try {
 
                 loginNewRequest data = new loginNewRequest();
+//                if (!TextUtils.isEmpty(user.getClientID()))
+//                    data.setUserLogin(user.getClientID());
+//                else
+                data.setClientID(user.getClientID());
                 data.setUserLogin(user.getLoginName());
+
                 data.setPassword(user.getPassword());
 
                 data.setDeviceID(Utilities.getDeviceID(getActivity()));
-                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceOS());
+                data.setDeviceToken(CustomPref.getFirebaseToken(getActivity()));
                 data.setProject(Constant.Project_ID);
                 data.setAction(acction);
                 data.setAuthentication(Constant.Project_Authentication);
+
+                if (pin != null)
+                    data.setOtp(pin);
 
                 BaseRequest request = new BaseRequest();
                 request.setJsonDataInput(data);
@@ -285,10 +316,8 @@ public class LoginInputPasswordFragment extends Fragment {
                                     if (result.getResult() != null && result.getResult().equals("false")) {
                                         //If account not exits --> link to register
                                         Toast.makeText(getActivity(), "Đăng nhập lỗi: " + result.getErrLog(), Toast.LENGTH_LONG).show();
-                                    } else if (result.getResult() != null && result.getResult().equals("true")) {
 
-                                        if (!TextUtils.isEmpty(result.getNewAPIToken()))
-                                            currentUser.setaPIToken(result.getNewAPIToken());
+                                    } else if (result.getResult() != null && result.getResult().equals("true")) {
 
                                         if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CLINOEXIST)) {
 
@@ -301,10 +330,48 @@ public class LoginInputPasswordFragment extends Fragment {
                                                         }
                                                     });
                                             builder.create().show();
-                                        } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_FORGOTPASSWORD)) {
+                                        } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CLIEXISTNOACTIVE)) {
+                                            showDialogInputOTP(getActivity());
+
+                                        } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_OTPEXPIRY)) {
 
                                             MyCustomDialog.Builder builder = new MyCustomDialog.Builder(getActivity());
-                                            builder.setTitle(getString(R.string.forgotpassword_title)).setMessage(String.format(getString(R.string.forgotpassword_message), user.getEmail()))
+                                            builder.setMessage("Mã Pin đã hết hạn, xin vui lòng nhấn nút Gửi lại mã Pin và thử lại.")
+                                                    .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            builder.create().show();
+
+                                        } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_SUCCESSFUL)) {
+
+                                            alertDialog.dismiss();
+                                            Intent intent = new Intent(getActivity(), LoginMainActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                            getActivity().finish();
+                                        } else if (result.getErrLog().equalsIgnoreCase(Constant.ERR_CPLOGIN_OTPINCORRECT)) {
+
+                                            MyCustomDialog dialog = new MyCustomDialog.Builder(getActivity())
+                                                    .setMessage("Bạn nhập sai mã Pin. Xin vui lòng thử lại")
+                                                    .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    }).create();
+                                            dialog.show();
+                                        } else if (result.getErrLog().equalsIgnoreCase("SUCC")) {
+                                            //OTP re-generate
+                                            Toast.makeText(getActivity(), "Mã Pin đã được gửi lại vào địa chỉ email của quý khách.", Toast.LENGTH_LONG).show();
+
+                                        } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_FORGOTPASSWORD)) {
+
+                                            isRetryPassword = true;
+                                            MyCustomDialog.Builder builder = new MyCustomDialog.Builder(getActivity());
+                                            builder.setTitle(getString(R.string.forgotpassword_title)).setMessage(getString(R.string.forgotpassword_message))
                                                     .setPositiveButton(getString(R.string.forgotpassword_button), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
@@ -317,15 +384,31 @@ public class LoginInputPasswordFragment extends Fragment {
 
                                         } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_WRONGPASS)) {
 
-                                            mPasswordView.setError(getString(R.string.error_incorrect_password));
-                                            mPasswordView.requestFocus();
+                                            edtPassword.setError(getString(R.string.error_incorrect_password));
+                                            edtPassword.requestFocus();
                                         } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CHANGEPASS)) {
+
+                                            if (!TextUtils.isEmpty(result.getNewAPIToken()))
+                                                CustomPref.saveAPIToken(getActivity(), result.getNewAPIToken());
+
+                                            //If exist profile, save profile
+                                            if (result.getClientProfile() != null) {
+                                                //get user profile
+                                                ClientProfile user = result.getClientProfile().get(0);
+                                                if (TextUtils.isEmpty(user.getaPIToken()))
+                                                    user.setaPIToken(result.getNewAPIToken());
+
+                                                //save user profile
+                                                CustomPref.saveUserLogin(getActivity(), user);
+                                                currentUser = user;
+                                            }
 
                                             LoginChangePasswordFragment fragment = LoginChangePasswordFragment.newInstance(currentUser);
                                             FragmentTransaction transaction = getFragmentManager().beginTransaction();
                                             transaction.add(R.id.main_container, fragment);
                                             transaction.addToBackStack(fragment.getClass().getName());
                                             transaction.commit();
+
                                         } else if (result.getClientProfile() != null) {
 
                                             //Save info client profile
@@ -336,10 +419,21 @@ public class LoginInputPasswordFragment extends Fragment {
                                             if (TextUtils.isEmpty(user.getaPIToken()))
                                                 user.setaPIToken(result.getNewAPIToken());
 
+                                            //check xem user login này có phải là user login trước đó ko
+                                            if (CustomPref.getUserLogin(getActivity()) != null) {
+                                                if (!user.getClientID().equalsIgnoreCase(CustomPref.getUserLogin(getActivity()).getClientID())) {
+                                                    myLog.e(TAG, "User Other login: old = " + CustomPref.getUserLogin(getActivity()).getClientID() + " ** new = " + user.getClientID());
+                                                    CustomPref.clearUserLogin(getActivity());
+                                                    CustomPref.setAuthFinger(getActivity(), false);
+                                                    Utilities.deleteAllFileInFolder(getActivity().getExternalFilesDir(null).getAbsolutePath());
+                                                }
+                                            }
+
                                             //save user profile
                                             CustomPref.saveUserLogin(getActivity(), user);
 
                                             Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
                                             getActivity().finish();
                                         }
@@ -351,8 +445,8 @@ public class LoginInputPasswordFragment extends Fragment {
                     myLog.printTrace(e);
                 }
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                edtPassword.setError(getString(R.string.error_incorrect_password));
+                edtPassword.requestFocus();
             }
         }
 
@@ -381,11 +475,122 @@ public class LoginInputPasswordFragment extends Fragment {
             }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    private void showDialogInputOTP(final Context context) {
+
+        AlertDialog.Builder alerDialog = new AlertDialog.Builder(context);
+        LayoutInflater li = LayoutInflater.from(context);
+        View view = li.inflate(R.layout.dialog_input_otp, null);
+        alerDialog.setView(view);
+        final AlertDialog dialog = alerDialog.create();
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCanceledOnTouchOutside(true);
+
+        PinLockView mPinLockView;
+        IndicatorDots mIndicatorDots;
+        final TextView tvRefeshPin, tvCountdown;
+        Button btnOpenMail;
+
+        mPinLockView = dialog.findViewById(R.id.pin_lock_view);
+        mIndicatorDots = dialog.findViewById(R.id.indicator_dots);
+        tvRefeshPin = dialog.findViewById(R.id.tvRefeshPin);
+        tvCountdown = dialog.findViewById(R.id.tvCountdown);
+        btnOpenMail = dialog.findViewById(R.id.btnOpenMail);
+
+        mPinLockView.attachIndicatorDots(mIndicatorDots);
+
+        mPinLockView.setPinLength(Constant.OTP_LENGTH);
+
+        mPinLockView.setTextColor(ContextCompat.getColor(context, R.color.grey_dark));
+        mIndicatorDots.setIndicatorType(IndicatorDots.IndicatorType.FILL_WITH_ANIMATION);
+
+        final CountDownTimer timer = new CountDownTimer(Constant.TIMER_COUNTDOWN_OTP, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                tvCountdown.setText("" + millisUntilFinished / 1000);
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+                tvCountdown.setText("0");
+            }
+
+        };
+        timer.start();
+
+        mPinLockView.setPinLockListener(new PinLockListener() {
+            @Override
+            public void onComplete(String pin) {
+                myLog.e(TAG, "OTP dialog pin = " + pin);
+                if (pin.length() == Constant.OTP_LENGTH) {
+                    if (!tvCountdown.getText().toString().equalsIgnoreCase("0"))
+//                        doVerifyOTP(RegisterActivity.this, user, Constant.LOGIN_ACTION_CHECKOTP, pin, dialog);
+                        new UserLoginTask(currentUser, Constant.LOGIN_ACTION_CHECKOTP, pin, dialog).execute();
+                    else {
+                        MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+                        builder.setMessage("Mã Pin đã hết hạn, xin vui lòng nhấn nút Gửi lại mã Pin và thử lại.")
+                                .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.create().show();
+                    }
+                } else {
+                    MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+                    builder.setMessage("Mã OTP phải bao gồm 6 số.")
+                            .setPositiveButton(getString(R.string.confirm_no), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.create().show();
+                }
+            }
+
+            @Override
+            public void onEmpty() {
+                myLog.e(TAG, " OTP dialog empty");
+            }
+
+            @Override
+            public void onPinChange(int pinLength, String intermediatePin) {
+                myLog.e(TAG, " OTP dialog onPinChange length = " + pinLength + " ** inter : " + intermediatePin);
+            }
+        });
+
+        tvRefeshPin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                doVerifyOTP(RegisterActivity.this, user, Constant.LOGIN_ACTION_GENERATEOTP, null, dialog);
+                new UserLoginTask(currentUser, Constant.LOGIN_ACTION_GENERATEOTP, null, dialog).execute();
+                try {
+                    Thread.sleep(3000);
+                    timer.start();
+                } catch (InterruptedException e) {
+                    myLog.printTrace(e);
+                }
+            }
+        });
+
+        btnOpenMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utilities.actionOpenMailApp(context);
+            }
+        });
+
+        dialog.show();
     }
 
     @Override
@@ -402,7 +607,6 @@ public class LoginInputPasswordFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
 }

@@ -14,12 +14,6 @@ buildscript {
         classpath 'com.google.gms:google-services:4.0.1'
     }
 
-    ext {
-        RETROFIT_VERSION = '2.4.0'
-        OKHTTP_VERSION = '3.10.0'
-        PLAYSERVICES_VERSION = '15.0.1'
-        LIBSUPPORT_VERSION = '27.1.1'
-    }
 }
 
 allprojects {

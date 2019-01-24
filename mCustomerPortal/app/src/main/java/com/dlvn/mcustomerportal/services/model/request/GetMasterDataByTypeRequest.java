@@ -11,6 +11,9 @@ public class GetMasterDataByTypeRequest {
     @SerializedName("Type")
     @Expose
     private String type;
+    @SerializedName("Action")
+    @Expose
+    private String action;
 
     public String getProject() {
         return project;
@@ -26,5 +29,13 @@ public class GetMasterDataByTypeRequest {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 }

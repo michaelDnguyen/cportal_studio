@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlHandle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+    android:background="@color/light_grey"
+    android:descendantFocusability="afterDescendants">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/state_doccard_bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.dlvn.mcustomerportal.view.GridImageItemView
+                android:id="@+id/imvImage"
+                android:layout_width="100dp"
+                android:layout_height="140dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp"
+                android:adjustViewBounds="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scaleType="centerCrop" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvSTT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/dark_grey" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imvDelete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="button delete item"
+        android:tint="@color/red"
+        android:src="@android:drawable/ic_notification_clear_all" />
+
+</RelativeLayout>

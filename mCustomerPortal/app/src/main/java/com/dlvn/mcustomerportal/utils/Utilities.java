@@ -2,6 +2,7 @@ package com.dlvn.mcustomerportal.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
@@ -11,6 +12,8 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 import com.dlvn.mcustomerportal.R;
+import com.dlvn.mcustomerportal.activity.prototype.LoginMainActivity;
+import com.dlvn.mcustomerportal.activity.prototype.SettingsActivity;
 import com.dlvn.mcustomerportal.base.CPortalApplication;
 import com.dlvn.mcustomerportal.services.model.request.CartItemModel;
 import com.dlvn.mcustomerportal.services.model.response.MasterData_Category;
@@ -26,11 +29,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.location.Address;
 import android.location.Geocoder;
@@ -39,6 +44,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.provider.Settings.Secure;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -93,6 +101,34 @@ public class Utilities {
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
+    }
+
+    /**
+     * Utility for disable shift mode in Bottom Navigation View
+     * @author nn.tai
+     * @modify 22-01-2019
+     * @param view
+     */
+    public static void disableShiftMode(BottomNavigationView view) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                //noinspection RestrictedApi
+                item.setShiftingMode(false);
+                // set once again checked value, so view will be updated
+                //noinspection RestrictedApi
+                item.setChecked(item.getItemData().isChecked());
+            }
+        } catch (NoSuchFieldException e) {
+            Log.e("BNVHelper", "Unable to get shift mode field", e);
+        } catch (IllegalAccessException e) {
+            Log.e("BNVHelper", "Unable to change value of shift mode", e);
+        }
     }
 
     /**
@@ -173,7 +209,6 @@ public class Utilities {
         }
     }
 
-
     /**
      * Get version OS of device
      *
@@ -190,34 +225,6 @@ public class Utilities {
         }
 
         return "Android-" + code_release;
-
-//        if (version == null || version.isEmpty()) {
-//            return "No version";
-//        }
-//
-//        if (version.equals("25"))
-//            return "Android7.1";
-//        else if (version.equals("24"))
-//            return "Android7.0";
-//        else if (version.equals("23"))
-//            return "Android6.0";
-//        else if (version.equals("22"))
-//            return "Android5.1";
-//        else if (version.equals("21"))
-//            return "Android5.0";
-//        else if (version.equals("20"))
-//            return "Android4.4W";
-//        else if (version.equals("19"))
-//            return "Android4.4";
-//        else if (version.equals("18"))
-//            return "Android4.3";
-//        else if (version.equals("17"))
-//            return "Android4.2";
-//        else if (version.equals("16"))
-//            return "Android4.1";
-//        else if (version.equals("15") || version.equals("14"))
-//            return "Android4.0";
-//        return version;
     }
 
     /**
@@ -256,6 +263,10 @@ public class Utilities {
      */
     public static String getDeviceID(Context context) {
         return Secure.getString(context.getContentResolver(), Secure.ANDROID_ID);
+    }
+
+    public static String getDeviceOS() {
+        return getDeviceName() + "-" + getVersion();
     }
 
     public static String capitalize(String s) {
@@ -326,7 +337,7 @@ public class Utilities {
             double num = Double.parseDouble(number);
             return df.format(num);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            myLog.printTrace(e);
             return number;
         }
     }
@@ -367,7 +378,6 @@ public class Utilities {
             public void run() {
                 try {
                     MyCustomDialog dialog = new MyCustomDialog.Builder(context)
-                            .setTitle("Thông báo")
                             .setMessage(message)
                             .setPositiveButton(context.getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
                                 @Override
@@ -416,10 +426,75 @@ public class Utilities {
                         }
                     });
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    myLog.printTrace(e);
                 }
             }
         });
+    }
+
+    /**
+     * @param context
+     * @author nn.tai
+     */
+    public static void showDialogAlertLoginNormal(final Context context) {
+        MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+        builder.setMessage(context.getString(R.string.message_alert_login_to_using_function))
+                .setPositiveButton(context.getString(R.string.confirm_yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                        Intent intent = new Intent(context, LoginMainActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    }
+                }).setNegativeButton(context.getString(R.string.confirm_no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+    /**
+     * @param context
+     * @author nn.tai
+     */
+    public static void showDialogAlertLoginDLVNAcc(final Context context) {
+        MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+        builder.setMessage(context.getString(R.string.message_alert_login_have_policy))
+                .setPositiveButton(context.getString(R.string.confirm_yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                        Intent intent = new Intent(context, SettingsActivity.class);
+                        intent.putExtra(SettingsActivity.KEY_SETTINGS_TYPE, SettingsActivity.SETTING_LINK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    }
+                }).setNegativeButton(context.getString(R.string.confirm_no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+    public static void showDialogErrorRequest(final Context context) {
+        MyCustomDialog dialog = new MyCustomDialog.Builder(context)
+                .setMessage(context.getString(R.string.alert_cannot_connect_server))
+                .setPositiveButton(context.getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create();
+        dialog.show();
     }
 
     /**
@@ -446,7 +521,7 @@ public class Utilities {
 
             p1 = new LatLng(location.getLatitude(), location.getLongitude());
         } catch (Exception e) {
-            e.printStackTrace();
+            myLog.printTrace(e);
         }
         return p1;
     }
@@ -561,7 +636,7 @@ public class Utilities {
     }
 
     /**
-     * Open app call phone number
+     * Open app call phone number     *
      *
      * @param context
      * @param number
@@ -580,6 +655,37 @@ public class Utilities {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_APP_EMAIL);
         context.startActivity(intent);
+    }
+
+    public static void actionOpenYoutubeApp(Context context) {
+
+        String youtubeChannel = "https://www.youtube.com/channel/UCMPzqdj3bvF8sPkoueATO8w";
+
+        Intent intent = new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(youtubeChannel));
+        intent.setComponent(new ComponentName("com.google.android.youtube", "com.google.android.youtube.PlayerActivity"));
+
+        PackageManager manager = context.getPackageManager();
+        List<ResolveInfo> infos = manager.queryIntentActivities(intent, 0);
+        if (infos.size() > 0) {
+            context.startActivity(intent);
+        } else {
+            //No Application can handle your intent
+            Intent intent2 = new Intent(Intent.ACTION_VIEW);
+            intent2.setData(Uri.parse(youtubeChannel));
+            context.startActivity(intent2);
+        }
+    }
+
+    public static void actionOpenFacebookApp(Context context) {
+        String idFacebook = "DaiichiLife.VietNam";
+        try {
+            context.getPackageManager().getPackageInfo("com.facebook.katana", 0);
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/" + idFacebook)));
+        } catch (Exception e) {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/" + idFacebook)));
+        }
     }
 
     /**
@@ -618,7 +724,12 @@ public class Utilities {
      */
     public static boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return (password.length() >= 8 && password.length() <= 32);
+//        String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{4,20}
+        String pattern_normal = "[a-zA-Z0-9 ]";
+        String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z]).{4,32})";
+
+        Pattern specailCharPatten = Pattern.compile(PASSWORD_PATTERN);
+        return (password.length() >= 4 && password.length() <= 32 && specailCharPatten.matcher(password).matches());
     }
 
     /**
@@ -629,7 +740,7 @@ public class Utilities {
      */
     public static boolean isPhoneNumberValid(String phone) {
         //TODO: Replace this with your own logic
-        return (phone.length() >= 8 && phone.length() <= 15);
+        return (phone.length() >= 9 && phone.length() <= 11);
     }
 
     /**
@@ -815,7 +926,21 @@ public class Utilities {
             return "0";
         try {
             DecimalFormat formatter = new DecimalFormat("#,###,###");
-            result = formatter.format(Double.parseDouble(number + ""))+" VNĐ";
+            result = formatter.format(Double.parseDouble(number + "")) + " VNĐ";
+            return result;
+        } catch (Exception ex) {
+            myLog.printTrace(ex);
+            return "0";
+        }
+    }
+
+    public static String formatMoneyToVND(double number) {
+        String result = "";
+        if (number == 0)
+            return "0";
+        try {
+            DecimalFormat formatter = new DecimalFormat("#,###,###");
+            result = formatter.format(number) + " VNĐ";
             return result;
         } catch (Exception ex) {
             myLog.printTrace(ex);
@@ -826,7 +951,7 @@ public class Utilities {
     public static String formatMoneyToPoint(long str) {
         double value = (double) str / 1000;
         DecimalFormat formatter = new DecimalFormat("#,###,###.#");
-        return formatter.format(Double.parseDouble(value + "")) + " điểm.";
+        return formatter.format(Double.parseDouble(value + ""));
     }
 
 

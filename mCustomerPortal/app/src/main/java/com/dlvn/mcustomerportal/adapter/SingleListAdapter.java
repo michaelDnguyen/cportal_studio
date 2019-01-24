@@ -43,7 +43,7 @@ public class SingleListAdapter
 
         ViewHolder holder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_list_singlechoice, null);
+            convertView = inflater.inflate(R.layout.item_list_single, null);
             holder = new ViewHolder();
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
             convertView.setTag(holder);

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:background="@color/red" >
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLength="12"
+            android:textStyle="bold"
+            android:text="Sắp xếp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize18" />
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:padding="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back_white" />
+
+        <TextView
+            android:id="@+id/tvDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:text="Xóa giấy tờ"
+            android:textSize="@dimen/textsize14" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey"
+        android:visibility="gone"
+        android:text=" * Vui lòng kéo và thả hồ sơ để sắp theo thứ tự từ trái qua phải"
+        android:padding="10dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvDataView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@color/light_grey"
+        android:padding="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp" >
+
+        <Button
+            android:id="@+id/btnOK"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@android:color/transparent"
+            android:text="OK"
+            android:textColor="@color/red"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+</LinearLayout>

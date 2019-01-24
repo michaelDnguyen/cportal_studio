@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.prototype.ClaimsReasonActivity">
+
+    <include layout="@layout/toolbar_back" />
+
+    <!--Nguyên nhân/ Lý do yêu cầu quyền lợi-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vui lòng chọn Lý do yêu cầu quyền lợi bảo hiểm"
+            android:textColor="@color/red"
+            android:textSize="@dimen/textsize15"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/rdgPaymentOption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:visibility="visible">
+
+                    <!--Group Nguyên nhân do tai nạn-->
+                    <RadioButton
+                        android:id="@+id/rdbAccident"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:button="@drawable/st_rdb_checkstate"
+                        android:buttonTint="@color/red"
+                        android:drawableTint="@color/green_dark"
+                        android:paddingLeft="10dp"
+                        android:text="Nguyên nhân do tai nạn."
+                        android:textSize="@dimen/textsize15"
+                        android:textStyle="bold" />
+
+                    <!--Do tai Nạn-->
+                    <LinearLayout
+                        android:id="@+id/lloAccident"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="10dp">
+
+                        <!--Thoi gian-->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Thời gian xảy ra tai nạn" />
+
+                        <TextView
+                            android:id="@+id/tvAccidentThoiGian"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableRight="@android:drawable/ic_menu_today"
+                            android:drawableTint="@color/grey"
+                            android:gravity="center_vertical"
+                            android:hint="--/--/----"
+                            android:padding="5dp" />
+
+                        <!--Hoan canh-->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Mô tả ngắn gọn hoàn cảnh tai nạn" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtAccidentHoanCanh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:gravity="center_vertical"
+                            android:hint="- mô tả hoàn cảnh tai nạn -"
+                            android:inputType="textMultiLine"
+                            android:maxLines="3"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null" />
+
+                        <!--Thuong tat-->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mô tả thương tật" />
+
+                        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                            android:id="@+id/cedtAccidentThuongTat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:gravity="center_vertical"
+                            android:hint="- mô tả thương tật -"
+                            android:inputType="textMultiLine"
+                            android:maxLines="3"
+                            android:padding="5dp"
+                            android:textCursorDrawable="@null" />
+
+                        <!--Người gây tai nạn-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Người gây tai nạn" />
+
+                            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                                android:id="@+id/cedtAccidentCauser"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:background="@android:color/transparent"
+                                android:cursorVisible="true"
+                                android:gravity="center_vertical"
+                                android:hint="- nhập người gây tai nạn -"
+                                android:padding="5dp"
+                                android:textCursorDrawable="@null" />
+                        </LinearLayout>
+
+                        <!--Số đt người gây tai nạn-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Số điện thoại người gây tai nạn" />
+
+                            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                                android:id="@+id/cedtAccidentPhoneCauser"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:background="@android:color/transparent"
+                                android:cursorVisible="true"
+                                android:gravity="center_vertical"
+                                android:hint="- nhập số đt người gây tai nạn -"
+                                android:inputType="phone"
+                                android:padding="5dp"
+                                android:textCursorDrawable="@null" />
+                        </LinearLayout>
+
+                        <!--Tình trạng rựu bia, chất kích thích khi xảy ra tai nạn-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Tình trạng rựu bia, chất kích thích khi xảy ra tai nạn" />
+
+                            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                                android:id="@+id/cedtAccidentStatusCauser"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:cursorVisible="true"
+                                android:gravity="center_vertical"
+                                android:hint="- nhập tình trạng -"
+                                android:inputType="textMultiLine"
+                                android:maxLines="3"
+                                android:padding="5dp"
+                                android:textCursorDrawable="@null" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!--Group Nguyên nhân do bệnh tật-->
+                    <RadioButton
+                        android:id="@+id/rdbIllness"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:button="@drawable/st_rdb_checkstate"
+                        android:buttonTint="@color/red"
+                        android:drawableTint="@color/green_dark"
+                        android:paddingLeft="10dp"
+                        android:text="Nguyên nhân do bệnh tật."
+                        android:textSize="@dimen/textsize15"
+                        android:textStyle="bold" />
+
+                    <!--Do Bệnh tật-->
+                    <LinearLayout
+                        android:id="@+id/lloIllness"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="10dp">
+
+                        <!--Thoi gian-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Thời gian triệu chứng đầu tiên xuất hiện" />
+
+                            <TextView
+                                android:id="@+id/tvIllnessThoiGian"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableRight="@android:drawable/ic_menu_today"
+                                android:drawableTint="@color/grey"
+                                android:gravity="center_vertical"
+                                android:hint="--/--/----"
+                                android:padding="5dp" />
+                        </LinearLayout>
+
+                        <!--Chuan doan-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Chuẩn đoán bệnh" />
+
+                            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                                android:id="@+id/cedtIllnessMoTa"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:background="@android:color/transparent"
+                                android:cursorVisible="true"
+                                android:gravity="center_vertical"
+                                android:hint="- mô tả bệnh -"
+                                android:inputType="textMultiLine"
+                                android:maxLines="3"
+                                android:padding="5dp"
+                                android:textCursorDrawable="@null" />
+                        </LinearLayout>
+
+                        <!--Diễn biến-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Diễn tiến bệnh" />
+
+                            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                                android:id="@+id/cedtIllnessDienTien"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:background="@android:color/transparent"
+                                android:cursorVisible="true"
+                                android:gravity="center_vertical"
+                                android:hint="- mô tả diễn tiến bệnh -"
+                                android:inputType="textMultiLine"
+                                android:maxLines="3"
+                                android:padding="5dp"
+                                android:textCursorDrawable="@null" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RadioGroup>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <!--Layout bottom-->
+    <LinearLayout
+        android:id="@+id/lloBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="5dp">
+
+        <TextView
+            android:id="@+id/tvStep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="2/4"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/sbStep"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:progressDrawable="@drawable/state_process_seekbar"
+            android:thumb="@null"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnCapNhat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="Tiếp tục"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

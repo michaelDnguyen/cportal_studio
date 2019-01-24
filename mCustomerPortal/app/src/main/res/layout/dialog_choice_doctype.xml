@@ -21,7 +21,7 @@
             android:layout_margin="10dp"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:text="Chọn"
+            android:text="Chọn loại giấy tờ"
             android:textColor="@color/white"
             android:textSize="@dimen/textsize18"
             android:textStyle="bold" />

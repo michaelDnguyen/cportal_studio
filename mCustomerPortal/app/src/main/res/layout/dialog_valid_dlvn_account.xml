@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:gravity="center"
     android:orientation="vertical">
 
+    <!--Header-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,66 +53,111 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/grey_light"
-        android:padding="10dp"
-        android:text="Vui lòng chọn loại giấy tờ:"
-        android:textSize="@dimen/textsize16"
-        android:textStyle="bold"
-        android:visibility="gone" />
+    <!--End Header-->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:orientation="vertical"
-        android:paddingTop="50dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp">
-
-        <EditText
-            android:id="@+id/edtPolicyID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:cursorVisible="true"
-            android:hint="Số hợp đồng"
-            android:textCursorDrawable="@color/black" />
-
-        <EditText
-            android:id="@+id/edtCMND"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edtPolicyID"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/transparent"
-            android:cursorVisible="true"
-            android:hint="Số chứng minh thư"
-            android:textCursorDrawable="@color/black" />
+        android:visibility="visible">
 
         <TextView
-            android:id="@+id/tvDoB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edtCMND"
-            android:textSize="@dimen/textsize18"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/transparent"
-            android:hint="Ngày sinh nhật"
-            android:textCursorDrawable="@color/black" />
+            android:text="@string/title_payment_nologin_step01"
+            android:textSize="@dimen/textsize17" />
 
-        <Button
-            android:id="@+id/btnXacNhan"
+        <!--Policy No-->
+        <TextView
             android:layout_width="match_parent"
-            android:layout_below="@id/tvDoB"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/state_btn_red_rectangle"
-            android:text="Xác nhận"
-            android:textColor="@color/white" />
+            android:layout_marginTop="15dp"
+            android:text="Mã số khách hàng"
+            android:textSize="@dimen/textsize15" />
+
+        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+            android:id="@+id/cedtUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:cursorVisible="true"
+            android:inputType="number"
+            android:minHeight="50dp"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/textsize17" />
+
+        <!--Client ID-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Mật khẩu"
+            android:textSize="@dimen/textsize15" />
+
+        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+            android:id="@+id/cedtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:cursorVisible="true"
+            android:inputType="textPassword"
+            android:minHeight="50dp"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/textsize17" />
+
+        <!--DOB-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            android:text="@string/hint_payment_nologin_dob"
+            android:textSize="@dimen/textsize15" />
+
+        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+            android:id="@+id/cedtDOB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:cursorVisible="true"
+            android:enabled="true"
+            android:visibility="gone"
+            android:focusable="false"
+            android:inputType="date"
+            android:minHeight="50dp"
+            android:textCursorDrawable="@color/black"
+            android:textSize="@dimen/textsize17" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="error"
+        android:visibility="gone"
+        android:textColor="@color/red" />
+
+    <ImageButton
+        android:id="@+id/ibtnReCapcha"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/img_captch_normal" />
+
+    <Button
+        android:id="@+id/btnXacNhan"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="@drawable/state_btn_red_radius_gradien"
+        android:text="Xác nhận"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
 </LinearLayout>

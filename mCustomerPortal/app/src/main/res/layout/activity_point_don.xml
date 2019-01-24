@@ -20,8 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.4"
-            android:textSize="@dimen/textsize15"
             android:text="Số điểm quý khách hiện có"
+            android:textSize="@dimen/textsize15"
             android:textStyle="bold" />
 
         <TextView
@@ -83,10 +83,10 @@
                 android:id="@+id/ibtnSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tint="@color/black"
                 android:background="@android:color/transparent"
                 android:padding="5dp"
-                android:src="@android:drawable/ic_menu_search" />
+                android:src="@android:drawable/ic_menu_search"
+                android:tint="@color/black" />
         </LinearLayout>
     </LinearLayout>
 
@@ -102,11 +102,14 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/grey" />
+            android:background="@color/grey"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="Thông tin người được tặng điểm" />
@@ -192,7 +195,7 @@
                 android:id="@+id/btnTieptuc"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:background="@drawable/state_btn_red_rectangle"
+                android:background="@drawable/state_btn_red_radius_gradien"
                 android:text="Tiếp tục"
                 android:textColor="@color/white" />
         </LinearLayout>

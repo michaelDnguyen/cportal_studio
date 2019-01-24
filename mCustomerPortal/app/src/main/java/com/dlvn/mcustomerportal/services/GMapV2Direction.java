@@ -66,7 +66,7 @@ public class GMapV2Direction {
             URL urlrequest;
             try {
 
-                myLog.E("Google Direction request = " + url[0]);
+                myLog.e("Google Direction request = " + url[0]);
 
 //                HttpClient httpClient = new DefaultHttpClient();
 //                HttpContext localContext = new BasicHttpContext();

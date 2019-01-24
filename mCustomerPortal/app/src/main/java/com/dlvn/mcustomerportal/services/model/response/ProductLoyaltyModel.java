@@ -33,11 +33,14 @@ public class ProductLoyaltyModel implements Parcelable {
     @SerializedName("fullDescription")
     @Expose
     private String fullDescription;
+    @SerializedName("category")
+    @Expose
+    private String category;
 
     /**
      * Support multi checked
      */
-    private String isChecked = Constant.CHECK_BOX_CHECKED_FALSE;
+    private String isChecked = Constant.CHECK_BOX_CHECKED_TRUE;
 
     public String getProductID() {
         return productID;
@@ -103,6 +106,14 @@ public class ProductLoyaltyModel implements Parcelable {
         this.fullDescription = fullDescription;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getIsChecked() {
         return isChecked;
     }
@@ -124,6 +135,7 @@ public class ProductLoyaltyModel implements Parcelable {
         this.discount = in.readInt();
         this.shortDescription = in.readString();
         this.fullDescription = in.readString();
+        this.category = in.readString();
         this.isChecked = in.readString();
     }
 
@@ -142,6 +154,7 @@ public class ProductLoyaltyModel implements Parcelable {
         dest.writeInt(discount);
         dest.writeString(shortDescription);
         dest.writeString(fullDescription);
+        dest.writeString(category);
         dest.writeString(isChecked);
     }
 

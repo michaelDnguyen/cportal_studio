@@ -54,8 +54,6 @@ public class LoginChangePasswordFragment extends Fragment {
 
     public static final String USER = "user_login";
 
-    private OnFragmentInteractionListener mListener;
-
     private View v;
     private LinearLayout lloBack;
     private EditText mPasswordView, mConfirmPassword;
@@ -98,7 +96,7 @@ public class LoginChangePasswordFragment extends Fragment {
         if (v == null) {
             v = inflater.inflate(R.layout.fragment_login_step3, container, false);
 
-            mPasswordView = (EditText) v.findViewById(R.id.password);
+            mPasswordView = v.findViewById(R.id.password);
             mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -109,7 +107,7 @@ public class LoginChangePasswordFragment extends Fragment {
                     return false;
                 }
             });
-            mConfirmPassword = (EditText) v.findViewById(R.id.confirm_password);
+            mConfirmPassword = v.findViewById(R.id.confirm_password);
             mConfirmPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -121,7 +119,7 @@ public class LoginChangePasswordFragment extends Fragment {
                 }
             });
 
-            Button mEmailSignInButton = (Button) v.findViewById(R.id.email_sign_in_button);
+            Button mEmailSignInButton = v.findViewById(R.id.email_sign_in_button);
             mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -130,7 +128,7 @@ public class LoginChangePasswordFragment extends Fragment {
             });
 
 
-            chbShowPassword = (CheckedTextView) v.findViewById(R.id.chbShowPassword);
+            chbShowPassword = v.findViewById(R.id.chbShowPassword);
             chbShowPassword.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -146,7 +144,7 @@ public class LoginChangePasswordFragment extends Fragment {
                 }
             });
 
-            lloBack = (LinearLayout) v.findViewById(R.id.lloBack);
+            lloBack = v.findViewById(R.id.lloBack);
             lloBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -205,6 +203,7 @@ public class LoginChangePasswordFragment extends Fragment {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             currentUser.setPassword(password);
+
             if (NetworkUtils.isConnectedHaveDialog(getActivity())) {
                 mAuthTask = new UserLoginTask(currentUser, Constant.LOGIN_ACTION_CHANGEPASSWORD);
                 mAuthTask.execute((Void) null);
@@ -244,12 +243,15 @@ public class LoginChangePasswordFragment extends Fragment {
             try {
 
                 loginNewRequest data = new loginNewRequest();
+
                 data.setUserLogin(user.getLoginName());
+                data.setClientID(user.getClientID());
                 data.setPassword(user.getPassword());
 
-                data.setApiToken(user.getaPIToken());
+                data.setApiToken(CustomPref.getAPIToken(getActivity()));
                 data.setDeviceID(Utilities.getDeviceID(getActivity()));
-                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceOS());
+                data.setDeviceToken(CustomPref.getFirebaseToken(getActivity()));
                 data.setProject(Constant.Project_ID);
                 data.setAction(acction);
                 data.setAuthentication(Constant.Project_Authentication);
@@ -317,15 +319,32 @@ public class LoginChangePasswordFragment extends Fragment {
                                             //Save Login Profile & Token
                                             CustomPref.setLogin(getActivity(), true);
 
-                                            ClientProfile user = result.getClientProfile().get(0);
+                                            try {
+                                                if (result.getClientProfile() != null) {
+                                                    ClientProfile user = result.getClientProfile().get(0);
 
-                                            if (TextUtils.isEmpty(user.getaPIToken()))
-                                                user.setaPIToken(result.getNewAPIToken());
-                                            CustomPref.saveUserLogin(getActivity(), user);
+                                                    if (TextUtils.isEmpty(user.getaPIToken()))
+                                                        user.setaPIToken(result.getNewAPIToken());
+                                                    CustomPref.saveUserLogin(getActivity(), user);
+                                                }
+                                            } catch (Exception e) {
+                                                myLog.printTrace(e);
+                                            }
 
-                                            Intent intent = new Intent(getActivity(), DashboardActivity.class);
-                                            startActivity(intent);
-                                            getActivity().finish();
+                                            MyCustomDialog.Builder builder = new MyCustomDialog.Builder(getActivity());
+                                            builder.setMessage("Anh/chị đã khôi phục mật khẩu thành công.")
+                                                    .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+
+                                                            Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                            startActivity(intent);
+                                                            getActivity().finish();
+                                                        }
+                                                    });
+                                            builder.create().show();
                                         }
                                     }
                                 }
@@ -363,28 +382,20 @@ public class LoginChangePasswordFragment extends Fragment {
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
 }

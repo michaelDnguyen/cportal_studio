@@ -1,39 +1,64 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
-    tools:context="${relativePackage}.${activityClass}" >
+    tools:context="${relativePackage}.${activityClass}">
+
+    <include layout="@layout/toolbar_back" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imvSanPham"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/tvKhauHieu"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Chủ Động Lựa Chọn Làm Chủ Tương Lai"
-                android:textSize="@dimen/textsize14"
-                android:textStyle="bold" />
+                android:scaleType="fitCenter" />
 
-            <TextView
-                android:id="@+id/tvNoiDung"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/textsize13" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/textsize15" />
+
+                <TextView
+                    android:id="@+id/tvKhauHieu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/textsize20"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvNoiDung"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/textsize15" />
+
+                <WebView
+                    android:id="@+id/webview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></WebView>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

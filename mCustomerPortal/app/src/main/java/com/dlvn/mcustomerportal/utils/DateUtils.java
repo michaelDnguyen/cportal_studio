@@ -151,7 +151,7 @@ public class DateUtils {
         } catch (ParseException e) {
             return null;
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            myLog.printTrace(e);
             return null;
         }
     }
@@ -174,7 +174,7 @@ public class DateUtils {
             SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss a", Locale.US);
             return format2.format(newDate).toUpperCase();
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            myLog.printTrace(e);
             return null;
         }
     }
@@ -196,7 +196,7 @@ public class DateUtils {
             format = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
             return format.format(newDate).toUpperCase();
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            myLog.printTrace(e);
             return null;
         }
     }
@@ -208,7 +208,7 @@ public class DateUtils {
         } catch (ParseException e) {
             return null;
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+            myLog.printTrace(e);
             return null;
         }
     }
@@ -321,7 +321,7 @@ public class DateUtils {
         Calendar cal = Calendar.getInstance();
         cal.setTime(cal.getTime());
         int month = cal.get(Calendar.MONTH);
-        myLog.E("Month = " + (month + 1));
+        myLog.e("Month = " + (month + 1));
         return month + 1;
     }
 
@@ -330,7 +330,7 @@ public class DateUtils {
         Calendar cal = Calendar.getInstance();
         cal.setTime(cal.getTime());
         int year = cal.get(Calendar.YEAR);
-        myLog.E("Year = " + year);
+        myLog.e("Year = " + year);
         return year;
     }
 
@@ -338,7 +338,7 @@ public class DateUtils {
 
         Calendar cal = Calendar.getInstance();
         String date = formatDate(cal.getTime());
-        myLog.E("Date = " + date);
+        myLog.e("Date = " + date);
         return date;
     }
 
@@ -389,7 +389,7 @@ public class DateUtils {
     /**
      * mCP specified method to convert input date into dd-MM-yyyy format date
      * @param str
-     * @return dd-MM-yyyy String
+     * @return dd/MM/yyyy String
      */
     public static String parseDateForMCP(String str) {
         Date date = new Date();
@@ -397,9 +397,9 @@ public class DateUtils {
         try {
             date = oldDateFormat.parse(str);
         } catch (ParseException e) {
-            e.printStackTrace();
+            myLog.printTrace(e);
         }
-        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return newDateFormat.format(date);
     }
 

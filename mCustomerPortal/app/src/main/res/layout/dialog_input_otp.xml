@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mine_shaft"
+    android:background="@color/white"
     tools:context="com.dlvn.mcustomerportal.activity.prototype.RegisterActivity">
 
     <TextView
@@ -12,13 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-thin"
         android:gravity="center"
-        android:maxLines="1"
-        android:text="Xác thực OTP"
-        android:textColor="@color/white"
-        android:textSize="@dimen/textsize25"
+        android:text="Chúng tôi đã gửi một mã PIN vào địa chỉ email đăng kí của quý khách."
+        android:textColor="@color/grey_dark"
+        android:textSize="@dimen/textsize17"
         android:textStyle="bold" />
 
     <com.dlvn.mcustomerportal.view.pinlock.IndicatorDots
@@ -27,11 +28,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTitle"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp" />
+        android:layout_marginTop="20dp" />
 
     <LinearLayout
+        android:id="@+id/lloPinLock"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/indicator_dots"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
@@ -44,9 +46,49 @@
             android:layout_height="wrap_content"
             app:keypadButtonSize="88dp"
             app:keypadShowDeleteButton="true"
-            app:keypadTextColor="@color/white"
+            app:keypadTextColor="@color/medium_grey"
             app:keypadTextSize="@dimen/textsize20" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/lloPinLock"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tvCountdown"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/textsize22"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvRefeshPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Gửi mã Pin mới"
+            android:textSize="@dimen/textsize17" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnOpenMail"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="Mở Hộp Mail"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
 </RelativeLayout>

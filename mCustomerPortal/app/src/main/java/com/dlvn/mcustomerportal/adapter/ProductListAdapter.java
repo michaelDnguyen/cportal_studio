@@ -5,7 +5,7 @@ import java.util.List;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dlvn.mcustomerportal.R;
-import com.dlvn.mcustomerportal.adapter.model.HomeItemModel;
+import com.dlvn.mcustomerportal.adapter.model.ProductDetailModel;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -17,90 +17,111 @@ import android.widget.TextView;
 
 public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-	private static final String TAG = "ProductListAdapter";
+    private static final String TAG = "ProductListAdapter";
 
-	List<HomeItemModel> data;
-	Context context;
+    public static final int ITEM_MAIN = 555;
+    public static final int ITEM_NORMAL = 556;
+    public static final int ITEM_FOOTER = 554;
+    public static final int ITEM_TITLE = 550;
 
-	RequestOptions cropOptions;
-	
-	public ProductListAdapter(Context c, List<HomeItemModel> obj) {
-		context = c;
-		data = obj;
-		
-		cropOptions = new RequestOptions().centerCrop();
-	}
+    List<ProductDetailModel> data;
+    Context context;
 
-	/**
-	 * ViewHolder for header item
-	 * 
-	 * @author nn.tai
-	 * @date Dec 5, 2017
-	 */
-	public class ProductViewHolder extends RecyclerView.ViewHolder {
+    RequestOptions cropOptions;
 
-		ImageView imvImage;
-		TextView tvTitle, tvContent;
+    public ProductListAdapter(Context c, List<ProductDetailModel> obj) {
+        context = c;
+        data = obj;
 
-		public ProductViewHolder(View itemView) {
-			super(itemView);
-			imvImage = (ImageView) itemView.findViewById(R.id.imvImage);
-			tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-			tvContent = (TextView) itemView.findViewById(R.id.tvContent);
-		}
+        cropOptions = new RequestOptions().centerCrop();
+    }
 
-		public void bind(ProductViewHolder holder, final HomeItemModel item, final int postition) {
-			holder.tvTitle.setText(item.get_title());
-			holder.tvContent.setText(item.get_content());
-			Glide.with(context).load(item.getImgPath()).apply(cropOptions).into(holder.imvImage);
+    /**
+     * ViewHolder for header item
+     * @author nn.tai
+     * @date Dec 5, 2017
+     */
+    public class ProductViewHolder extends RecyclerView.ViewHolder {
 
-			holder.itemView.setTag(postition);
-		}
+        ImageView imvImage;
+        TextView tvTitle, tvContent, tvDate, tvNext;
 
-	}
+        public ProductViewHolder(View itemView) {
+            super(itemView);
+            imvImage = itemView.findViewById(R.id.imvImage);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvContent = itemView.findViewById(R.id.tvContent);
+            tvDate = itemView.findViewById(R.id.tvDate);
+            tvNext = itemView.findViewById(R.id.tvNext);
+        }
 
-	@Override
-	public int getItemCount() {
-		return data.size();
-	}
+        public void bind(ProductViewHolder holder, final ProductDetailModel item, final int postition) {
+            if (item != null) {
+                holder.tvTitle.setText(item.getTitle());
+                holder.tvContent.setText(item.getDescription());
+                holder.tvDate.setText(item.getPublishDate());
+//                Glide.with(context).load(item.getThumbnailURL()).apply(cropOptions).into(holder.imvImage);
+            }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+            holder.itemView.setTag(postition);
+        }
 
-	@Override
-	public int getItemViewType(int position) {
-		return position;
-	}
+    }
 
-	@Override
-	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-		ProductViewHolder header = (ProductViewHolder) holder;
-		header.bind(header, data.get(position), position);
-	}
+    @Override
+    public int getItemCount() {
+        return data.size();
+    }
 
-	@Override
-	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-		View v = LayoutInflater.from(context).inflate(R.layout.item_productlist, parent, false);
-		return new ProductViewHolder(v);
-	}
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0)
+            return ITEM_MAIN;
+        else if (position == 1)
+            return ITEM_TITLE;
+        else if (position >= data.size() - 1)
+            return ITEM_FOOTER;
+        else
+            return ITEM_NORMAL;
+    }
 
-	public void setData(List<HomeItemModel> obj) {
-		if (this.data != obj) {
-			this.data = obj;
-			notifyItemRangeChanged(0, data.size());
-		}
-	}
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        ProductViewHolder header = (ProductViewHolder) holder;
+        header.bind(header, data.get(position), position);
+    }
 
-	public List<HomeItemModel> getData() {
-		return data;
-	}
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-	public void removeAt(int position) {
-		data.remove(position);
-		notifyItemRemoved(position);
-		notifyItemRangeChanged(0, data.size());
-	}
+        if (viewType == ITEM_MAIN) {
+            View v = LayoutInflater.from(context).inflate(R.layout.item_productlist_main, parent, false);
+            return new ProductViewHolder(v);
+        } else {
+            View v = LayoutInflater.from(context).inflate(R.layout.item_productlist_normal, parent, false);
+            return new ProductViewHolder(v);
+        }
+    }
+
+    public void setData(List<ProductDetailModel> obj) {
+        if (this.data != obj) {
+            this.data = obj;
+            notifyItemRangeChanged(0, data.size());
+        }
+    }
+
+    public List<ProductDetailModel> getData() {
+        return data;
+    }
+
+    public void removeAt(int position) {
+        data.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(0, data.size());
+    }
 }

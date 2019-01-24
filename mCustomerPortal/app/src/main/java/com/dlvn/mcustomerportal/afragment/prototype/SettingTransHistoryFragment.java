@@ -24,6 +24,7 @@ import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.activity.TransactionDetailActivity;
 import com.dlvn.mcustomerportal.adapter.TransactionListAdapter;
 import com.dlvn.mcustomerportal.adapter.model.TransactionModel;
+import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.services.NetworkUtils;
 import com.dlvn.mcustomerportal.services.ServicesGenerator;
@@ -31,6 +32,7 @@ import com.dlvn.mcustomerportal.services.ServicesRequest;
 import com.dlvn.mcustomerportal.services.model.request.HistoryPaymentRequest;
 import com.dlvn.mcustomerportal.services.model.response.HistoryPaymentResponse;
 import com.dlvn.mcustomerportal.services.model.response.HistoryPaymentResult;
+import com.dlvn.mcustomerportal.utils.CPSaveLogTask;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
 
@@ -84,6 +86,13 @@ public class SettingTransHistoryFragment extends Fragment {
     public void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
+        new CPSaveLogTask(getActivity(), Constant.CPLOG_TRANSHISTORY_OPEN).execute();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        new CPSaveLogTask(getActivity(), Constant.CPLOG_TRANSHISTORY_CLOSE).execute();
     }
 
     private void getViews(View view) {

@@ -97,6 +97,10 @@ public class FeeBasicOfPolicy implements Parcelable {
         this.oPLCODE = oPLCODE;
     }
 
+    public FeeBasicOfPolicy(){
+
+    }
+
     public FeeBasicOfPolicy(Parcel in) {
         this.cLIID = in.readString();
         this.pOLID = in.readString();

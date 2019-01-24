@@ -5,7 +5,6 @@ import java.util.List;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dlvn.mcustomerportal.R;
-import com.dlvn.mcustomerportal.adapter.model.BonusItemModel;
 import com.dlvn.mcustomerportal.services.model.response.MasterData_Category;
 import com.dlvn.mcustomerportal.utils.myLog;
 
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class BonusListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -66,7 +64,7 @@ public class BonusListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 		public void bind(final ProductViewHolder holder, final MasterData_Category item, final int postition) {
 
-			myLog.E(item.getProductTitle() + " *** " + item.getProductContent());
+			myLog.e(item.getProductTitle() + " *** " + item.getProductContent());
 			holder.tvTitle.setText(item.getProductTitle());
 			holder.tvContent.setText(item.getProductContent());
 
@@ -96,7 +94,7 @@ public class BonusListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			// @Override
 			// public boolean onLoadFailed(GlideException arg0, Object arg1,
 			// Target<Bitmap> arg2, boolean arg3) {
-			// myLog.E("Load Image Failed!");
+			// myLog.e("Load Image Failed!");
 			// return false;
 			// }
 			//
@@ -105,7 +103,7 @@ public class BonusListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 			// Target<Bitmap> arg2, DataSource arg3,
 			// boolean arg4) {
 			// holder.imvImage.setImageBitmap(arg0);
-			// myLog.E("Load Image Ready!");
+			// myLog.e("Load Image Ready!");
 			// return false;
 			// }
 			// });

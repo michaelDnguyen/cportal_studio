@@ -67,13 +67,13 @@
         app:layout_constraintBottom_toTopOf="@id/lloBottom"
         app:layout_constraintTop_toBottomOf="@id/tvTitlePage">
 
-        <!--Input thông tin-->
+        <!--layout step 1-->
         <LinearLayout
-            android:id="@+id/lloContentInput"
+            android:id="@+id/lloStep1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -82,40 +82,74 @@
                 android:text="@string/title_payment_nologin_step01"
                 android:textSize="@dimen/textsize15" />
 
-            <!--view input-->
+            <!--Policy No-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/hint_payment_nologin_policyno"
+                android:textSize="@dimen/textsize15" />
+
             <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
-                android:id="@+id/cedtInput"
+                android:id="@+id/cedtPolicy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:cursorVisible="true"
+                android:inputType="number"
+                android:minHeight="50dp"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textsize17" />
+
+            <!--Client ID-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/hint_payment_nologin_poid"
+                android:textSize="@dimen/textsize15" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtPOID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:cursorVisible="true"
+                android:inputType="number"
+                android:minHeight="50dp"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textsize17" />
+
+            <!--DOB-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/hint_payment_nologin_dob"
+                android:textSize="@dimen/textsize15" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtDOB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:cursorVisible="true"
+                android:enabled="true"
+                android:focusable="false"
+                android:inputType="date"
                 android:minHeight="50dp"
                 android:textCursorDrawable="@color/black"
                 android:textSize="@dimen/textsize17" />
 
-            <TextView
-                android:id="@+id/tvError"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/red" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/tvAgreePolicy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <!--Chi tiết thanh toán-->
         <LinearLayout
-            android:id="@+id/lloContentDetail"
+            android:id="@+id/lloStep2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <!--Số HĐ-->
             <LinearLayout
@@ -219,13 +253,18 @@
                     android:text="Phí bảo hiểm định kỳ"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvDetaiFeeBasic"
+                <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                    android:id="@+id/cedtDetaiFeeBasic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="true"
                     android:gravity="right"
-                    android:text="600,000"
+                    android:inputType="number"
+                    android:text="0"
+                    android:textColor="@color/dark_grey"
+                    android:textCursorDrawable="@null"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -253,13 +292,18 @@
                     android:text="Tạm ứng từ giá trị hoàn lại để đóng phí"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvDetaiFeeAPL"
+                <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                    android:id="@+id/cedtDetaiFeeAPL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="true"
                     android:gravity="right"
-                    android:text="600,000"
+                    android:inputType="number"
+                    android:text="0"
+                    android:textColor="@color/dark_grey"
+                    android:textCursorDrawable="@null"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -287,13 +331,36 @@
                     android:text="Tạm ứng từ giá trị hoàn lại để đóng phí"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvDetaiFeeOPL"
+                <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                    android:id="@+id/cedtDetaiFeeOPL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="true"
                     android:gravity="right"
-                    android:text="600,000"
+                    android:inputType="number"
+                    android:text="0"
+                    android:textColor="@color/dark_grey"
+                    android:textCursorDrawable="@null"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!--Điều chỉnh-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvDieuChinh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Điều chỉnh >>"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/textsize15"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -322,12 +389,103 @@
                     android:layout_weight="0.5"
                     android:gravity="right"
                     android:text="600,000"
-                    android:textSize="@dimen/textsize17"
                     android:textColor="@color/red"
+                    android:textSize="@dimen/textsize17"
                     android:textStyle="bold" />
             </LinearLayout>
+        </LinearLayout>
+
+        <!--Thong tin nguoi nop-->
+        <LinearLayout
+            android:id="@+id/lloStep3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_payment_nologin_step03"
+                android:textSize="@dimen/textsize15" />
+
+            <!--Ho ten nguoi nop-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/hint_payment_nologin_04"
+                android:textSize="@dimen/textsize15" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:cursorVisible="true"
+                android:inputType="textPersonName"
+                android:minHeight="50dp"
+                android:textCursorDrawable="@color/black"
+                android:textSize="@dimen/textsize17" />
+
+            <!--Email-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/hint_payment_nologin_05"
+                android:textSize="@dimen/textsize15" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:cursorVisible="true"
+                android:inputType="textEmailAddress"
+                android:minHeight="50dp"
+                android:textCursorDrawable="@color/black"
+                android:textSize="@dimen/textsize17" />
+
+            <!--Phone-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/hint_payment_nologin_06"
+                android:textSize="@dimen/textsize15" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:cursorVisible="true"
+                android:inputType="phone"
+                android:minHeight="50dp"
+                android:textCursorDrawable="@color/black"
+                android:textSize="@dimen/textsize17" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="error"
+            android:textColor="@color/red" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvAgreePolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" />
 
     </LinearLayout>
 
@@ -344,14 +502,14 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:padding="5dp"
-            android:text="1/6"
+            android:text="1/3"
             android:textStyle="bold" />
 
         <android.support.v7.widget.AppCompatSeekBar
             android:id="@+id/sbStep"
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:max="60"
+            android:max="30"
             android:min="0"
             android:progress="10"
             android:progressDrawable="@drawable/state_process_seekbar" />
@@ -362,7 +520,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:background="@drawable/state_btn_red_rectangle"
+            android:background="@drawable/state_btn_red_radius_gradien"
             android:text="@string/txt_tiep_tuc"
             android:textColor="@color/white"
             android:textStyle="bold" />

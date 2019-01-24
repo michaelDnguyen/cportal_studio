@@ -5,9 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -37,6 +40,8 @@ import com.dlvn.mcustomerportal.services.model.request.CartItemModel;
 import com.dlvn.mcustomerportal.services.model.request.CartModel;
 import com.dlvn.mcustomerportal.services.model.request.GetMasterDataByTypeRequest;
 import com.dlvn.mcustomerportal.services.model.request.LoyaltyPointConformRequest;
+import com.dlvn.mcustomerportal.services.model.request.loginNewRequest;
+import com.dlvn.mcustomerportal.services.model.response.ClientProfile;
 import com.dlvn.mcustomerportal.services.model.response.GetMasterData_City_Response;
 import com.dlvn.mcustomerportal.services.model.response.GetMasterData_City_Result;
 import com.dlvn.mcustomerportal.services.model.response.LoyaltyPointConformResponse;
@@ -45,24 +50,35 @@ import com.dlvn.mcustomerportal.services.model.response.MasterData_City;
 import com.dlvn.mcustomerportal.services.model.response.MasterData_District;
 import com.dlvn.mcustomerportal.services.model.response.ProductLoyaltyModel;
 import com.dlvn.mcustomerportal.services.model.response.SearchPolicyHolderModel;
+import com.dlvn.mcustomerportal.services.model.response.loginNewResponse;
+import com.dlvn.mcustomerportal.services.model.response.loginNewResult;
 import com.dlvn.mcustomerportal.utils.Utilities;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
+import com.dlvn.mcustomerportal.view.pinlock.IndicatorDots;
+import com.dlvn.mcustomerportal.view.pinlock.PinLockListener;
+import com.dlvn.mcustomerportal.view.pinlock.PinLockView;
+
+import org.json.JSONException;
+import org.json.JSONStringer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DeliveryInputActivity extends BaseActivity {
 
     private static final String TAG = DeliveryInputActivity.class.getName();
 
+    LinearLayout lloBack;
+
     LinearLayout lloDeliveryConfirm, lloEmailCOnfirm;
-    EditText edtHoten, edtDiaChi, edtSoDT, edtPhuongXa, edtEmail, edtPhone;
+    EditText edtHoten, edtDiaChi, edtSoDT, edtPhuongXa, edtEmail, edtPhone, edtOTP;
     TextView tvTinhThanh, tvQuanHuyen;
-    Button btnThanhToan;
+    Button btnThanhToan, btnCreateOTP;
 
     MasterData_City categoryCity;
     MasterData_District categoryDistrict;
@@ -80,6 +96,7 @@ public class DeliveryInputActivity extends BaseActivity {
     SearchPolicyHolderModel policyHolder = null;
 
     String pointUserType = null;
+    boolean isRePin = true;
     ServicesRequest svRequester;
 
     ProgressDialog dialog;
@@ -88,8 +105,8 @@ public class DeliveryInputActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_input);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle(getString(R.string.title_activity_deliveryInput));
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        setTitle(getString(R.string.title_activity_deliveryInput));
 
         getViews();
         initData();
@@ -103,6 +120,8 @@ public class DeliveryInputActivity extends BaseActivity {
     }
 
     private void getViews() {
+        lloBack = findViewById(R.id.lloBack);
+
         edtHoten = findViewById(R.id.edtHoTen);
         edtDiaChi = findViewById(R.id.edtDiachi);
         edtSoDT = findViewById(R.id.edtSoDT);
@@ -110,10 +129,12 @@ public class DeliveryInputActivity extends BaseActivity {
 
         edtEmail = findViewById(R.id.edtEmail);
         edtPhone = findViewById(R.id.edtPhone);
+        edtOTP = findViewById(R.id.edtOTP);
 
         tvTinhThanh = findViewById(R.id.tvTinhThanh);
         tvQuanHuyen = findViewById(R.id.tvQuanHuyen);
         btnThanhToan = findViewById(R.id.btnThanhToan);
+        btnCreateOTP = findViewById(R.id.btnCreateOTP);
 
         lloDeliveryConfirm = findViewById(R.id.lloDeliveryConfirm);
         lloEmailCOnfirm = findViewById(R.id.lloEmailConfirm);
@@ -122,6 +143,7 @@ public class DeliveryInputActivity extends BaseActivity {
     private void initData() {
         svRequester = ServicesGenerator.createService(ServicesRequest.class);
 
+        setTitle("Thông tin giao hàng");
         edtEmail.setText(CustomPref.getEmail(this));
         edtPhone.setText(CustomPref.getPhoneNumber(this));
 
@@ -142,7 +164,6 @@ public class DeliveryInputActivity extends BaseActivity {
         } else if (pointUserType.equalsIgnoreCase(Constant.Category_PCPCode.PCP_004.getStringValue())) {
             lloDeliveryConfirm.setVisibility(View.GONE);
         }
-
     }
 
     private void setListener() {
@@ -179,22 +200,71 @@ public class DeliveryInputActivity extends BaseActivity {
                 attempValueInput();
             }
         });
+
+        btnCreateOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClientProfile user = CustomPref.getUserLogin(DeliveryInputActivity.this);
+                if (CustomPref.getTimeGenerateOTP(DeliveryInputActivity.this) > 0) {
+                    long timeOld = CustomPref.getTimeGenerateOTP(DeliveryInputActivity.this);
+                    long timeCurrent = System.currentTimeMillis();
+                    myLog.e(TAG, "distance Time " + (timeCurrent - timeOld));
+
+                    if ((timeCurrent - timeOld) > Constant.TIMER_COUNTDOWN_OTP)
+                        doVerifyOTP(DeliveryInputActivity.this, user, Constant.LOGIN_ACTION_GENERATEOTP, null);
+                } else
+                    doVerifyOTP(DeliveryInputActivity.this, user, Constant.LOGIN_ACTION_GENERATEOTP, null);
+            }
+        });
+
+        lloBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void attempValueInput() {
 
-        if (pointUserType.equalsIgnoreCase(Constant.Category_PCPCode.PCP_004.getStringValue())) {
+        String otp = edtOTP.getText().toString();
+        if (!TextUtils.isEmpty(otp) && otp.length() == Constant.OTP_LENGTH) {
+            ClientProfile user = CustomPref.getUserLogin(DeliveryInputActivity.this);
+            doVerifyOTP(DeliveryInputActivity.this, user, Constant.LOGIN_ACTION_CHECKOTP, otp);
+        } else {
+            edtOTP.setError("Cần nhập số OTP");
+            edtOTP.requestFocus();
+        }
+    }
 
-            edtPhone.setError(null);
-            String phone = edtPhone.getText().toString();
-            if (TextUtils.isEmpty(phone)) {
-                edtPhone.setError(getString(R.string.error_delivery_inputphone));
-                edtPhone.requestFocus();
-                return;
+    private void processLoyaltyPoint() {
+        if (pointUserType != null) {
+            if (pointUserType.equalsIgnoreCase(Constant.Category_PCPCode.PCP_004.getStringValue())) {
+
+                edtPhone.setError(null);
+                String phone = edtPhone.getText().toString();
+                if (TextUtils.isEmpty(phone)) {
+                    edtPhone.setError(getString(R.string.error_delivery_inputphone));
+                    edtPhone.requestFocus();
+                    return;
+                }
+
+                List<ProductLoyaltyModel> lsProductPointDon = categoryPointDone.getLsItems();
+                for (int i = 0; i < lsProductPointDon.size(); i++) {
+                    lsProductPointDon.get(i).setCategory(categoryPointDone.getCategory());
+
+                    JSONStringer json = null;
+                    try {
+                        json = new JSONStringer().object().key("orderid").value("").key("policyno").value(policyHolder.getClientID()).key("customertext1").value(policyHolder.getFullName())
+                                .key("amount").value((lsProductPointDon.get(i).getQuantity() * lsProductPointDon.get(i).getPrice()) / 1000).endObject();
+                    } catch (JSONException e) {
+                        myLog.printTrace(e);
+                    }
+                    lsProductPointDon.get(i).setStrDetail(json.toString());
+                }
+                new LoyaltyConformTask(DeliveryInputActivity.this, null, null, null, null, choiceCity, choiceDistrict, lsProductPointDon).execute();
+
             }
-
-            new LoyaltyConformTask(DeliveryInputActivity.this, null, null, null, null, choiceCity, choiceDistrict, categoryPointDone).execute();
-
         } else {
             edtHoten.setError(null);
             edtDiaChi.setError(null);
@@ -249,43 +319,46 @@ public class DeliveryInputActivity extends BaseActivity {
                     if (myCart.getLsCategory() != null) {
 
                         //find category have product is checked
+                        List<ProductLoyaltyModel> lsProduct = new ArrayList<>();
                         for (int i = 0; i < myCart.getLsCategory().size(); i++) {
 
                             CartItemModel category = null;
-                            List<ProductLoyaltyModel> lsProduct = new ArrayList<>();
                             //find product in category have chekced
                             for (int j = 0; j < myCart.getLsCategory().get(i).getLsItems().size(); j++) {
                                 if (myCart.getLsCategory().get(i).getLsItems().get(j).getIsChecked().equalsIgnoreCase(Constant.CHECK_BOX_CHECKED_TRUE)) {
                                     ProductLoyaltyModel mo = myCart.getLsCategory().get(i).getLsItems().get(j);
+                                    mo.setCategory(myCart.getLsCategory().get(i).getCategory());
                                     lsProduct.add(mo);
                                 }
                             }
-                            if (lsProduct.size() > 0) {
-                                category = new CartItemModel();
-                                category.setCategory(myCart.getLsCategory().get(i).getCategory());
-                                category.setCategoryName(myCart.getLsCategory().get(i).getCategoryName());
-                                category.setLsItems(lsProduct);
-                                cItems.add(category);
-
-                                new LoyaltyConformTask(DeliveryInputActivity.this, hoten, diachi, sodt, phuongxa, choiceCity, choiceDistrict, category).execute();
-                            }
+//                            if (lsProduct.size() > 0) {
+//                                category = new CartItemModel();
+//                                category.setCategory(myCart.getLsCategory().get(i).getCategory());
+//                                category.setCategoryName(myCart.getLsCategory().get(i).getCategoryName());
+//                                category.setLsItems(lsProduct);
+//                                cItems.add(category);
+//
+//                                new LoyaltyConformTask(DeliveryInputActivity.this, hoten, diachi, sodt, phuongxa, choiceCity, choiceDistrict, category).execute();
+//                            }
                         }
+                        new LoyaltyConformTask(DeliveryInputActivity.this, hoten, diachi, sodt, phuongxa, choiceCity, choiceDistrict, lsProduct).execute();
+
                     }
                 }
             }
         }
     }
 
-    private void removeCategoryInMyCart(CartItemModel category) {
+    private void removeCategoryInMyCart(List<ProductLoyaltyModel> category) {
         if (myCart != null) {
             if (myCart.getLsCategory() != null) {
                 for (int i = 0; i < myCart.getLsCategory().size(); i++) {
 
-                    if (myCart.getLsCategory().get(i).getCategory().equalsIgnoreCase(category.getCategory())) {
-                        for (int j = 0; j < myCart.getLsCategory().get(i).getLsItems().size(); j++) {
+                    for (int a = 0; a < category.size(); a++) {
+                        if (myCart.getLsCategory().get(i).getCategory().equalsIgnoreCase(category.get(a).getCategory())) {
+                            for (int j = 0; j < myCart.getLsCategory().get(i).getLsItems().size(); j++) {
 
-                            for (int a = 0; a < category.getLsItems().size(); a++) {
-                                if (myCart.getLsCategory().get(i).getLsItems().get(j).getProductID().equalsIgnoreCase(category.getLsItems().get(a).getProductID())) {
+                                if (myCart.getLsCategory().get(i).getLsItems().get(j).getProductID().equalsIgnoreCase(category.get(a).getProductID())) {
                                     myCart.getLsCategory().get(i).getLsItems().remove(j);
                                     j--;
                                     break;
@@ -360,7 +433,7 @@ public class DeliveryInputActivity extends BaseActivity {
                                 if (result != null) {
 
                                     if (result.getResult() != null && result.getResult().equals("false")) {
-                                        myLog.E("DeliveryInputAct", "Get Point: " + result.getMessage());
+                                        myLog.e("DeliveryInputAct", "Get Point: " + result.getMessage());
                                         ;
                                     } else if (result.getResult() != null && result.getResult().equals("true")) {
                                         if (result.getLstItem() != null) {
@@ -407,7 +480,9 @@ public class DeliveryInputActivity extends BaseActivity {
         Context context;
         String hoten, diachi, sodt, phuongxa;
         SingleChoiceModel tinhthanh, quanhuyen;
-        CartItemModel category;
+//        CartItemModel category;
+
+        List<ProductLoyaltyModel> lsProduct;
 
         /**
          * @param c   Context
@@ -418,7 +493,7 @@ public class DeliveryInputActivity extends BaseActivity {
          * @param th  tinh / thanh pho
          * @param qh  quan / huyen
          */
-        public LoyaltyConformTask(Context c, String ht, String dc, String sdt, String px, SingleChoiceModel th, SingleChoiceModel qh, CartItemModel category) {
+        public LoyaltyConformTask(Context c, String ht, String dc, String sdt, String px, SingleChoiceModel th, SingleChoiceModel qh, List<ProductLoyaltyModel> category) {
             context = c;
             hoten = ht;
             diachi = dc;
@@ -426,7 +501,7 @@ public class DeliveryInputActivity extends BaseActivity {
             phuongxa = px;
             tinhthanh = th;
             quanhuyen = qh;
-            this.category = category;
+            this.lsProduct = category;
         }
 
         @Override
@@ -452,11 +527,22 @@ public class DeliveryInputActivity extends BaseActivity {
                 data.setAPIToken(CustomPref.getAPIToken(context));
                 data.setClientID(CustomPref.getUserID(context));
                 data.setDeviceID(Utilities.getDeviceID(context));
-                data.setDeviceToken(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setDeviceToken(Utilities.getDeviceOS());
                 data.setProject(Constant.Project_ID);
                 data.setAuthentication(Constant.Project_Authentication);
 
-                if (!pointUserType.equalsIgnoreCase(Constant.Category_PCPCode.PCP_004.getStringValue())) {
+                if (pointUserType != null) {
+                    if (pointUserType.equalsIgnoreCase(Constant.Category_PCPCode.PCP_004.getStringValue())) {
+
+                        if (policyHolder != null) {
+                            data.setShippingFirstName(policyHolder.getFullName());
+                            data.setShippingLastName(policyHolder.getClientID());
+                        } else {
+                            data.setShippingFirstName(null);
+                            data.setShippingLastName(null);
+                        }
+                    }
+                } else {
                     String[] temp = hoten.split(" ");
                     if (temp.length >= 2) {
                         data.setShippingFirstName(temp[temp.length - 1]);
@@ -470,19 +556,11 @@ public class DeliveryInputActivity extends BaseActivity {
                     data.setShippingWard(phuongxa);
                     data.setShippingCity(tinhthanh.getCode());
                     data.setShippingDistrict(quanhuyen.getCode());
-                } else {
-                    if (policyHolder != null) {
-                        data.setShippingFirstName(policyHolder.getFullName());
-                        data.setShippingLastName(policyHolder.getClientID());
-                    } else {
-                        data.setShippingFirstName(null);
-                        data.setShippingLastName(null);
-                    }
                 }
 
                 data.setDeliveryFeeGros("0");
-                data.setCategory(category.getCategory());
-                data.setProductItems(category.getLsItems());
+//                data.setCategory(category.getCategory());
+                data.setProductItems(lsProduct);
 
                 data.setEmailconfirm(edtEmail.getText().toString());
                 String phone = edtPhone.getText().toString();
@@ -526,7 +604,7 @@ public class DeliveryInputActivity extends BaseActivity {
                                                     .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
-                                                            removeCategoryInMyCart(category);
+                                                            removeCategoryInMyCart(lsProduct);
                                                             dialog.dismiss();
 
                                                             Intent intent = new Intent(context, DashboardActivity.class);
@@ -549,10 +627,10 @@ public class DeliveryInputActivity extends BaseActivity {
                                         }
                                     }
                                 } else {
-                                    if (result.getNewAPIToken().equalsIgnoreCase("invalidtoken")) {
+                                    if (result.getNewAPIToken().equalsIgnoreCase(Constant.ERROR_TOKENINVALID)) {
                                         Utilities.processLoginAgain(context, getString(R.string.message_alert_relogin));
                                     } else
-                                        myLog.E("DeliveryInputAct", "Get Point: " + result.getErrLog());
+                                        myLog.e("DeliveryInputAct", "Get Point: " + result.getErrLog());
                                 }
                             }
                     }
@@ -649,9 +727,147 @@ public class DeliveryInputActivity extends BaseActivity {
         });
     }
 
+    public void doVerifyOTP(final Context context, final ClientProfile user, final String Action, String otp) {
+
+        final ProgressDialog process = new ProgressDialog(context);
+        process.setMessage("Đăng kí tài khoản...");
+        process.setCanceledOnTouchOutside(false);
+        process.show();
+
+        loginNewRequest data = new loginNewRequest();
+
+        data.setUserLogin(user.getLoginName());
+        data.setFullName(user.getFullName());
+        data.setGender(user.getGender());
+        data.setCellPhone(user.getCellPhone());
+        data.setPassword(user.getPassword());
+        data.setLinkGMail(user.getLinkGmail());
+        data.setLinkFB(user.getLinkFaceBook());
+
+        if (otp != null)
+            data.setOtp(otp);
+
+        if (Action.equalsIgnoreCase(Constant.LOGIN_ACTION_GET_CLIENTPROFILE))
+            data.setApiToken(user.getaPIToken());
+
+        data.setDeviceID(Utilities.getDeviceID(context));
+        data.setOS(Utilities.getDeviceOS());
+        data.setProject(Constant.Project_ID);
+        data.setAction(Action);
+        data.setAuthentication(Constant.Project_Authentication);
+
+        BaseRequest request = new BaseRequest();
+        request.setJsonDataInput(data);
+
+        Call<loginNewResponse> call = svRequester.CPRegisterAccount(request);
+        call.enqueue(new Callback<loginNewResponse>() {
+
+            @Override
+            public void onResponse(Call<loginNewResponse> call, Response<loginNewResponse> res) {
+                // TODO Auto-generated method stub
+                try {
+                    if (res.isSuccessful()) {
+                        loginNewResponse response = res.body();
+                        if (response != null)
+                            if (response.getResponse() != null) {
+                                loginNewResult result = response.getResponse();
+                                if (result != null) {
+
+                                    if (result.getResult() != null && result.getResult().equalsIgnoreCase("false")) {
+
+                                        // If false -> show dialog
+                                        MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+                                        builder.setMessage("Có lỗi xảy ra khi tạo OTP cho Loyalty Point")
+                                                .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                        builder.create().show();
+
+                                    } else if (result.getResult() != null && result.getResult().equalsIgnoreCase("true")) {
+
+                                        if (result.getErrLog().equalsIgnoreCase(Constant.ERR_CPLOGIN_OTPEXPIRY)) {
+
+                                            MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+                                            builder.setMessage("Mã Pin đã hết hạn, xin vui lòng nhấn nút Gửi lại mã Pin và thử lại.")
+                                                    .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            builder.create().show();
+
+                                        } else if (result.getErrLog().equalsIgnoreCase(Constant.ERR_CPLOGIN_OTPINCORRECT)) {
+
+                                            MyCustomDialog dialog = new MyCustomDialog.Builder(context)
+                                                    .setMessage("Bạn nhập sai mã Pin. Xin vui lòng thử lại")
+                                                    .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    }).create();
+                                            dialog.show();
+                                        } else {
+
+                                            if (Action.equalsIgnoreCase(Constant.LOGIN_ACTION_CHECKOTP)) {
+                                                processLoyaltyPoint();
+                                            }
+
+                                            if (Action.equalsIgnoreCase(Constant.LOGIN_ACTION_GENERATEOTP)) {
+
+                                                CustomPref.setTimeGenerateOTP(context, System.currentTimeMillis());
+                                                //OTP re-generate
+                                                MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+                                                builder.setMessage("Mã Pin đã được gửi lại vào số điện thoại của quý khách và có thời hạn trong vòng 3 phút.")
+                                                        .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                dialog.dismiss();
+                                                            }
+                                                        });
+                                                builder.create().show();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                    }
+                } catch (Exception e) {
+                    myLog.printTrace(e);
+                }
+                if (!isFinishing())
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (process.isShowing())
+                                process.dismiss();
+                        }
+                    });
+            }
+
+            @Override
+            public void onFailure(Call<loginNewResponse> call, Throwable t) {
+                // TODO Auto-generated method stub
+                myLog.e(t.getMessage());
+                if (!isFinishing())
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (process.isShowing())
+                                process.dismiss();
+                        }
+                    });
+            }
+        });
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        myLog.E(TAG, "onOptionsItemSelected");
+        myLog.e(TAG, "onOptionsItemSelected");
         // TODO Auto-generated method stub
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -666,7 +882,7 @@ public class DeliveryInputActivity extends BaseActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        myLog.E("dispatchTouchEvent");
+        myLog.e("dispatchTouchEvent");
         View v = getCurrentFocus();
         if (v != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE)
                 && v instanceof EditText) {

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/state_bg_bolder_dialog"
+    android:minWidth="300dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Giấy tờ chưa đạt yêu cầu. Vui lòng kiểm tra lại:" />
+
+        <TextView
+            android:id="@+id/tvAlert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="left"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Quý khách cũng có thể gửi hồ sơ thiếu chứng từ nếu không có, tuy nhiên chúng tôi không khuyến khích điều này."
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:text="* Vui lòng nhập số yêu cầu bảo hiểm"
+            android:textColor="@color/red"
+            android:visibility="gone" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnOK"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"
+                android:text="Bỏ sung lại"
+                android:textColor="@drawable/st_textcolor_blue_red" />
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/grey" />
+
+            <Button
+                android:id="@+id/btnContinue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"
+                android:text="Gửi"
+                android:textColor="@drawable/st_textcolor_normal_red" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

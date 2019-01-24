@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.prototype.ClaimsDrugTreatmentActivity">
+
+    <include layout="@layout/toolbar_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp">
+
+        <!--Phuong thuoc dieu trị-->
+        <LinearLayout
+            android:id="@+id/lloMedicine"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vui lòng nhập Đơn thuốc của bác sĩ"
+                android:textColor="@color/red"
+                android:textSize="@dimen/textsize15"
+                android:textStyle="bold" />
+
+            <!--Tên thuốc-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Tên thuốc"
+                android:textStyle="bold" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtMedicine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:hint="- nhập tên thuốc"
+                android:lines="1"
+                android:padding="5dp"
+                android:textCursorDrawable="@null" />
+
+            <!--Phương pháp điều trị-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Phương pháp điều trị"
+                android:textStyle="bold" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtMethodTreatment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:hint="- nhập phương pháp điều trị"
+                android:inputType="textPostalAddress"
+                android:lines="1"
+                android:maxLines="5"
+                android:padding="5dp"
+                android:textCursorDrawable="@null" />
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Thêm đơn thuốc điều trị"
+                android:textAllCaps="false"
+                android:textColor="@drawable/st_textcolor_blue_red" />
+
+            <ListView
+                android:id="@+id/lvMedicine"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <!--Dia chi cong ty-->
+        <LinearLayout
+            android:id="@+id/lloAddress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vui lòng nhập địa chỉ liên lạc"
+                android:textColor="@color/red"
+                android:textSize="@dimen/textsize15"
+                android:textStyle="bold" />
+
+            <!--Tên công ty / cá nhân-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Tên Công ty/Cá nhân"
+                android:textStyle="bold" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:hint="- nhập tên công ty/ cá nhân"
+                android:inputType="textMultiLine"
+                android:maxLines="2"
+                android:padding="5dp"
+                android:textCursorDrawable="@null" />
+
+            <!--Địa chỉ-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Địa chỉ"
+                android:textStyle="bold" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:hint="- nhập địa chỉ"
+                android:inputType="textMultiLine"
+                android:maxLines="3"
+                android:padding="5dp"
+                android:textCursorDrawable="@null" />
+
+            <!--Số điện thoại-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Số điện thoại"
+                android:textStyle="bold" />
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:id="@+id/cedtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:hint="- nhập số điện thoại"
+                android:inputType="phone"
+                android:lines="1"
+                android:padding="5dp"
+                android:textCursorDrawable="@null" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--Layout bottom-->
+    <LinearLayout
+        android:id="@+id/lloBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="5dp">
+
+        <TextView
+            android:id="@+id/tvStep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="2/4"
+            android:visibility="gone"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/sbStep"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:visibility="gone"
+            android:progressDrawable="@drawable/state_process_seekbar"
+            android:thumb="@null" />
+
+        <Button
+            android:id="@+id/btnCapNhat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="Tiếp tục"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+</LinearLayout>

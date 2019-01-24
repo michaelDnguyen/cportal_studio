@@ -1,6 +1,7 @@
 package com.dlvn.mcustomerportal.afragment.prototype;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,9 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dlvn.mcustomerportal.R;
+import com.dlvn.mcustomerportal.activity.prototype.PointAccountListActivity;
 import com.dlvn.mcustomerportal.adapter.LoyaltyPointPagerAdapter;
 import com.dlvn.mcustomerportal.common.CustomPref;
-import com.dlvn.mcustomerportal.utils.Utilities;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,19 +26,17 @@ import com.dlvn.mcustomerportal.utils.Utilities;
  * to handle interaction events.
  */
 public class LoyaltyPointDetailFragment extends Fragment {
-    LinearLayout lloHeader;
+
+    LinearLayout lloHeader, lloBack;
+
     private ViewPager viewPager;
     private LoyaltyPointPagerAdapter adapter;
-    TextView tvDiemLon, tvDiemNho, tvRank, tenKhachHang;
+    ImageView leftArrow, rightArrow;
+    TextView tvDiem, tvDiemQuaHan, tvQuaTrinhTichLuy, tvQuaTrinhSuDung;
 
     View view;
-    ImageView leftArrow, rightArrow;
 
     private OnFragmentInteractionListener mListener;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public LoyaltyPointDetailFragment() {
         // Required empty public constructor
@@ -54,13 +53,11 @@ public class LoyaltyPointDetailFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_loyalty_point_detail, container, false);
         setView();
 
-        tvDiemLon.setText(Utilities.formatMoneyToVND(String.valueOf(CustomPref.getUserPoint(getActivity()) * 1000)).replaceAll("VND", ""));
-        tvDiemNho.setText(String.valueOf(CustomPref.getUserPoint(getActivity())));
-        tvRank.setText(CustomPref.getUserRank(getActivity()));
-        tenKhachHang.setText(CustomPref.getFullName(getActivity()));
+        tvDiem.setText(String.valueOf(CustomPref.getUserPoint(getActivity())));
 
         adapter = new LoyaltyPointPagerAdapter(getActivity());
         viewPager.setAdapter(adapter);
+
         setListener();
         return view;
     }
@@ -73,11 +70,12 @@ public class LoyaltyPointDetailFragment extends Fragment {
         leftArrow = (ImageView) view.findViewById(R.id.image_view_left_arrow);
         rightArrow = (ImageView) view.findViewById(R.id.image_view_right_arrow);
         lloHeader = (LinearLayout) getActivity().findViewById(R.id.lloHeader);
-        //TODO: find view for tvDiemLon tvDiemNho
-        tvDiemLon = (TextView) view.findViewById(R.id.tvDiemLon);
-        tvDiemNho = (TextView) view.findViewById(R.id.tvDiemNho);
-        tvRank = view.findViewById(R.id.tvRank);
-        tenKhachHang = view.findViewById(R.id.tenKhachHang);
+        lloBack = view.findViewById(R.id.lloBack);
+
+        tvDiemQuaHan = (TextView) view.findViewById(R.id.tvDiemHetHan);
+        tvDiem = (TextView) view.findViewById(R.id.tvDiem);
+        tvQuaTrinhTichLuy = view.findViewById(R.id.tvQuaTrinhTichLuy);
+        tvQuaTrinhSuDung = view.findViewById(R.id.tvQuaTrinhSuDung);
     }
 
     /**
@@ -102,6 +100,29 @@ public class LoyaltyPointDetailFragment extends Fragment {
                     viewPager.setCurrentItem(getItem(+1), true);
                 else
                     Toast.makeText(getContext(), "Đã đến vị trí cuối trang", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        lloBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
+        tvQuaTrinhTichLuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PointAccountListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvQuaTrinhSuDung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PointAccountListActivity.class);
+                startActivity(intent);
             }
         });
     }

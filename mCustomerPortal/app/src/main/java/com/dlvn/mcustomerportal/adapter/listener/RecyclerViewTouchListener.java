@@ -6,7 +6,11 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.dlvn.mcustomerportal.utils.myLog;
+
 public class RecyclerViewTouchListener implements RecyclerView.OnItemTouchListener{
+
+    private static final String TAG = "RecyclerViewTouchListener";
 
     private GestureDetector gestureDetector;
     private RecyclerViewClickListener clickListener;
@@ -16,11 +20,13 @@ public class RecyclerViewTouchListener implements RecyclerView.OnItemTouchListen
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
+                myLog.e(TAG," on Single Tabup");
                 return true;
             }
 
             @Override
             public void onLongPress(MotionEvent e) {
+                myLog.e(TAG," on Long Press");
                 View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
                 if (child != null && clickListener != null) {
                     clickListener.onLongClick(child, recyclerView.getChildPosition(child));

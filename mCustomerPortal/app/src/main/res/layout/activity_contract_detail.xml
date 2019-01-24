@@ -3,11 +3,59 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
+    android:paddingBottom="15dp"
     android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingBottom="15dp">
+    android:paddingRight="15dp">
 
-    <include layout="@layout/toolbar_back" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/lloBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_arrow_left_grey_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/txt_quay_lai"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvCapNhat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Cập nhật >>"
+            android:textColor="@color/red"
+            android:textStyle="bold|italic" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/red" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,18 +80,28 @@
 
     <ExpandableListView
         android:id="@+id/lvPolicyDetail"
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:groupIndicator="@null" />
 
     <Button
         android:id="@+id/btnPayment"
         android:layout_width="match_parent"
-        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/state_btn_red_radius_gradien"
         android:text="Thanh toán phí bảo hiểm"
-        android:background="@drawable/state_btn_red_rectangle"
         android:textColor="@color/white" />
+    <Button
+        android:id="@+id/btnTaxInvoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/state_btn_red_radius_gradien"
+        android:text="Hóa đơn điện tử"
+        android:visibility="visible"
+        android:textColor="@color/white" />
+
 
 </LinearLayout>

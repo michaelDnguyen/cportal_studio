@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <!--Header-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:text="Thông tin chi tiết"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize18"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:src="@drawable/ic_back_white" />
+
+        <TextView
+            android:id="@+id/tvDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Xóa giấy tờ"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize14"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <!--Details-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/an_tam_hung_thinh" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Vui lòng nhập mã OTP"
+            android:textSize="@dimen/textsize25"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="Nhập số có 6 chữ số được gửi đến SMS"
+            android:textSize="@dimen/textsize20" />
+
+        <com.dlvn.mcustomerportal.view.otpview.OtpView
+            android:id="@+id/otpview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:inputType="number"
+            android:itemBackground="@android:color/transparent"
+            android:textColor="@color/blue"
+            android:enabled="true"
+            android:cursorVisible="true"
+            app:cursorColor="@color/red"
+            app:itemCount="6"
+            app:lineColor="@color/red"
+            app:viewType="line" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="Tiếp tục"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

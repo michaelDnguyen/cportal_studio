@@ -51,6 +51,8 @@
                 <RadioGroup
                     android:id="@+id/rdgLuaChon"
                     android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_height="wrap_content">
 
                     <RadioButton
@@ -75,6 +77,7 @@
                         android:layout_marginBottom="5dp"
                         android:paddingLeft="10dp"
                         android:id="@+id/rdbQuaNH"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:button="@drawable/st_rdb_checkstate"
                         android:layout_height="wrap_content"

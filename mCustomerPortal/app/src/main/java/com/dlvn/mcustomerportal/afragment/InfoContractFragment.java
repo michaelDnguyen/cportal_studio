@@ -1,12 +1,9 @@
 package com.dlvn.mcustomerportal.afragment;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.TextUtils;
@@ -17,12 +14,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.activity.prototype.DashboardActivity;
 import com.dlvn.mcustomerportal.adapter.ContractListAdapter;
+import com.dlvn.mcustomerportal.afragment.prototype.AddProposalFragment;
 import com.dlvn.mcustomerportal.afragment.prototype.ContractDetailFragment;
 import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.CustomPref;
@@ -33,6 +32,7 @@ import com.dlvn.mcustomerportal.services.model.request.CPGetPolicyListByCLIIDReq
 import com.dlvn.mcustomerportal.services.model.response.CPGetPolicyListByCLIIDResponse;
 import com.dlvn.mcustomerportal.services.model.response.CPGetPolicyListByCLIIDResult;
 import com.dlvn.mcustomerportal.services.model.response.CPPolicy;
+import com.dlvn.mcustomerportal.utils.CPSaveLogTask;
 import com.dlvn.mcustomerportal.utils.Utilities;
 import com.dlvn.mcustomerportal.utils.listerner.OnFragmentInteractionListener;
 import com.dlvn.mcustomerportal.utils.myLog;
@@ -61,11 +61,11 @@ public class InfoContractFragment extends Fragment {
 
     View view;
 
-    Button btnHopDongBH, btnYeuCauBH;
+    Button btnHopDongBH, btnYeuCauBH, btnAddPolicy;
     ListView lvData;
     TextView tvNoData;
     SwipeRefreshLayout swipeContainer;
-    ProgressDialog mProgressDialog;
+    LinearLayout lloData;
 
     ContractListAdapter hdbhAdapter, ycbhAdapter;
     boolean isHopDong = true;
@@ -84,8 +84,6 @@ public class InfoContractFragment extends Fragment {
      * Use this factory method to create a new instance of this fragment using
      * the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment MoviesFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -110,6 +108,25 @@ public class InfoContractFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        /**
+         * TODO: Hide Header of Dashboard Activity
+         */
+        LinearLayout lloHeader = getActivity().findViewById(R.id.lloHeader);
+        if (lloHeader != null)
+            lloHeader.setVisibility(View.VISIBLE);
+
+        new CPSaveLogTask(getActivity(), Constant.CPLOG_POLICY_OPEN).execute();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        new CPSaveLogTask(getActivity(), Constant.CPLOG_POLICY_CLOSE).execute();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (view == null) {
@@ -123,27 +140,36 @@ public class InfoContractFragment extends Fragment {
     }
 
     private void getViews(View v) {
-        btnHopDongBH = (Button) v.findViewById(R.id.btnHDCaNhan);
-        btnYeuCauBH = (Button) v.findViewById(R.id.btnHDNhom);
+        btnHopDongBH = v.findViewById(R.id.btnHDCaNhan);
+        btnYeuCauBH = v.findViewById(R.id.btnHDNhom);
+        btnAddPolicy = v.findViewById(R.id.btnAddPolicy);
 
-        tvNoData = (TextView) v.findViewById(R.id.tvNoData);
+        tvNoData = v.findViewById(R.id.tvNoData);
         tvNoData.setVisibility(View.GONE);
 
-        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+        swipeContainer = v.findViewById(R.id.swipeContainer);
 
-        lvData = (ListView) v.findViewById(R.id.lvDataCaNhan);
+        lvData = v.findViewById(R.id.lvDataCaNhan);
         lvData.setDividerHeight(10);
+
+        lloData = v.findViewById(R.id.lloData);
     }
 
     private void initDatas() {
 
-        initHopDongBH();
+        if (TextUtils.isEmpty(CustomPref.getUserID(getActivity()))) {
+            lloData.setVisibility(View.GONE);
+            btnAddPolicy.setVisibility(View.VISIBLE);
+        } else {
+            lloData.setVisibility(View.VISIBLE);
+            btnAddPolicy.setVisibility(View.GONE);
+            btnHopDongBH.setSelected(true);
 
-        btnHopDongBH.setSelected(true);
-        lvData.setAdapter(hdbhAdapter);
-        // lvDataNhom.setAdapter(ycbhAdapter);
+            initHopDongBH();
 
-        attempPolicyByCLIID();
+            lvData.setAdapter(hdbhAdapter);
+            attempPolicyByCLIID();
+        }
     }
 
     private void initHopDongBH() {
@@ -151,7 +177,6 @@ public class InfoContractFragment extends Fragment {
             hdbhAdapter = new ContractListAdapter(getActivity(), lstPolicy);
         else {
             hdbhAdapter.reFreshData(lstPolicy);
-//            hdbhAdapter.setData(lstPolicy);
         }
     }
 
@@ -221,20 +246,24 @@ public class InfoContractFragment extends Fragment {
 
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("CONTRACT_DETAIL", item);
-
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction ft = manager.beginTransaction();
                 ContractDetailFragment fragment = new ContractDetailFragment();
-
                 fragment.setArguments(bundle);
 
+                onAddFragment.onFragmentAddstackListener(DashboardActivity.TAB_CONTRACT, fragment, true);
+            }
+        });
+
+        btnAddPolicy.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddProposalFragment fragment = new AddProposalFragment();
                 onAddFragment.onFragmentAddstackListener(DashboardActivity.TAB_CONTRACT, fragment, true);
             }
         });
     }
 
     /**
-     * Task call API get List Policy Bu CLient ID
+     * Task call API get List Policy By CLient ID
      */
     public class getPolicyListTask extends AsyncTask<Void, Void, Response<CPGetPolicyListByCLIIDResponse>> {
 
@@ -245,12 +274,15 @@ public class InfoContractFragment extends Fragment {
 
         @Override
         protected Response<CPGetPolicyListByCLIIDResponse> doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+
             Response<CPGetPolicyListByCLIIDResponse> result = null;
             try {
 
                 CPGetPolicyListByCLIIDRequest data = new CPGetPolicyListByCLIIDRequest();
-                data.setUserLogin(CustomPref.getUserName(getActivity()));
+                if (!TextUtils.isEmpty(CustomPref.getUserName(getActivity())))
+                    data.setUserLogin(CustomPref.getUserName(getActivity()));
+                else
+                    data.setUserLogin(CustomPref.getUserID(getActivity()));
                 data.setPassword(CustomPref.getPassword(getActivity()));
                 data.setAPIToken(CustomPref.getAPIToken(getActivity()));
                 data.setClientID(CustomPref.getUserID(getActivity()));
@@ -258,7 +290,7 @@ public class InfoContractFragment extends Fragment {
                 data.setLinkFacebook(CustomPref.getFacebookID(getActivity()));
 
                 data.setDeviceId(Utilities.getDeviceID(getActivity()));
-                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceOS());
                 data.setProject(Constant.Project_ID);
                 data.setAuthentication(Constant.Project_Authentication);
 
@@ -271,8 +303,6 @@ public class InfoContractFragment extends Fragment {
             } catch (Exception e) {
                 return null;
             }
-
-            // TODO: register the new account here.
             return result;
         }
 
@@ -292,12 +322,17 @@ public class InfoContractFragment extends Fragment {
 
                                     if (result.getResult() != null && result.getResult().equals("false")) {
                                         //If account not exits --> link to register
-                                        myLog.E("InfoContractFragment", "Get Point: " + result.getErrLog());
+                                        myLog.e("InfoContractFragment", "Get Point: " + result.getErrLog());
+
+                                        if (result.getNewAPIToken().equalsIgnoreCase(Constant.ERROR_TOKENINVALID)) {
+                                            Utilities.processLoginAgain(getActivity(), getString(R.string.message_alert_relogin));
+                                        }
+
                                     } else if (result.getResult() != null && result.getResult().equals("true")) {
 
                                         if (!TextUtils.isEmpty(result.getNewAPIToken()))
                                             //Save Token
-                                            CustomPref.saveToken(getActivity(), result.getNewAPIToken());
+                                            CustomPref.saveAPIToken(getActivity(), result.getNewAPIToken());
 
                                         if (result.getPolicyList() != null) {
 
@@ -305,11 +340,6 @@ public class InfoContractFragment extends Fragment {
                                             if (lstPolicy.size() > 0) {
                                                 initHopDongBH();
                                             }
-
-                                        }
-                                    } else {
-                                        if (result.getNewAPIToken().equalsIgnoreCase("invalidtoken")) {
-                                            Utilities.processLoginAgain(getActivity(), getString(R.string.message_alert_relogin));
                                         }
                                     }
                                 }
@@ -326,21 +356,6 @@ public class InfoContractFragment extends Fragment {
         @Override
         protected void onCancelled() {
             getPolicyTask = null;
-        }
-    }
-
-    private void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(getActivity());
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
         }
     }
 

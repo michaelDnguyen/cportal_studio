@@ -12,10 +12,14 @@ import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.services.ServicesGenerator;
 import com.dlvn.mcustomerportal.services.ServicesRequest;
 import com.dlvn.mcustomerportal.services.model.BaseRequest;
+import com.dlvn.mcustomerportal.services.model.request.GetFeeByClientIDRequest;
 import com.dlvn.mcustomerportal.services.model.request.GetFeeOfBasicPolByCLIIDRequest;
 import com.dlvn.mcustomerportal.services.model.response.FeeBasicOfPolicy;
+import com.dlvn.mcustomerportal.services.model.response.GetFeeByClientIDResponse;
+import com.dlvn.mcustomerportal.services.model.response.GetFeeByClientIDResult;
 import com.dlvn.mcustomerportal.services.model.response.GetFeeOfBasicPolByCLIIDResponse;
 import com.dlvn.mcustomerportal.services.model.response.GetFeeOfBasicPolByCLIIDResult;
+import com.dlvn.mcustomerportal.services.model.response.PaymentDetailModel;
 import com.dlvn.mcustomerportal.utils.Utilities;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
@@ -29,7 +33,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,29 +43,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class Bonus_NopPhiBH_Step01_Activity extends BaseActivity implements AdapterView.OnItemSelectedListener {
+
     Spinner spnHopDong;
-
     TextView tvTenKhachHang, tvMaKhachHang, tvDiem;
-
-    //TODO: bonus tv declaration
     TextView soTienPhaiThanhToanPhiDinhKy, soTienPhaiThanhToanKhoanTamUngDeDongPhi, soTienPhaiThanhToanKhoanTamUng;
-
-
     EditText edtPhiDinhKy, edtKhoanTamUng, edtGiaTriHoanLai;
     Button btnTiep;
 
-    //TODO: bonus declaration
     ServicesRequest svRequester;
-    GetFeeOfBasicPolByCLIIDTask FeeOfPolicyTask = null;
     ProgressDialog dialog;
 
     FeeBasicOfPolicy feeChoice;
+    PaymentDetailModel paymentModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,42 +68,71 @@ public class Bonus_NopPhiBH_Step01_Activity extends BaseActivity implements Adap
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getViews();
-        svRequester = ServicesGenerator.createService(ServicesRequest.class);
-        Log.e("testing", "onCreate");
-        //TODO:testing
         initDatas();
-        Log.e("testing", "onCreate2");
         setListener();
     }
 
     private void getViews() {
         // TODO Auto-generated method stub
-        spnHopDong = (Spinner) findViewById(R.id.spnHopDong);
+        spnHopDong = findViewById(R.id.spnHopDong);
 
-        tvMaKhachHang = (TextView) findViewById(R.id.tvMaKhachHang);
-        tvTenKhachHang = (TextView) findViewById(R.id.tvTenKhachHang);
-        tvDiem = (TextView) findViewById(R.id.tvDiem);
+        tvMaKhachHang = findViewById(R.id.tvMaKhachHang);
+        tvTenKhachHang = findViewById(R.id.tvTenKhachHang);
+        tvDiem = findViewById(R.id.tvDiem);
 
-        edtPhiDinhKy = (EditText) findViewById(R.id.edtPhiBaoHiem);
-        edtKhoanTamUng = (EditText) findViewById(R.id.edtKhoanTamUng);
-        edtGiaTriHoanLai = (EditText) findViewById(R.id.edtGiaTriHoanLai);
+        edtPhiDinhKy = findViewById(R.id.edtPhiBaoHiem);
+        edtKhoanTamUng = findViewById(R.id.edtKhoanTamUng);
+        edtGiaTriHoanLai = findViewById(R.id.edtGiaTriHoanLai);
 
-        btnTiep = (Button) findViewById(R.id.btnTiep);
+        btnTiep = findViewById(R.id.btnTiep);
 
-        soTienPhaiThanhToanPhiDinhKy = (TextView) findViewById(R.id.soTienPhaiThanhToanPhiDinhKy);
-        soTienPhaiThanhToanKhoanTamUngDeDongPhi = (TextView) findViewById(R.id.soTienPhaiThanhToanKhoanTamUngDeDongPhi);
-        soTienPhaiThanhToanKhoanTamUng = (TextView) findViewById(R.id.soTienPhaiThanhToanKhoanTamUng);
+        soTienPhaiThanhToanPhiDinhKy = findViewById(R.id.soTienPhaiThanhToanPhiDinhKy);
+        soTienPhaiThanhToanKhoanTamUngDeDongPhi = findViewById(R.id.soTienPhaiThanhToanKhoanTamUngDeDongPhi);
+        soTienPhaiThanhToanKhoanTamUng = findViewById(R.id.soTienPhaiThanhToanKhoanTamUng);
 
     }
 
     private void initDatas() {
+        svRequester = ServicesGenerator.createService(ServicesRequest.class);
+
         if (CustomPref.haveLogin(this)) {
             tvTenKhachHang.setText(CustomPref.getFullName(this));
             tvMaKhachHang.setText(CustomPref.getUserID(this));
             tvDiem.setText(CustomPref.getUserPoint(this) + "");
         }
 
-        new GetFeeOfBasicPolByCLIIDTask(this).execute();
+        if (getIntent().getExtras() != null)
+            if (getIntent().getExtras().containsKey(Constant.INT_KEY_PAYMENT_MODEL))
+                paymentModel = getIntent().getParcelableExtra(Constant.INT_KEY_PAYMENT_MODEL);
+
+        if (paymentModel == null)
+            new GetFeeByClientIDTask(this).execute();
+        else {
+            List<String> list = new ArrayList<String>();
+            list.add(paymentModel.getSoHopDong());
+
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spnHopDong.setAdapter(dataAdapter);
+
+            soTienPhaiThanhToanPhiDinhKy.setText(Utilities.formatMoneyToVND(paymentModel.getPhiBHGoc()));
+            soTienPhaiThanhToanKhoanTamUngDeDongPhi.setText(Utilities.formatMoneyToVND(paymentModel.getPhiAplGoc()));
+            soTienPhaiThanhToanKhoanTamUng.setText(Utilities.formatMoneyToVND(paymentModel.getPhiOplGoc()));
+
+            edtPhiDinhKy.setText(Utilities.formatMoneyToVND(paymentModel.getPhiBHGoc()));
+            edtKhoanTamUng.setText(Utilities.formatMoneyToVND(paymentModel.getPhiAplGoc()));
+            edtGiaTriHoanLai.setText(Utilities.formatMoneyToVND(paymentModel.getPhiOplGoc()));
+
+            feeChoice = new FeeBasicOfPolicy();
+            feeChoice.setPOLSNDRYAMTCODE(Constant.CONTS_FEE_SNDRY_AMT_CODE);
+            feeChoice.setAPLCODE(Constant.CONTS_FEE_APL_CODE);
+            feeChoice.setOPLCODE(Constant.CONTS_FEE_OPL_CODE);
+            feeChoice.setPOLSNDRYAMT(paymentModel.getPhiBHGoc());
+            feeChoice.setAPL(paymentModel.getPhiAplGoc());
+            feeChoice.setOPL(paymentModel.getPhiOplGoc());
+            feeChoice.setPOLID(paymentModel.getSoHopDong());
+            feeChoice.setCLIID(CustomPref.getUserID(this));
+        }
     }
 
     private void setListener() {
@@ -205,29 +231,63 @@ public class Bonus_NopPhiBH_Step01_Activity extends BaseActivity implements Adap
                 String tamungdongphi = edtKhoanTamUng.getText().toString();
                 String tamung = edtGiaTriHoanLai.getText().toString();
 
-                String phiBHBasic = soTienPhaiThanhToanPhiDinhKy.getText().toString().replace(",","");
-                String tamUngDPBasic = soTienPhaiThanhToanKhoanTamUngDeDongPhi.getText().toString().replace(",","");
-                String tamUngBasic = soTienPhaiThanhToanKhoanTamUng.getText().toString().replace(",","");
+                if (TextUtils.isEmpty(phibh)) {
+                    phibh = "0";
+                    edtPhiDinhKy.setText("0");
+                }
+                if (TextUtils.isEmpty(tamungdongphi)) {
+                    tamungdongphi = "0";
+                    edtKhoanTamUng.setText("0");
+                }
+                if (TextUtils.isEmpty(tamung)) {
+                    tamung = "0";
+                    edtGiaTriHoanLai.setText("0");
+                }
 
-                if (TextUtils.isEmpty(phiBHBasic))
-                    phiBHBasic = "0";
-                if (TextUtils.isEmpty(tamUngDPBasic))
-                    tamUngDPBasic = "0";
-                if (TextUtils.isEmpty(tamUngBasic))
-                    tamUngBasic = "0";
+                String phiBHBasic = soTienPhaiThanhToanPhiDinhKy.getText().toString().replace(",", "");
+                String tamUngDPBasic = soTienPhaiThanhToanKhoanTamUngDeDongPhi.getText().toString().replace(",", "");
+                String tamUngBasic = soTienPhaiThanhToanKhoanTamUng.getText().toString().replace(",", "");
 
-                Intent intent = new Intent(Bonus_NopPhiBH_Step01_Activity.this, Bonus_NopPhiBH_Step02_Activity.class);
-                intent.putExtra(Constant.NOPPHI_SOHOPDONG, shd);
-                intent.putExtra(Constant.NOPPHI_PHIBAOHIEM, phibh);
-                intent.putExtra(Constant.NOPPHI_TAMUNG_DONGPHI, tamungdongphi);
-                intent.putExtra(Constant.NOPPHI_TAMUNG, tamung);
-                intent.putExtra("soTienPhaiThanhToanPhiDinhKy", phiBHBasic);
-                intent.putExtra("soTienPhaiThanhToanKhoanTamUngDeDongPhi", tamUngDPBasic);
-                intent.putExtra("soTienPhaiThanhToanKhoanTamUng", tamUngBasic);
+                double ipbh = Double.parseDouble(phibh.replace(",", ""));
+                double itamungdp = Double.parseDouble(tamungdongphi.replace(",", ""));
+                double itamung = Double.parseDouble(tamung.replace(",", ""));
+                double total = ipbh + itamung + itamungdp;
 
-                intent.putExtra("FeeBasicConform", feeChoice);
+                if (CustomPref.getUserPoint(Bonus_NopPhiBH_Step01_Activity.this) * 1000 >= total) {
 
-                startActivity(intent);
+                    if (TextUtils.isEmpty(phiBHBasic))
+                        phiBHBasic = "0";
+                    if (TextUtils.isEmpty(tamUngDPBasic))
+                        tamUngDPBasic = "0";
+                    if (TextUtils.isEmpty(tamUngBasic))
+                        tamUngBasic = "0";
+
+                    Intent intent = new Intent(Bonus_NopPhiBH_Step01_Activity.this, Bonus_NopPhiBH_Step02_Activity.class);
+                    intent.putExtra(Constant.NOPPHI_SOHOPDONG, shd);
+                    intent.putExtra(Constant.NOPPHI_PHIBAOHIEM, phibh);
+                    intent.putExtra(Constant.NOPPHI_TAMUNG_DONGPHI, tamungdongphi);
+                    intent.putExtra(Constant.NOPPHI_TAMUNG, tamung);
+                    intent.putExtra("soTienPhaiThanhToanPhiDinhKy", phiBHBasic);
+                    intent.putExtra("soTienPhaiThanhToanKhoanTamUngDeDongPhi", tamUngDPBasic);
+                    intent.putExtra("soTienPhaiThanhToanKhoanTamUng", tamUngBasic);
+
+                    intent.putExtra("FeeBasicConform", feeChoice);
+
+                    startActivity(intent);
+                } else {
+                    String message = "Số điểm hiện tại của Anh/Chị (" + Utilities.formatMoneyToVND(CustomPref.getUserPoint(Bonus_NopPhiBH_Step01_Activity.this) * 1000)
+                            + ") không đủ để đóng phí (" + Utilities.formatMoneyToVND(total) + ").";
+
+                    MyCustomDialog dialog = new MyCustomDialog.Builder(Bonus_NopPhiBH_Step01_Activity.this)
+                            .setMessage(message)
+                            .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).create();
+                    dialog.show();
+                }
             }
         });
 
@@ -252,14 +312,8 @@ public class Bonus_NopPhiBH_Step01_Activity extends BaseActivity implements Adap
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        // noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
-            // finish the activity
             onBackPressed();
             return true;
         }
@@ -276,6 +330,126 @@ public class Bonus_NopPhiBH_Step01_Activity extends BaseActivity implements Adap
 
     }
 
+
+    public class GetFeeByClientIDTask extends AsyncTask<Void, Void, Response<GetFeeByClientIDResponse>> {
+        Context context;
+
+        public GetFeeByClientIDTask(Context c) {
+            context = c;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //TODO: progress dialog
+            dialog = new ProgressDialog(context);
+            dialog.setMessage("Xin vui lòng chờ dữ liệu...");
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+        }
+
+        @Override
+        protected Response<GetFeeByClientIDResponse> doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+            Response<GetFeeByClientIDResponse> result = null;
+            try {
+                GetFeeByClientIDRequest request = new GetFeeByClientIDRequest();
+                request.setClientID(CustomPref.getUserID(context));
+
+                Call<GetFeeByClientIDResponse> call = svRequester.getFeeByClientID(request);
+                result = call.execute();
+
+            } catch (Exception e) {
+                myLog.printTrace(e);
+                return null;
+            }
+
+            // TODO: register the new account here.
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(final Response<GetFeeByClientIDResponse> success) {
+            dialog.dismiss();
+
+            if (success != null) {
+                try {
+                    if (success.isSuccessful()) {
+                        GetFeeByClientIDResponse response = success.body();
+                        if (response != null)
+                            if (response.getGetFeeByClientID() != null) {
+                                //TODO: set result to be final
+                                final GetFeeByClientIDResult result = response.getGetFeeByClientID();
+                                if (result != null) {
+
+                                    if (result.getResult() != null && result.getResult().equals("false")) {
+                                        //If account not exits --> link to register
+                                        myLog.e("Error when getFee by ClientID " + result.getErrLog());
+
+                                    } else if (result.getResult() != null && result.getResult().equals("true")) {
+
+                                        if (result.getLstFeeByPolicy() != null) {
+
+
+                                            // TODO: list to store FeeBasicByPolicy
+                                            List<String> list = new ArrayList<String>();
+
+                                            if (result.getLstFeeByPolicy().size() > 0) {
+                                                for (int i = 0; i < result.getLstFeeByPolicy().size(); i++) {
+                                                    list.add(result.getLstFeeByPolicy().get(i).getPolicyID());
+                                                }
+                                            }
+
+                                            //TODO: tạo adapter cho spinner
+                                            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, list);
+                                            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                            spnHopDong.setAdapter(dataAdapter);
+
+                                            spnHopDong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                                    //TODO: testing pushing policyID
+                                                    soTienPhaiThanhToanPhiDinhKy.setText(Utilities.formatMoneyToVND(result.getLstFeeByPolicy().get(position).getFee().getPolSndryAmt()));
+                                                    soTienPhaiThanhToanKhoanTamUngDeDongPhi.setText(Utilities.formatMoneyToVND(result.getLstFeeByPolicy().get(position).getFee().getApl()));
+                                                    soTienPhaiThanhToanKhoanTamUng.setText(Utilities.formatMoneyToVND(result.getLstFeeByPolicy().get(position).getFee().getOpl()));
+
+                                                    edtPhiDinhKy.setText(Utilities.formatMoneyToVND(result.getLstFeeByPolicy().get(position).getFee().getPolSndryAmt()));
+                                                    edtKhoanTamUng.setText(Utilities.formatMoneyToVND(result.getLstFeeByPolicy().get(position).getFee().getApl()));
+                                                    edtGiaTriHoanLai.setText(Utilities.formatMoneyToVND(result.getLstFeeByPolicy().get(position).getFee().getOpl()));
+
+                                                    feeChoice = new FeeBasicOfPolicy();
+                                                    feeChoice.setPOLID(result.getLstFeeByPolicy().get(position).getPolicyID());
+                                                    feeChoice.setPOLSNDRYAMTCODE(Constant.CONTS_FEE_SNDRY_AMT_CODE);
+                                                    feeChoice.setAPLCODE(Constant.CONTS_FEE_APL_CODE);
+                                                    feeChoice.setOPLCODE(Constant.CONTS_FEE_OPL_CODE);
+                                                    feeChoice.setPOLSNDRYAMT(result.getLstFeeByPolicy().get(position).getFee().getPolSndryAmt());
+                                                    feeChoice.setAPL(result.getLstFeeByPolicy().get(position).getFee().getApl());
+                                                    feeChoice.setOPL(result.getLstFeeByPolicy().get(position).getFee().getOpl());
+
+                                                }
+
+                                                public void onNothingSelected(AdapterView<?> parent) {
+                                                }
+                                            });
+                                            //END Adapter spinner
+                                        }
+                                    }
+                                }
+                            }
+                    } else {
+                        MyCustomDialog dialog = new MyCustomDialog.Builder(context).setMessage(getString(R.string.alert_cannot_connect_server)).setTitle(getString(R.string.title_error_connected_server)).setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+                        dialog.show();
+                    }
+                } catch (Exception e) {
+                    myLog.printTrace(e);
+                }
+            }
+        }
+    }
 
     /**
      * Task call API get client point By CLient ID
@@ -307,7 +481,7 @@ public class Bonus_NopPhiBH_Step01_Activity extends BaseActivity implements Adap
                 data.setClientID(CustomPref.getUserID(context));
                 data.setAPIToken(CustomPref.getAPIToken(context));
                 data.setDeviceID(Utilities.getDeviceID(context));
-                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceOS());
                 data.setProject(Constant.Project_ID);
                 data.setAuthentication(Constant.Project_Authentication);
                 data.setUserLogin(CustomPref.getUserName(context));
@@ -329,9 +503,6 @@ public class Bonus_NopPhiBH_Step01_Activity extends BaseActivity implements Adap
 
         @Override
         protected void onPostExecute(final Response<GetFeeOfBasicPolByCLIIDResponse> success) {
-            FeeOfPolicyTask = null;
-            Log.e("onPostExecute", "task completed");
-            //TODO: dừng progress dialog
             dialog.dismiss();
 
             if (success != null) {
@@ -346,14 +517,14 @@ public class Bonus_NopPhiBH_Step01_Activity extends BaseActivity implements Adap
 
                                     if (result.getResult() != null && result.getResult().equals("false")) {
                                         //If account not exits --> link to register
-                                        if (result.getNewAPIToken().equalsIgnoreCase("invalidtoken")) {
+                                        if (result.getNewAPIToken().equalsIgnoreCase(Constant.ERROR_TOKENINVALID)) {
                                             Utilities.processLoginAgain(context, getString(R.string.message_alert_relogin));
                                         }
                                     } else if (result.getResult() != null && result.getResult().equals("true")) {
 
                                         //Save Token
                                         if (!TextUtils.isEmpty(result.getNewAPIToken()))
-                                            CustomPref.saveToken(context, result.getNewAPIToken());
+                                            CustomPref.saveAPIToken(context, result.getNewAPIToken());
 
                                         if (result.getLstFeeBasic() != null) {
 
@@ -379,6 +550,10 @@ public class Bonus_NopPhiBH_Step01_Activity extends BaseActivity implements Adap
                                                     soTienPhaiThanhToanKhoanTamUngDeDongPhi.setText(Utilities.formatMoneyToVND(result.getLstFeeBasic().get(position).getAPL()));
                                                     soTienPhaiThanhToanKhoanTamUng.setText(Utilities.formatMoneyToVND(result.getLstFeeBasic().get(position).getOPL()));
 
+                                                    edtPhiDinhKy.setText(Utilities.formatMoneyToVND(result.getLstFeeBasic().get(position).getPOLSNDRYAMT()));
+                                                    edtKhoanTamUng.setText(Utilities.formatMoneyToVND(result.getLstFeeBasic().get(position).getAPL()));
+                                                    edtGiaTriHoanLai.setText(Utilities.formatMoneyToVND(result.getLstFeeBasic().get(position).getOPL()));
+
                                                     feeChoice = result.getLstFeeBasic().get(position);
                                                 }
 
@@ -403,11 +578,6 @@ public class Bonus_NopPhiBH_Step01_Activity extends BaseActivity implements Adap
                     myLog.printTrace(e);
                 }
             }
-        }
-
-        @Override
-        protected void onCancelled() {
-            FeeOfPolicyTask = null;
         }
     }
 }

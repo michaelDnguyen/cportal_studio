@@ -1,14 +1,16 @@
 package com.dlvn.mcustomerportal.activity;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dlvn.mcustomerportal.R;
+import com.dlvn.mcustomerportal.activity.prototype.DashboardActivity;
 import com.dlvn.mcustomerportal.base.BaseActivity;
 import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.services.ServicesGenerator;
@@ -16,6 +18,8 @@ import com.dlvn.mcustomerportal.services.ServicesRequest;
 import com.dlvn.mcustomerportal.services.model.response.PaymentDetailModel;
 
 public class PaymentResultActivity extends BaseActivity {
+
+    LinearLayout lloBack;
 
     TextView tvMaGiaoDich, tvTenKhachHang, tvSoHopDong, tvTongSoTien, tvStatus;
     ImageView imvIcon, imvImage;
@@ -29,7 +33,6 @@ public class PaymentResultActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_result);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getViews();
         initData();
@@ -37,7 +40,8 @@ public class PaymentResultActivity extends BaseActivity {
     }
 
     private void getViews() {
-        // TODO Auto-generated method stub
+        lloBack = findViewById(R.id.lloBack);
+
         tvStatus = findViewById(R.id.tvStatus);
         tvMaGiaoDich = findViewById(R.id.tvMaGiaoDich);
         tvTenKhachHang = findViewById(R.id.tvTenKhachHang);
@@ -87,6 +91,12 @@ public class PaymentResultActivity extends BaseActivity {
 
     private void setListener() {
         // TODO Auto-generated method stub
+        lloBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
     }
 
@@ -120,11 +130,23 @@ public class PaymentResultActivity extends BaseActivity {
 //    }
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(PaymentResultActivity.this, DashboardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+//        super.onBackPressed();
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // TODO Auto-generated method stub
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+//                onBackPressed();
+                Intent intent = new Intent(PaymentResultActivity.this, DashboardActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
 
             default:

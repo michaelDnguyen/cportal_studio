@@ -31,6 +31,11 @@ public class ClientProfile implements Parcelable {
     public static final String GOOGLE = "USER_GOOGLE";
     public static final String DAYOFBIRTH = "USER_DOB";
     public static final String USER_POID = "USER_POID";
+    public static final String USER_PHOTO = "USER_PHOTO";
+
+    public static final String VERYFY_CELLPHONE = "VERYFY_CELLPHONE";
+    public static final String VERYFY_EMAIL = "VERYFY_EMAIL";
+    public static final String VERYFY_TWOFA = "VERYFY_TWOFA";
 
     @SerializedName("ClientID")
     @Expose
@@ -99,6 +104,49 @@ public class ClientProfile implements Parcelable {
     @SerializedName("AgreedToTermsOfUse")
     @Expose
     private String agreeToTerms;
+
+    @SerializedName("VerifyCellPhone")
+    @Expose
+    private String verifyCellPhone;
+    @SerializedName("VerifyEmail")
+    @Expose
+    private String verifyEmail;
+    @SerializedName("TwoFA")
+    @Expose
+    private String verifyTwoFA;
+
+    /**
+     * Password encrypt
+     */
+    @SerializedName("PasswordEncrypted")
+    @Expose
+    private String passwordEncrypted;
+
+    /**
+     * Linked DLVN Account
+     */
+    @SerializedName("UserName")
+    @Expose
+    private String userName;
+
+    private String profilePhoto = "";
+
+    /**
+     * For Claims
+     * @return
+     */
+    @SerializedName("ClaimType")
+    @Expose
+    private String claimsType;
+    @SerializedName("ClaimName")
+    @Expose
+    private String claimsName;
+    @SerializedName("PolicyID")
+    @Expose
+    private String policyID;
+    @SerializedName("ProductCode")
+    @Expose
+    private String productCode;
 
     public String getClientID() {
         return clientID;
@@ -268,14 +316,138 @@ public class ClientProfile implements Parcelable {
         this.authStatus = authStatus;
     }
 
+    /**
+     * For get notification/mail box
+     *
+     * @return
+     */
+    @SerializedName("UserLogin")
+    @Expose
+    private String userLogin;
+    @SerializedName("Subject")
+    @Expose
+    private String subject;
+    @SerializedName("Content")
+    @Expose
+    private String content;
+    @SerializedName("CreatedDate")
+    @Expose
+    private String createdDate;
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    /**
+     * End notifications/mailbox
+     */
+
+    public String getVerifyCellPhone() {
+        return verifyCellPhone;
+    }
+
+    public void setVerifyCellPhone(String verifyCellPhone) {
+        this.verifyCellPhone = verifyCellPhone;
+    }
+
+    public String getVerifyEmail() {
+        return verifyEmail;
+    }
+
+    public void setVerifyEmail(String verifyEmail) {
+        this.verifyEmail = verifyEmail;
+    }
+
+    public String getVerifyTwoFA() {
+        return verifyTwoFA;
+    }
+
+    public void setVerifyTwoFA(String verifyTwoFA) {
+        this.verifyTwoFA = verifyTwoFA;
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getClaimsType() {
+        return claimsType;
+    }
+
+    public void setClaimsType(String claimsType) {
+        this.claimsType = claimsType;
+    }
+
+    public String getClaimsName() {
+        return claimsName;
+    }
+
+    public void setClaimsName(String claimsName) {
+        this.claimsName = claimsName;
+    }
+
+    public String getPolicyID() {
+        return policyID;
+    }
+
+    public void setPolicyID(String policyID) {
+        this.policyID = policyID;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
     public ClientProfile() {
 
     }
 
-
     /**
      * Implements method of Parcelable
-     *
      * @return
      */
     @Override
@@ -286,6 +458,7 @@ public class ClientProfile implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(clientID);
+        dest.writeString(userName);
         dest.writeString(password);
         dest.writeString(aPIToken);
         dest.writeString(loginName);
@@ -303,11 +476,20 @@ public class ClientProfile implements Parcelable {
         dest.writeString(poDOB);
         dest.writeString(policyNo);
         dest.writeString(authStatus);
+        dest.writeString(verifyCellPhone);
+        dest.writeString(verifyEmail);
+        dest.writeString(verifyTwoFA);
+
+        dest.writeString(claimsType);
+        dest.writeString(claimsName);
+        dest.writeString(policyID);
+        dest.writeString(productCode);
     }
 
     public ClientProfile(Parcel in) {
 
         clientID = in.readString();
+        userName = in.readString();
         password = in.readString();
         aPIToken = in.readString();
         loginName = in.readString();
@@ -325,6 +507,14 @@ public class ClientProfile implements Parcelable {
         poDOB = in.readString();
         policyNo = in.readString();
         authStatus = in.readString();
+        verifyCellPhone = in.readString();
+        verifyEmail = in.readString();
+        verifyTwoFA = in.readString();
+
+        claimsType = in.readString();
+        claimsName = in.readString();
+        policyID = in.readString();
+        productCode = in.readString();
     }
 
     public static final Creator<ClientProfile> CREATOR = new Creator<ClientProfile>() {

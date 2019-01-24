@@ -7,6 +7,8 @@
     <string name="openDrawer">open_drawer</string>
     <string name="closeDrawer">close_drawer</string>
 
+    <string name="folder_provider">mcp-files</string>
+
     <string name="keyMap_Dev">AIzaSyCO77nVxrBDTUPmjzPV9Zw1mUdMB9y3fkU</string>
     <string name="keyFCM_Dev">AIzaSyB-yGcYFaAwYEqwyzHtO4Tmh1bb1yxi3g4</string>
     <string name="senderID_Dev">998850959193</string>
@@ -16,6 +18,8 @@
     <string name="fb_login_protocol_scheme">fb553810151685547</string>
 
     <string name="recapchar_sitekey">6Ld8ymQUAAAAAOcpcFbgRhl-YW9dVPvMPuqVspsB</string>
+    <string name="api_sitekey_recaptcha">6LcAf1AUAAAAADUQAlyndZoRaZvoOpcJ-XuO_wJ7</string>
+    <string name="api_secrectkey_recaptcha">6LcAf1AUAAAAABcsTpece5KIBXUkSi7AqXumbkPj</string>
 
     <string name="key_map_debug">AIzaSyBBbZJhHdOGCVt4RKAFENsb_GkToTeJmMA</string>
     <string name="key_map_production">AIzaSyDgyss3J5QgT0ScAPpjI7CzsT23dA_f9dU</string>
@@ -90,11 +94,10 @@ Trân trọng kính chào,<br>
 <strong><b>Dai-ichi Life Việt Nam</b></strong>]]>
     </string>
 
-    <string name="title_activity_notification">NotificationActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_notification">Thông báo</string>
     <string name="title_activity_web_napas">Thanh toán trực tuyến</string>
     <string name="title_activity_profile">Thông tin cá nhân</string>
-    <string name="title_activity_contract_detail">ContractDetailActivity</string>
+    <string name="title_activity_contract_detail">Hợp đồng chi tiết</string>
     <string name="title_activity_contact">Liên hệ</string>
     <string name="title_activity_bonus__nop_phi_bh">Nộp phí/ Hoàn trả</string>
     <string name="non_spinner">Chọn</string>
@@ -107,7 +110,7 @@ Trân trọng kính chào,<br>
     <string name="title_activity_transaction_history">Lịch sử giao dịch</string>
     <string name="title_activity_transaction_detail">Chi tiết giao dịch</string>
     <string name="title_activity_news">Bản tin Dai-Ichi-Life</string>
-    <string name="title_activity_login_main">Sign in</string>
+    <string name="title_activity_login_main">Đăng nhập</string>
     <string name="activity_title_about_us">Hướng dẫn sử dụng</string>
     <string name="activity_title_list_office">Mạng lưới văn phòng</string>
     <string name="activity_title_contract_detail">Chi tiết hợp đồng</string>
@@ -115,9 +118,8 @@ Trân trọng kính chào,<br>
     <string name="title_activity_cartmanager">Thanh toán</string>
     <string name="title_activity_deliveryInput">Thông tin giao hàng</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_point_list">PointList</string>
-    <string name="title_activity_lien_ket_tai_khoan">LienKetTaiKhoanActivity</string>
+    <string name="title_activity_point_list">Quá trình tích lũy và sử dụng điểm thưởng</string>
+    <string name="title_activity_lien_ket_tai_khoan">Liên kết tài khoản</string>
     <string name="title_activity_dashboard">Trang chủ</string>
 
     <!--Settings-->
@@ -131,7 +133,11 @@ Trân trọng kính chào,<br>
     <string name="setting_txt_priceilp">Giá đơn vị quỹ</string>
     <string name="setting_txt_lienhe">Liên hệ</string>
     <string name="setting_txt_thongtin">Thông tin mCP</string>
+    <string name="setting_txt_claims">Yêu cầu quyền lợi bảo hiểm</string>
     <string name="setting_txt_dangxuat">Đăng xuất</string>
+
+    <!--setting alert-->
+
 
     <!-- Strings related to login -->
     <string name="prompt_email">Tên đăng nhập/Email</string>
@@ -143,7 +149,7 @@ Trân trọng kính chào,<br>
 
     <!--String for Forgot Password-->
     <string name="forgotpassword_title">Vui lòng kiểm tra email</string>
-    <string name="forgotpassword_message">Chúng tôi đã gửi cách thức thực hiện khôi phục mật khẩu vào địa chỉ email %s</string>
+    <string name="forgotpassword_message">Chúng tôi đã gửi cách thức thực hiện khôi phục mật khẩu vào địa chỉ email</string>
     <string name="forgotpassword_button">MỞ HỘP MAIL</string>
 
     <string name="error_changepass_fail">Cập nhật mật khẩu thất bại, vui lòng thực hiện lại.</string>
@@ -164,10 +170,13 @@ Trân trọng kính chào,<br>
     <string name="message_error_username_login">Tên đăng nhập không đúng hoặc không tồn tại.</string>
     <string name="message_error_date">Ngày sai định dạng.</string>
     <string name="message_alert_login_to_using_function">Anh/chị cần phải đăng nhập để sử dụng chức năng này.</string>
+    <string name="message_alert_login_have_policy">Chức năng chỉ dành cho khách hàng đã có hợp đồng.</string>
+
     <string name="message_alert_logout">Anh/chị có thật sự muốn thoát khỏi chương trình này không ?.</string>
     <string name="message_alert_download_file">Anh/chị có muốn download tập tin này không ?</string>
     <string name="alert_input_payment">Anh/chị cần phải nhập số tiền và chọn phương thức thanh toán.</string>
     <string name="message_alert_input_password">Vui lòng nhập lại mật khẩu hợp lệ.</string>
+    <string name="message_alert_correct_password">Mật khẩu không hợp lệ vui lòng thử lại. Mật khẩu hợp lệ là một dãy ít nhất 4 kí tự bao gồm chữ và số.</string>
     <string name="message_alert_relogin">Phiên làm việc của Anh/chị đã hết, xin vui lòng đăng nhập lại.</string>
 
     <string name="permission_rationale">"Cần cung cấp quyền truy cập Thông tin liên hệ để có thể đăng nhập bằng email."</string>
@@ -190,7 +199,7 @@ Trân trọng kính chào,<br>
     <string name="txt_payment_term"><![CDATA[Bằng cách bấm các nút Tiếp tục quý khách hàng đã đồng ý với <a href="https://www.dai-ichi-life.com.vn/dieu-khoan-thoa-thuan/399/"><strong>Điều khoản sử dụng dịch vụ thanh toán trực tuyến.</strong></a>]]></string>
     <string name="txt_copyright_daiichi"><![CDATA[Copyright © 2013 Dai-ichi Life Việt Nam. All rights reserved.<br>Điện thoại: (028) 3810 0888 - Fax:(028) 3997 3000 <br><a href="https://www.dai-ichi-life.com.vn/"><font color="D50000">https://www.dai-ichi-life.com.vn/</font></a>]]></string>
     <string name="txt_show_pasword">Hiện mật khẩu</string>
-    <string name="txt_register_step01">Hãy tạo một mật khẩu để đăng nhập</string>
+    <string name="txt_register_step01">Đăng ký</string>
 
     <string name="title_home">Trang chủ</string>
     <string name="title_contract">Hợp đồng</string>
@@ -206,16 +215,16 @@ Trân trọng kính chào,<br>
 
     <!--Payment No login-->
     <string name="title_payment_nologin">Thanh toán phí bảo hiểm và hoàn trả tạm ứng</string>
-    <string name="title_payment_nologin_step01">Vui lòng nhập số hợp đồng</string>
-    <string name="title_payment_nologin_step02">Vui lòng nhập số CMND của chủ hợp đồng</string>
-    <string name="title_payment_nologin_step03"></string>
+    <string name="title_payment_nologin_step01">Vui lòng hoàn tất các thông tin dưới đây</string>
+    <string name="title_payment_nologin_step02"></string>
+    <string name="title_payment_nologin_step03">Vui lòng nhập họ tên người nộp tiền</string>
     <string name="title_payment_nologin_step04">Vui lòng nhập họ tên người nộp tiền</string>
     <string name="title_payment_nologin_step05">Vui lòng nhập địa chỉ email người nộp tiền</string>
     <string name="title_payment_nologin_step06">Vui lòng nhập số điện thoại người nộp tiền</string>
 
-    <string name="hint_payment_nologin_01">Số Hợp Đồng</string>
-    <string name="hint_payment_nologin_02">Số Chứng Minh Thư</string>
-    <string name="hint_payment_nologin_03"></string>
+    <string name="hint_payment_nologin_policyno">Số Hợp Đồng bảo hiểm</string>
+    <string name="hint_payment_nologin_poid">CMND Chủ hợp đồng</string>
+    <string name="hint_payment_nologin_dob">Ngày tháng năm sinh chủ hợp đồng</string>
     <string name="hint_payment_nologin_04">Họ và Tên</string>
     <string name="hint_payment_nologin_05">Email</string>
     <string name="hint_payment_nologin_06">Số Điện Thoại</string>
@@ -227,6 +236,10 @@ Trân trọng kính chào,<br>
     <string name="error_payment_nologin_step05">* Thông tin không hợp lệ</string>
     <string name="error_payment_nologin_step06">* Thông tin không hợp lệ</string>
 
+    <string name="alert_input_gthl_amount_payment_p1">Anh/chị vui lòng nhập số tiền thấp hơn phí bảo hiểm định kỳ.</string>
+    <string name="alert_input_gthl_amount_payment_p2">Anh/chị vui lòng nhập số tiền thấp hơn khoản tạm ứng từ giá trị hoàn lại dùng để đóng phí.</string>
+    <string name="alert_input_gthl_amount_payment_p3">Anh/chị vui lòng nhập số tiền thấp hơn khoản tạm ứng từ giá trị hoàn lại.</string>
+
     <!--FingerPrint-->
     <string name="fingerprint_not_recognized">Không nhận dạng được vân tay. Phiền bạn thử lại.</string>
     <string name="fingerprint_success">Đã nhận diện được vân tay.</string>
@@ -237,7 +250,7 @@ Trân trọng kính chào,<br>
     <string name="message_cantnot_call_phone">Không gọi được tới số điện thoại này</string>
     <string name="alert_cannot_connect_server">Không kết nối được server!</string>
     <string name="title_error_connected_server">Lỗi kết nối</string>
-    <string name="alert_error_request_server">Không kết nối được với máy chủ.Xin vui lòng kiểm tra kết nối mạng và thử lại.</string>
+    <string name="alert_error_request_server">Đã có lỗi xảy ra khi kết nối máy chủ.Xin vui lòng kiểm tra kết nối mạng và thử lại.</string>
     <string name="alert_data_not_found">Không tìm thấy dữ liệu trên máy chủ.</string>
     <string name="error_pointdon_policyrequired">Anh/chị cần nhập số hợp đồng bảo hiểm</string>
     <string name="alert_pointdon_noenoughpoint">Số điểm của Anh/chị không đủ để tặng</string>
@@ -246,5 +259,25 @@ Trân trọng kính chào,<br>
     <string name="error_delivery_inputname">Anh/Chị chưa nhập họ tên người nhận</string>
     <string name="error_delivery_inputdistrict">Chưa chọn quận huyện giao quà</string>
     <string name="error_delivery_inputcity">Chưa chọn tỉnh thành giao quà.</string>
+    <string name="alert_notenough_for_checkout">Anh/chị không đủ điểm để mua hàng.</string>
+    <string name="message_conform_call_customer_service">Anh/chị muốn gọi điện đến tổng đài chăm sóc khách hàng của Dai-Ichi-Life Việt Nam ?</string>
+    <string name="error_payment_nologin_poid_failed">Mã khách hàng không chính xác, vui lòng thử lại.</string>
+    <string name="error_payment_nologin_dob_failed">Ngày tháng năm sinh không chính xác, vui lòng thử lại.</string>
+    <string name="inputotp_title_send_email">Chúng tôi đã gửi một mã PIN vào địa chỉ email đăng kí của quý khách.</string>
+    <string name="inputotp_title_send_phone">Chúng tôi đã gửi một mã PIN vào số điện thoại đăng kí của quý khách.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_update_info">Cập nhật thông tin</string>
+    <string name="alert_message_verify_captcha">Anh/Chị xác nhận Captcha không thành công.Xin vui lòng thủ lại</string>
+    <string name="error_message_input_payment_nologin">Thông tin chưa chính xác hoặc hợp đồng không thỏa điều kiện thanh toán. Quý khách vui lòng kiểm tra lại</string>
+    <string name="alert_alteration_choice_option">Vui lòng chọn thông tin cần cập nhật</string>
+
+    <!--fcm notifications string-->
+    <string name="default_notification_channel_id">fcm-dlvn-mcp</string>
+    <string name="default_notification_channel_name">Customer Portal mobile</string>
+    <string name="alert_claims_no_requester_info">Không tìm thấy thông tin của Người yêu cầu quyền lợi bảo hiểm</string>
+    <string name="alert_claims_no_claims_item">Không tìm thấy thông tin yêu cầu quyền lợi bảo hiểm</string>
+    <string name="alert_claims_no_claims_supplement_item">Không tìm thấy thông tin yêu cầu bổ sung quyền lợi bảo hiểm</string>
 
 </resources>

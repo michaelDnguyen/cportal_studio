@@ -35,19 +35,10 @@
         android:background="@color/red"
         app:layout_constraintTop_toBottomOf="@id/lloBack" />
 
-    <FrameLayout
-        android:id="@+id/main_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/lloBottom"
-        app:layout_constraintTop_toTopOf="@id/imvLineTop" />
-
     <!--Layout contain-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@id/lloBottom"
@@ -57,74 +48,109 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/txt_register_step01" />
+            android:layout_marginTop="20dp"
+            android:text="@string/txt_register_step01"
+            android:textSize="@dimen/textsize30"
+            android:textStyle="bold" />
 
-        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
-            android:id="@+id/cedtInput"
+        <!--Password-->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:cursorVisible="true"
-            android:layout_marginTop="5dp"
-            android:textCursorDrawable="@color/black"
-            android:textSize="@dimen/textsize15" />
+            android:layout_marginTop="20dp"
+            android:hint="Mật khẩu"
+            app:passwordToggleDrawable="@drawable/ic_eyes"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/grey_dark">
 
-        <ToggleButton
-            android:id="@+id/tbGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@drawable/toggle_selector"
-            android:freezesText="true"
-            android:padding="6dp"
-            android:textColor="@drawable/state_bg_edt_grey_red"
-            android:textOff=""
-            android:textOn=""
-            android:visibility="gone" />
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:cursorVisible="true"
+                android:inputType="textPassword"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textsize18" />
+        </android.support.design.widget.TextInputLayout>
 
-        <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/ctvShowPassword"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/wrapperFullName"
             android:layout_width="match_parent"
-            android:layout_height="40dip"
-            android:drawableLeft="@drawable/st_checkmark_chktv"
-            android:drawablePadding="5dp"
-            android:gravity="center_vertical"
-            android:checked="true"
-            android:paddingLeft="5dip"
-            android:text="@string/txt_show_pasword"
-            android:textSize="@dimen/textsize15" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Họ và tên">
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:cursorVisible="true"
+                android:inputType="textPersonName"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textsize18" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/wrapperPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Số điện thoại">
+
+            <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:cursorVisible="true"
+                android:inputType="phone"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/textsize15" />
+        </android.support.design.widget.TextInputLayout>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdbMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/st_rdb_checkstate"
+                android:buttonTint="@color/red"
+                android:paddingLeft="10dp"
+                android:text="Name"
+                android:textSize="@dimen/textsize20" />
+
+            <RadioButton
+                android:id="@+id/rdbFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:button="@drawable/st_rdb_checkstate"
+                android:buttonTint="@color/red"
+                android:paddingLeft="10dp"
+                android:text="Nữ"
+                android:textSize="@dimen/textsize20" />
+        </RadioGroup>
+
 
         <TextView
             android:id="@+id/tvError"
-            android:textColor="@color/red"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lloBottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <TextView
-            android:id="@+id/tvStep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:padding="5dp"
-            android:text="1/4"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/sbStep"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:max="100"
-            android:min="0"
-            android:progress="25"
-            android:progressDrawable="@drawable/state_process_seekbar" />
+            android:textColor="@color/red" />
 
         <Button
             android:id="@+id/btnTiepTuc"
@@ -132,10 +158,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:background="@drawable/state_btn_red_rectangle"
-            android:text="@string/txt_tiep_tuc"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="@string/txt_register_step01"
             android:textColor="@color/white"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/txt_policy_term"
+            android:textColorLink="@color/blue_dark"
+            android:textSize="@dimen/textsize12" />
+
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

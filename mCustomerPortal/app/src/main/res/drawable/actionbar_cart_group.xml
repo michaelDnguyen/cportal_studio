@@ -2,11 +2,11 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@drawable/ico_cart_white_128"
+        android:drawable="@drawable/ico_cart_grey_128"
         android:gravity="center" />
 
     <item
         android:id="@+id/ic_group_count"
-        android:drawable="@android:color/transparent" />
+        android:drawable="@android:color/darker_gray" />
 
 </layer-list>

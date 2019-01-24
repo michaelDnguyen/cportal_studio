@@ -60,7 +60,7 @@ public class ProfileActivity extends BaseActivity {
 					@Override
 					public boolean onLoadFailed(GlideException arg0, Object arg1, Target<Drawable> arg2, boolean arg3) {
 						// progress.setVisibility(View.GONE);
-						myLog.E("Load Image Failed!");
+						myLog.e("Load Image Failed!");
 						return false;
 					}
 
@@ -68,7 +68,7 @@ public class ProfileActivity extends BaseActivity {
 					public boolean onResourceReady(Drawable arg0, Object arg1, Target<Drawable> arg2, DataSource arg3,
 							boolean arg4) {
 						// progress.setVisibility(View.GONE);
-						myLog.E("Load Image Ready!");
+						myLog.e("Load Image Ready!");
 						return false;
 					}
 				}).into(imvProfile);

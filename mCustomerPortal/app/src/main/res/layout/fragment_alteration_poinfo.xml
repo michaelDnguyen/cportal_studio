@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    tools:context=".afragment.prototype.AlterationPOInfoFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_back" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/title_update_info"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsize17"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Thông tin Bên Mua Bảo Hiểm"
+                    android:textAllCaps="false"
+                    android:textColor="@color/red"
+                    android:textStyle="bold" />
+
+                <!--Content-->
+                <!--PO Name-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Họ và tên"
+                        android:textStyle="bold" />
+
+                    <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                        android:id="@+id/cedtFullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:gravity="right"
+                        android:textCursorDrawable="@null" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/medium_grey"
+                    android:visibility="gone" />
+
+                <!--PO DOB-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ngày tháng năm sinh"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvDoB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/medium_grey"
+                    android:visibility="gone" />
+
+                <!--PO gender-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Giới tính"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/medium_grey"
+                    android:visibility="gone" />
+
+                <!--PO Email-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email"
+                        android:textStyle="bold" />
+
+                    <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                        android:id="@+id/cedtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:gravity="right"
+                        android:inputType="textEmailAddress"
+                        android:lines="1"
+                        android:textCursorDrawable="@null" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/medium_grey"
+                    android:visibility="gone" />
+
+                <!--Phone-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Số điện thoại"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Di động"
+                        android:textStyle="bold" />
+
+                    <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                        android:id="@+id/cedtPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:gravity="right"
+                        android:inputType="phone"
+                        android:lines="1"
+                        android:textCursorDrawable="@null" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nhà"
+                        android:textStyle="bold" />
+
+                    <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                        android:id="@+id/cedtHomePhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:gravity="right"
+                        android:inputType="phone"
+                        android:lines="1"
+                        android:textCursorDrawable="@null" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Công ty"
+                        android:textStyle="bold" />
+
+                    <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                        android:id="@+id/cedtWorkPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:gravity="right"
+                        android:inputType="phone"
+                        android:lines="1"
+                        android:textCursorDrawable="@null" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/medium_grey"
+                    android:visibility="gone" />
+
+                <!--Address-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Địa chỉ nhà"
+                        android:textStyle="bold" />
+
+                    <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                        android:id="@+id/cedtHomeAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:ellipsize="end"
+                        android:lines="2"
+                        android:minLines="1"
+                        android:textCursorDrawable="@null" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Địa chỉ công ty"
+                        android:textStyle="bold" />
+
+                    <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                        android:id="@+id/cedtWorkAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:maxLines="2"
+                        android:textCursorDrawable="@null" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvStep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="1/2"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/sbStep"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:max="2"
+                android:min="0"
+                android:progress="1"
+                android:progressDrawable="@drawable/state_process_seekbar" />
+
+            <Button
+                android:id="@+id/btnCapNhat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/state_btn_red_radius_gradien"
+                android:text="Tiếp tục"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

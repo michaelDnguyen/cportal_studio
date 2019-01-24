@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,231 +14,166 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
+            <!--Giới thiệu-->
             <LinearLayout
                 android:id="@+id/llo01"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imv1"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@drawable/huan_chuong" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="cổng thông tin khách hàng"
+                    android:layout_weight="1"
+                    android:text="Giới thiệu"
                     android:textAllCaps="true"
                     android:textColor="@color/dark_grey"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Với mục tiêu phát triển mối quan hệ gắn kết với Khách hàng tham gia bảo hiểm thông qua việc cập nhật thường xuyên cho khách hàng..." />
+                    android:text="Tất cả"
+                    android:textColor="@color/blue"
+                    android:textStyle="bold" />
 
-
-                <RelativeLayout
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/xemThem"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Xem Thêm"
-                        android:textColor="@color/red"
-                        android:textStyle="italic" />
-
-                    <TextView
-                        android:id="@+id/arrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/xemThem"
-                        android:text=">>"
-                        android:textColor="@color/red" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_below="@id/xemThem"
-                        android:src="@color/red" />
-
-                </RelativeLayout>
             </LinearLayout>
+
+            <com.dlvn.mcustomerportal.view.indicator.ScrollerViewPager
+                android:id="@+id/vpGioithieu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:layout_marginTop="10dp"
-                android:src="@color/red" />
+                android:src="@color/red"
+                android:visibility="gone" />
 
+            <!--News-->
             <LinearLayout
                 android:id="@+id/llo02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imv2"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@drawable/an_tam_hung_thinh_2" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sản phẩm bảo hiểm"
+                    android:layout_weight="1"
+                    android:text="Tin tức sự kiện"
                     android:textAllCaps="true"
                     android:textColor="@color/dark_grey"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Với phương châm hoạt động Khách hàng là trên hết nhằm tri ân tât cả Quý khách hàng đã tín nhiệm lựa chọn tham gia bảo..." />
+                    android:text="Tất cả"
+                    android:textColor="@color/blue"
+                    android:textStyle="bold" />
 
-                <RelativeLayout
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/xemThem1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Xem Thêm"
-                        android:textColor="@color/red"
-                        android:textStyle="italic" />
-
-                    <TextView
-                        android:id="@+id/arrow1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/xemThem1"
-                        android:text=">>"
-                        android:textColor="@color/red" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_below="@id/xemThem1"
-                        android:src="@color/red" />
-
-                </RelativeLayout>
             </LinearLayout>
 
-            <ImageView
+            <com.dlvn.mcustomerportal.view.indicator.ScrollerViewPager
+                android:id="@+id/vpNews"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:visibility="gone"
-                android:layout_marginTop="10dp"
-                android:src="@color/red" />
+                android:layout_height="200dp"
+                android:layout_gravity="center" />
 
-            <!-- Biểu đồ giá đơn vị -->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Giá đơn vị quỹ liên kết đơn vị"
-                android:textAllCaps="true"
-                android:textColor="@color/dark_grey"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Theo dõi giá đơn vị quỹ liên kết đơn vị"
-                android:textColor="@color/dark_grey"
-                android:visibility="gone" />
-
+            <!--Các sản phẩm bảo hiểm-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:visibility="gone">
-
-                <lecho.lib.hellocharts.view.LineChartView
-                    android:id="@+id/chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp" />
-            </LinearLayout>
-
-            <!--Xem thêm chart-->
-            <RelativeLayout
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/xemThem3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Xem Thêm"
-                    android:textColor="@color/red"
-                    android:textStyle="italic" />
-
-                <TextView
-                    android:id="@+id/arrow3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/xemThem3"
-                    android:text=">>"
-                    android:textColor="@color/red" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@id/xemThem3"
-                    android:src="@color/red" />
-
-            </RelativeLayout>
-
-            <!--Thanh toán phí bảo hiểm-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
                     android:layout_marginTop="10dp"
-                    android:src="@color/red" />
+                    android:src="@color/red"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Các sản phẩm bảo hiểm"
+                        android:textAllCaps="true"
+                        android:textColor="@color/dark_grey"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tất cả"
+                        android:textColor="@color/blue"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <com.dlvn.mcustomerportal.view.indicator.ScrollerViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <!--Thanh toán phí bảo hiểm-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@color/red"
+                    android:visibility="gone" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="thanh toán phí bảo hiểm trực tuyến"
+                    android:layout_marginTop="5dp"
+                    android:text="Thanh toán phí bảo hiểm trực tuyến"
                     android:textAllCaps="true"
                     android:textColor="@color/dark_grey"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Quý khách có thể thực hiện thanh toán phí bảo hiểm, hoàn trả tạm ứng qua 3 bước đơn giản"
-                    android:visibility="gone" />
+                    android:text="Quý khách có thể thực hiện thanh toán phí bảo hiểm, hoàn trả tạm ứng qua 3 bước đơn giản" />
 
                 <RelativeLayout
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/xemThem2"
@@ -257,7 +193,7 @@
                         android:textColor="@color/red" />
 
                     <ImageView
-                        android:layout_width="match_parent"
+                        android:layout_width="100dp"
                         android:layout_height="2dp"
                         android:layout_below="@id/xemThem2"
                         android:src="@color/red" />
@@ -267,120 +203,81 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="Tôi muốn thanh toán"
-                    android:textColor="@color/dark_grey" />
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/textsize15"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:gravity="center">
 
                     <Spinner
+                        android:id="@+id/spnLoaiPhi"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"></Spinner>
+                        android:layout_height="wrap_content"
+                        android:gravity="center" />
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/btnThanhToanPhi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/state_btn_red_rectangle"
+                    android:background="@drawable/state_btn_red_radius_gradien"
                     android:text="Tiếp tục"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@color/red" />
+            </LinearLayout>
+
+            <!--View youtube-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="các sản phẩm bảo hiểm"
+                    android:layout_weight="1"
+                    android:text="Top video giới thiệu"
                     android:textAllCaps="true"
                     android:textColor="@color/dark_grey"
                     android:textStyle="bold" />
 
-                <LinearLayout
-                    android:id="@+id/lloHopDong"
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_below="@id/llo01"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/st_bg_page_home"
-                    android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tất cả"
+                    android:textColor="@color/blue"
+                    android:textStyle="bold" />
 
-                    <com.dlvn.mcustomerportal.view.indicator.ScrollerViewPager
-                        android:id="@+id/view_pager"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
-
-                    <com.dlvn.mcustomerportal.view.indicator.CirclePageIndicator
-                        android:id="@+id/indicator"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        app:centered="true" />
-                </LinearLayout>
             </LinearLayout>
-
-            <!--View youtube-->
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:layout_marginTop="10dp"
-                android:src="@color/red" />
+                android:src="@color/red"
+                android:visibility="gone" />
 
-
-            <WebView
-                android:id="@+id/webView"
+            <com.dlvn.mcustomerportal.view.indicator.ScrollerViewPager
+                android:id="@+id/vpYoutube"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></WebView>
-
-            <!--Xem thêm chart-->
-            <RelativeLayout
-                android:id="@+id/rlYoutube"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:visibility="visible">
-
-                <TextView
-                    android:id="@+id/xemThem4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Xem Thêm"
-                    android:textColor="@color/red"
-                    android:textStyle="italic" />
-
-                <TextView
-                    android:id="@+id/arrow4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/xemThem4"
-                    android:text=">>"
-                    android:textColor="@color/red" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@id/xemThem4"
-                    android:src="@color/red" />
-
-            </RelativeLayout>
+                android:layout_height="200dp"
+                android:layout_gravity="center" />
 
         </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>

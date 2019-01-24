@@ -1,7 +1,7 @@
 <resources>
     <!-- Dimension of Indicator -->
     <dimen name="di_lp_rank_padding">-90dp</dimen>
-    <dimen name="di_lp_avatar">80dp</dimen>
+    <dimen name="di_lp_avatar">60dp</dimen>
     <dimen name="di_lp_money_text">35sp</dimen>
     <dimen name="di_lp_vnd_diem_text">15sp</dimen>
     <dimen name="di_lp_first_linear_layout_padding">10dp</dimen>

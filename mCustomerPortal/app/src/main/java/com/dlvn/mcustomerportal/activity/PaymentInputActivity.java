@@ -113,7 +113,7 @@ public class PaymentInputActivity extends BaseActivity {
 
 						String feeFrequency = FeeFrequency.fromName((String) spnDinhKyDP.getSelectedItem())
 								.getStringValue();
-						myLog.E("FeeFrequency = " + feeFrequency);
+						myLog.e("FeeFrequency = " + feeFrequency);
 
 						String url;
 						url = initPaymentRequest(tvProposalNo.getText().toString(),
@@ -128,7 +128,7 @@ public class PaymentInputActivity extends BaseActivity {
 					} else
 						Toast.makeText(PaymentInputActivity.this, "Vui lòng nhập số tiền thanh toán", 3000).show();
 				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
+					myLog.printTrace(e);
 				}
 			}
 		});

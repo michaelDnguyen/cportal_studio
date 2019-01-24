@@ -8,11 +8,11 @@ import java.util.List;
 public class ContractDetailModel {
 
     String title;
-    List<HomeItemModel> lstValue;
+    List<PolicyItemDetailModel> lstValue;
 
     List<CPPolicyInfo> lstDetail;
 
-    public ContractDetailModel(String title, List<HomeItemModel> lstDetail) {
+    public ContractDetailModel(String title, List<PolicyItemDetailModel> lstDetail) {
         this.title = title;
         this.lstValue = lstDetail;
     }
@@ -38,11 +38,11 @@ public class ContractDetailModel {
         this.lstDetail = lstDetail;
     }
 
-    public List<HomeItemModel> getLstValue() {
+    public List<PolicyItemDetailModel> getLstValue() {
         return lstValue;
     }
 
-    public void setLstValue(List<HomeItemModel> lstValue) {
+    public void setLstValue(List<PolicyItemDetailModel> lstValue) {
         this.lstValue = lstValue;
     }
 }

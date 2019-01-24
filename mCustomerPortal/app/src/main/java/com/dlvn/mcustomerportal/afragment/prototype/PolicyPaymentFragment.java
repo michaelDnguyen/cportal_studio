@@ -10,7 +10,10 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -27,7 +30,6 @@ import android.widget.Toast;
 import com.dlvn.mcustomerportal.R;
 import com.dlvn.mcustomerportal.activity.Bonus_NopPhiBH_Step01_Activity;
 import com.dlvn.mcustomerportal.activity.WebNapasActivity;
-import com.dlvn.mcustomerportal.activity.prototype.PaymentNoLoginActivity;
 import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.services.ServicesGenerator;
@@ -36,39 +38,38 @@ import com.dlvn.mcustomerportal.services.model.BaseRequest;
 import com.dlvn.mcustomerportal.services.model.request.CPGetPolicyInfoByPOLIDRequest;
 import com.dlvn.mcustomerportal.services.model.response.CPGetPolicyInfoByPOLIDResponse;
 import com.dlvn.mcustomerportal.services.model.response.CPGetPolicyInfoByPOLIDResult;
-import com.dlvn.mcustomerportal.services.model.response.CPPolicy;
 import com.dlvn.mcustomerportal.services.model.response.PaymentDetailModel;
 import com.dlvn.mcustomerportal.utils.Utilities;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
+import com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText;
 
 import java.io.UnsupportedEncodingException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class PolicyPaymentFragment extends Fragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "PolicyPaymentFragment";
 
     Bundle bundleForPayment;
     ServicesRequest svRequester;
-    CPPolicy itemPolicy;
     View view;
 
-    TextView tvPolicy, tvCopyRight, tvSoHD, tvMaKhachHang, tvTenKhachHang, tvPhiDinhKy, tvTamUngDongPhi, tvTamUng, tvTongGiaTri;
-    Button btnTiepTuc, test;
+    TextView tvPolicy, tvSoHD, tvMaKhachHang, tvTenKhachHang, tvTongGiaTri;
+    ClearableEditText cedtPhiDinhKy, cedtTamUngDongPhi, cedtTamUng;
+    TextView tvDieuChinh;
+    Button btnTiepTuc;
+
     //Nút "Quay Lại"
     LinearLayout lloBack;
 
     ProgressDialog dialog;
+    String policyNo;
     PaymentDetailModel paymentModel;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public PolicyPaymentFragment() {
         // Required empty public constructor
@@ -86,8 +87,8 @@ public class PolicyPaymentFragment extends Fragment {
     public static PolicyPaymentFragment newInstance(String param1, String param2) {
         PolicyPaymentFragment fragment = new PolicyPaymentFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -96,17 +97,9 @@ public class PolicyPaymentFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        paymentModel = new PaymentDetailModel();
-
-        paymentModel.setSoHopDong("");
-        paymentModel.setTenKhachHang("");
-        paymentModel.setMaKhachHang("");
-        paymentModel.setTenNguoiNop("");
-        paymentModel.setTongSoTien("0");
-        paymentModel.setPhone("");
 
         bundleForPayment = getArguments();
         svRequester = ServicesGenerator.createService(ServicesRequest.class);
@@ -130,27 +123,56 @@ public class PolicyPaymentFragment extends Fragment {
             tvTenKhachHang.setText(CustomPref.getFullName(getActivity()));
 
             if (bundleForPayment.containsKey(Constant.INT_KEY_POLICY_NO)) {
-                paymentModel.setSoHopDong(bundleForPayment.getString(Constant.INT_KEY_POLICY_NO));
-                tvSoHD.setText(paymentModel.getSoHopDong());
+                myLog.e(TAG, "Contains Policy Info For Payment");
+                policyNo = bundleForPayment.getString(Constant.INT_KEY_POLICY_NO);
+                tvSoHD.setText(policyNo);
             }
 
-            new getPolicyIDInquiry(getActivity(), paymentModel.getSoHopDong()).execute();
+            if (bundleForPayment.containsKey(Constant.INT_KEY_PAYMENT_MODEL)) {
+                paymentModel = bundleForPayment.getParcelable(Constant.INT_KEY_PAYMENT_MODEL);
+            }
+
+            if (paymentModel == null)
+                new getPolicyIDInquiry(getActivity(), policyNo).execute();
+            else {
+                cedtPhiDinhKy.setText(Utilities.formatMoneyToVND(paymentModel.getPhiBHGoc()));
+                cedtTamUngDongPhi.setText(Utilities.formatMoneyToVND(paymentModel.getPhiAplGoc()));
+                cedtTamUng.setText(Utilities.formatMoneyToVND(paymentModel.getPhiOplGoc()));
+
+                double phiDinhKy = 0, tamUngDongPhi = 0, tamUng = 0;
+                phiDinhKy = Double.parseDouble(paymentModel.getPhiBHGoc());
+                tamUngDongPhi = Double.parseDouble(paymentModel.getPhiAplGoc());
+                tamUng = Double.parseDouble(paymentModel.getPhiOplGoc());
+
+                /**
+                 * Tính tổng giá trị
+                 */
+                String total = String.valueOf(phiDinhKy + tamUngDongPhi + tamUng);
+                tvTongGiaTri.setText(Utilities.formatMoneyToVND(total));
+                paymentModel.setTongSoTien(total);
+            }
         }
         return view;
     }
 
     private void getViews(View view) {
         // Complete: set View
-        tvPolicy = (TextView) view.findViewById(R.id.tvPolicy);
-        tvSoHD = (TextView) view.findViewById(R.id.tvSoHD);
-        tvMaKhachHang = (TextView) view.findViewById(R.id.tvMaKhachHang);
-        tvTenKhachHang = (TextView) view.findViewById(R.id.tvTenKhachHang);
-        tvPhiDinhKy = (TextView) view.findViewById(R.id.tvPhiDinhKy);
-        tvTamUngDongPhi = (TextView) view.findViewById(R.id.tvTamUngDongPhi);
-        tvTamUng = (TextView) view.findViewById(R.id.tvTamUng);
-        tvTongGiaTri = (TextView) view.findViewById(R.id.tvTongGiaTri);
-        lloBack = (LinearLayout) view.findViewById(R.id.lloBack);
-        btnTiepTuc = (Button) view.findViewById(R.id.btnTiepTuc);
+        tvPolicy = view.findViewById(R.id.tvPolicy);
+        tvSoHD = view.findViewById(R.id.tvSoHD);
+        tvMaKhachHang = view.findViewById(R.id.tvMaKhachHang);
+        tvTenKhachHang = view.findViewById(R.id.tvTenKhachHang);
+
+        cedtPhiDinhKy = view.findViewById(R.id.cedtPhiDinhKy);
+        cedtPhiDinhKy.setEnabled(false);
+        cedtTamUngDongPhi = view.findViewById(R.id.cedtTamUngDongPhi);
+        cedtTamUngDongPhi.setEnabled(false);
+        cedtTamUng = view.findViewById(R.id.cedtTamUng);
+        cedtTamUng.setEnabled(false);
+
+        tvTongGiaTri = view.findViewById(R.id.tvTongGiaTri);
+        lloBack = view.findViewById(R.id.lloBack);
+        btnTiepTuc = view.findViewById(R.id.btnTiepTuc);
+        tvDieuChinh = view.findViewById(R.id.tvDieuChinh);
 
         /**
          * Complete: Hide Header of Dashboard Activity
@@ -158,6 +180,196 @@ public class PolicyPaymentFragment extends Fragment {
         LinearLayout lloHeader = (LinearLayout) getActivity().findViewById(R.id.lloHeader);
         if (lloHeader != null)
             lloHeader.setVisibility(View.GONE);
+    }
+
+    private void setListener() {
+        /**
+         * Set action for the Back LinearLayout (Quay lai)
+         */
+        lloBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
+
+        btnTiepTuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String totalAmount = tvTongGiaTri.getText().toString().replace(",", "");
+
+                String fee = cedtPhiDinhKy.getText().toString().replace(",", "");
+                String apl = cedtTamUngDongPhi.getText().toString().replace(",", "");
+                String opl = cedtTamUng.getText().toString().replace(",", "");
+                if (TextUtils.isEmpty(fee))
+                    fee = "0";
+                if (TextUtils.isEmpty(apl))
+                    apl = "0";
+                if (TextUtils.isEmpty(opl))
+                    opl = "0";
+                paymentModel.setPhiBaoHiem(fee);
+                paymentModel.setPhiApl(apl);
+                paymentModel.setPhiOpl(opl);
+
+                if (!TextUtils.isEmpty(totalAmount))
+                    paymentModel.setTongSoTien(totalAmount);
+                showDialogLuaChonThanhToan(getActivity());
+            }
+        });
+
+        tvDieuChinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cedtPhiDinhKy.setEnabled(true);
+                cedtTamUngDongPhi.setEnabled(true);
+                cedtTamUng.setEnabled(true);
+                cedtPhiDinhKy.requestFocus();
+            }
+        });
+
+        cedtPhiDinhKy.addTextChangedListener(new TextWatcher() {
+            private String current = "";
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals(current) && !TextUtils.isEmpty(s.toString())) {
+                    cedtPhiDinhKy.removeTextChangedListener(this);
+
+                    String cleanString = s.toString().replaceAll("[$,.]", "");
+                    double parsed = Double.parseDouble(cleanString);
+                    String formatted = NumberFormat.getNumberInstance(Locale.US).format(parsed);
+                    current = formatted;
+                    cedtPhiDinhKy.setText(formatted);
+                    cedtPhiDinhKy.setSelection(formatted.length());
+
+                    cedtPhiDinhKy.addTextChangedListener(this);
+                    calculaTotal();
+                }
+            }
+        });
+
+        cedtTamUngDongPhi.addTextChangedListener(new TextWatcher() {
+            private String current = "";
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals(current) && !TextUtils.isEmpty(s.toString())) {
+                    cedtTamUngDongPhi.removeTextChangedListener(this);
+
+                    String cleanString = s.toString().replaceAll("[$,.]", "");
+                    double parsed = Double.parseDouble(cleanString);
+                    String formatted = NumberFormat.getNumberInstance(Locale.US).format(parsed);
+                    current = formatted;
+                    cedtTamUngDongPhi.setText(formatted);
+                    cedtTamUngDongPhi.setSelection(formatted.length());
+
+                    cedtTamUngDongPhi.addTextChangedListener(this);
+                    calculaTotal();
+                }
+            }
+        });
+
+        cedtTamUng.addTextChangedListener(new TextWatcher() {
+            private String current = "";
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().equals(current) && !TextUtils.isEmpty(s.toString())) {
+                    cedtTamUng.removeTextChangedListener(this);
+
+                    String cleanString = s.toString().replaceAll("[$,.]", "");
+                    double parsed = Double.parseDouble(cleanString);
+                    String formatted = NumberFormat.getNumberInstance(Locale.US).format(parsed);
+                    current = formatted;
+                    cedtTamUng.setText(formatted);
+                    cedtTamUng.setSelection(formatted.length());
+
+                    cedtTamUng.addTextChangedListener(this);
+                    calculaTotal();
+                }
+            }
+        });
+    }
+
+    private void calculaTotal() {
+        double phi = 0;
+        if (!TextUtils.isEmpty(cedtPhiDinhKy.getText().toString()))
+            phi = Integer.parseInt(cedtPhiDinhKy.getText().toString().replace(",", ""));
+        double phiGoc = Double.parseDouble(paymentModel.getPhiBHGoc());
+        if (phiGoc < phi) {
+            MyCustomDialog.Builder builder = new MyCustomDialog.Builder(getActivity());
+            builder.setMessage(getString(R.string.alert_input_gthl_amount_payment_p1)).setPositiveButton("Đồng ý",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            cedtPhiDinhKy.setText(Utilities.formatMoneyToVND(paymentModel.getPhiBHGoc()));
+                            dialog.dismiss();
+                        }
+                    });
+            builder.create().show();
+        }
+
+        double tamung = 0;
+        if (!TextUtils.isEmpty(cedtTamUngDongPhi.getText().toString()))
+            tamung = Integer.parseInt(cedtTamUngDongPhi.getText().toString().replace(",", ""));
+        double tamungGoc = Double.parseDouble(paymentModel.getPhiAplGoc());
+        if (tamungGoc < tamung) {
+            MyCustomDialog.Builder builder = new MyCustomDialog.Builder(getActivity());
+            builder.setMessage(getString(R.string.alert_input_gthl_amount_payment_p2)).setPositiveButton("Đồng ý",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            cedtTamUngDongPhi.setText(Utilities.formatMoneyToVND(paymentModel.getPhiAplGoc()));
+                            dialog.dismiss();
+                        }
+                    });
+            builder.create().show();
+        }
+
+        double gthl = 0;
+        if (!TextUtils.isEmpty(cedtTamUng.getText().toString()))
+            gthl = Integer.parseInt(cedtTamUng.getText().toString().replace(",", ""));
+
+        double gthlGoc = Double.parseDouble(paymentModel.getPhiOplGoc());
+        if (gthlGoc < gthl) {
+            MyCustomDialog.Builder builder = new MyCustomDialog.Builder(getActivity());
+            builder.setMessage(getString(R.string.alert_input_gthl_amount_payment_p3)).setPositiveButton("Đồng ý",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            cedtTamUng.setText(Utilities.formatMoneyToVND(paymentModel.getPhiOplGoc()));
+                            dialog.dismiss();
+                        }
+                    });
+            builder.create().show();
+        }
+
+        tvTongGiaTri.setText(Utilities.formatMoneyToVND(phi + tamung + gthl));
     }
 
     /**
@@ -192,12 +404,16 @@ public class PolicyPaymentFragment extends Fragment {
                 CPGetPolicyInfoByPOLIDRequest data = new CPGetPolicyInfoByPOLIDRequest();
 
                 data.setAction(Constant.POINFO_ACTION_POLICY_CLIENT);
-                data.setPolID(policyID);
+                data.setPolID(policyID.trim());
+
+                data.setUserID(CustomPref.getUserID(context));
+                data.setPassword(CustomPref.getPassword(context));
 
                 data.setDeviceId(Utilities.getDeviceID(context));
-                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceOS());
                 data.setProject(Constant.Project_ID);
                 data.setAuthentication(Constant.Project_Authentication);
+                data.setAPIToken(CustomPref.getAPIToken(context));
 
                 BaseRequest request = new BaseRequest();
                 request.setJsonDataInput(data);
@@ -230,32 +446,39 @@ public class PolicyPaymentFragment extends Fragment {
                                     if (result.getResult() != null && result.getResult().equals("false")) {
                                         //If account not exits --> link to register
                                         Toast.makeText(context, "Truy vấn thông tin hợp đồng lỗi: " + result.getErrLog(), Toast.LENGTH_LONG).show();
+
+                                        if (result.getNewAPIToken().equalsIgnoreCase(Constant.ERROR_TOKENINVALID)) {
+                                            Utilities.processLoginAgain(context, getString(R.string.message_alert_relogin));
+                                        }
+
                                     } else if (result.getResult() != null && result.getResult().equals("true")) {
 
                                         if (result.getErrLog().equalsIgnoreCase("EMPTY")) {
 
-                                            if (bundleForPayment.containsKey("phiBaoHiemDinhKy")) {
+                                            MyCustomDialog dialog = new MyCustomDialog.Builder(context)
+                                                    .setMessage("Không lấy được phí bảo hiểm và hoàn trả tạm ứng của hợp đồng " + policyID)
+                                                    .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    }).create();
+                                            dialog.show();
 
-                                                paymentModel.setPhiBHGoc(bundleForPayment.getString("phiBaoHiemDinhKy"));
-                                                paymentModel.setPhiAplGoc("0");
-                                                paymentModel.setPhiOplGoc("0");
-
-                                                tvPhiDinhKy.setText(Utilities.formatMoneyToVND(paymentModel.getPhiBHGoc()));
-                                                tvTamUngDongPhi.setText(Utilities.formatMoneyToVND(paymentModel.getPhiAplGoc()));
-                                                tvTamUng.setText(Utilities.formatMoneyToVND(paymentModel.getPhiOplGoc()));
-
-                                            }
-
-                                            tvTongGiaTri.setText(Utilities.formatMoneyToVND(paymentModel.getPhiBHGoc()));
+                                            btnTiepTuc.setEnabled(false);
+                                            tvTongGiaTri.setText("0");
                                         }
 
                                         if (result.getErrLog().equalsIgnoreCase("SUCCESSFUL")) {
 
+                                            btnTiepTuc.setEnabled(true);
                                             paymentModel = new PaymentDetailModel();
                                             paymentModel.setSoHopDong(policyID);
                                             if (result.getCpPolicyInfos() != null) {
                                                 paymentModel.setMaKhachHang(result.getCpPolicyInfos().get(0).getClientID());
                                                 paymentModel.setTenKhachHang(result.getCpPolicyInfos().get(0).getFullName());
+                                                paymentModel.setTenNguoiNop("");
+                                                paymentModel.setPhone(CustomPref.getPhoneNumber(getActivity()));
                                             }
                                             if (result.getPolicyInfo() != null) {
                                                 paymentModel.setPhiBHGoc(result.getPolicyInfo().get(0).getPolSndryAmt());
@@ -264,24 +487,22 @@ public class PolicyPaymentFragment extends Fragment {
                                             }
 
                                             if (paymentModel.getPhiBHGoc() != null) {
-                                                tvPhiDinhKy.setText(Utilities.formatMoneyToVND(paymentModel.getPhiBHGoc()));
-                                                tvTamUngDongPhi.setText(Utilities.formatMoneyToVND(paymentModel.getPhiAplGoc()));
-                                                tvTamUng.setText(Utilities.formatMoneyToVND(paymentModel.getPhiOplGoc()));
+                                                cedtPhiDinhKy.setText(Utilities.formatMoneyToVND(paymentModel.getPhiBHGoc()));
+                                                cedtTamUngDongPhi.setText(Utilities.formatMoneyToVND(paymentModel.getPhiAplGoc()));
+                                                cedtTamUng.setText(Utilities.formatMoneyToVND(paymentModel.getPhiOplGoc()));
 
-                                                long phiDinhKy = 0, tamUngDongPhi = 0, tamUng = 0;
-                                                phiDinhKy = Long.parseLong(paymentModel.getPhiBHGoc());
-                                                tamUngDongPhi = Long.parseLong(paymentModel.getPhiAplGoc());
-                                                tamUng = Long.parseLong(paymentModel.getPhiOplGoc());
+                                                double phiDinhKy = 0, tamUngDongPhi = 0, tamUng = 0;
+                                                phiDinhKy = Double.parseDouble(paymentModel.getPhiBHGoc());
+                                                tamUngDongPhi = Double.parseDouble(paymentModel.getPhiAplGoc());
+                                                tamUng = Double.parseDouble(paymentModel.getPhiOplGoc());
 
                                                 /**
                                                  * Tính tổng giá trị
                                                  */
-                                                tvTongGiaTri.setText(Utilities.formatMoneyToVND(String.valueOf(phiDinhKy + tamUngDongPhi + tamUng)));
+                                                String total = String.valueOf(phiDinhKy + tamUngDongPhi + tamUng);
+                                                tvTongGiaTri.setText(Utilities.formatMoneyToVND(total));
+                                                paymentModel.setTongSoTien(total);
                                             }
-                                        }
-                                    } else {
-                                        if (result.getNewAPIToken().equalsIgnoreCase("invalidtoken")) {
-                                            Utilities.processLoginAgain(context, getString(R.string.message_alert_relogin));
                                         }
                                     }
                                 }
@@ -302,25 +523,6 @@ public class PolicyPaymentFragment extends Fragment {
         }
     }
 
-    private void setListener() {
-        /**
-         * Set action for the Back LinearLayout (Quay lai)
-         */
-        lloBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().onBackPressed();
-            }
-        });
-
-        btnTiepTuc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogLuaChonThanhToan(getActivity());
-            }
-        });
-    }
-
     private String initPaymentRequest() throws UnsupportedEncodingException {
 
         StringBuffer buf = new StringBuffer();
@@ -329,23 +531,21 @@ public class PolicyPaymentFragment extends Fragment {
 
         buf.append("PolicyNo=" + Base64.encodeToString(paymentModel.getSoHopDong().getBytes("UTF-8"), Base64.DEFAULT));
         buf.append("&");
+
         buf.append("sPayer=" + Base64.encodeToString(paymentModel.getTenNguoiNop().getBytes("UTF-8"), Base64.DEFAULT));
         buf.append("&");
         buf.append("sPhoneNumber=" + Base64.encodeToString(paymentModel.getPhone().getBytes("UTF-8"), Base64.DEFAULT));
         buf.append("&");
         buf.append("sPOName=" + Base64.encodeToString(paymentModel.getTenKhachHang().getBytes("UTF-8"), Base64.DEFAULT));
-        buf.append("&");
-        buf.append("sAmount=" + Base64.encodeToString((paymentModel.getTongSoTien()).getBytes("UTF-8"), Base64.DEFAULT));
 
         buf.append("&");
-        buf.append("sFCCode=" + Base64.encodeToString("110555".getBytes("UTF-8"), Base64.DEFAULT));
+        buf.append("Amount=" + Base64.encodeToString((paymentModel.getPhiBaoHiem()).getBytes("UTF-8"), Base64.DEFAULT));
+
         buf.append("&");
-        buf.append("sAgentName=" + Base64.encodeToString("Nguyen Van Teo".getBytes("UTF-8"), Base64.DEFAULT));
+        buf.append("APL=" + Base64.encodeToString(paymentModel.getPhiApl().getBytes("UTF-8"), Base64.DEFAULT));
         buf.append("&");
-        buf.append("sAgentType=" + Base64.encodeToString("BM".getBytes("UTF-8"), Base64.DEFAULT));
-        // Add fee frequency
-        buf.append("&");
-        buf.append("sFeeFrequency=" + Base64.encodeToString("Yearly".getBytes("UTF-8"), Base64.DEFAULT));
+        buf.append("OPL=" + Base64.encodeToString(paymentModel.getPhiOpl().getBytes("UTF-8"), Base64.DEFAULT));
+
         return buf.toString();
     }
 
@@ -354,7 +554,7 @@ public class PolicyPaymentFragment extends Fragment {
      *
      * @param context
      */
-    private void showDialogLuaChonThanhToan(Context context) {
+    private void showDialogLuaChonThanhToan(final Context context) {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_policy_payment);
         dialog.setCanceledOnTouchOutside(true);
@@ -366,12 +566,12 @@ public class PolicyPaymentFragment extends Fragment {
         final RadioButton radioButtonQuaThe = (RadioButton) dialog.findViewById(R.id.rdbTheOnline);
         final RadioButton radioButtonQuaNganHang = (RadioButton) dialog.findViewById(R.id.rdbQuaNH);
 
-        RelativeLayout quit_layout = dialog.findViewById(R.id.quit_layout);
+        RelativeLayout layoutTiepTuc = dialog.findViewById(R.id.quit_layout);
 
         radioButtonDiemThuong.setText("Điểm thưởng (" + Utilities.formatMoneyToVND((CustomPref.getUserPoint(context) * 1000) + "") + " VNĐ)");
 
         /**
-         * TODO: set hiệu ứng cho các RadioButton
+         * COMPLETE: set hiệu ứng cho các RadioButton
          */
         radioButtonDiemThuong.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -403,15 +603,28 @@ public class PolicyPaymentFragment extends Fragment {
             }
         });
 
-        quit_layout.setOnClickListener(new View.OnClickListener() {
+        layoutTiepTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (radioButtonDiemThuong.isChecked()) {
 
-                    //Đóng phí/Hoàn trả tạm ứng
-                    Intent intent = new Intent(getActivity(), Bonus_NopPhiBH_Step01_Activity.class);
-                    startActivity(intent);
-
+                    double total = Double.parseDouble(paymentModel.getTongSoTien());
+                    if (CustomPref.getUserPoint(getActivity()) * 1000 >= total) {
+                        //Đóng phí/Hoàn trả tạm ứng
+                        Intent intent = new Intent(getActivity(), Bonus_NopPhiBH_Step01_Activity.class);
+                        intent.putExtra(Constant.INT_KEY_PAYMENT_MODEL, paymentModel);
+                        startActivity(intent);
+                    } else {
+                        MyCustomDialog dialog = new MyCustomDialog.Builder(context)
+                                .setMessage("Điểm thưởng của Anh/Chị không đủ để thanh toán phí bảo hiểm. Anh/Chị vui lòng chọn phương thức khác.")
+                                .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                }).create();
+                        dialog.show();
+                    }
                 } else if (radioButtonQuaNganHang.isChecked() || radioButtonQuaThe.isChecked()) {
                     String url = null;
                     try {
@@ -432,6 +645,14 @@ public class PolicyPaymentFragment extends Fragment {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LinearLayout lloHeader = getActivity().findViewById(R.id.lloHeader);
+        if (lloHeader != null)
+            lloHeader.setVisibility(View.GONE);
     }
 
     @Override

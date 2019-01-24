@@ -1,55 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#fff2f2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.prototype.PointListActivity"
+    tools:context=".activity.prototype.PointAccountListActivity"
     tools:showIn="@layout/activity_point_list">
-
-    <include layout="@layout/toolbar_back" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="10dp">
-
+        android:layout_height="100dp"
+        android:layout_marginBottom="3dp"
+        android:background="@color/red"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/lloBack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-            <Button
-                android:id="@+id/btnQuaTrinhTichLuy"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_weight="1"
-                android:background="@drawable/st_btn_red_left"
-                android:text="Quá trình tích lũy"
-                android:textColor="@drawable/st_textcolor_red_white"
-                android:textSize="@dimen/textsize14"
-                android:textStyle="bold" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_arrow_left_grey_16"
+                android:tint="@color/white" />
 
-            <Button
-                android:id="@+id/btnQuaTrinhSuDung"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_weight="1"
-                android:background="@drawable/st_btn_red_right"
-                android:text="Quá trình sử dụng"
-                android:textColor="@drawable/st_textcolor_red_white"
-                android:textSize="@dimen/textsize14"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="@string/txt_quay_lai"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:text="Quá trình tích lũy và sử dụng"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize15"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <RelativeLayout
@@ -63,15 +69,12 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin">
 
-            <ListView
-                android:id="@+id/lvGeneratingHistory"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvPointAccount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="1dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:scrollbars="none" />
+                android:orientation="vertical"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 </LinearLayout>

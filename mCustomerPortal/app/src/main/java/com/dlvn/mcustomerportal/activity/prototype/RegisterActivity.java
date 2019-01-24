@@ -1,37 +1,31 @@
 package com.dlvn.mcustomerportal.activity.prototype;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatSeekBar;
-import android.text.InputType;
+import android.text.Html;
 import android.text.TextUtils;
-import android.text.method.PasswordTransformationMethod;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CheckedTextView;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.dlvn.mcustomerportal.R;
-import com.dlvn.mcustomerportal.activity.WebNapasActivity;
 import com.dlvn.mcustomerportal.base.BaseActivity;
 import com.dlvn.mcustomerportal.common.Constant;
 import com.dlvn.mcustomerportal.common.CustomPref;
@@ -43,7 +37,6 @@ import com.dlvn.mcustomerportal.services.model.response.ClientProfile;
 import com.dlvn.mcustomerportal.services.model.response.loginNewResponse;
 import com.dlvn.mcustomerportal.services.model.response.loginNewResult;
 import com.dlvn.mcustomerportal.utils.Utilities;
-import com.dlvn.mcustomerportal.utils.listerner.OnRegisterFragmentListener;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
 import com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText;
@@ -51,29 +44,23 @@ import com.dlvn.mcustomerportal.view.pinlock.IndicatorDots;
 import com.dlvn.mcustomerportal.view.pinlock.PinLockListener;
 import com.dlvn.mcustomerportal.view.pinlock.PinLockView;
 
-import java.io.UnsupportedEncodingException;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends BaseActivity implements OnRegisterFragmentListener {
+public class RegisterActivity extends BaseActivity {
 
     private static final String TAG = "RegisterActivity";
 
     LinearLayout lloBack;
     Button btnTiepTuc;
-    TextView tvStep, tvTitle, tvError;
-    ClearableEditText cedtInput;
-    CheckedTextView ctvShowPassword;
-    AppCompatSeekBar sbStep;
-    ToggleButton tbGender;
+    TextView tvTitle, tvError, tvPolicy;
+    RadioButton rdbMale, rdbFemale;
+    TextInputLayout wrapperPassword, wrapperFullname, wrapperPhone;
 
     ClientProfile user = null;
-    int step = 1;
-    int percent = 25;
+    boolean isRePin = true;
     ServicesRequest svRequester;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,26 +76,28 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
         if (getIntent().getExtras() != null)
             if (getIntent().getExtras().containsKey(Constant.INTENT_USER_DATA))
                 user = getIntent().getParcelableExtra(Constant.INTENT_USER_DATA);
-
     }
 
     /**
      * initialize for views
      */
     private void initViews() {
-        lloBack = (LinearLayout) findViewById(R.id.lloBack);
-        btnTiepTuc = (Button) findViewById(R.id.btnTiepTuc);
-        tvStep = (TextView) findViewById(R.id.tvStep);
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvError = (TextView) findViewById(R.id.tvError);
+        lloBack = findViewById(R.id.lloBack);
+        btnTiepTuc = findViewById(R.id.btnTiepTuc);
+        tvTitle = findViewById(R.id.tvTitle);
+        tvError = findViewById(R.id.tvError);
 
-        sbStep = (AppCompatSeekBar) findViewById(R.id.sbStep);
-        sbStep.setThumb(null);
-        sbStep.setEnabled(false);
+        wrapperPassword = findViewById(R.id.password);
+        wrapperFullname = findViewById(R.id.wrapperFullName);
+        wrapperPhone = findViewById(R.id.wrapperPhone);
 
-        ctvShowPassword = (CheckedTextView) findViewById(R.id.ctvShowPassword);
-        cedtInput = (ClearableEditText) findViewById(R.id.cedtInput);
-        tbGender = (ToggleButton) findViewById(R.id.tbGender);
+        rdbMale = findViewById(R.id.rdbMale);
+        rdbFemale = findViewById(R.id.rdbFemale);
+
+        //setup conpany info & policy
+        tvPolicy = findViewById(R.id.tvPolicy);
+        tvPolicy.setText(Html.fromHtml(getString(R.string.txt_policy_term)));
+        tvPolicy.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     /**
@@ -130,92 +119,6 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
             }
         });
 
-        ctvShowPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ctvShowPassword.isChecked()) {
-                    ctvShowPassword.setChecked(false);
-                    cedtInput.setTransformationMethod(new PasswordTransformationMethod());
-                } else {
-                    ctvShowPassword.setChecked(true);
-                    cedtInput.setTransformationMethod(null);
-                }
-            }
-        });
-
-        tbGender.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    user.setGender("F");
-                } else {
-                    user.setGender("M");
-                }
-            }
-        });
-    }
-
-    /**
-     * setup view show/hide follow by step
-     */
-    private void setUpStepRegister() {
-        myLog.E("setUpStepRegister Step = " + step);
-        switch (step) {
-            case 1:
-                tvTitle.setText("Hãy tạo một mật khẩu để đăng nhập");
-                cedtInput.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                cedtInput.setEnabled(true);
-                cedtInput.setText("");
-                ctvShowPassword.setVisibility(View.VISIBLE);
-
-                if (!TextUtils.isEmpty(user.getPassword())) {
-                    cedtInput.setText(user.getPassword());
-                }
-
-                break;
-            case 2:
-                tvTitle.setText("Hãy cho chúng tôi biết tên của bạn");
-                cedtInput.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
-                cedtInput.setEnabled(true);
-                cedtInput.setText("");
-                cedtInput.setVisibility(View.VISIBLE);
-                ctvShowPassword.setVisibility(View.GONE);
-                tbGender.setVisibility(View.GONE);
-
-                if (!TextUtils.isEmpty(user.getFullName())) {
-                    cedtInput.setText(user.getFullName());
-                }
-
-                break;
-            case 3:
-                tvTitle.setText("Giới tính của bạn");
-                cedtInput.setVisibility(View.GONE);
-                cedtInput.setText("");
-                tbGender.setVisibility(View.VISIBLE);
-
-                if (user.getGender().equals("M"))
-                    tbGender.setChecked(false);
-                else if (user.getGender().equals("F"))
-                    tbGender.setChecked(true);
-
-                break;
-            case 4:
-                tvTitle.setText("Số điện thoại của bạn là gì");
-                cedtInput.setVisibility(View.VISIBLE);
-                cedtInput.setInputType(InputType.TYPE_CLASS_PHONE);
-                tbGender.setVisibility(View.GONE);
-
-                if (!TextUtils.isEmpty(user.getCellPhone()))
-                    cedtInput.setText(user.getCellPhone());
-                else
-                    cedtInput.setText("");
-                break;
-            default:
-                break;
-        }
-        sbStep.setProgress(percent);
-        tvStep.setText(step + "/4");
-        tvError.setText(null);
     }
 
     /**
@@ -223,68 +126,77 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
      */
     private void attempNextStep() {
 
-        myLog.E("attempNextStep Step = " + step);
-        cedtInput.setError(null);
-        String strInput = cedtInput.getText().toString();
-
+        myLog.e("attempNextStep Step = ");
         boolean cancel = false;
         View focusView = null;
 
-        if (step == 1 | step == 2 | step == 4) {
-            // Check for a valid email address.
-            if (TextUtils.isEmpty(strInput)) {
-                cedtInput.setError(getString(R.string.error_field_required));
-                tvError.setText("* " + getString(R.string.message_alert_input_password));
-                focusView = cedtInput;
-                cancel = true;
-            }
+        String password = wrapperPassword.getEditText().getText().toString();
+        String fullname = wrapperFullname.getEditText().getText().toString();
+        String phone = wrapperPhone.getEditText().getText().toString();
 
-            if (step == 2)
-                if (strInput.length() >= 250) {
-                    cedtInput.setError(getString(R.string.error_incorrect_fullname));
-                    focusView = cedtInput;
-                    cancel = true;
-                }
+        if (TextUtils.isEmpty(password)) {
+            wrapperPassword.setError(getString(R.string.error_field_required));
+            tvError.setText("* " + getString(R.string.message_alert_input_password));
+            focusView = wrapperPassword;
+            cancel = true;
+        }
+        if (TextUtils.isEmpty(fullname)) {
+            wrapperFullname.setError(getString(R.string.error_field_required));
+            tvError.setText("* " + getString(R.string.message_alert_input_password));
+            focusView = wrapperFullname;
+            cancel = true;
+        }
+        if (TextUtils.isEmpty(phone)) {
+            wrapperPhone.setError(getString(R.string.error_field_required));
+            tvError.setText("* " + getString(R.string.message_alert_input_password));
+            focusView = wrapperPhone;
+            cancel = true;
+        }
 
-            if (step == 4)
-                if (!Utilities.isPhoneNumberValid(strInput)) {
-                    cedtInput.setError(getString(R.string.error_incorrect_phone));
-                    focusView = cedtInput;
-                    cancel = true;
-                }
+        if (password.length() < 4) {
+            wrapperPassword.setError(getString(R.string.error_invalid_password));
+            tvError.setText("* " + getString(R.string.message_alert_correct_password));
+            focusView = wrapperPassword;
+            cancel = true;
+        }
+
+        if (!Utilities.isPasswordValid(password)) {
+            wrapperPassword.setError(getString(R.string.error_invalid_password));
+            tvError.setText("* " + getString(R.string.message_alert_correct_password));
+            focusView = wrapperPassword;
+            cancel = true;
+        }
+
+        if (fullname.length() >= 250) {
+            wrapperFullname.setError(getString(R.string.error_incorrect_fullname));
+            focusView = wrapperFullname;
+            cancel = true;
+        }
+
+        if (!Utilities.isPhoneNumberValid(phone)) {
+            wrapperPhone.setError(getString(R.string.error_incorrect_phone));
+            focusView = wrapperPhone;
+            cancel = true;
         }
 
         if (cancel)
             focusView.requestFocus();
         else {
 
-            if (tbGender.isChecked())
+            if (rdbFemale.isChecked())
                 user.setGender("F");
-            else
+            if (rdbMale.isChecked())
                 user.setGender("M");
 
-            if (step == 1)
-                user.setPassword(strInput);
-            else if (step == 2)
-                user.setFullName(strInput);
-            else if (step == 3)
-                user.setGender("");
-            else if (step == 4) {
-                user.setCellPhone(strInput);
-                doCPRegister(RegisterActivity.this, user, Constant.LOGIN_ACTION_REGISTERACCOUNT, null);
-            }
+            user.setPassword(password);
+            user.setFullName(fullname);
+            user.setCellPhone(phone);
 
-            step++;
-            percent += 25;
-            if (step > 4) {
-                step = 4;
-            }
-            setUpStepRegister();
-
+            doCPRegister(RegisterActivity.this, user, Constant.LOGIN_ACTION_REGISTERACCOUNT, null, null);
         }
     }
 
-    public void doCPRegister(final Context context, final ClientProfile user, String Action, String otp) {
+    public void doCPRegister(final Context context, final ClientProfile user, final String Action, String otp, final AlertDialog alertDialog) {
 
         final ProgressDialog process = new ProgressDialog(context);
         process.setMessage("Đăng kí tài khoản...");
@@ -304,8 +216,11 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
         if (otp != null)
             data.setOtp(otp);
 
+        if (Action.equalsIgnoreCase(Constant.LOGIN_ACTION_GET_CLIENTPROFILE))
+            data.setApiToken(user.getaPIToken());
+
         data.setDeviceID(Utilities.getDeviceID(context));
-        data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+        data.setOS(Utilities.getDeviceOS());
         data.setProject(Constant.Project_ID);
         data.setAction(Action);
         data.setAuthentication(Constant.Project_Authentication);
@@ -327,7 +242,7 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
                                 loginNewResult result = response.getResponse();
                                 if (result != null) {
 
-                                    if (result.getResult() != null && result.getResult().equals("false")) {
+                                    if (result.getResult() != null && result.getResult().equalsIgnoreCase("false")) {
 
                                         // If false -> show dialog
                                         MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
@@ -340,36 +255,83 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
                                                 });
                                         builder.create().show();
 
-                                    } else if (result.getResult() != null && result.getResult().equals("true")) {
+                                    } else if (result.getResult() != null && result.getResult().equalsIgnoreCase("true")) {
 
-                                        if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CLIREGFAIL)) {
+                                        if (result.getErrLog().equalsIgnoreCase(Constant.ERR_CPLOGIN_CLIREGFAIL)) {
 
-
-                                        } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_CLIREGSUCC)) {
-
-                                            showDialogInputOTP(context);
-//                                            Intent intent = new Intent(c, DashboardActivity.class);
-//                                            startActivity(intent);
-                                        } else if (result.getErrLog().equals(Constant.ERR_CPLOGIN_SUCCESSFUL)) {
-                                            Intent intent = new Intent(context, LoginMainActivity.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(intent);
-                                            finish();
-                                        } else if (result.getErrLog().equalsIgnoreCase(Constant.ERR_CPLOGIN_OTPINCORRECT)) {
-                                            MyCustomDialog dialog = new MyCustomDialog.Builder(context)
-                                                    .setTitle("Thông báo")
-                                                    .setMessage("Bạn nhập sai mã OTP. Xin vui lòng thử lại")
+                                            MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+                                            builder.setMessage("Tạo mới tài khoản thất bại, vui lòng thử lại.")
                                                     .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
-                                                            showDialogInputOTP(context);
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                            builder.create().show();
+
+                                        } else if (result.getErrLog().equalsIgnoreCase(Constant.ERR_CPLOGIN_CLIREGSUCC)) {
+
+                                            //update API token result when Register Success
+                                            if (!TextUtils.isEmpty(result.getNewAPIToken())) {
+                                                user.setaPIToken(result.getNewAPIToken());
+                                                CustomPref.saveAPIToken(context, result.getNewAPIToken());
+                                            }
+
+                                            showDialogInputOTP(context);
+
+                                        } else if (result.getErrLog().equalsIgnoreCase(Constant.ERR_CPLOGIN_OTPINCORRECT)) {
+
+                                            MyCustomDialog dialog = new MyCustomDialog.Builder(context)
+                                                    .setMessage("Bạn nhập sai mã Pin. Xin vui lòng thử lại")
+                                                    .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
                                                             dialog.dismiss();
                                                         }
                                                     }).create();
                                             dialog.show();
+                                        } else {
+
+                                            if (Action.equalsIgnoreCase(Constant.LOGIN_ACTION_CHECKOTP)) {
+                                                alertDialog.dismiss();
+
+                                                doCPRegister(context, user, Constant.LOGIN_ACTION_GET_CLIENTPROFILE, null, null);
+                                            }
+
+                                            if (Action.equalsIgnoreCase(Constant.LOGIN_ACTION_GET_CLIENTPROFILE)) {
+
+                                                if (result.getClientProfile() != null) {
+
+                                                    ClientProfile user = result.getClientProfile().get(0);
+                                                    if (TextUtils.isEmpty(user.getaPIToken()))
+                                                        user.setaPIToken(CustomPref.getAPIToken(context));
+
+                                                    //Save Login Profile & Token
+                                                    CustomPref.setLogin(context, true);
+                                                    CustomPref.saveUserLogin(context, user);
+
+                                                    Intent intent = new Intent(context, DashboardActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }
+                                            if (Action.equalsIgnoreCase(Constant.LOGIN_ACTION_GENERATEOTP)) {
+
+                                                //OTP re-generate
+                                                isRePin = false;
+                                                MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+                                                builder.setMessage("Mã Pin đã được gửi lại vào địa chỉ email của quý khách.")
+                                                        .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                dialog.dismiss();
+                                                            }
+                                                        });
+                                                builder.create().show();
+                                            }
                                         }
                                     }
-
                                 }
                             }
                     }
@@ -389,7 +351,7 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
             @Override
             public void onFailure(Call<loginNewResponse> call, Throwable t) {
                 // TODO Auto-generated method stub
-                myLog.E(t.getMessage());
+                myLog.e(t.getMessage());
                 if (!isFinishing())
                     runOnUiThread(new Runnable() {
                         @Override
@@ -398,7 +360,6 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
                                 process.dismiss();
                         }
                     });
-
             }
         });
     }
@@ -419,50 +380,105 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
         dialog.getWindow().setAttributes(lp);
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
         dialog.setCanceledOnTouchOutside(true);
 
-        PinLockView mPinLockView;
+        final PinLockView mPinLockView;
         IndicatorDots mIndicatorDots;
+        final TextView tvRefeshPin, tvCountdown;
+        Button btnOpenMail;
 
         mPinLockView = dialog.findViewById(R.id.pin_lock_view);
         mIndicatorDots = dialog.findViewById(R.id.indicator_dots);
+        tvRefeshPin = dialog.findViewById(R.id.tvRefeshPin);
+        tvCountdown = dialog.findViewById(R.id.tvCountdown);
+        btnOpenMail = dialog.findViewById(R.id.btnOpenMail);
 
         mPinLockView.attachIndicatorDots(mIndicatorDots);
 
         mPinLockView.setPinLength(Constant.OTP_LENGTH);
 
-        mPinLockView.setTextColor(ContextCompat.getColor(context, R.color.white));
+        mPinLockView.setTextColor(ContextCompat.getColor(context, R.color.grey_dark));
         mIndicatorDots.setIndicatorType(IndicatorDots.IndicatorType.FILL_WITH_ANIMATION);
+
+        final CountDownTimer timer = new CountDownTimer(Constant.TIMER_COUNTDOWN_OTP, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                tvCountdown.setText("" + millisUntilFinished / 1000);
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+                isRePin = true;
+                tvCountdown.setText("0");
+            }
+
+        };
+        timer.start();
 
         mPinLockView.setPinLockListener(new PinLockListener() {
             @Override
             public void onComplete(String pin) {
-                myLog.E(TAG, "OTP dialog pin = " + pin);
+                myLog.e(TAG, "OTP dialog pin = " + pin);
                 if (pin.length() == Constant.OTP_LENGTH) {
-                    doCPRegister(RegisterActivity.this, user, Constant.LOGIN_ACTION_CHECKOTP, pin);
-                    dialog.dismiss();
-                } else {
-                    MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
-                    builder.setMessage("Mã OTP phải bao gồm 6 số.")
-                            .setPositiveButton(getString(R.string.confirm_no), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    builder.create().show();
+                    if (!tvCountdown.getText().toString().equalsIgnoreCase("0")) {
+                        doCPRegister(RegisterActivity.this, user, Constant.LOGIN_ACTION_CHECKOTP, pin, dialog);
+
+                    } else {
+                        MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+                        builder.setMessage("Mã Pin đã hết hạn, xin vui lòng nhấn nút Gửi lại mã Pin và thử lại.")
+                                .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builder.create().show();
+                    }
                 }
+                mPinLockView.resetPinLockView();
             }
 
             @Override
             public void onEmpty() {
-                myLog.E(TAG, " OTP dialog empty");
+                myLog.e(TAG, " OTP dialog empty");
             }
 
             @Override
             public void onPinChange(int pinLength, String intermediatePin) {
-                myLog.E(TAG, " OTP dialog onPinChange length = " + pinLength + " ** inter : " + intermediatePin);
+                myLog.e(TAG, " OTP dialog onPinChange length = " + pinLength + " ** inter : " + intermediatePin);
+            }
+        });
+
+        tvRefeshPin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPinLockView.resetPinLockView();
+                if (isRePin) {
+                    doCPRegister(RegisterActivity.this, user, Constant.LOGIN_ACTION_GENERATEOTP, null, dialog);
+                    try {
+                        Thread.sleep(3000);
+                        timer.start();
+                    } catch (InterruptedException e) {
+                        myLog.printTrace(e);
+                    }
+                } else {
+//                    MyCustomDialog.Builder builder = new MyCustomDialog.Builder(context);
+//                    builder.setMessage("Mã Pin đã được gửi vào địa chỉ Email của quý khách. Xin vui lòng kiểm tra lại.")
+//                            .setPositiveButton(getString(R.string.confirm_ok), new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                }
+//                            });
+//                    builder.create().show();
+                }
+            }
+        });
+
+        btnOpenMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utilities.actionOpenMailApp(context);
             }
         });
 
@@ -471,11 +487,7 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
 
     @Override
     public void onBackPressed() {
-        if (step > 1) {
-            step--;
-            setUpStepRegister();
-        } else
-            super.onBackPressed();
+        super.onBackPressed();
     }
 
     @Override
@@ -493,10 +505,5 @@ public class RegisterActivity extends BaseActivity implements OnRegisterFragment
         }
 
         return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public void onRegisterListener(int percent) {
-        sbStep.setProgress(percent);
     }
 }

@@ -7,6 +7,19 @@
     android:orientation="vertical"
     tools:context=".activity.prototype.CartManagerActivity">
 
+    <!--llo Back-->
+    <include layout="@layout/toolbar_back" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="giỏ hàng"
+        android:textAllCaps="true"
+        android:textSize="@dimen/textsize17"
+        android:textStyle="bold" />
+
     <ExpandableListView
         android:id="@+id/lvCategory"
         android:layout_width="match_parent"
@@ -33,8 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:gravity="top"
             android:layout_marginTop="5dp"
+            android:gravity="top"
             android:text="Tổng tiền:" />
 
         <LinearLayout
@@ -49,10 +62,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:textSize="@dimen/textsize17"
                 android:gravity="top"
                 android:text="0 đ"
                 android:textColor="@color/red_dark"
+                android:textSize="@dimen/textsize17"
                 android:textStyle="bold" />
 
             <TextView
@@ -71,10 +84,13 @@
             android:id="@+id/btnMuaHang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/state_btn_red_rectangle"
-            android:text="Mua hàng"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="Tiếp tục"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/textsize20" />
+            android:textSize="@dimen/textsize17" />
 
     </LinearLayout>
 

@@ -21,7 +21,7 @@
             android:id="@+id/delete_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/state_btn_red_rectangle"
+            android:background="@drawable/state_btn_red_radius_gradien"
             android:orientation="horizontal">
 
             <TextView
@@ -45,9 +45,9 @@
                 android:paddingTop="3dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.3"
+                    android:visibility="invisible"
                     android:gravity="center">
 
                     <CheckBox
@@ -60,10 +60,9 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.3"
-                    android:gravity="center|right">
+                    android:gravity="center_vertical|right">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -87,14 +86,46 @@
                         android:minHeight="30dp"
                         android:textColor="@color/black" />
 
-                    <TextView
-                        android:id="@+id/tvQuantity"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:gravity="center_vertical|left"
-                        android:minHeight="20dp"
-                        android:textColor="@color/black" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Số lượng" />
+
+                        <ImageButton
+                            android:id="@+id/ibtnRemove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:layout_marginLeft="15dp"
+                            app:srcCompat="@drawable/vector_icon_remove" />
+
+                        <EditText
+                            android:id="@+id/edtQuantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="70dp"
+                            android:inputType="number"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:minHeight="20dp"
+                            android:textColor="@color/black" />
+
+                        <ImageButton
+                            android:id="@+id/ibtnAdd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/vector_icon_add" />
+
+
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </FrameLayout>

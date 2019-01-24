@@ -122,13 +122,18 @@
                     android:layout_weight="1"
                     android:text="Phí bảo hiểm định kỳ" />
 
-                <TextView
-                    android:id="@+id/tvPhiDinhKy"
+                <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                    android:id="@+id/cedtPhiDinhKy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="true"
+                    android:textColor="@color/dark_grey"
                     android:gravity="right"
-                    android:text="0" />
+                    android:inputType="number"
+                    android:text="0"
+                    android:textCursorDrawable="@null" />
 
             </LinearLayout>
 
@@ -151,13 +156,18 @@
                     android:layout_weight="1"
                     android:text="Tạm ứng từ giá trị hoàn lại để đóng phí" />
 
-                <TextView
-                    android:id="@+id/tvTamUngDongPhi"
+                <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                    android:id="@+id/cedtTamUngDongPhi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="true"
                     android:gravity="right"
-                    android:text="0" />
+                    android:inputType="number"
+                    android:textColor="@color/dark_grey"
+                    android:text="0"
+                    android:textCursorDrawable="@null" />
 
             </LinearLayout>
 
@@ -179,34 +189,42 @@
                     android:layout_weight="1"
                     android:text="Tạm ứng từ giá trị hoàn lại" />
 
-                <TextView
-                    android:id="@+id/tvTamUng"
+                <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+                    android:id="@+id/cedtTamUng"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="true"
+                    android:textColor="@color/dark_grey"
                     android:gravity="right"
-                    android:text="0" />
+                    android:inputType="number"
+                    android:text="0"
+                    android:textCursorDrawable="@null" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:visibility="invisible"
-                android:gravity="right">
+                android:gravity="right"
+                android:visibility="visible">
 
                 <TextView
+                    android:id="@+id/tvDieuChinh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="Điều chỉnh"
-                    android:textColor="@color/red" />
+                    android:padding="10dp"
+                    android:text="Điều chỉnh >>"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/textsize15"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ico_arrow_down" />
+                    android:src="@drawable/ico_arrow_down"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -229,9 +247,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:textSize="@dimen/textsize18"
                     android:text="0"
-                    android:textColor="@color/red" />
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/textsize18" />
 
             </LinearLayout>
 
@@ -258,7 +276,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/state_btn_red_rectangle"
+        android:background="@drawable/state_btn_red_radius_gradien"
         android:text="Tiếp tục"
         android:textAllCaps="false"
         android:textColor="@color/white" />

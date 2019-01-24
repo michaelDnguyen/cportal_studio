@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical"
+    tools:context=".afragment.prototype.SettingAccountFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Cập nhật thông tin tài khoản" />
+
+        <!--Ho ten-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Họ và tên" />
+
+        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+            android:id="@+id/cedtFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:inputType="textPersonName"
+            android:textStyle="bold" />
+
+        <!--Giới tính-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Giới tính" />
+
+        <RadioGroup
+            android:id="@+id/rdgGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp">
+
+            <RadioButton
+                android:id="@+id/rdbNam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:button="@drawable/st_rdb_checkstate"
+                android:paddingLeft="10dp"
+                android:text="Nam" />
+
+            <RadioButton
+                android:id="@+id/rdbNu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:button="@drawable/st_rdb_checkstate"
+                android:paddingLeft="10dp"
+                android:text="Nữ" />
+
+        </RadioGroup>
+
+        <!--Email-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Email" />
+
+        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+            android:id="@+id/cedtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:inputType="textEmailAddress"
+            android:textStyle="bold" />
+
+        <!--Phone-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="Điện thoại" />
+
+        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+            android:id="@+id/cedtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:inputType="phone"
+            android:textStyle="bold" />
+
+        <!--Address-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="Địa chỉ" />
+
+        <com.dlvn.mcustomerportal.view.clearable_edittext.ClearableEditText
+            android:id="@+id/cedtAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:background="@drawable/state_btn_red_radius_gradien"
+            android:text="Cập nhật"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="visible" />
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

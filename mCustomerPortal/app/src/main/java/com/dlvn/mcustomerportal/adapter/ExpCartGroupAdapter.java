@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -146,9 +148,6 @@ public class ExpCartGroupAdapter extends BaseExpandableListAdapter {
             }
         });
 
-//        Constant.childItems = childItems;
-//        Constant.parentItems = parentItems;
-
         viewHolderParent.tvMainCategoryName.setText(lsData.get(groupPosition).getCategoryName());
         ((ExpandableListView) viewGroup).expandGroup(groupPosition, true);
 
@@ -166,12 +165,15 @@ public class ExpCartGroupAdapter extends BaseExpandableListAdapter {
             viewHolderChild = new ViewHolderChild();
 
             viewHolderChild.tvSubCategoryName = convertView.findViewById(R.id.tvSubCategoryName);
-            viewHolderChild.tvQuantity = convertView.findViewById(R.id.tvQuantity);
+            viewHolderChild.edtQuantity = convertView.findViewById(R.id.edtQuantity);
             viewHolderChild.cbSubCategory = convertView.findViewById(R.id.cbSubCategory);
             viewHolderChild.viewDivider = convertView.findViewById(R.id.viewDivider);
 
             viewHolderChild.deleteView = convertView.findViewById(R.id.delete_layout);
             viewHolderChild.swipeLayout = convertView.findViewById(R.id.swipe_layout);
+
+            viewHolderChild.ibtnAdd = convertView.findViewById(R.id.ibtnAdd);
+            viewHolderChild.ibtnRemove = convertView.findViewById(R.id.ibtnRemove);
 
             convertView.setTag(viewHolderChild);
         } else {
@@ -187,7 +189,8 @@ public class ExpCartGroupAdapter extends BaseExpandableListAdapter {
         }
 
         viewHolderChild.tvSubCategoryName.setText(child.getStrDetail());
-        viewHolderChild.tvQuantity.setText("Số lượng: " + child.getQuantity());
+        viewHolderChild.edtQuantity.setText(String.valueOf(child.getQuantity()));
+
         binderHelper.bind(viewHolderChild.swipeLayout, child.getProductID());
 
         viewHolderChild.cbSubCategory.setOnClickListener(new View.OnClickListener() {
@@ -228,8 +231,53 @@ public class ExpCartGroupAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 //delete item
+                amount -= lsData.get(groupPosition).getLsItems().get(childPosition).getPrice() * lsData.get(groupPosition).getLsItems().get(childPosition).getQuantity();
                 lsData.get(groupPosition).getLsItems().remove(childPosition);
-                listener.OnDeleteItemCart(groupPosition, childPosition);
+
+                if(lsData.get(groupPosition).getLsItems().size() == 0)
+                    lsData.remove(groupPosition);
+
+                listener.OnDeleteItemCart(groupPosition, childPosition, amount);
+                notifyDataSetChanged();
+            }
+        });
+
+        viewHolderChild.ibtnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int quantity = lsData.get(groupPosition).getLsItems().get(childPosition).getQuantity();
+                quantity++;
+
+                viewHolderChild.edtQuantity.setText(String.valueOf(quantity));
+                lsData.get(groupPosition).getLsItems().get(childPosition).setQuantity(quantity);
+
+                amount += lsData.get(groupPosition).getLsItems().get(childPosition).getPrice();
+                listener.OnItemCartChange(groupPosition, childPosition, amount);
+                notifyDataSetChanged();
+            }
+        });
+
+        viewHolderChild.ibtnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int quantity = lsData.get(groupPosition).getLsItems().get(childPosition).getQuantity();
+                if (quantity > 1) {
+                    quantity--;
+                    viewHolderChild.edtQuantity.setText(String.valueOf(quantity));
+                    lsData.get(groupPosition).getLsItems().get(childPosition).setQuantity(quantity);
+
+                    amount -= lsData.get(groupPosition).getLsItems().get(childPosition).getPrice();
+                    listener.OnItemCartChange(groupPosition, childPosition, amount);
+                } else {
+
+                    amount -= lsData.get(groupPosition).getLsItems().get(childPosition).getPrice();
+                    lsData.get(groupPosition).getLsItems().remove(childPosition);
+
+                    if(lsData.get(groupPosition).getLsItems().size() == 0)
+                        lsData.remove(groupPosition);
+
+                    listener.OnDeleteItemCart(groupPosition, childPosition, amount);
+                }
                 notifyDataSetChanged();
             }
         });
@@ -265,10 +313,12 @@ public class ExpCartGroupAdapter extends BaseExpandableListAdapter {
 
     private class ViewHolderChild {
 
-        TextView tvSubCategoryName, tvQuantity;
+        TextView tvSubCategoryName;
+        EditText edtQuantity;
         CheckBox cbSubCategory;
         View viewDivider;
         View deleteView;
         SwipeRevealLayout swipeLayout;
+        ImageButton ibtnAdd, ibtnRemove;
     }
 }

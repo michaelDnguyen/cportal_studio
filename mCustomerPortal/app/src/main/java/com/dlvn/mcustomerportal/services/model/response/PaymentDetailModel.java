@@ -3,15 +3,36 @@ package com.dlvn.mcustomerportal.services.model.response;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class PaymentDetailModel implements Parcelable {
 
+    @SerializedName("ClientId")
+    @Expose
     String maKhachHang;
+    @SerializedName("FullName")
+    @Expose
     String tenKhachHang;
     String soHopDong;
 
     String cmnd;
+    @SerializedName("Email")
+    @Expose
     String email;
+    @SerializedName("ContactPhone")
+    @Expose
     String phone;
+    String phoneHome, phoneWork;
+    String dob;
+    String gender;
+    @SerializedName("HomeAddress")
+    @Expose
+    String addressHome;
+    @SerializedName("BusinessAddress")
+    @Expose
+    String addressWork;
+
     String tenNguoiNop;
 
     String phiBHGoc;
@@ -26,6 +47,11 @@ public class PaymentDetailModel implements Parcelable {
     // status of transaction: 0-sucess; -1-init; 2,3,4,5...-failed
     int status;
 
+    @SerializedName("ClientType")
+    @Expose
+    String clientType;
+    String titleType;
+
     public PaymentDetailModel() {
         super();
         // TODO Auto-generated constructor stub
@@ -35,6 +61,16 @@ public class PaymentDetailModel implements Parcelable {
         maKhachHang = in.readString();
         tenKhachHang = in.readString();
         soHopDong = in.readString();
+
+        cmnd = in.readString();
+        email = in.readString();
+        phone = in.readString();
+        phoneHome = in.readString();
+        phoneWork = in.readString();
+        dob = in.readString();
+        gender = in.readString();
+        addressHome = in.readString();
+        addressWork = in.readString();
 
         phiBHGoc = in.readString();
         phiAplGoc = in.readString();
@@ -46,6 +82,8 @@ public class PaymentDetailModel implements Parcelable {
 
         tongSoTien = in.readString();
         status = in.readInt();
+        clientType = in.readString();
+        titleType = in.readString();
     }
 
     @Override
@@ -60,6 +98,17 @@ public class PaymentDetailModel implements Parcelable {
         dest.writeString(maKhachHang);
         dest.writeString(tenKhachHang);
         dest.writeString(soHopDong);
+
+        dest.writeString(cmnd);
+        dest.writeString(email);
+        dest.writeString(phone);
+        dest.writeString(phoneHome);
+        dest.writeString(phoneWork);
+        dest.writeString(dob);
+        dest.writeString(gender);
+        dest.writeString(addressHome);
+        dest.writeString(addressWork);
+
         dest.writeString(phiBHGoc);
         dest.writeString(phiAplGoc);
         dest.writeString(phiOplGoc);
@@ -68,6 +117,8 @@ public class PaymentDetailModel implements Parcelable {
         dest.writeString(phiOpl);
         dest.writeString(tongSoTien);
         dest.writeInt(status);
+        dest.writeString(clientType);
+        dest.writeString(titleType);
     }
 
     public static final Creator<PaymentDetailModel> CREATOR = new Creator<PaymentDetailModel>() {
@@ -203,5 +254,69 @@ public class PaymentDetailModel implements Parcelable {
 
     public void setTenNguoiNop(String tenNguoiNop) {
         this.tenNguoiNop = tenNguoiNop;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getPhoneHome() {
+        return phoneHome;
+    }
+
+    public void setPhoneHome(String phoneHome) {
+        this.phoneHome = phoneHome;
+    }
+
+    public String getPhoneWork() {
+        return phoneWork;
+    }
+
+    public void setPhoneWork(String phoneWork) {
+        this.phoneWork = phoneWork;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAddressHome() {
+        return addressHome;
+    }
+
+    public void setAddressHome(String addressHome) {
+        this.addressHome = addressHome;
+    }
+
+    public String getAddressWork() {
+        return addressWork;
+    }
+
+    public void setAddressWork(String addressWork) {
+        this.addressWork = addressWork;
+    }
+
+    public String getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
+    }
+
+    public String getTitleType() {
+        return titleType;
+    }
+
+    public void setTitleType(String titleType) {
+        this.titleType = titleType;
     }
 }

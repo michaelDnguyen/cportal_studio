@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -38,7 +37,6 @@ import com.dlvn.mcustomerportal.services.model.response.SearchPolicyHolderModel;
 import com.dlvn.mcustomerportal.utils.Utilities;
 import com.dlvn.mcustomerportal.utils.myLog;
 import com.dlvn.mcustomerportal.view.MyCustomDialog;
-import com.dlvn.mcustomerportal.view.indicator.Point;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -188,7 +186,7 @@ public class PointDonActivity extends BaseActivity {
                 data.setClientID(CustomPref.getUserID(context));
                 data.setAPIToken(CustomPref.getAPIToken(context));
                 data.setDeviceID(Utilities.getDeviceID(context));
-                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceOS());
                 data.setProject(Constant.Project_ID);
                 data.setAuthentication(Constant.Project_Authentication);
                 data.setUserLogin(CustomPref.getUserName(context));
@@ -224,7 +222,7 @@ public class PointDonActivity extends BaseActivity {
                                 tvCusName.setText(lsInfo.get(0).getFullName());
                             }
                         } else {
-                            if (result.getNewAPIToken().equalsIgnoreCase("invalidtoken")) {
+                            if (result.getNewAPIToken().equalsIgnoreCase(Constant.ERROR_TOKENINVALID)) {
                                 Utilities.processLoginAgain(context, getString(R.string.message_alert_relogin));
                             }
                         }
@@ -260,7 +258,7 @@ public class PointDonActivity extends BaseActivity {
                 data.setCategory(category);
 
                 data.setDeviceId(Utilities.getDeviceID(context));
-                data.setOS(Utilities.getDeviceName() + "-" + Utilities.getVersion());
+                data.setOS(Utilities.getDeviceOS());
                 data.setProject(Constant.Project_ID);
                 data.setAuthentication(Constant.Project_Authentication);
 
@@ -293,9 +291,9 @@ public class PointDonActivity extends BaseActivity {
 
                                     if (result.getResult() != null && result.getResult().equals("false")) {
 
-                                        myLog.E(TAG, "GetProduct PointDon Error request: " + result.getErrLog());
+                                        myLog.e(TAG, "GetProduct PointDon Error request: " + result.getErrLog());
 
-                                        if (result.getNewAPIToken().equalsIgnoreCase("invalidtoken")) {
+                                        if (result.getNewAPIToken().equalsIgnoreCase(Constant.ERROR_TOKENINVALID)) {
                                             Utilities.processLoginAgain(context, getString(R.string.message_alert_relogin));
                                         }
 
@@ -303,7 +301,7 @@ public class PointDonActivity extends BaseActivity {
 
                                         if (!TextUtils.isEmpty(result.getNewAPIToken()))
                                             //Save Token
-                                            CustomPref.saveToken(context, result.getNewAPIToken());
+                                            CustomPref.saveAPIToken(context, result.getNewAPIToken());
 
                                         if (result.getProductLoyalty() != null) {
 
@@ -337,7 +335,7 @@ public class PointDonActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        myLog.E(TAG, "onOptionsItemSelected");
+        myLog.e(TAG, "onOptionsItemSelected");
         // TODO Auto-generated method stub
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -352,7 +350,7 @@ public class PointDonActivity extends BaseActivity {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        myLog.E("dispatchTouchEvent");
+        myLog.e("dispatchTouchEvent");
         View v = getCurrentFocus();
         if (v != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE)
                 && v instanceof EditText) {

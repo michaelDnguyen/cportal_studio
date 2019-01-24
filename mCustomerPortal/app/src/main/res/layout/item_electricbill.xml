@@ -6,14 +6,23 @@
     android:background="@drawable/st_bg_layout"
     android:elevation="5dp"
     android:orientation="vertical"
-    android:padding="@dimen/activity_horizontal_margin" >
+    android:padding="@dimen/activity_horizontal_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <!-- Số hóa đơn -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_weight="0.5"
+            android:text="Số hóa đơn"
+            android:textSize="@dimen/textsize14"
+            android:textStyle="bold" />
+
 
         <TextView
             android:id="@+id/tvSoHoaDon"
@@ -21,9 +30,28 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_weight="0.5"
-            android:text="Số hóa đơn: 00879643"
+            android:gravity="right"
+            android:text="00879643"
+            android:textSize="@dimen/textsize14" />
+
+    </LinearLayout>
+
+    <!--Số hợp đồng-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_weight="0.5"
+            android:text="Số hợp đồng"
             android:textSize="@dimen/textsize14"
             android:textStyle="bold" />
+
 
         <TextView
             android:id="@+id/tvSoHopDong"
@@ -31,9 +59,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_weight="0.5"
-            android:text="Số hợp đồng: 00689643"
-            android:textSize="@dimen/textsize14"
-            android:textStyle="bold" />
+            android:gravity="right"
+            android:text="00689643"
+            android:textSize="@dimen/textsize14" />
     </LinearLayout>
 
     <!-- Khách hàng -->
@@ -46,7 +74,8 @@
         android:text="Công ty TNHH Tân Hiệp Phát Ltd."
         android:textColor="@color/dark_grey"
         android:textSize="@dimen/textsize16"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <!-- Requester -->
 
@@ -56,7 +85,7 @@
         android:layout_marginTop="7dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tvRequester"
@@ -64,7 +93,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:text="Người được bảo hiểm"
-            android:textColor="@color/dark_grey"
             android:textSize="@dimen/textsize12" />
 
         <TextView
@@ -84,14 +112,40 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày lập hóa đơn"
+            android:textSize="@dimen/textsize14"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvNgayLap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="31/10/2017"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/textsize14" />
+    </LinearLayout>
+
+    <!--Fee-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Phí bảo hiểm"
-            android:textColor="@color/dark_grey"
-            android:textSize="@dimen/textsize12" />
+            android:textSize="@dimen/textsize14"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvAmount"
@@ -105,30 +159,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ngày lập hóa đơn"
-            android:textColor="@color/dark_grey"
-            android:textSize="@dimen/textsize12" />
-
-        <TextView
-            android:id="@+id/tvNgayLap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="31/10/2017"
-            android:textColor="@color/dark_grey"
-            android:textSize="@dimen/textsize13" />
-    </LinearLayout>
 
     <ImageView
         android:layout_width="match_parent"
@@ -141,7 +171,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/lloPDF"
@@ -150,7 +180,7 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingTop="10dp" >
+            android:paddingTop="10dp">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -161,7 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Mẫu PDF"
+                android:text="Tải PDF"
                 android:textColor="@color/blue_dark" />
         </LinearLayout>
 
@@ -178,7 +208,7 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingTop="10dp" >
+            android:paddingTop="10dp">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -189,7 +219,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Mẫu XML"
+                android:text="Tải XML"
                 android:textColor="@color/blue_dark" />
         </LinearLayout>
     </LinearLayout>

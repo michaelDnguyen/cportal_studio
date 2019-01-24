@@ -36,6 +36,13 @@ public class CPGetPolicyInfoByPOLIDRequest extends JsonDataInput {
     @SerializedName("PolID")
     @Expose
     private String polID;
+    @SerializedName("POID")
+    @Expose
+    private String poID;
+    @SerializedName("DOB")
+    @Expose
+    private String doB;
+
 
     public String getProject() {
         return project;
@@ -115,5 +122,21 @@ public class CPGetPolicyInfoByPOLIDRequest extends JsonDataInput {
 
     public void setOS(String OS) {
         this.OS = OS;
+    }
+
+    public String getPoID() {
+        return poID;
+    }
+
+    public void setPoID(String poID) {
+        this.poID = poID;
+    }
+
+    public String getDoB() {
+        return doB;
+    }
+
+    public void setDoB(String doB) {
+        this.doB = doB;
     }
 }

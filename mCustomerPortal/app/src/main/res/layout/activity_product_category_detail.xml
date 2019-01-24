@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.prototype.ProductCategoryDetailActivity">
+
+    <include layout="@layout/toolbar_back" />
 
     <LinearLayout
         android:id="@+id/llocontent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -50,11 +54,11 @@
             android:id="@+id/btnMuaHang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/state_btn_red_rectangle"
+            android:background="@drawable/state_btn_red_radius_gradien"
             android:drawableTint="@color/red"
             android:text="Mua"
             android:textColor="@color/white"
             android:textSize="@dimen/textsize15" />
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

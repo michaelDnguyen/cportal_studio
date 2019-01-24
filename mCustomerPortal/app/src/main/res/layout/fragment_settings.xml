@@ -62,6 +62,20 @@
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/btnClaims"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/st_bg_white_noborder_noradius"
+                android:drawableLeft="@drawable/ic_contacts_black_24dp"
+                android:drawablePadding="30dp"
+                android:drawableRight="@drawable/ico_arrow_right_grey"
+                android:drawableTint="@color/red"
+                android:gravity="left|center_vertical"
+                android:padding="5dp"
+                android:text="@string/setting_txt_claims"
+                android:textAllCaps="false" />
+
+            <Button
                 android:id="@+id/btnNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

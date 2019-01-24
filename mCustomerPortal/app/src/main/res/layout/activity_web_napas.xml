@@ -6,6 +6,8 @@
     android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}">
 
+    <include layout="@layout/toolbar_back"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"

@@ -21,7 +21,7 @@ public class BaseResponse {
 //		try {
 //			list.add(klazz.getConstructor().newInstance()); // If default constructor
 //		}catch (Exception e){
-//			e.printStackTrace();
+//			myLog.printTrace(e);
 //		}
 //
 //		return list;

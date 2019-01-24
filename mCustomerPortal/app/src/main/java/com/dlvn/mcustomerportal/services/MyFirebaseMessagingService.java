@@ -1,27 +1,28 @@
 package com.dlvn.mcustomerportal.services;
 
-import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
-import android.support.v4.app.NotificationCompat;
+import android.os.Bundle;
 
-import com.dlvn.mcustomerportal.R;
+import com.dlvn.mcustomerportal.common.CustomPref;
 import com.dlvn.mcustomerportal.utils.myLog;
+import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "FCM Service";
+
+    public static final String KEY_GCM_CATEGORY = "category";
+    public static final String KEY_GCM_CODE = "badge";
+    public static final String KEY_GCM_MESSAGE = "body";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -37,24 +38,43 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        myLog.E(TAG, "From: " + remoteMessage.getFrom());
+        myLog.e(TAG, "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            myLog.E(TAG, "Message data payload: " + remoteMessage.getData());
+            myLog.e(TAG, "Message Data payload(max 4kb): " + remoteMessage.getData());
 
-            if (/* Check if data needs to be processed by long running job */ true) {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-                scheduleJob();
-            } else {
-                // Handle message within 10 seconds
-                handleNow();
+            try {
+                Map<String, String> data = remoteMessage.getData();
+                if (data != null) {
+                    String category = data.get(KEY_GCM_CATEGORY);
+                    String code = data.get(KEY_GCM_CODE);
+                    String message = data.get(KEY_GCM_MESSAGE);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString(KEY_GCM_CATEGORY, category);
+                    bundle.putString(KEY_GCM_CODE, code);
+                    bundle.putString(KEY_GCM_MESSAGE, message);
+                    scheduleJob(bundle);
+                }
+            } catch (Exception e) {
+                myLog.printTrace(e);
             }
+
+//            if (/* Check if data needs to be processed by long running job */ true) {
+//                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
+//                scheduleJob();
+//            } else {
+//                // Handle message within 10 seconds
+//                handleNow();
+//            }
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            myLog.E(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            myLog.e(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            myLog.e(TAG, "Message Notification Title: " + remoteMessage.getNotification().getTitle());
+            myLog.e(TAG, "Message Notification Sound: " + remoteMessage.getNotification().getSound());
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -73,20 +93,28 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String token) {
         super.onNewToken(token);
-        myLog.E("onNewToken = " + token);
+        myLog.e("onNewToken = " + token);
+        CustomPref.setFirebaseToken(getBaseContext(), token);
 
         sendRegistrationToServer(token);
     }
 
+
     /**
      * Schedule a job using FirebaseJobDispatcher.
      */
-    private void scheduleJob() {
+    private void scheduleJob(Bundle bundle) {
         // [START dispatch_job]
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
         Job myJob = dispatcher.newJobBuilder()
                 .setService(MyFirebaseJobService.class)
-                .setTag("my-job-tag")
+                .setLifetime(Lifetime.FOREVER)
+                .setTrigger(Trigger.NOW)
+                .setReplaceCurrent(true)
+                .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .setExtras(bundle)
+                .setTag("mCP-job-tag")
                 .build();
         dispatcher.schedule(myJob);
         // [END dispatch_job]
@@ -111,42 +139,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // TODO: Implement this method to send token to your app server.
 
 
-    }
-
-    /**
-     * Create and show a simple notification containing the received FCM message.
-     *
-     * @param messageBody FCM message body received.
-     */
-    private void sendNotification(Activity act, String messageBody) {
-        Intent intent = new Intent(this, act.getClass());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
-        String channelId = "fcm_default_channel";
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.drawable.daiichilife)
-                        .setContentTitle("FCM Message Sample")
-                        .setContentText(messageBody)
-                        .setAutoCancel(true)
-                        .setSound(defaultSoundUri)
-                        .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        // Since android Oreo notification channel is needed.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(channelId,
-                    "Channel human readable title",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 
 }

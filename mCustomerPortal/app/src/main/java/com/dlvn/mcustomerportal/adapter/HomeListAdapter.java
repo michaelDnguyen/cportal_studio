@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.bumptech.glide.Glide;
 import com.dlvn.mcustomerportal.R;
-import com.dlvn.mcustomerportal.adapter.model.HomeItemModel;
+import com.dlvn.mcustomerportal.adapter.model.PolicyItemDetailModel;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -22,10 +22,10 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 	public static final int ITEM_MIDDLE = 665;
 	public static final int ITEM_FOOTER = 664;
 
-	List<HomeItemModel> data;
+	List<PolicyItemDetailModel> data;
 	Context context;
 
-	public HomeListAdapter(Context c, List<HomeItemModel> obj) {
+	public HomeListAdapter(Context c, List<PolicyItemDetailModel> obj) {
 		context = c;
 		data = obj;
 	}
@@ -48,7 +48,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 			tvContent = (TextView) itemView.findViewById(R.id.tvContent);
 		}
 
-		public void bind(HomeHeadViewHolder holder, final HomeItemModel item, final int postition) {
+		public void bind(HomeHeadViewHolder holder, final PolicyItemDetailModel item, final int postition) {
 			holder.tvTitle.setText(item.get_title());
 			holder.tvContent.setText(item.get_content());
 			Glide.with(context).load(item.getImgPath()).into(holder.imvImage);
@@ -96,14 +96,14 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 		}
 	}
 
-	public void setData(List<HomeItemModel> obj) {
+	public void setData(List<PolicyItemDetailModel> obj) {
 		if (this.data != obj) {
 			this.data = obj;
 			notifyItemRangeChanged(0, data.size());
 		}
 	}
 
-	public List<HomeItemModel> getData() {
+	public List<PolicyItemDetailModel> getData() {
 		return data;
 	}
 
